@@ -1,0 +1,32 @@
+:root {
+  --vfk-bg: #0e1016;
+  --vfk-bg-soft: #12151d;
+  --vfk-surface: #171b26;
+  --vfk-surface-2: #1d2230;
+  --vfk-border: #2a3042;
+  --vfk-border-strong: #3a4258;
+  --vfk-text: #c5cbd9;
+  --vfk-text-strong: #f2f4f9;
+  --vfk-text-muted: #8790a5;
+  --vfk-accent: #e3b552;
+  --vfk-accent-soft: rgba(227, 181, 82, 0.14);
+  --vfk-accent-border: rgba(227, 181, 82, 0.45);
+  --vfk-on-accent: #1a1408;
+  --vfk-success: #57c98b;
+  --vfk-success-soft: rgba(87, 201, 139, 0.14);
+  --vfk-success-border: rgba(87, 201, 139, 0.45);
+  --vfk-on-success: #0b1a12;
+  --vfk-danger: #e06363;
+  --vfk-info: #6aa7e8;
+  --vfk-special: #4bb8a8;
+  --vfk-special-soft: rgba(75, 184, 168, 0.14);
+  --vfk-special-border: rgba(75, 184, 168, 0.45);
+  --vfk-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --vfk-overlay: rgba(6, 8, 12, 0.55);
+  --vfk-topbar: rgba(14, 16, 22, 0.92);
+
+  --vfk-font: 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system,
+    sans-serif;
+  --vfk-font-size: 15px;
+  --vfk-line-height: 1.55;
+}

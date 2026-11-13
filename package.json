@@ -1,0 +1,58 @@
+{
+  "name": "@yysubs/vue-fluent-kit",
+  "version": "0.0.0",
+  "description": "Vue 3 component library with a token-driven, plain-CSS base.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yysubs/vue-fluent-kit.git"
+  },
+  "homepage": "https://github.com/yysubs/vue-fluent-kit#readme",
+  "bugs": {
+    "url": "https://github.com/yysubs/vue-fluent-kit/issues"
+  },
+  "keywords": [
+    "vue",
+    "component-library",
+    "ui"
+  ],
+  "packageManager": "pnpm@10.34.9",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build && vue-tsc -p tsconfig.build.json && node scripts/copy-style.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0",
+    "vue": "^3.5.45",
+    "vue-tsc": "^3.3.14"
+  }
+}
