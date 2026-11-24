@@ -32,8 +32,12 @@
   - `small`：最小宽 `64px`（仅图标为 `24×24px`），内边距 `3px spacingHorizontalS`（带图标上下 `1px`），字号 `fontSizeBase200` / 行高 `lineHeightBase200`，字重 `fontWeightRegular`，图标 `20px`。
   - `medium`（默认）：最小宽 `96px`（仅图标为 `32×32px`），内边距 `5px spacingHorizontalM`，字号 `fontSizeBase300` / 行高 `lineHeightBase300`，字重 `fontWeightSemibold`，图标 `20px`。
   - `large`：最小宽 `96px`（仅图标为 `40×40px`），内边距 `8px spacingHorizontalL`（带图标上下 `7px`），字号 `fontSizeBase400` / 行高 `lineHeightBase400`，字重 `fontWeightSemibold`，图标 `24px`。
-- **切换态（`ToggleButton`）**：通过 `aria-pressed` 表示选中；`secondary` 选中底色 `colorNeutralBackground1Selected`，`primary` 选中底色 `colorBrandBackgroundSelected`。
+- **切换态（`ToggleButton`）**：通过 `aria-pressed` 表示选中；`secondary` 选中底色 `colorNeutralBackground1Selected`，`primary` 选中底色 `colorBrandBackgroundSelected`。点击切换 `pressed`，支持受控 `modelValue`。
+- **Vue 接口**：导出 `VButton` 与 `VToggleButton`。属性为 `appearance`、`shape`、`size`、`disabled`、`disabledFocusable`、`type`；`VToggleButton` 另有 `modelValue`。常规 `disabled` 使用原生禁用属性，`disabledFocusable` 用 `aria-disabled` 并阻止点击触发，保持键盘焦点可达。默认 `type="button"`，避免表单中意外提交。
+- **图标与内容**：默认插槽放置按钮内容；`icon` 前置插槽、`icon-only` 类可用于仅图标按钮。仅图标按钮的可访问名称由调用方通过 `aria-label` 提供。
 - **过渡**：`background, border, color`，时长 `durationFaster`，曲线 `curveEasyEase`。
+- **可访问性**：保留原生 `<button>` 键盘操作；`VToggleButton` 以 `aria-pressed` 暴露状态；聚焦环使用通用约定中的双层颜色，高对比度模式使用系统颜色。
+- **手动验证**：预览页覆盖外观、尺寸、形状、禁用、仅图标和切换态，并检查浅色/深色主题及键盘焦点。
 
 ### Input（文本输入）
 

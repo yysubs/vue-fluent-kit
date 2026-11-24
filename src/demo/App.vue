@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { VButton, VToggleButton } from '../index'
 import '../styles/index.css'
 
 const theme = ref<'light' | 'dark'>('light')
+const pressed = ref(false)
 
 const groups = [
   {
@@ -46,16 +48,44 @@ const groups = [
     <header class="vfk-demo__head">
       <div>
         <h1 class="vfk-demo__title">vue-fluent-kit</h1>
-        <p class="vfk-demo__desc">token 默认值预览，组件还没开始。</p>
+        <p class="vfk-demo__desc">Button 与主题 token 预览。</p>
       </div>
-      <button
-        type="button"
-        class="vfk-demo__toggle"
-        @click="theme = theme === 'light' ? 'dark' : 'light'"
-      >
-        切换为{{ theme === 'light' ? '深色' : '浅色' }}
-      </button>
+      <div class="vfk-demo__head-actions">
+        <VButton
+          appearance="outline"
+          size="small"
+          @click="theme = theme === 'light' ? 'dark' : 'light'"
+        >
+          切换为{{ theme === 'light' ? '深色' : '浅色' }}
+        </VButton>
+      </div>
     </header>
+
+    <section class="vfk-demo__group">
+      <h2 class="vfk-demo__group-title">Button 外观</h2>
+      <div class="vfk-demo__buttons">
+        <VButton appearance="primary">Primary</VButton>
+        <VButton>Secondary</VButton>
+        <VButton appearance="outline">Outline</VButton>
+        <VButton appearance="subtle">Subtle</VButton>
+        <VButton appearance="transparent">Transparent</VButton>
+      </div>
+      <div class="vfk-demo__buttons">
+        <VButton size="small">Small</VButton>
+        <VButton size="medium">Medium</VButton>
+        <VButton size="large">Large</VButton>
+        <VButton shape="circular">Circular</VButton>
+        <VButton shape="square">Square</VButton>
+      </div>
+      <div class="vfk-demo__buttons">
+        <VButton disabled>Disabled</VButton>
+        <VButton disabled-focusable>Focusable disabled</VButton>
+        <VButton icon-only aria-label="Add" appearance="outline">
+          <template #icon><span aria-hidden="true">＋</span></template>
+        </VButton>
+        <VToggleButton v-model="pressed">Toggle: {{ pressed ? 'on' : 'off' }}</VToggleButton>
+      </div>
+    </section>
 
     <section v-for="group in groups" :key="group.name" class="vfk-demo__group">
       <h2 class="vfk-demo__group-title">{{ group.name }}</h2>
@@ -92,6 +122,18 @@ const groups = [
   margin-bottom: var(--spacingVerticalXXXL);
 }
 
+.vfk-demo__head-actions,
+.vfk-demo__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacingHorizontalS);
+}
+
+.vfk-demo__buttons + .vfk-demo__buttons {
+  margin-top: var(--spacingVerticalM);
+}
+
 .vfk-demo__title {
   margin: 0 0 var(--spacingVerticalS);
   font-size: var(--fontSizeBase500);
@@ -103,30 +145,6 @@ const groups = [
 .vfk-demo__desc {
   margin: 0;
   color: var(--colorNeutralForeground3);
-}
-
-.vfk-demo__toggle {
-  padding: var(--spacingVerticalS) var(--spacingHorizontalM);
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-  border-radius: var(--borderRadiusMedium);
-  background: var(--colorNeutralBackground1);
-  color: var(--colorNeutralForeground1);
-  font: inherit;
-  cursor: pointer;
-  transition: background var(--durationFaster) var(--curveEasyEase);
-}
-
-.vfk-demo__toggle:hover {
-  background: var(--colorNeutralBackground1Hover);
-}
-
-.vfk-demo__toggle:active {
-  background: var(--colorNeutralBackground1Pressed);
-}
-
-.vfk-demo__toggle:focus-visible {
-  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
-  outline-offset: 2px;
 }
 
 .vfk-demo__group {
@@ -176,9 +194,4 @@ const groups = [
   color: var(--colorNeutralForeground3);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .vfk-demo__toggle {
-    transition-duration: 0.01ms;
-  }
-}
 </style>
