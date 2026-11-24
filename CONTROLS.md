@@ -1,203 +1,274 @@
 # 控件清单
 
-给控件库工作区当需求来源。只登记本项目实际用到的控件：出现在哪、有哪些状态、多大尺寸、怎么交互。库的结构、API、打包和发布不在这份文档里。
-
-## 范围
-
-- 19 个组件（`src/components/`）、9 个页面（`src/views/`），样式在 `src/styles/` 的 11 个文件里，约 4000 行、568 条规则。
-- 组件里没有 `<style scoped>`，类名都是全局的，而且没有前缀（`.btn`、`.dialog`、`.panel` 这类名字直接写在模板里）。
-- 两套主题由 `html[data-theme="light"]` / `html[data-theme="dark"]` 切换，取值见 `TOKENS.md`。
-- 指针类型写在 `html[data-pointer]`（`mouse` / `touch` / `pen`），用来区分触屏交互，例如任务行的隐藏按钮在触屏下不显示。
-- 整页滚动，没有内部滚动容器；宽表格各自横向滚动。
+本库控件规格直接参照 Fluent UI v9 官方组件（`@fluentui/react-components`），样式与 token 取值见 [TOKENS.md](TOKENS.md)。组件类名统一加 `vfk-` 前缀，不用 `<style scoped>`，所有颜色、圆角、间距、字号、描边、阴影和动效均通过官方同名 CSS 变量驱动。
 
 ## 通用约定
 
-| 项目       | 取值                                                                    |
-| ---------- | ----------------------------------------------------------------------- |
-| 基础字号   | 15px / 1.55                                                             |
-| 字体       | `PingFang SC, Microsoft YaHei, system-ui, -apple-system, sans-serif`    |
-| 控件内间距 | 4 / 8 / 16px                                                            |
-| 过渡       | 颜色、边框、背景 0.15s ease；对话框 0.16s；列表位移 0.22s；进度条 0.25s |
-| 焦点样式   | 输入类只改边框颜色；按钮类用 `:focus-visible` 2px 描边、偏移 2px        |
-| 减少动效   | `prefers-reduced-motion: reduce` 时关闭骨架屏动画、侧栏过渡和列表过渡   |
+| 项目 | 约定 |
+| --- | --- |
+| 主题切换 | 根节点或局部容器设置 `data-vfk-theme="light"`（默认）或 `data-vfk-theme="dark"` |
+| 基础排版 | 字体 `var(--fontFamilyBase)`，正文默认对应 `body1`（`14px` / `20px` / `400`），数字等宽场景用 `font-variant-numeric: tabular-nums` |
+| 焦点环 | 键盘聚焦（`:focus-visible`）使用 `colorStrokeFocus2`（`2px` 外框）配合 `colorStrokeFocus1`（`1px` 内衬）或组件专属焦点描边；输入框类采用底部 `2px` 品牌色高亮条 |
+| 禁用态 | 统一使用 `colorNeutralBackgroundDisabled`、`colorNeutralForegroundDisabled`、`colorNeutralStrokeDisabled`，不依赖浏览器原生默认禁用外观；支持 `disabledFocusable` 的控件用 `aria-disabled="true"` 保持焦点可达 |
+| 高对比度 | 适配 `@media (forced-colors: active)`，使用系统高对比度关键字（`Highlight`、`HighlightText`、`GrayText`、`ButtonText`） |
+| 减少动效 | `@media (prefers-reduced-motion: reduce)` 下过渡与动画时长降为 `0.01ms` |
+
+---
 
 ## 基础控件
 
-### 按钮
+### Button（按钮）
 
-- 47 处，变体有默认、`primary`（强调色）、`success`（绿色）、`ghost`（透明底）、`danger`（红字）、`ghost.active`（强调色底）、`primary.danger`（红底红字）。
-- 常规尺寸 `padding: 8px 16px`、圆角 8px、字号 13px、1px 边框；侧栏表单里整宽（`padding: 8px 8px`）；导入页大按钮字号 16px、`padding: 16px`、圆角 10px、最小宽 168px。
-- 悬停只改边框和文字颜色，带色的变体保持自身配色；没有自定义禁用样式，用浏览器默认表现。
-- 样式在 `src/styles/controls.css:1-48`。
+参照 `@fluentui/react-button`（含 `Button` 与 `ToggleButton`）。
 
-### 图标按钮
+- **外观（`appearance`）**：
+  - `secondary`（默认）：背景 `colorNeutralBackground1`（悬停 `Hover`、按下 `Pressed`），文字 `colorNeutralForeground1`，边框 `1px solid colorNeutralStroke1`。
+  - `primary`：背景 `colorBrandBackground`（悬停 `Hover`、按下 `Pressed`），文字 `colorNeutralForegroundOnBrand`，透明边框。
+  - `outline`：背景 `colorTransparentBackground`（悬停 `Hover`、按下 `Pressed`），边框 `colorNeutralStroke1`。
+  - `subtle`：背景 `colorSubtleBackground`（悬停 `Hover`、按下 `Pressed`），文字 `colorNeutralForeground2`（悬停伴随品牌色图标高亮），透明边框。
+  - `transparent`：背景透明，文字 `colorNeutralForeground2`（悬停 `colorNeutralForeground2BrandHover`、按下 `BrandPressed`），透明边框。
+- **形状（`shape`）**：`rounded`（默认，`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）、`square`（`borderRadiusNone`）。
+- **尺寸（`size`）**：
+  - `small`：最小宽 `64px`（仅图标为 `24×24px`），内边距 `3px spacingHorizontalS`（带图标上下 `1px`），字号 `fontSizeBase200` / 行高 `lineHeightBase200`，字重 `fontWeightRegular`，图标 `20px`。
+  - `medium`（默认）：最小宽 `96px`（仅图标为 `32×32px`），内边距 `5px spacingHorizontalM`，字号 `fontSizeBase300` / 行高 `lineHeightBase300`，字重 `fontWeightSemibold`，图标 `20px`。
+  - `large`：最小宽 `96px`（仅图标为 `40×40px`），内边距 `8px spacingHorizontalL`（带图标上下 `7px`），字号 `fontSizeBase400` / 行高 `lineHeightBase400`，字重 `fontWeightSemibold`，图标 `24px`。
+- **切换态（`ToggleButton`）**：通过 `aria-pressed` 表示选中；`secondary` 选中底色 `colorNeutralBackground1Selected`，`primary` 选中底色 `colorBrandBackgroundSelected`。
+- **过渡**：`background, border, color`，时长 `durationFaster`，曲线 `curveEasyEase`。
 
-- 32×32 圆形（顶栏的主题、声音两个），1px 边框，图标用强调色；关闭态（`.is-off`）为次要文字色。
-- 28×28 方形（式神统计页的重置、全屏），圆角 8px；`aria-pressed="true"` 时强调色底和边。
-- 样式在 `src/styles/topbar.css:217-245`、`src/styles/board.css` 的 `.cultivation-actions`。
+### Input（文本输入）
 
-### 浮动按钮
+参照 `@fluentui/react-input`。外层容器包原生 `<input>`，支持前后缀插槽（`contentBefore` / `contentAfter`）。
 
-- 44px 圆形（≤720px 为 40px），右侧对齐内容区外沿，底部 40px（≤720px 为 20px），带阴影。
-- 悬停上移 2px 并换成强调色底；刷新中图标 0.8s 匀速旋转；有新版本时强调色边和底。
-- 样式在 `src/styles/fab.css:1-83`。
+- **外观（`appearance`）**：
+  - `outline`（默认）：底色 `colorNeutralBackground1`，三边 `1px solid colorNeutralStroke1`，底边 `colorNeutralStrokeAccessible`。
+  - `underline`：底色透明，无圆角，仅底边 `1px solid colorNeutralStrokeAccessible`。
+  - `filled-darker`：底色 `colorNeutralBackground3`，边框透明。
+  - `filled-lighter`：底色 `colorNeutralBackground1`，边框透明。
+- **尺寸（`size`）**：
+  - `small`：最小高 `24px`，排版 `caption1`（`12px` / `16px`），无插槽时左右内边距 `spacingHorizontalS`。
+  - `medium`（默认）：最小高 `32px`，排版 `body1`（`14px` / `20px`），无插槽时左右内边距 `spacingHorizontalM`。
+  - `large`：最小高 `40px`，排版 `body2`（`16px` / `22px`），无插槽时左右内边距 `calc(spacingHorizontalM + spacingHorizontalSNudge)`。
+- **焦点与校验**：
+  - `:focus-within` 时底部伪元素绘制 `2px solid colorCompoundBrandStroke` 指示线（按圆角裁切底角），聚焦展开 `transform: scaleX(1)`（时长 `durationNormal`、曲线 `curveDecelerateMid`），失焦收起 `transform: scaleX(0)`（时长 `durationUltraFast`、曲线 `curveAccelerateMid`）。
+  - 校验错误（`aria-invalid="true"`）在非聚焦态下边框变为 `colorPaletteRedBorder2`。
 
-### 文本输入
+### Field（表单字段）
 
-- 三种尺寸：紧凑（账号字段、式神字段）`padding: 4px 8px`、圆角 6px、字号 13px；标准（对话框、问答搜索）`padding: 8px 16px`、圆角 8px、字号 14px；行内表单 `padding: 8px 8px`、圆角 8px。
-- 类型：文本、数字、日期、只读。数字框隐藏步进箭头；日期框数字等宽。
-- 字段布局：左侧标签 + 输入框 + 可选的单位（强调色）或提示文字（11px 次要文字色）。
-- 聚焦只把边框换成强调色，不加外发光；占位文字用次要文字色。
-- 没有独立的错误态样式，错误信息通过消息气泡表达。
-- 样式在 `src/styles/account.css:532-570`、`src/styles/controls.css:97-115`、`src/styles/content.css` 的 `.quiz-search`。
+参照 `@fluentui/react-field`。组合标签（`Label`）、表单控件、校验状态图标与消息（`validationMessage`）、提示文字（`hint`）。
 
-### 原生下拉
+- **方向（`orientation`）**：`vertical`（默认，标签在上）或 `horizontal`（标签在左，占固定列宽）。
+- **校验状态（`validationState`）**：
+  - `error`：消息与图标用 `colorPaletteRedForeground1`，给内部控件透传 `aria-invalid="true"`。
+  - `warning`：图标用 `colorPaletteDarkOrangeForeground1`。
+  - `success`：图标用 `colorPaletteGreenForeground1`。
+  - `none`：仅展示 `hint`（`caption1`，颜色 `colorNeutralForeground3`）。
 
-- 只用在账号关联一处，样式与紧凑输入框相同（`src/styles/account.css:538-560`）。
+### SearchBox（搜索框）
 
-### 带选项的输入框
+参照 `@fluentui/react-search`。基于 `Input` 扩展，前置搜索图标，聚焦或有值时后置清除按钮（点击清空并把焦点还给输入框）。尺寸与外观同 `Input`。
 
-- 获得方式：可以自由输入，输入时按包含关系过滤选项，回车选中第一项，Esc 收起，点外部收起；右侧箭头按钮 `tabindex="-1"`，展开时箭头转 180°；没有匹配项时显示「无匹配选项」。
-- 字段选择（趋势图）：触发器 + 菜单，右侧对齐，最小宽 168px，最高 320px；菜单项悬停为次级底色，选中为强调色底；「最近使用」是一排小盒子，右上角带移除按钮。
-- 样式在 `src/styles/content.css:539-600`、`src/styles/trend.css:34-120`。
+### Select（原生下拉）
 
-### 勾选框
+参照 `@fluentui/react-select`。外层包裹原生 `<select>` 与右侧展开箭头图标。
 
-- 任务勾选：`span[role="checkbox"]`，18×18，圆角 5px，1.5px 边框；选中为绿色底加对勾（深色对勾色，浅色主题为白色），部分完成为一条灰色横线；空格和回车都能切换；`aria-checked` 支持 `mixed`。
-- 原生勾选：15×15，`accent-color` 用强调色（式神页、碎片挑选、统计页）。
-- 键盘操作时出现 2px 强调色描边，偏移 2px。
-- 样式在 `src/styles/workbench.css:435-482`，组件在 `src/components/TaskCheckbox.vue`。
+- **尺寸（`size`）**：`small`（高 `24px`）、`medium`（默认，高 `32px`）、`large`（高 `40px`），字号与内边距对齐 `Input`。
+- **外观（`appearance`）**：`outline`（默认）、`underline`、`filled-darker`、`filled-lighter`，聚焦底部高亮条和禁用态与 `Input` 一致。
 
-### 色板单选
+### Combobox 与 Dropdown（带选项下拉与自动完成）
 
-- 20×20 圆形，八种颜色，选中态用 `outline` 2px 描边、偏移 2px，`role="radio"`。
-- 样式在 `src/styles/account.css` 的 `.tone-swatch`。
+参照 `@fluentui/react-combobox`（含 `Combobox`、`Dropdown`、`Listbox`、`Option`、`OptionGroup`）。
 
-### 标签页
+- **区分**：`Combobox` 触发器为可自由输入的文本框，支持按输入过滤选项；`Dropdown` 触发器为不可编辑的按钮。两者共用弹出层 `Listbox` 和选项 `Option`。
+- **触发器尺寸与外观**：`size` 支持 `small`（`24px`）/ `medium`（`32px`）/ `large`（`40px`）；`appearance` 支持 `outline` / `underline` / `filled-darker` / `filled-lighter`。
+- **弹出列表（`Listbox`）**：
+  - 底色 `colorNeutralBackground1`，圆角 `borderRadiusMedium`，阴影 `shadow16`，内边距 `spacingHorizontalXS`，项间距 `spacingHorizontalXXS`，最小宽 `160px`，层级 `zIndexFloating`。
+- **选项（`Option`）**：
+  - 圆角 `borderRadiusMedium`，内边距 `spacingVerticalSNudge spacingHorizontalS`，字号 `fontSizeBase300` / 行高 `lineHeightBase300`，文字 `colorNeutralForeground1`。
+  - 悬停底色 `colorNeutralBackground1Hover`，按下底色 `colorNeutralBackground1Pressed`；键盘活动项（`aria-activedescendant`）绘制 `2px solid colorStrokeFocus2` 焦点框。
+  - 单选或多选时选中项带勾选图标。
+- **键盘交互**：上下方向键移动活动项，`Enter` 选中，`Escape` 收起，点击外部收起。
 
-- 账号 Tab：胶囊，左侧 2px 色边，带角色数；选中为强调色底、边、字；「未关联」占一格。
-- 顶栏导航：字号 16px，选中为强调色文字加 2px 下划线；二级菜单项是圆角 8px 的矩形，选中为强调色底。
-- 样式在 `src/styles/account.css` 的 `.login-tabs`、`src/styles/topbar.css:87-190`。
+### Checkbox（勾选框）
 
-### 浮层菜单
+参照 `@fluentui/react-checkbox`。内部用隐藏的原生 `<input type="checkbox">` 承接焦点与键盘事件，外显指示器与标签。
 
-- 三处各写一套：导航二级菜单与触发器留 8px 间隙，鼠标从触发器移到菜单的途中不收起；字段菜单右对齐；获得方式菜单与输入框同宽。
-- 共同样式：面板底色、1px 强边、8~10px 圆角、阴影、4~8px 内边距、菜单项 6~8px 圆角，悬停为次级底色，选中为强调色底。
-- 样式在 `src/styles/topbar.css:134-190`、`src/styles/trend.css:47-120`、`src/styles/content.css:579-600`。
+- **尺寸（`size`）**：`medium`（默认，指示器 `16×16px`，图标 `12px`）、`large`（指示器 `20×20px`，图标 `16px`）。
+- **形状（`shape`）**：`square`（默认，`borderRadiusSmall`）、`circular`（`borderRadiusCircular`）。
+- **状态配色**：
+  - 未选中：边框 `1px solid colorNeutralStrokeAccessible`（悬停 `Hover`、按下 `Pressed`），标签 `colorNeutralForeground3`（悬停 `Foreground2`、按下 `Foreground1`）。
+  - 选中（`checked`）：指示器底色与边框 `colorCompoundBrandBackground`（悬停 `Hover`、按下 `Pressed`），对勾 `colorNeutralForegroundInverted`，标签 `colorNeutralForeground1`。
+  - 半选（`mixed` / `indeterminate`）：边框 `colorCompoundBrandStroke`，内部横线或方块 `colorCompoundBrandForeground1`（悬停 `Hover`、按下 `Pressed`）。
+  - 禁用：文字与边框分别为 `colorNeutralForegroundDisabled`、`colorNeutralStrokeDisabled`。
 
-## 组合控件
+### SwatchPicker（色板单选）
 
-### 对话框
+参照 `@fluentui/react-swatch-picker`（`SwatchPicker` 与 `ColorSwatch`）。
 
-- 骨架在 `src/components/AppWindow.vue`：传送到 `body`，遮罩 `rgba(6, 8, 12, 0.55)` 加 2px 模糊；点遮罩关闭，Esc 关闭，`aria-modal`；打开时焦点给带 `data-autofocus` 的元素，没有就给操作区第一个按钮；没有焦点陷阱。
-- 尺寸：标准宽 `min(400px, 100%)`；管理列弹窗宽 `min(720px, 100%)`、高 `min(620px, calc(100dvh - 32px))`。
-- 内容：标题 16px、正文保留换行、可选输入框、操作区右对齐、按钮间距 8px。
-- 进场 0.16s：透明度变化加上移 8px、缩放 0.98。
-- 确认框在 `src/components/AppDialog.vue`：Enter 确认（输入法组合中不响应）、Esc 取消、危险态确认键为红色。
-- 样式在 `src/styles/controls.css:51-134`。
+- **结构**：容器 `role="radiogroup"`，单个色块 `role="radio"`，以 `aria-checked` 标识选中。
+- **尺寸（`size`）**：`extra-small`（`20×20px`）、`small`（`24×24px`）、`medium`（默认，`28×28px`）、`large`（`32×32px`）。
+- **形状（`shape`）**：`square`（默认，`borderRadiusNone`）、`rounded`（`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）。
+- **选中与悬停**：选中态使用双层内阴影 `inset 0 0 0 strokeWidthThicker colorBrandStroke1, inset 0 0 0 5px colorStrokeFocus1`（小尺寸缩减描边宽度），保证在深浅色块上都清晰可见。
 
-### 消息气泡
+### Tabs（标签页）
 
-- 贴在触发元素的四边，箭头是 45° 的方块，位置对齐目标中心；贴视口边缘时自动收拢，箭头偏移也跟着夹住。
-- 最大宽 `min(240px, calc(100vw - 16px))`，圆角 10px，字号 12px，不吃点击（`pointer-events: none`）。
-- 可以定时自动收起；任意指针按下或按键立即收起；危险态为红边红字。
-- 样式在 `src/styles/controls.css:136-211`，组件在 `src/components/MessageBubble.vue`。
+参照 `@fluentui/react-tabs`（`TabList` 与 `Tab`）。
 
-### 进度条
+- **方向（`vertical`）**：水平（默认）或垂直。
+- **外观（`appearance`）**：
+  - `transparent`（默认）：透明底，悬停 `colorTransparentBackgroundHover`。
+  - `subtle`：悬停 `colorSubtleBackgroundHover`。
+  - `subtle-circular` / `filled-circular`：圆角 `borderRadiusCircular` 的胶囊标签页。
+- **尺寸（`size`）**：
+  - `small`：水平内边距 `spacingVerticalSNudge spacingHorizontalSNudge`（垂直模式为 `spacingVerticalXXS spacingHorizontalSNudge`），排版 `body1`。
+  - `medium`（默认）：水平内边距 `spacingVerticalM spacingHorizontalMNudge`（垂直模式为 `spacingVerticalSNudge spacingHorizontalMNudge`），排版 `body1`。
+  - `large`：水平内边距 `spacingVerticalL spacingHorizontalMNudge`（垂直模式为 `spacingVerticalS spacingHorizontalMNudge`），排版 `body2`。
+- **选中指示条**：默认在选中项底部（垂直模式在左侧）绘制圆角 `borderRadiusCircular`、厚度 `strokeWidthThicker`（水平 `small` 为 `strokeWidthThick`）、背景 `colorCompoundBrandStroke` 的指示条；选中文字字重 `fontWeightSemibold`（通过预留宽度避免切换抖动）。
 
-- 高 8px，圆角 999px，1px 边框；填充是金色渐变（`#c9963a` 到强调色），宽度变化 0.25s。
-- 样式在 `src/styles/workbench.css` 的 `.overview-bar`、`src/styles/backup.css` 的 `.backup-usage-bar`。
+### Menu（浮层菜单）
 
-## 反馈与状态
+参照 `@fluentui/react-menu`（`Menu`、`MenuTrigger`、`MenuPopover`、`MenuList`、`MenuItem`、`MenuItemCheckbox`、`MenuItemRadio`、`MenuDivider`、`MenuGroup`）。
 
-### 骨架屏
+- **弹出面板（`MenuPopover`）**：
+  - 底色 `colorNeutralBackground1`，圆角 `borderRadiusMedium`，阴影 `shadow16`，内边距 `4px`，1px 透明轮廓用于高对比度，层级 `zIndexPopup`。
+- **菜单项（`MenuItem`）**：
+  - 最小高 `32px`，圆角 `borderRadiusMedium`，内边距 `spacingVerticalSNudge`（`6px`），字号 `fontSizeBase300` / 行高 `lineHeightBase300`，文字 `colorNeutralForeground2`。
+  - 悬停或键盘聚焦时底色 `colorNeutralBackground1Hover`、文字 `colorNeutralForeground2Hover`；按下底色 `colorNeutralBackground1Pressed`。
+  - 支持前置图标（`20px`）、快捷键提示（`secondaryContent`）、子菜单箭头以及勾选/单选变体。
+- **键盘交互**：上下方向键切换焦点，右方向键展开子菜单，左方向键或 `Escape` 收起。
 
-- 六种形状：标题、胶囊、搜索条、圆点、行、卡片；底色渐变加 1.4s 横向扫光，减少动效时停止动画。
-- 样式在 `src/styles/content.css:29-95`。
+---
 
-### 空状态与错误状态
+## 组合与反馈控件
 
-- 虚线边框、圆角 12px、内边距 16px、居中、次要文字色；错误态换成红色文字和红色虚线边。
-- 样式在 `src/styles/content.css:1-22`。
+### Dialog（对话框）
 
-### 徽标
+参照 `@fluentui/react-dialog`（`Dialog`、`DialogTrigger`、`DialogSurface`、`DialogTitle`、`DialogBody`、`DialogContent`、`DialogActions`）。
 
-- 四种：圆角 6px 的胶囊（内边距 `1px 8px`，字号 12px，强调色）、圆角 4px 的小标签（`1px 8px`，字号 11px，蓝色）、圆角 999px 的状态标签（`2px 8px`，字号 12px）、圆角 999px 的小提示（`1px 8px`，字号 11px）。
-- 颜色来自强调色、绿色、蓝色、红色四组。
-- 样式在 `src/styles/account.css` 的 `.current-badge`、`src/styles/workbench.css` 的 `.task-flag` / `.repeat-tag` / `.activity-badge`、`src/styles/content.css` 的 `.collab-badge` / `.bowl-badge`。
+- **模态类型（`modalType`）**：
+  - `modal`（默认）：带遮罩，开启焦点陷阱（Tab 在弹窗内循环），点击遮罩或按 `Escape` 触发 `onOpenChange` 关闭。
+  - `non-modal`：无遮罩，不锁背景焦点，右上角默认提供关闭按钮。
+  - `alert`：带遮罩，开启焦点陷阱，点击遮罩不关闭，用于必须显式确认的操作。
+- **遮罩（`backdrop`）**：固定定位铺满视口，底色 `colorBackgroundOverlay`，不加背景模糊。
+- **面板（`DialogSurface`）**：
+  - 默认最大宽 `600px`，最大高 `100dvh`，内边距 `24px`，圆角 `borderRadiusXLarge`（`8px`），底色 `colorNeutralBackground1`，文字 `colorNeutralForeground1`，阴影 `shadow64`，边框 `1px solid colorTransparentStroke`，层级 `zIndexPopup`。
+- **内部排版**：
+  - `DialogTitle`：采用 `subtitle1`（`20px` / `28px` / `600`）。
+  - `DialogContent`：采用 `body1`（`14px` / `20px` / `400`）。
+  - `DialogActions`：操作按钮区，默认右对齐，按钮间距 `spacingHorizontalS`。
 
-### 可点击标签
+### Tooltip（文字提示）
 
-- 胶囊，`padding: 4px 8px`，圆角 999px，字号 12px，右侧可带灰色计数（字号 11px）；选中为强调色底、边、字；悬停时边框变强调色。
-- 33 处，用在式神页、碎片页、统计页的筛选栏。
-- 样式在 `src/styles/content.css:249-280`。
+参照 `@fluentui/react-tooltip`。用于悬停或聚焦触发元素时的简短说明。
 
-## 数据展示
+- **外观**：`normal`（默认，底色 `colorNeutralBackground1`，文字 `colorNeutralForeground1`）与 `inverted`（底色 `colorNeutralBackgroundStatic`，文字 `colorNeutralForegroundStaticInverted`）。
+- **尺寸与排版**：最大宽 `240px`，圆角 `borderRadiusMedium`，内边距 `4px 11px 6px 11px`，字号 `fontSizeBase200` / 行高 `lineHeightBase200`，阴影 `shadow8`，层级 `zIndexPriority`，`pointer-events: none`。
+- **箭头（`withArrow`）**：可选指向目标中心的旋转方块箭头，贴视口边缘时自动翻转与夹紧。
 
-### 表格
+### Popover（气泡卡片）
 
-- 表头和首列可以吸顶；单元格内边距 8px；数字等宽；可编辑的单元格悬停时给强调色底。
-- 排序表头本身是按钮：点一次降序、再点升序、第三次恢复原顺序，排序标记只画在当前列。
-- 样式在 `src/styles/board.css:17-190`、`src/styles/trend.css:276-314`。
+参照 `@fluentui/react-popover`（`Popover`、`PopoverTrigger`、`PopoverSurface`）。用于带交互内容或富文本的浮层。
 
-### 折线图
+- **外观（`appearance`）**：`normal`（默认，`colorNeutralBackground1`）、`inverted`、`brand`（`colorBrandBackground`）。
+- **尺寸（`size`）**：`small`（内边距 `12px`）、`medium`（默认，内边距 `16px`）、`large`（内边距 `20px`），圆角 `borderRadiusMedium`，阴影 `shadow16`，层级 `zIndexPopup`，可选 `withArrow`。
 
-- SVG 绘制，包含网格线、虚线辅助线、11px 坐标文字、2px 折线、数据点。
-- 悬停显示日期和数值的小浮层；下方有时间段切换按钮。
-- 样式在 `src/styles/trend.css:120-275`。
+### Toast 与 MessageBar（通知与横幅）
 
-### 横向滚动容器
+参照 `@fluentui/react-toast` 与 `@fluentui/react-message-bar`。
 
-- 宽表格外层，内容超宽时可以按住横向拖动，光标在可拖动时为 `grab`、拖动中为 `grabbing`。
-- 样式在 `src/styles/board.css` 的 `.shard-scroll`、`src/styles/trend.css` 的 `.detail-scroll`。
+- **Toast（浮动通知）**：
+  - 由 `Toaster` 统一挂载在视口角落（默认右下），单条 `Toast` 内边距 `12px`，圆角 `borderRadiusMedium`，底色 `colorNeutralBackground1`，阴影 `shadow8`，层级 `zIndexMessages`。
+  - `intent` 支持 `info`、`success`、`warning`、`error`，匹配对应状态色图标；默认 `3000ms` 自动收起，支持悬停暂停（`pauseOnHover`）。
+- **MessageBar（页面内横幅）**：
+  - 最小高 `36px`，圆角 `borderRadiusMedium`，左内边距 `spacingHorizontalM`。
+  - `intent="info"`（默认）：底色 `colorNeutralBackground3`，边框 `colorNeutralStroke1`，图标 `colorNeutralForeground3`。
+  - `intent="success" | "warning" | "error"`：分别采用 `colorStatusSuccess*`、`colorStatusWarning*`、`colorStatusDanger*` 的 `Background1`、`Border1`、`Foreground1/3`。
 
-## 布局件
+### ProgressBar（进度条）
 
-### 顶栏
+参照 `@fluentui/react-progress`。
 
-- 吸顶，半透明底色加 10px 模糊；下方用一条 8px 的同底色条带填住和吸顶卡片之间的缝隙。
-- 结构：品牌（54px 图标、标题、副标题）、主导航、日期胶囊、工具按钮。
-- 样式在 `src/styles/topbar.css:1-86`。
+- **厚度（`thickness`）**：`medium`（默认，高 `2px`）、`large`（高 `4px`）。
+- **形状（`shape`）**：`rounded`（默认，`borderRadiusMedium`）、`square`（`borderRadiusNone`）。
+- **配色（`color`）**：
+  - 轨道底色统一为 `colorNeutralBackground6`。
+  - `brand`（默认）：填充 `colorCompoundBrandBackground`。
+  - `success`：填充 `colorPaletteGreenBackground3`。
+  - `warning`：填充 `colorPaletteDarkOrangeBackground3`。
+  - `error`：填充 `colorPaletteRedBackground3`。
+- **模式**：传入 `value`（`0` 到 `max`）为确定进度；不传 `value` 为不确定进度（`indeterminate`），条带做循环横向扫光动画。
 
-### 侧栏
+### Skeleton（骨架屏）
 
-- 宽屏固定 162px 并吸顶，窄屏收成一条可以展开的抽屉；内部只有一个滚动区。
-- 样式在 `src/styles/account.css:1-200`。
+参照 `@fluentui/react-skeleton`（`Skeleton` 与 `SkeletonItem`）。
 
-### 面板与卡片
+- **形状（`shape`）**：`rectangle`（默认，宽 `100%`，圆角 `borderRadiusMedium`）、`circle`（宽高相等，圆角 `50%`）、`square`（宽高相等，直角无圆角）。
+- **尺寸（`size`）**：`8`、`12`、`14`、`16`、`20`、`22`、`24`、`28`、`32`、`36`、`40`、`48`、`52`、`56`、`64`、`72`、`92`、`96`、`120`、`128`（单位 `px`）。
+- **动画（`animation`）**：`wave`（默认，`3s ease-in-out` 扫光，底色 `colorNeutralStencil1` / `colorNeutralStencil2`）或 `pulse`（`1s` 透明度脉冲）；`appearance` 支持 `opaque` 与 `translucent`。
 
-- 面板：面板底色、1px 边框、圆角 12px、内边距 16px、阴影。
-- 内容卡：次级面板底色、1px 边框、圆角 10px、内边距 16px；悬停边框加深；选中、完成、置灰各有状态。
-- 样式在 `src/styles/workbench.css` 的 `.panel`、`src/styles/content.css:309-340`。
+### Badge（徽标）
 
-### 文件拖放区
+参照 `@fluentui/react-badge`。
 
-- 拖入文件时整块出现提示层，铺满卡片，提示层里是加号和说明文字；用隐藏的原生文件输入框选择文件。
-- 样式在 `src/styles/backup.css` 的 `.backup-drop-hint`，逻辑在 `src/views/BackupView.vue`。
+- **外观（`appearance`）**：`filled`（默认，实心）、`tint`（浅底有边）、`outline`（透明底有边）、`ghost`（无底无边）。
+- **颜色（`color`）**：`brand`（默认）、`danger`、`important`、`informative`、`severe`、`subtle`、`success`、`warning`。
+- **尺寸（`size`）**：`tiny`（`6px`）、`extra-small`（`10px`）、`small`（`16px`）、`medium`（默认，`20px`）、`large`（`24px`）、`extra-large`（`32px`）。
+- **形状（`shape`）**：`circular`（默认）、`rounded`（`borderRadiusMedium`，小尺寸为 `borderRadiusSmall`）、`square`。
 
-### 全屏容器
+### Tag 与 InteractionTag（标签与可交互标签）
 
-- 用浏览器全屏 API，进全屏的是筛选栏加表格那一层；全屏时给底色和内边距。
-- 样式在 `src/styles/board.css` 的 `.cultivation-full`，逻辑在 `src/components/CultivationMatrix.vue`。
+参照 `@fluentui/react-tags`（`Tag`、`InteractionTag`、`TagGroup`）。
 
-## 暂不抽取
+- **区分**：纯展示或带关闭按钮用 `Tag`；可点击筛选、切换选中用 `InteractionTag`。
+- **外观（`appearance`）**：`filled`（默认，底色 `colorNeutralBackground3`，文字 `colorNeutralForeground2`）、`outline`（底色 `colorSubtleBackground`，文字 `colorNeutralForeground2`，边框 `1px solid colorNeutralStroke1`）、`brand`（品牌浅底 `colorBrandBackground2`，文字 `colorBrandForeground2`）。
+- **尺寸（`size`）**：`extra-small`（高 `20px`）、`small`（高 `24px`）、`medium`（默认，高 `32px`）。
+- **形状（`shape`）**：`rounded`（默认，`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）。
+- **选中态（`selected`）**：支持选中态，选中时底色 `colorBrandBackground`、文字 `colorNeutralForegroundOnBrand`、边框 `colorBrandStroke1`。
 
-- 业务组件：`ShishenCard`、`ShardBoard`、`CultivationMatrix`、`ActivityCard`、`AccountSidebar`、`TaskList`、`ActivityTaskList`、`AssetManager`、`AccountManager`、`ShishenRoster`。它们依赖 `store`、配置和业务字段。
-- 全局单例：`useDialog`、`useMessage`、`useStore`、`useConfig`。控件库不适合带这类状态。
-- 运行时测量的布局：顶栏高度、胶囊高度、概览高度写进 CSS 变量，用来算吸顶位置和锚点偏移，属于页面布局，不属于控件。
-- 路由、PWA、本地存储、音效、主题存储键 `yys:theme`。
+---
 
-## 本项目没有的控件
+## 数据展示与布局控件
 
-| 控件       | 现在的替代                                               |
-| ---------- | -------------------------------------------------------- |
-| 开关       | 图标按钮或 `ghost.active` 按钮加 `aria-pressed`          |
-| 单选组     | 没有用原生单选；账号色调用 8 个圆形按钮加 `role="radio"` |
-| 日期选择器 | 原生 `input[type="date"]`                                |
-| 分页       | 问答页滚动到底部继续加载                                 |
-| 通知横幅   | 消息气泡代替                                             |
-| 抽屉       | 窄屏侧栏用高度过渡展开                                   |
-| 通用浮层   | 导航菜单、字段菜单、获得方式菜单、趋势提示各写一套       |
-| 上传组件   | 隐藏的原生文件输入框                                     |
-| 树形控件   | 无                                                       |
-| 步骤条     | 无                                                       |
+### Table 与 DataGrid（表格）
+
+参照 `@fluentui/react-table`。
+
+- **尺寸（`size`）**：`medium`（默认，行最小高 `44px`，字号 `fontSizeBase300`）、`small`（行最小高 `34px`）、`extra-small`（行最小高 `24px`，字号 `fontSizeBase200`）。
+- **单元格与行**：
+  - 单元格左右内边距 `spacingHorizontalS`（`8px`），行底边 `1px solid colorNeutralStroke2`。
+  - 交互行悬停底色 `colorSubtleBackgroundHover`，按下 `colorSubtleBackgroundPressed`；选中行支持 `brand`（`colorBrandBackground2`）或 `neutral`（`colorSubtleBackgroundSelected`）。
+- **排序表头（`TableHeaderCell`）**：
+  - 可排序列内嵌占满表头的按钮（最小高 `32px`），悬停底色 `colorSubtleBackgroundHover`。
+  - 点击切换 `ascending` / `descending`，在表头设置 `aria-sort` 并展示方向箭头图标。
+
+### Card（卡片）
+
+参照 `@fluentui/react-card`（`Card`、`CardHeader`、`CardPreview`、`CardFooter`）。
+
+- **外观（`appearance`）**：
+  - `filled`（默认）：底色 `colorNeutralBackground1`，阴影 `shadow4`（可交互卡片悬停升为 `shadow8`）。
+  - `filled-alternative`：底色 `colorNeutralBackground2`，阴影 `shadow4`。
+  - `outline`：底色透明，边框 `1px solid colorNeutralStroke1`，无阴影。
+  - `subtle`：底色 `colorSubtleBackground`，无边框无阴影。
+- **尺寸（`size`）**：
+  - `small`：内边距 `8px`，圆角 `borderRadiusSmall`（`2px`）。
+  - `medium`（默认）：内边距 `12px`，圆角 `borderRadiusMedium`（`4px`）。
+  - `large`：内边距 `16px`，圆角 `borderRadiusLarge`（`6px`）。
+- **选中态（`selected`）**：背景切为 `colorNeutralBackground1Selected`，边框 `colorNeutralStroke1Selected`。
+
+### Drawer 与 NavDrawer（抽屉与侧栏导航）
+
+参照 `@fluentui/react-drawer` 与 `@fluentui/react-nav`。
+
+- **类型（`type`）**：`overlay`（模态浮层，带遮罩与 `shadow64`）与 `inline`（内嵌并排，与内容区用边框分隔）。
+- **位置与尺寸**：`position` 支持 `start`（默认，左）、`end`（右）、`bottom`；`size` 支持 `small`（`320px`）、`medium`（`592px`）、`large`（`940px`）、`full`（`100vw`）；`NavDrawer` 默认宽 `260px`，底色 `colorNeutralBackground4`。
+- **导航项（`NavItem`）**：圆角 `borderRadiusMedium`，内边距 `spacingVerticalMNudge spacingHorizontalS spacingVerticalMNudge spacingHorizontalMNudge`，排版 `body1`，悬停底色 `colorNeutralBackground4Hover`，选中项左侧带 `4×20px` 的品牌色竖条。
+
+---
+
+## 其它官方组件与项目边界
+
+- **按需补充的官方组件**：`Switch`（开关）、`RadioGroup`（单选组）、`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Tree`（树）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
+- **图表**：折线图等数据可视化在官方仓库独立于 `@fluentui/react-components`，位于 `@fluentui/react-charts`，配色取自 `colorPalette*` 与 `colorBrand*`，不混入基础控件包。
+- **不进控件库的应用层逻辑**：
+  - 业务视图组件、页面级顶栏与固定吸顶计算、浏览器全屏 API 调用、隐藏文件框拖放上传层。
+  - 状态管理（`store`）、路由、PWA、本地存储键（如主题持久化键）、音效。
