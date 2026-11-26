@@ -39,6 +39,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && vue-tsc -p tsconfig.build.json && node scripts/copy-style.mjs",
+    "build:demo": "vite build --config vite.demo.config.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"

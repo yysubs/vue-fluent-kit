@@ -1,5 +1,7 @@
 node_modules/
 dist/
+dist-demo/
+.wrangler/
 .pnpm-store/
 *.log
 .DS_Store

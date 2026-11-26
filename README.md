@@ -6,9 +6,10 @@
 
 ```bash
 pnpm install
-pnpm dev     # 本地预览 src/demo（也可用 npm run dev）
-pnpm build   # 构建 dist
-pnpm test    # 单元测试
+pnpm dev        # 本地预览 src/demo（也可用 npm run dev）
+pnpm build      # 构建 dist
+pnpm build:demo # 构建 demo 静态预览产物到 dist-demo
+pnpm test       # 单元测试
 ```
 
 ## 结构
