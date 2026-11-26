@@ -73,10 +73,26 @@
 
 ### Select（原生下拉）
 
-参照 `@fluentui/react-select`。外层包裹原生 `<select>` 与右侧展开箭头图标。
+参照 `@fluentui/react-select`。外层 `<span>` 容器包裹去除浏览器原生外观（`appearance: none`）的 `<select>` 与右侧展开箭头图标。
 
-- **尺寸（`size`）**：`small`（高 `24px`）、`medium`（默认，高 `32px`）、`large`（高 `40px`），字号与内边距对齐 `Input`。
-- **外观（`appearance`）**：`outline`（默认）、`underline`、`filled-darker`、`filled-lighter`，聚焦底部高亮条和禁用态与 `Input` 一致。
+- **外观（`appearance`）**：
+  - `outline`（默认）：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground1`，上左右描边 `strokeWidthThin solid colorNeutralStroke1`（悬停 `Hover`、按下与聚焦 `Pressed`），底边 `colorNeutralStrokeAccessible`（悬停 `Hover`、按下与聚焦 `Pressed`）。
+  - `underline`：底色 `colorTransparentBackground`，无圆角（`borderRadiusNone`），仅保留底边 `strokeWidthThin solid colorNeutralStrokeAccessible`（悬停 `Hover`、按下与聚焦 `Pressed`）。
+  - `filled-darker`：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground3`，描边 `colorTransparentStroke`（悬停与聚焦 `colorTransparentStrokeInteractive`）。
+  - `filled-lighter`：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground1`，描边 `colorTransparentStroke`（悬停与聚焦 `colorTransparentStrokeInteractive`）。
+  - 文字颜色 `colorNeutralForeground1`；内部 `<option>` 与 `<optgroup>` 显式设置底色 `colorNeutralBackground1` 和文字色 `colorNeutralForeground1`，保证深色主题下展开列表清晰可读；禁用态底色 `colorTransparentBackground`，边框 `colorNeutralStrokeDisabled`（`underline` 仅底边变色），文字与右侧箭头均为 `colorNeutralForegroundDisabled`，鼠标样式 `not-allowed`。
+- **尺寸（`size`）**：
+  - `small`：高 `24px`，字号 `fontSizeBase200` / 行高 `lineHeightBase200` / 字重 `fontWeightRegular`，左内边距 `calc(spacingHorizontalSNudge + spacingHorizontalXXS)`，右侧预留箭头空间的内边距 `calc(spacingHorizontalSNudge + 16px + spacingHorizontalXXS + spacingHorizontalXXS)`，箭头尺寸 `16px`、距右 `spacingHorizontalSNudge`。
+  - `medium`（默认）：高 `32px`，字号 `fontSizeBase300` / 行高 `lineHeightBase300` / 字重 `fontWeightRegular`，左内边距 `calc(spacingHorizontalMNudge + spacingHorizontalXXS)`，右内边距 `calc(spacingHorizontalMNudge + 20px + spacingHorizontalXXS + spacingHorizontalXXS)`，箭头尺寸 `20px`、距右 `spacingHorizontalMNudge`。
+  - `large`：高 `40px`，字号 `fontSizeBase400` / 行高 `lineHeightBase400` / 字重 `fontWeightRegular`，左内边距 `calc(spacingHorizontalM + spacingHorizontalSNudge)`，右内边距 `calc(spacingHorizontalM + 24px + spacingHorizontalSNudge + spacingHorizontalSNudge)`，箭头尺寸 `24px`、距右 `spacingHorizontalM`。
+- **焦点与校验**：
+  - `:focus-within` 时外层底部伪元素绘制 `strokeWidthThick solid colorCompoundBrandStroke` 指示线（聚焦状态下按下为 `colorCompoundBrandStrokePressed`，非 `underline` 外观按圆角裁切底角），行为与 `Input` 一致。
+  - 校验错误（`aria-invalid="true"`）在非禁用且非聚焦态（含悬停）下边框变为 `colorPaletteRedBorder2`（`underline` 仅底边变色）。
+- **Vue 接口**：导出 `VSelect`。属性为 `modelValue`、`appearance`、`size`、`disabled`；事件为 `update:modelValue`（随原生 `change` 事件触发）；通过 `defineExpose` 暴露内部 `select` 元素引用及 `focus`、`blur` 方法。启用 `inheritAttrs: false`，仅把 `class` 与 `style` 留在外层 `<span>`，其余原生属性（`name`、`id`、`required`、`aria-*` 等）和原生事件监听绑定到内部 `<select>`；未传 `modelValue` 时不向 `<select>` 绑定 `value`，保留浏览器原生初始选中项；受控但父组件未更新 `modelValue` 时同步恢复受控值；不支持多选（`multiple`）与列表行数（原生 `size`）。
+- **图标与插槽**：默认插槽放置原生 `<option>` 与 `<optgroup>`；右侧图标容器 `.vfk-select__icon` 设置 `pointer-events: none` 与颜色 `colorNeutralStrokeAccessible`，默认渲染带 `aria-hidden="true"` 的 Fluent `ChevronDownRegular` 箭头 SVG，也可通过 `icon` 插槽自定义图标。
+- **过渡**：底部焦点指示线 `transform`，聚焦展开 `scaleX(1)`（时长 `durationNormal`、曲线 `curveDecelerateMid`），失焦收起 `scaleX(0)`（时长 `durationUltraFast`、曲线 `curveAccelerateMid`）。
+- **可访问性**：保留原生 `<select>` 跨平台键盘操作与屏幕阅读器语义，默认箭头 SVG 标记 `aria-hidden="true"`；禁用态使用原生 `disabled` 并隐藏底部焦点线；高对比度模式（`forced-colors: active`）下常态边框使用 `ButtonText`，禁用态边框、文字与箭头使用 `GrayText`，焦点指示线与非聚焦校验错误边框使用 `Highlight`；减少动效模式下过渡时长降为 `0.01ms`。
+- **手动验证**：预览页覆盖四种外观、三种尺寸、分组选项（`<optgroup>`）、自定义图标、禁用、校验错误及受控选择，并检查浅色/深色主题下展开面板可读性与键盘焦点过渡。
 
 ### Combobox 与 Dropdown（带选项下拉与自动完成）
 
