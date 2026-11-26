@@ -96,13 +96,19 @@
 
 参照 `@fluentui/react-checkbox`。内部用隐藏的原生 `<input type="checkbox">` 承接焦点与键盘事件，外显指示器与标签。
 
-- **尺寸（`size`）**：`medium`（默认，指示器 `16×16px`，图标 `12px`）、`large`（指示器 `20×20px`，图标 `16px`）。
-- **形状（`shape`）**：`square`（默认，`borderRadiusSmall`）、`circular`（`borderRadiusCircular`）。
+- **尺寸（`size`）**：`medium`（默认，指示器 `16×16px`，图标 `12px`，点击热区宽 `32px`）、`large`（指示器 `20×20px`，图标 `16px`，点击热区宽 `36px`）。
+- **形状（`shape`）**：`square`（默认，`borderRadiusSmall`，半选图标为圆角方块）、`circular`（`borderRadiusCircular`，半选图标为圆点）。
 - **状态配色**：
-  - 未选中：边框 `1px solid colorNeutralStrokeAccessible`（悬停 `Hover`、按下 `Pressed`），标签 `colorNeutralForeground3`（悬停 `Foreground2`、按下 `Foreground1`）。
+  - 未选中：指示器透明底，边框 `1px solid colorNeutralStrokeAccessible`（悬停 `Hover`、按下 `Pressed`），标签 `colorNeutralForeground3`（悬停 `Foreground2`、按下 `Foreground1`）。
   - 选中（`checked`）：指示器底色与边框 `colorCompoundBrandBackground`（悬停 `Hover`、按下 `Pressed`），对勾 `colorNeutralForegroundInverted`，标签 `colorNeutralForeground1`。
-  - 半选（`mixed` / `indeterminate`）：边框 `colorCompoundBrandStroke`，内部横线或方块 `colorCompoundBrandForeground1`（悬停 `Hover`、按下 `Pressed`）。
-  - 禁用：文字与边框分别为 `colorNeutralForegroundDisabled`、`colorNeutralStrokeDisabled`。
+  - 半选（`mixed` / `indeterminate`）：指示器透明底，边框 `colorCompoundBrandStroke`（悬停 `Hover`、按下 `Pressed`），内部方块或圆点 `colorCompoundBrandForeground1`（悬停 `Hover`、按下 `Pressed`），标签 `colorNeutralForeground1`。
+  - 禁用：覆盖选中与半选配色，指示器透明底、边框 `colorNeutralStrokeDisabled`，图标、标签与必填星号均为 `colorNeutralForegroundDisabled`。
+- **Vue 接口**：导出 `VCheckbox`。属性为 `modelValue`（`boolean | 'mixed'`，默认 `false`）、`size`、`shape`、`disabled`、`label`、`labelPosition`（`'after'` 默认 | `'before'`）、`required`、`id`（未传时通过 `useId()` 自动生成）；事件为 `update:modelValue`（载荷为 `boolean`）与 `change`；暴露 `{ input, focus, blur }`。关闭默认属性继承，`class` 与 `style` 作用于外层 `.vfk-checkbox`，其余原生属性透传给内部 `<input>`。
+- **三态与半选同步**：内部 `<input>` 同步绑定 `:checked="modelValue === true"`、`:aria-checked="modelValue === 'mixed' ? 'mixed' : undefined"` 与 DOM `.indeterminate` 属性。用户点击或按空格切换时，`'mixed'` 与 `false` 均发出 `true`，`true` 发出 `false`；若父组件受控未更新 `modelValue`，原生 `.checked` 与 `.indeterminate` 立即重置回当前受控值。
+- **标签与位置**：默认插槽优先于 `label` 属性，两者均未提供时不渲染 `<label>` 元素（纯框场景由调用方在组件上设置 `aria-label`）；`labelPosition` 控制标签位于指示器右侧（`after`）或左侧（`before`），多行标签换行时指示器保持首行顶部对齐；开启 `required` 且存在标签时追加 `aria-hidden="true"` 的必填星号（颜色 `colorPaletteRedForeground3`）；`indicator` 插槽可自定义指示器图标。
+- **过渡**：指示器与文字的 `background, border-color, color`，时长 `durationFaster`，曲线 `curveEasyEase`。
+- **可访问性**：保留原生 `<input type="checkbox">` 的焦点与空格键切换行为；当内部 `<input>` 处于 `:focus-visible` 时，在外层 `.vfk-checkbox` 绘制双层焦点轮廓（`2px solid colorStrokeFocus2` 外框配合 `1px` `colorStrokeFocus1` 内衬，圆角 `borderRadiusMedium`）；适配高对比度模式（`forced-colors: active`）与减少动效（`prefers-reduced-motion: reduce`）。
+- **手动验证**：预览页覆盖未选中/选中/半选及全选联动、尺寸、形状、标签位置（在左/在右）、必填标识、无标签纯框和各状态禁用态，并检查浅色/深色主题及键盘焦点。
 
 ### SwatchPicker（色板单选）
 

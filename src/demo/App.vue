@@ -1,10 +1,36 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { VButton, VToggleButton } from '../index'
+import { computed, ref } from 'vue'
+import { VButton, VCheckbox, VToggleButton } from '../index'
 import '../styles/index.css'
 
 const theme = ref<'light' | 'dark'>('light')
 const pressed = ref(false)
+
+const optionEmail = ref(true)
+const optionPush = ref(false)
+const optionSms = ref(false)
+
+const selectAllState = computed<boolean | 'mixed'>(() => {
+  const values = [optionEmail.value, optionPush.value, optionSms.value]
+  if (values.every(Boolean)) return true
+  if (values.some(Boolean)) return 'mixed'
+  return false
+})
+
+function handleSelectAll(next: boolean) {
+  optionEmail.value = next
+  optionPush.value = next
+  optionSms.value = next
+}
+
+const sizeMedium = ref(true)
+const sizeLarge = ref(true)
+const taskDone = ref(true)
+const taskMixed = ref<boolean | 'mixed'>('mixed')
+const labelAfter = ref(false)
+const labelBefore = ref(true)
+const agreedRequired = ref(false)
+const standaloneChecked = ref(false)
 
 const groups = [
   {
@@ -48,7 +74,7 @@ const groups = [
     <header class="vfk-demo__head">
       <div>
         <h1 class="vfk-demo__title">vue-fluent-kit</h1>
-        <p class="vfk-demo__desc">Button 与主题 token 预览。</p>
+        <p class="vfk-demo__desc">Button、Checkbox 与主题 token 预览。</p>
       </div>
       <div class="vfk-demo__head-actions">
         <VButton
@@ -84,6 +110,39 @@ const groups = [
           <template #icon><span aria-hidden="true">＋</span></template>
         </VButton>
         <VToggleButton v-model="pressed">Toggle: {{ pressed ? 'on' : 'off' }}</VToggleButton>
+      </div>
+    </section>
+
+    <section class="vfk-demo__group">
+      <h2 class="vfk-demo__group-title">Checkbox 勾选框</h2>
+      <div class="vfk-demo__checkbox-tree">
+        <VCheckbox
+          :model-value="selectAllState"
+          label="全选通知渠道"
+          @update:model-value="handleSelectAll"
+        />
+        <div class="vfk-demo__checkbox-children">
+          <VCheckbox v-model="optionEmail" label="邮件通知" />
+          <VCheckbox v-model="optionPush" label="站内消息" />
+          <VCheckbox v-model="optionSms" label="短信提醒" />
+        </div>
+      </div>
+      <div class="vfk-demo__buttons">
+        <VCheckbox v-model="sizeMedium" size="medium" label="Medium (16px)" />
+        <VCheckbox v-model="sizeLarge" size="large" label="Large (20px)" />
+        <VCheckbox v-model="taskDone" shape="circular" label="圆形已选" />
+        <VCheckbox v-model="taskMixed" shape="circular" label="圆形半选" />
+      </div>
+      <div class="vfk-demo__buttons">
+        <VCheckbox v-model="labelAfter" label="标签在右" label-position="after" />
+        <VCheckbox v-model="labelBefore" label="标签在左" label-position="before" />
+        <VCheckbox v-model="agreedRequired" label="同意服务协议" required />
+        <VCheckbox v-model="standaloneChecked" aria-label="仅勾选框示例" />
+      </div>
+      <div class="vfk-demo__buttons">
+        <VCheckbox disabled label="禁用未选" />
+        <VCheckbox :model-value="true" disabled label="禁用已选" />
+        <VCheckbox model-value="mixed" disabled label="禁用半选" />
       </div>
     </section>
 
@@ -130,8 +189,22 @@ const groups = [
   gap: var(--spacingHorizontalS);
 }
 
-.vfk-demo__buttons + .vfk-demo__buttons {
+.vfk-demo__buttons + .vfk-demo__buttons,
+.vfk-demo__checkbox-tree + .vfk-demo__buttons {
   margin-top: var(--spacingVerticalM);
+}
+
+.vfk-demo__checkbox-tree {
+  display: flex;
+  flex-direction: column;
+}
+
+.vfk-demo__checkbox-children {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacingHorizontalS);
+  padding-left: var(--spacingHorizontalXXL);
 }
 
 .vfk-demo__title {
@@ -193,5 +266,4 @@ const groups = [
   font-size: var(--fontSizeBase200);
   color: var(--colorNeutralForeground3);
 }
-
 </style>
