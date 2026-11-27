@@ -54,6 +54,10 @@
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/checkbox.js"
     },
+    "./combobox": {
+      "types": "./dist/components/combobox/index.d.ts",
+      "import": "./dist/combobox.js"
+    },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
       "import": "./dist/field.js"
@@ -77,6 +81,10 @@
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/select.js"
+    },
+    "./swatch-picker": {
+      "types": "./dist/components/swatch-picker/index.d.ts",
+      "import": "./dist/swatch-picker.js"
     },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
@@ -102,6 +110,7 @@
     "./dist/index.js",
     "./dist/button*.js",
     "./dist/checkbox*.js",
+    "./dist/combobox*.js",
     "./dist/field*.js",
     "./dist/input*.js",
     "./dist/VfkInput*.js",
@@ -109,6 +118,7 @@
     "./dist/radio*.js",
     "./dist/search-box*.js",
     "./dist/select*.js",
+    "./dist/swatch-picker*.js",
     "./dist/switch*.js",
     "./dist/tabs*.js",
     "./dist/toggle-button*.js",

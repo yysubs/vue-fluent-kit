@@ -100,12 +100,14 @@ setTheme('system')
 | `@yysubs/vue-fluent-kit/custom-elements` | `isFluentCustomElement`（供 Vite `compilerOptions.isCustomElement` 使用） |
 | `@yysubs/vue-fluent-kit/button` | `VfkButton` 及相关类型 |
 | `@yysubs/vue-fluent-kit/checkbox` | `VfkCheckbox` 及相关类型 |
+| `@yysubs/vue-fluent-kit/combobox` | `VfkCombobox`、`VfkOption` 及相关类型 |
 | `@yysubs/vue-fluent-kit/field` | `VfkField` 及相关类型 |
 | `@yysubs/vue-fluent-kit/input` | `VfkInput` 及相关类型 |
 | `@yysubs/vue-fluent-kit/menu` | `VfkMenu`、`VfkMenuList`、`VfkMenuItem`、`VfkMenuButton`、`VfkMenuDivider` 及相关类型 |
 | `@yysubs/vue-fluent-kit/radio` | `VfkRadioGroup`、`VfkRadio` 及相关类型 |
 | `@yysubs/vue-fluent-kit/search-box` | `VfkSearchBox` 及相关类型 |
 | `@yysubs/vue-fluent-kit/select` | `VfkSelect`、`VfkOption` 及相关类型 |
+| `@yysubs/vue-fluent-kit/swatch-picker` | `VfkSwatchPicker`、`VfkColorSwatch` 及相关类型 |
 | `@yysubs/vue-fluent-kit/switch` | `VfkSwitch` 及相关类型 |
 | `@yysubs/vue-fluent-kit/tabs` | `VfkTabList`、`VfkTab` 及相关类型 |
 | `@yysubs/vue-fluent-kit/toggle-button` | `VfkToggleButton` 及相关类型 |

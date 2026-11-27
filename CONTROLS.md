@@ -24,12 +24,14 @@
 | --- | --- | --- | --- |
 | `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` | [src/components/button/README.md](src/components/button/README.md) |
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
+| `VfkCombobox` / `VfkOption` | `<fluent-dropdown type="combobox">` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/combobox` | [src/components/combobox/README.md](src/components/combobox/README.md) |
 | `VfkField` | `<fluent-field>` | `@yysubs/vue-fluent-kit/field` | [src/components/field/README.md](src/components/field/README.md) |
 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
 | `VfkMenu` / `VfkMenuList` / `VfkMenuItem` / `VfkMenuButton` / `VfkMenuDivider` | `<fluent-menu>` / `<fluent-menu-list>` / `<fluent-menu-item>` / `<fluent-menu-button>` | `@yysubs/vue-fluent-kit/menu` | [src/components/menu/README.md](src/components/menu/README.md) |
 | `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
 | `VfkSearchBox` | `<fluent-text-input>`（基于 `VfkInput`） | `@yysubs/vue-fluent-kit/search-box` | [src/components/search-box/README.md](src/components/search-box/README.md) |
 | `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
+| `VfkSwatchPicker` / `VfkColorSwatch` | Light DOM（`role="radiogroup"` / `role="radio"`） | `@yysubs/vue-fluent-kit/swatch-picker` | [src/components/swatch-picker/README.md](src/components/swatch-picker/README.md) |
 | `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
 | `VfkTabList` / `VfkTab` | `<fluent-tablist>` / `<fluent-tab>` | `@yysubs/vue-fluent-kit/tabs` | [src/components/tabs/README.md](src/components/tabs/README.md) |
 | `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
@@ -37,31 +39,9 @@
 
 ---
 
-## 基础控件（计划中）
+## 组合与反馈控件（计划中）
 
 以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
-
-### Combobox（可输入自动完成）
-
-参照 `@fluentui/react-combobox` 与 `<fluent-combobox>`（含 `Option`、`OptionGroup`）。
-
-- **触发器**：可自由输入的文本框，支持按输入过滤选项；`size` 支持 `small` / `medium` / `large`，`appearance` 支持 `outline` / `underline` / `filled-darker` / `filled-lighter`。
-- **弹出列表（`Listbox`）**：底色 `colorNeutralBackground1`，圆角 `borderRadiusMedium`，阴影 `shadow16`，层级 `zIndexFloating`。
-- **选项（`Option`）**：圆角 `borderRadiusMedium`，字号 `fontSizeBase300` / 行高 `lineHeightBase300`，选中项带勾选图标。
-- **键盘交互**：上下方向键移动活动项，`Enter` 选中，`Escape` 收起，点击外部收起。
-
-### SwatchPicker（色板单选）
-
-参照 `@fluentui/react-swatch-picker`（`SwatchPicker` 与 `ColorSwatch`）。
-
-- **结构**：容器 `role="radiogroup"`，单个色块 `role="radio"`，以 `aria-checked` 标识选中。
-- **尺寸（`size`）**：`extra-small`（`20×20px`）、`small`（`24×24px`）、`medium`（默认，`28×28px`）、`large`（`32×32px`）。
-- **形状（`shape`）**：`square`（默认，`borderRadiusNone`）、`rounded`（`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）。
-- **选中与悬停**：选中态使用双层内阴影 `inset 0 0 0 strokeWidthThicker colorBrandStroke1, inset 0 0 0 5px colorStrokeFocus1`（小尺寸缩减描边宽度），保证在深浅色块上都清晰可见。
-
----
-
-## 组合与反馈控件
 
 ### Dialog（对话框）
 

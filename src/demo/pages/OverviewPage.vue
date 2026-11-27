@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import {
   VfkButton,
   VfkCheckbox,
+  VfkColorSwatch,
+  VfkCombobox,
   VfkField,
   VfkInput,
   VfkMenu,
@@ -14,6 +16,7 @@ import {
   VfkRadioGroup,
   VfkSearchBox,
   VfkSelect,
+  VfkSwatchPicker,
   VfkSwitch,
   VfkTab,
   VfkTabList,
@@ -34,12 +37,14 @@ export type DemoPageId =
   | 'overview'
   | 'button'
   | 'checkbox'
+  | 'combobox'
   | 'field'
   | 'input'
   | 'menu'
   | 'radio'
   | 'search-box'
   | 'select'
+  | 'swatch-picker'
   | 'switch'
   | 'tabs'
   | 'toggle-button'
@@ -63,8 +68,10 @@ const activePresetId = computed<BrandPreset['id']>(() => {
 
 const miniToggle = ref(true)
 const miniInput = ref('')
+const miniCombobox = ref('vue')
 const miniSearch = ref('Fluent 2')
 const miniSelect = ref('prod')
+const miniSwatch = ref('#0f6cbd')
 const miniChecked = ref(true)
 const miniSwitch = ref(true)
 const miniRadio = ref('standard')
@@ -229,6 +236,30 @@ function scrollToSection(id: string) {
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
+              <VfkCombobox
+                v-model="miniCombobox"
+                :placeholder="messages.controls.combobox.placeholder"
+                style="width: 100%; max-width: 240px"
+              >
+                <VfkOption value="vue">{{ messages.controls.combobox.optVue }}</VfkOption>
+                <VfkOption value="vite">{{ messages.controls.combobox.optVite }}</VfkOption>
+                <VfkOption value="react">{{ messages.controls.combobox.optReact }}</VfkOption>
+              </VfkCombobox>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkCombobox</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.combobox.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'combobox')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
               <VfkField
                 :label="messages.controls.field.sampleLabel"
                 validation-state="success"
@@ -357,6 +388,31 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.select.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'select')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkSwatchPicker
+                v-model="miniSwatch"
+                shape="rounded"
+                :aria-label="messages.controls.swatchPicker.ariaLabel"
+              >
+                <VfkColorSwatch value="#d13438" :label="messages.controls.swatchPicker.colorRed" />
+                <VfkColorSwatch value="#107c10" :label="messages.controls.swatchPicker.colorGreen" />
+                <VfkColorSwatch value="#0f6cbd" :label="messages.controls.swatchPicker.colorBlue" />
+                <VfkColorSwatch value="#744da9" :label="messages.controls.swatchPicker.colorViolet" />
+              </VfkSwatchPicker>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkSwatchPicker</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.swatchPicker.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'swatch-picker')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

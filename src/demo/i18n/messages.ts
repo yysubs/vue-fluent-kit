@@ -65,7 +65,9 @@ export interface DemoMessages {
     navInputSub: string
     navSearchBoxSub: string
     navSelectSub: string
+    navSwatchPickerSub: string
     navCheckboxSub: string
+    navComboboxSub: string
     navSwitchSub: string
     navRadioSub: string
     navFieldSub: string
@@ -136,12 +138,14 @@ export interface DemoMessages {
       page?:
         | 'button'
         | 'checkbox'
+        | 'combobox'
         | 'field'
         | 'input'
         | 'menu'
         | 'radio'
         | 'search-box'
         | 'select'
+        | 'swatch-picker'
         | 'switch'
         | 'tabs'
         | 'toggle-button'
@@ -229,7 +233,9 @@ const zhCN: DemoMessages = {
     navInputSub: '输入框',
     navSearchBoxSub: '搜索框',
     navSelectSub: '下拉选择',
+    navSwatchPickerSub: '色板单选',
     navCheckboxSub: '复选框',
+    navComboboxSub: '可输入下拉框',
     navSwitchSub: '开关',
     navRadioSub: '单选组',
     navFieldSub: '表单字段',
@@ -309,7 +315,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '基础按钮、全套表单控件、树形控件、标签页与浮层菜单（11 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
+    roadmapSub: '基础按钮、全套表单与输入控件、色板单选、树形控件、标签页与浮层菜单（14 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -326,6 +332,13 @@ const zhCN: DemoMessages = {
         desc: '受控文本输入与下拉选择器，支持 v-model、前后缀与富内容选项',
         status: 'done',
         page: 'select',
+      },
+      {
+        name: 'VfkCombobox',
+        tag: '<fluent-dropdown type="combobox">',
+        desc: '可输入下拉框，支持实时前缀过滤、freeform 自定义输入与键盘导航',
+        status: 'done',
+        page: 'combobox',
       },
       {
         name: 'VfkSearchBox',
@@ -361,6 +374,13 @@ const zhCN: DemoMessages = {
         desc: '多级树形控件，支持 v-model 选中、分组展开收起与前后缀/右侧插槽（已用于左侧菜单）',
         status: 'done',
         page: 'tree',
+      },
+      {
+        name: 'VfkSwatchPicker',
+        tag: 'radiogroup / radio',
+        desc: '色板单选组件，支持 4 档尺寸、3 种形状、网格布局与 roving tabindex 方向键导航',
+        status: 'done',
+        page: 'swatch-picker',
       },
       {
         name: 'VfkTabList / VfkMenu',
@@ -506,7 +526,9 @@ const zhTW: DemoMessages = {
     navInputSub: '輸入框',
     navSearchBoxSub: '搜尋框',
     navSelectSub: '下拉選擇',
+    navSwatchPickerSub: '色板單選',
     navCheckboxSub: '核取方塊',
+    navComboboxSub: '可輸入下拉框',
     navSwitchSub: '開關',
     navRadioSub: '單選組',
     navFieldSub: '表單欄位',
@@ -586,7 +608,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '基礎按鈕、全套表單元件、樹狀元件、分頁列與浮層選單（11 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
+    roadmapSub: '基礎按鈕、全套表單與輸入元件、色板單選、樹狀元件、分頁列與浮層選單（14 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -603,6 +625,13 @@ const zhTW: DemoMessages = {
         desc: '受控文字輸入與下拉選擇器，支援 v-model、前後綴與富內容選項',
         status: 'done',
         page: 'select',
+      },
+      {
+        name: 'VfkCombobox',
+        tag: '<fluent-dropdown type="combobox">',
+        desc: '可輸入下拉框，支援即時前綴篩選、freeform 自訂輸入與鍵盤導覽',
+        status: 'done',
+        page: 'combobox',
       },
       {
         name: 'VfkSearchBox',
@@ -638,6 +667,13 @@ const zhTW: DemoMessages = {
         desc: '多層樹狀元件，支援 v-model 選取、分組展開收合與前後綴/右側插槽（已用於左側選單）',
         status: 'done',
         page: 'tree',
+      },
+      {
+        name: 'VfkSwatchPicker',
+        tag: 'radiogroup / radio',
+        desc: '色板單選元件，支援 4 檔尺寸、3 種形狀、格狀版面與 roving tabindex 方向鍵導覽',
+        status: 'done',
+        page: 'swatch-picker',
       },
       {
         name: 'VfkTabList / VfkMenu',
@@ -783,7 +819,9 @@ const enUS: DemoMessages = {
     navInputSub: 'Text Field',
     navSearchBoxSub: 'Search',
     navSelectSub: 'Dropdown',
+    navSwatchPickerSub: 'Color Swatch',
     navCheckboxSub: 'Tri-state',
+    navComboboxSub: 'Autocomplete',
     navSwitchSub: 'Toggle',
     navRadioSub: 'Single Choice',
     navFieldSub: 'Form Wrapper',
@@ -863,7 +901,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core buttons, the full form control set, Tree, Tabs, and Menu (11 component suites) are implemented; overlays and feedback controls follow on demand.',
+    roadmapSub: 'Core buttons, the full form and picker set, Tree, Tabs, and Menu (14 component suites) are implemented; overlays and feedback controls follow on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -915,6 +953,13 @@ const enUS: DemoMessages = {
         desc: 'Hierarchical tree with v-model selection, expand-only groups, and start/end/aside slots (used in this sidebar)',
         status: 'done',
         page: 'tree',
+      },
+      {
+        name: 'VfkSwatchPicker',
+        tag: 'radiogroup / radio',
+        desc: 'Single-select color swatch picker with 4 sizes, 3 shapes, grid layout, and roving tabindex navigation',
+        status: 'done',
+        page: 'swatch-picker',
       },
       {
         name: 'VfkTabList / VfkMenu',
