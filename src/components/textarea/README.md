@@ -16,7 +16,7 @@
   - `resize?: 'none' | 'both' | 'horizontal' | 'vertical'`（默认 `'none'`，用户可拖拽改变尺寸；禁用态自动失效）
   - `autoResize?: boolean`（默认 `false`，高度随内容变化，此时不要再给固定高度）
   - `block?: boolean`（默认 `false`，占满整行宽度，否则为 `18rem` 的默认宽度）
-  - `minHeight?: string`（最小高度，映射到 `--vfk-textarea-min-height`，经官方 `::part(control)` 生效）
+  - `minHeight?: string`（最小高度，映射到 `--vfk-textarea-min-height`，经官方 `::part(root)` 生效，边框与焦点高亮条会一起拉长）
   - `placeholder?: string`、`disabled?: boolean`、`readonly?: boolean`、`required?: boolean`、`name?: string`、`maxlength?: number`、`minlength?: number`
 - **Emits**：
   - `update:modelValue: [value: string]`

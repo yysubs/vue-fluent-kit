@@ -403,8 +403,8 @@ fluent-dialog[type='non-modal']::part(dialog) {
   margin: auto;
 }
 
-/* 多行文本框的高度由官方内部 --block-size 固定，通过公开 ::part(control) 暴露最小高度 */
-fluent-textarea::part(control) {
+/* 多行文本框的高度由官方内部 --block-size 固定在外框上，最小高度必须给 ::part(root) 才能带动边框与焦点高亮条 */
+fluent-textarea::part(root) {
   min-height: var(--vfk-textarea-min-height, auto);
 }
 

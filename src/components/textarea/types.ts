@@ -20,7 +20,7 @@ export interface VfkTextareaProps {
   autoResize?: boolean
   /** 占满整行宽度，否则使用默认 18rem 宽度 */
   block?: boolean
-  /** 最小高度，映射到 --vfk-textarea-min-height */
+  /** 最小高度，映射到 --vfk-textarea-min-height，经官方 ::part(root) 生效 */
   minHeight?: string
   /** 占位提示文字 */
   placeholder?: string
