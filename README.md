@@ -99,13 +99,14 @@ setTheme('system')
 | `@yysubs/vue-fluent-kit/theme` | `useTheme`、`setVfkTheme`、`applyBrandTokens`、`resetBrandTokens`、`VfkThemeProvider` |
 | `@yysubs/vue-fluent-kit/custom-elements` | `isFluentCustomElement`（供 Vite `compilerOptions.isCustomElement` 使用） |
 | `@yysubs/vue-fluent-kit/button` | `VfkButton` 及相关类型 |
-| `@yysubs/vue-fluent-kit/toggle-button` | `VfkToggleButton` 及相关类型 |
-| `@yysubs/vue-fluent-kit/input` | `VfkInput` 及相关类型 |
-| `@yysubs/vue-fluent-kit/select` | `VfkSelect`、`VfkOption` 及相关类型 |
 | `@yysubs/vue-fluent-kit/checkbox` | `VfkCheckbox` 及相关类型 |
-| `@yysubs/vue-fluent-kit/switch` | `VfkSwitch` 及相关类型 |
-| `@yysubs/vue-fluent-kit/radio` | `VfkRadioGroup`、`VfkRadio` 及相关类型 |
 | `@yysubs/vue-fluent-kit/field` | `VfkField` 及相关类型 |
+| `@yysubs/vue-fluent-kit/input` | `VfkInput` 及相关类型 |
+| `@yysubs/vue-fluent-kit/radio` | `VfkRadioGroup`、`VfkRadio` 及相关类型 |
+| `@yysubs/vue-fluent-kit/select` | `VfkSelect`、`VfkOption` 及相关类型 |
+| `@yysubs/vue-fluent-kit/switch` | `VfkSwitch` 及相关类型 |
+| `@yysubs/vue-fluent-kit/toggle-button` | `VfkToggleButton` 及相关类型 |
+| `@yysubs/vue-fluent-kit/tree` | `VfkTree`、`VfkTreeItem` 及相关类型 |
 
 ## 本地开发
 

@@ -23,13 +23,14 @@
 | 控件 | 底层自定义元素 | 子路径导出 | 规格文档 |
 | --- | --- | --- | --- |
 | `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` | [src/components/button/README.md](src/components/button/README.md) |
-| `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
-| `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
-| `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
-| `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
-| `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
 | `VfkField` | `<fluent-field>` | `@yysubs/vue-fluent-kit/field` | [src/components/field/README.md](src/components/field/README.md) |
+| `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
+| `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
+| `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
+| `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
+| `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
+| `VfkTree` / `VfkTreeItem` | `<fluent-tree>` / `<fluent-tree-item>` | `@yysubs/vue-fluent-kit/tree` | [src/components/tree/README.md](src/components/tree/README.md) |
 
 ---
 
@@ -217,7 +218,7 @@
 
 ## 其它官方组件与项目边界
 
-- **按需补充的官方组件**：`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Tree`（树）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
+- **按需补充的官方组件**：`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
 - **图表**：折线图等数据可视化在官方仓库独立于 `@fluentui/react-components`，位于 `@fluentui/react-charts`，配色取自 `colorPalette*` 与 `colorBrand*`，不混入基础控件包。
 - **不进控件库的应用层逻辑**：
   - 业务视图组件、页面级顶栏与固定吸顶计算、浏览器全屏 API 调用、隐藏文件框拖放上传层。

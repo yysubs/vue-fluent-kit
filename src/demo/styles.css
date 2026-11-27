@@ -94,15 +94,39 @@ body {
   padding: 0 var(--spacingHorizontalMNudge) var(--spacingVerticalL);
 }
 
-.demo-nav-group + .demo-nav-group {
-  margin-top: var(--spacingVerticalL);
+.demo-sidebar-tree {
+  display: block;
 }
 
-.demo-nav-group__label {
+.demo-sidebar-tree__group + .demo-sidebar-tree__group {
+  margin-top: var(--spacingVerticalS);
+}
+
+.demo-sidebar-tree__group::part(positioning-region) {
+  height: 28px;
+  padding-inline-end: var(--spacingHorizontalS);
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground4);
+}
+
+.demo-sidebar-tree__group::part(chevron) {
+  width: 20px;
+  height: 20px;
+  color: var(--colorNeutralForeground4);
+}
+
+.demo-sidebar-tree__group::part(items) {
+  padding-inline-start: var(--spacingHorizontalS);
+}
+
+.demo-sidebar-tree__group[expanded]::part(items) {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacingVerticalXS) var(--spacingHorizontalS);
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.demo-sidebar-tree__group-label {
   font-size: 11px;
   font-weight: var(--fontWeightBold);
   line-height: var(--lineHeightBase100);
@@ -118,70 +142,48 @@ body {
   color: var(--colorNeutralForeground4);
 }
 
-.demo-nav-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.demo-sidebar-tree__leaf::part(chevron) {
+  display: none;
 }
 
-.demo-nav-item {
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacingHorizontalS);
-  width: 100%;
-  min-height: 32px;
-  padding: 5px var(--spacingHorizontalS) 5px var(--spacingHorizontalMNudge);
-  border: none;
+.demo-sidebar-tree__leaf::part(positioning-region) {
+  height: 32px;
+  padding-inline: var(--spacingHorizontalS);
   border-radius: var(--borderRadiusMedium);
-  background: transparent;
-  color: var(--colorNeutralForeground2);
-  font-family: var(--fontFamilyBase);
   font-size: 13px;
-  font-weight: var(--fontWeightRegular);
   line-height: 18px;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    background var(--durationFaster) var(--curveEasyEase),
-    color var(--durationFaster) var(--curveEasyEase);
+  color: var(--colorNeutralForeground2);
 }
 
-.demo-nav-item:hover {
-  background: var(--colorSubtleBackgroundHover);
+.demo-sidebar-tree__leaf::part(content) {
+  gap: var(--spacingHorizontalS);
+  min-width: 0;
+}
+
+.demo-sidebar-tree__leaf::part(positioning-region):hover {
+  background-color: var(--colorSubtleBackgroundHover);
   color: var(--colorNeutralForeground1);
 }
 
-.demo-nav-item:active {
-  background: var(--colorSubtleBackgroundPressed);
-}
-
-.demo-nav-item:focus-visible {
-  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
-  outline-offset: -2px;
-}
-
-.demo-nav-item--active {
-  background: var(--colorBrandBackground2);
+.demo-sidebar-tree__leaf[selected]::part(positioning-region) {
+  background-color: var(--colorBrandBackground2);
   color: var(--colorBrandForeground2);
   font-weight: var(--fontWeightSemibold);
 }
 
-.demo-nav-item--active:hover {
-  background: var(--colorBrandBackground2Hover);
+.demo-sidebar-tree__leaf[selected]::part(positioning-region):hover {
+  background-color: var(--colorBrandBackground2Hover);
   color: var(--colorBrandForeground2);
 }
 
-.demo-nav-item__main {
-  display: flex;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-  min-width: 0;
+.demo-sidebar-tree__leaf[selected]::part(content) {
+  color: var(--colorBrandForeground2);
+}
+
+.demo-sidebar-tree__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .demo-nav-item__icon {
@@ -194,7 +196,7 @@ body {
   flex-shrink: 0;
 }
 
-.demo-nav-item--active .demo-nav-item__icon {
+.demo-sidebar-tree__leaf[selected] .demo-nav-item__icon {
   color: var(--colorBrandForeground1);
 }
 
@@ -203,11 +205,12 @@ body {
   color: var(--colorNeutralForeground4);
   font-weight: var(--fontWeightRegular);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
-.demo-nav-item--active .demo-nav-item__sub {
+.demo-sidebar-tree__leaf[selected] .demo-nav-item__sub {
   color: var(--colorBrandForeground2);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .demo-nav-empty {

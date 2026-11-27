@@ -70,6 +70,7 @@ export interface DemoMessages {
     navSwitchSub: string
     navRadioSub: string
     navFieldSub: string
+    navTreeSub: string
     navTokensTitle: string
     navTokensSub: string
   }
@@ -131,7 +132,7 @@ export interface DemoMessages {
       tag: string
       desc: string
       status: 'done' | 'planned'
-      page?: 'button' | 'toggle-button' | 'input' | 'select' | 'checkbox' | 'switch' | 'radio' | 'field'
+      page?: 'button' | 'checkbox' | 'field' | 'input' | 'radio' | 'select' | 'switch' | 'toggle-button' | 'tree'
     }[]
   }
   tokens: {
@@ -220,6 +221,7 @@ const zhCN: DemoMessages = {
     navSwitchSub: '开关',
     navRadioSub: '单选组',
     navFieldSub: '表单字段',
+    navTreeSub: '树形控件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
   },
@@ -293,7 +295,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '基础按钮与全套表单控件（8 组组件）已完成，后续按需扩充导航、浮层与反馈控件。',
+    roadmapSub: '基础按钮、全套表单控件与树形控件（9 组组件）已完成，后续按需扩充其余导航、浮层与反馈控件。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -331,6 +333,13 @@ const zhCN: DemoMessages = {
         desc: '表单字段容器，统一承载标签、控件、校验反馈图标与提示文字',
         status: 'done',
         page: 'field',
+      },
+      {
+        name: 'VfkTree / VfkTreeItem',
+        tag: '<fluent-tree>',
+        desc: '多级树形控件，支持 v-model 选中、分组展开收起与前后缀/右侧插槽（已用于左侧菜单）',
+        status: 'done',
+        page: 'tree',
       },
       {
         name: '导航与浮层控件',
@@ -474,6 +483,7 @@ const zhTW: DemoMessages = {
     navSwitchSub: '開關',
     navRadioSub: '單選組',
     navFieldSub: '表單欄位',
+    navTreeSub: '樹狀元件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
   },
@@ -547,7 +557,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '基礎按鈕與全套表單元件（8 組元件）已完成，後續按需擴充導覽、浮層與回饋元件。',
+    roadmapSub: '基礎按鈕、全套表單元件與樹狀元件（9 組元件）已完成，後續按需擴充其餘導覽、浮層與回饋元件。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -585,6 +595,13 @@ const zhTW: DemoMessages = {
         desc: '表單欄位容器，統一承載標籤、元件、校驗回饋圖示與提示文字',
         status: 'done',
         page: 'field',
+      },
+      {
+        name: 'VfkTree / VfkTreeItem',
+        tag: '<fluent-tree>',
+        desc: '多層樹狀元件，支援 v-model 選取、分組展開收合與前後綴/右側插槽（已用於左側選單）',
+        status: 'done',
+        page: 'tree',
       },
       {
         name: '導覽與浮層元件',
@@ -728,6 +745,7 @@ const enUS: DemoMessages = {
     navSwitchSub: 'Toggle',
     navRadioSub: 'Single Choice',
     navFieldSub: 'Form Wrapper',
+    navTreeSub: 'Hierarchy',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
   },
@@ -801,7 +819,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core buttons and the full form control set (8 component suites) are implemented; navigation, overlays, and feedback controls follow on demand.',
+    roadmapSub: 'Core buttons, the full form control set, and Tree (9 component suites) are implemented; overlays and feedback controls follow on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -839,6 +857,13 @@ const enUS: DemoMessages = {
         desc: 'Form field wrapper pairing label, control, validation status icon/message, and hint',
         status: 'done',
         page: 'field',
+      },
+      {
+        name: 'VfkTree / VfkTreeItem',
+        tag: '<fluent-tree>',
+        desc: 'Hierarchical tree with v-model selection, expand-only groups, and start/end/aside slots (used in this sidebar)',
+        status: 'done',
+        page: 'tree',
       },
       {
         name: 'Navigation & Overlays',

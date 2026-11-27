@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { useTheme, version, type ThemeMode } from '../index'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { useTheme, version, VfkTree, VfkTreeItem, type ThemeMode } from '../index'
 import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
@@ -16,6 +16,7 @@ import SelectPage from './pages/SelectPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
+import TreePage from './pages/TreePage.vue'
 
 interface NavItem {
   id: DemoPageId
@@ -50,13 +51,22 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
   },
   {
-    id: 'toggle-button',
-    title: 'ToggleButton',
-    sub: messages.value.shell.navToggleButtonSub,
+    id: 'checkbox',
+    title: 'Checkbox',
+    sub: messages.value.shell.navCheckboxSub,
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
-    icon: 'toggle',
-    keywords: 'toggle button vfktogglebutton fluent-toggle-button pressed mixed 切换按钮 切換按鈕 按压 按壓',
+    icon: 'checkbox',
+    keywords: 'checkbox vfkcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
+  },
+  {
+    id: 'field',
+    title: 'Field',
+    sub: messages.value.shell.navFieldSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'field',
+    keywords: 'field vfkfield fluent-field form label validation hint 表单字段 表單欄位 校验 校驗 提示',
   },
   {
     id: 'input',
@@ -68,6 +78,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'input vfkinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
   },
   {
+    id: 'radio',
+    title: 'RadioGroup',
+    sub: messages.value.shell.navRadioSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'radio',
+    keywords: 'radio radiogroup vfkradio vfkradiogroup fluent-radio-group 单选 單選 单选组 單選組',
+  },
+  {
     id: 'select',
     title: 'Select',
     sub: messages.value.shell.navSelectSub,
@@ -75,15 +94,6 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupComponents,
     icon: 'select',
     keywords: 'select option dropdown vfkselect vfkoption fluent-dropdown 下拉 选择器 選擇器 选项 選項',
-  },
-  {
-    id: 'checkbox',
-    title: 'Checkbox',
-    sub: messages.value.shell.navCheckboxSub,
-    groupKey: 'components',
-    groupLabel: messages.value.shell.groupComponents,
-    icon: 'checkbox',
-    keywords: 'checkbox vfkcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
   },
   {
     id: 'switch',
@@ -95,22 +105,22 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'switch vfkswitch fluent-switch toggle 开关 開關 切换 切換',
   },
   {
-    id: 'radio',
-    title: 'RadioGroup',
-    sub: messages.value.shell.navRadioSub,
+    id: 'toggle-button',
+    title: 'ToggleButton',
+    sub: messages.value.shell.navToggleButtonSub,
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
-    icon: 'radio',
-    keywords: 'radio radiogroup vfkradio vfkradiogroup fluent-radio-group 单选 單選 单选组 單選組',
+    icon: 'toggle',
+    keywords: 'toggle button vfktogglebutton fluent-toggle-button pressed mixed 切换按钮 切換按鈕 按压 按壓',
   },
   {
-    id: 'field',
-    title: 'Field',
-    sub: messages.value.shell.navFieldSub,
+    id: 'tree',
+    title: 'Tree',
+    sub: messages.value.shell.navTreeSub,
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
-    icon: 'field',
-    keywords: 'field vfkfield fluent-field form label validation hint 表单字段 表單欄位 校验 校驗 提示',
+    icon: 'tree',
+    keywords: 'tree treeitem vfktree vfktreeitem fluent-tree hierarchy 树 樹 树形 樹狀 菜单 選單 目录 目錄',
   },
   {
     id: 'tokens',
@@ -127,13 +137,14 @@ const navItems = computed<NavItem[]>(() => [
 const validPageIds = new Set<DemoPageId>([
   'overview',
   'button',
-  'toggle-button',
-  'input',
-  'select',
   'checkbox',
-  'switch',
-  'radio',
   'field',
+  'input',
+  'radio',
+  'select',
+  'switch',
+  'toggle-button',
+  'tree',
   'tokens',
 ])
 
@@ -145,6 +156,11 @@ function parseHashPage(): DemoPageId {
 const currentPage = ref<DemoPageId>(parseHashPage())
 const searchQuery = ref('')
 const sidebarOpen = ref(false)
+const groupExpanded = reactive<Record<NavItem['groupKey'], boolean>>({
+  overview: true,
+  components: true,
+  designSystem: true,
+})
 
 const themeOptions = computed<{ value: ThemeMode; label: string; icon: DemoIconName }[]>(() => [
   { value: 'light', label: messages.value.common.themeLight, icon: 'sun' },
@@ -187,6 +203,18 @@ function navigate(page: DemoPageId) {
     window.history.replaceState(null, '', `#${page}`)
   }
   window.scrollTo({ top: 0, behavior: 'auto' })
+}
+
+function handleNavSelect(value: string) {
+  if (validPageIds.has(value as DemoPageId)) {
+    navigate(value as DemoPageId)
+  }
+}
+
+function handleGroupToggle(groupKey: NavItem['groupKey'], expanded: boolean) {
+  if (!searchQuery.value.trim()) {
+    groupExpanded[groupKey] = expanded
+  }
 }
 
 function handleHashChange() {
@@ -261,33 +289,49 @@ onUnmounted(() => {
       </div>
 
       <nav class="demo-sidebar__nav">
-        <div v-for="group in navGroups" :key="group.key" class="demo-nav-group">
-          <div class="demo-nav-group__label">
-            <span>{{ group.name }}</span>
-            <span class="demo-nav-group__count">{{ group.items.length }}</span>
-          </div>
-          <ul class="demo-nav-list">
-            <li v-for="item in group.items" :key="item.id">
-              <button
-                type="button"
-                class="demo-nav-item"
-                :class="{ 'demo-nav-item--active': currentPage === item.id }"
-                :aria-current="currentPage === item.id ? 'page' : undefined"
-                @click="navigate(item.id)"
-              >
-                <span class="demo-nav-item__main">
-                  <span class="demo-nav-item__icon">
-                    <DemoIcons :name="item.icon" :size="15" />
-                  </span>
-                  <span>{{ item.title }}</span>
-                </span>
-                <span v-if="item.sub" class="demo-nav-item__sub">{{ item.sub }}</span>
-              </button>
-            </li>
-          </ul>
-        </div>
+        <VfkTree
+          v-if="navGroups.length > 0"
+          class="demo-sidebar-tree"
+          :model-value="currentPage"
+          size="medium"
+          @update:model-value="handleNavSelect"
+        >
+          <VfkTreeItem
+            v-for="group in navGroups"
+            :key="group.key"
+            class="demo-sidebar-tree__group"
+            :value="`group:${group.key}`"
+            :selectable="false"
+            :expanded="groupExpanded[group.key] || Boolean(searchQuery.trim())"
+            @update:expanded="handleGroupToggle(group.key, $event)"
+          >
+            <span class="demo-sidebar-tree__group-label">{{ group.name }}</span>
+            <template #aside>
+              <span class="demo-nav-group__count">{{ group.items.length }}</span>
+            </template>
 
-        <p v-if="navGroups.length === 0" class="demo-nav-empty">
+            <VfkTreeItem
+              v-for="item in group.items"
+              :key="item.id"
+              class="demo-sidebar-tree__leaf"
+              :value="item.id"
+              :aria-current="currentPage === item.id ? 'page' : undefined"
+              @click="sidebarOpen = false"
+            >
+              <template #start>
+                <span class="demo-nav-item__icon">
+                  <DemoIcons :name="item.icon" :size="15" />
+                </span>
+              </template>
+              <span class="demo-sidebar-tree__title">{{ item.title }}</span>
+              <template v-if="item.sub" #aside>
+                <span class="demo-nav-item__sub">{{ item.sub }}</span>
+              </template>
+            </VfkTreeItem>
+          </VfkTreeItem>
+        </VfkTree>
+
+        <p v-else class="demo-nav-empty">
           {{ messages.shell.emptySearchPrefix }}{{ searchQuery }}{{ messages.shell.emptySearchSuffix }}
         </p>
       </nav>
@@ -370,13 +414,14 @@ onUnmounted(() => {
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
         <ButtonPage v-else-if="currentPage === 'button'" />
-        <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
-        <InputPage v-else-if="currentPage === 'input'" />
-        <SelectPage v-else-if="currentPage === 'select'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
-        <SwitchPage v-else-if="currentPage === 'switch'" />
-        <RadioPage v-else-if="currentPage === 'radio'" />
         <FieldPage v-else-if="currentPage === 'field'" />
+        <InputPage v-else-if="currentPage === 'input'" />
+        <RadioPage v-else-if="currentPage === 'radio'" />
+        <SelectPage v-else-if="currentPage === 'select'" />
+        <SwitchPage v-else-if="currentPage === 'switch'" />
+        <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
+        <TreePage v-else-if="currentPage === 'tree'" />
         <TokensPage v-else />
       </main>
     </div>

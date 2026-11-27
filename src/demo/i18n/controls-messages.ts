@@ -235,6 +235,43 @@ export interface DemoControlsMessages {
     apiHint: string
     apiSlots: string
   }
+  tree: {
+    desc: string
+    secSlots: string
+    secNavigation: string
+    currentValue: string
+    lastToggle: string
+    noneSelected: string
+    groupDocs: string
+    groupGuides: string
+    groupComponents: string
+    nodeOverview: string
+    nodeTheming: string
+    nodeTokens: string
+    nodeButton: string
+    nodeInput: string
+    nodeTree: string
+    cardSlotsTitle: string
+    cardSlotsDesc: string
+    cardNavTitle: string
+    cardNavDesc: string
+    navGroupMain: string
+    navGroupSettings: string
+    navItemDashboard: string
+    navItemAnalytics: string
+    navItemProfile: string
+    navItemSecurity: string
+    navActionHint: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiUpdate: string
+    apiChange: string
+    apiToggle: string
+    apiItemProps: string
+    apiSlots: string
+  }
 }
 
 export const controlsZhCN: DemoControlsMessages = {
@@ -473,6 +510,43 @@ export const controlsZhCN: DemoControlsMessages = {
     apiValidationMessage: '校验反馈文案',
     apiHint: '辅助提示文案',
     apiSlots: '控件区、自定义标签、校验消息与辅助提示插槽',
+  },
+  tree: {
+    desc: '薄封装官方 <fluent-tree> 与 <fluent-tree-item>，支持多级嵌套、v-model 选中同步、分组仅展开收起、前后缀与右侧插槽，以及方向键焦点管理。',
+    secSlots: '图标、徽标与右侧插槽',
+    secNavigation: '侧栏分组导航模式',
+    currentValue: '当前选中',
+    lastToggle: '最近展开切换',
+    noneSelected: '（未选中）',
+    groupDocs: '项目文档',
+    groupGuides: '使用指南',
+    groupComponents: '常用组件',
+    nodeOverview: '快速开始',
+    nodeTheming: '主题与品牌色',
+    nodeTokens: 'Design Tokens',
+    nodeButton: 'Button 按钮',
+    nodeInput: 'Input 输入框',
+    nodeTree: 'Tree 树形控件',
+    cardSlotsTitle: 'start / end / aside 插槽组合',
+    cardSlotsDesc: '通过 start 放图标、end 放标签、aside 放右侧计数或操作按钮；点击 aside 内按钮不会误触折叠或选中。',
+    cardNavTitle: '非可选分组节点（:selectable="false"）',
+    cardNavDesc: '点击分组行仅展开或收起子项，不抢占当前选中的页面节点，适合侧边导航菜单。',
+    navGroupMain: '工作台',
+    navGroupSettings: '系统设置',
+    navItemDashboard: '总览面板',
+    navItemAnalytics: '数据统计',
+    navItemProfile: '个人资料',
+    navItemSecurity: '安全与权限',
+    navActionHint: '点击分组仅折叠，点击子项更新选中',
+    catalogDesc: '多级树形视图，支持 v-model 选中、分组展开与图标/右侧插槽',
+    apiModelValue: '当前选中节点的 value，与 VfkTreeItem 的 value 对应',
+    apiAppearance: '树节点外观变体，统一下发给所有子节点',
+    apiSize: '树节点尺寸（small / medium），统一下发给所有子节点',
+    apiUpdate: '选中节点切换时触发，用于 v-model',
+    apiChange: '选中节点切换时触发，附带原生事件对象',
+    apiToggle: '任意子节点展开或收起时触发，返回 { value, expanded }',
+    apiItemProps: '子节点支持 value、label、expanded、selected、selectable、appearance、size',
+    apiSlots: '默认插槽（文案或嵌套子节点）、items、start、end、aside、chevron',
   },
 }
 
@@ -713,6 +787,43 @@ export const controlsZhTW: DemoControlsMessages = {
     apiHint: '輔助提示文案',
     apiSlots: '元件區、自訂標籤、校驗訊息與輔助提示插槽',
   },
+  tree: {
+    desc: '薄封裝官方 <fluent-tree> 與 <fluent-tree-item>，支援多層巢狀、v-model 選取同步、分組僅展開收合、前後綴與右側插槽，以及方向鍵焦點管理。',
+    secSlots: '圖示、徽標與右側插槽',
+    secNavigation: '側欄分組導覽模式',
+    currentValue: '目前選取',
+    lastToggle: '最近展開切換',
+    noneSelected: '（未選取）',
+    groupDocs: '專案文件',
+    groupGuides: '使用指南',
+    groupComponents: '常用元件',
+    nodeOverview: '快速開始',
+    nodeTheming: '主題與品牌色',
+    nodeTokens: 'Design Tokens',
+    nodeButton: 'Button 按鈕',
+    nodeInput: 'Input 輸入框',
+    nodeTree: 'Tree 樹狀元件',
+    cardSlotsTitle: 'start / end / aside 插槽組合',
+    cardSlotsDesc: '透過 start 放圖示、end 放標籤、aside 放右側計數或操作按鈕；點擊 aside 內按鈕不會誤觸收合或選取。',
+    cardNavTitle: '非可選分組節點（:selectable="false"）',
+    cardNavDesc: '點擊分組列僅展開或收合子項，不搶佔目前選取的頁面節點，適合側邊導覽選單。',
+    navGroupMain: '工作台',
+    navGroupSettings: '系統設定',
+    navItemDashboard: '總覽面板',
+    navItemAnalytics: '資料統計',
+    navItemProfile: '個人資料',
+    navItemSecurity: '安全與權限',
+    navActionHint: '點擊分組僅收合，點擊子項更新選取',
+    catalogDesc: '多層樹狀檢視，支援 v-model 選取、分組展開與圖示/右側插槽',
+    apiModelValue: '目前選取節點的 value，與 VfkTreeItem 的 value 對應',
+    apiAppearance: '樹節點外觀變體，統一下發給所有子節點',
+    apiSize: '樹節點尺寸（small / medium），統一下發給所有子節點',
+    apiUpdate: '選取節點切換時觸發，用於 v-model',
+    apiChange: '選取節點切換時觸發，附帶原生事件物件',
+    apiToggle: '任意子節點展開或收合時觸發，回傳 { value, expanded }',
+    apiItemProps: '子節點支援 value、label、expanded、selected、selectable、appearance、size',
+    apiSlots: '預設插槽（文案或巢狀子節點）、items、start、end、aside、chevron',
+  },
 }
 
 export const controlsEnUS: DemoControlsMessages = {
@@ -951,5 +1062,42 @@ export const controlsEnUS: DemoControlsMessages = {
     apiValidationMessage: 'Validation feedback text',
     apiHint: 'Helper hint text',
     apiSlots: 'Default control, custom label, validation message, and hint slots',
+  },
+  tree: {
+    desc: 'Thin Vue wrapper over official <fluent-tree> and <fluent-tree-item> supporting multi-level nesting, v-model selection, expand-only groups, start/end/aside slots, and keyboard navigation.',
+    secSlots: 'Icons, Badges & Aside Slots',
+    secNavigation: 'Sidebar Navigation Mode',
+    currentValue: 'Selected value',
+    lastToggle: 'Last toggle',
+    noneSelected: '(none)',
+    groupDocs: 'Documentation',
+    groupGuides: 'Guides',
+    groupComponents: 'Components',
+    nodeOverview: 'Quick Start',
+    nodeTheming: 'Theming & Brand',
+    nodeTokens: 'Design Tokens',
+    nodeButton: 'Button',
+    nodeInput: 'Input',
+    nodeTree: 'Tree',
+    cardSlotsTitle: 'start / end / aside Slots',
+    cardSlotsDesc: 'Place icons in #start, tags in #end, and counts or action buttons in #aside; interactive buttons inside #aside do not toggle or select the row.',
+    cardNavTitle: 'Non-selectable Group Nodes (:selectable="false")',
+    cardNavDesc: 'Clicking a group row only expands or collapses its children without stealing selection from the active page item.',
+    navGroupMain: 'Workspace',
+    navGroupSettings: 'Settings',
+    navItemDashboard: 'Dashboard',
+    navItemAnalytics: 'Analytics',
+    navItemProfile: 'Profile',
+    navItemSecurity: 'Security',
+    navActionHint: 'Groups toggle only; leaf items update selection',
+    catalogDesc: 'Hierarchical tree view with v-model selection, expand-only groups & slots',
+    apiModelValue: 'Selected tree item value bound via v-model',
+    apiAppearance: 'Visual variant propagated to all child tree items',
+    apiSize: 'Row density (small / medium) propagated to all child tree items',
+    apiUpdate: 'Emitted when the selected item changes for v-model',
+    apiChange: 'Emitted on selection change with native event',
+    apiToggle: 'Emitted when any item expands or collapses with { value, expanded }',
+    apiItemProps: 'Item props: value, label, expanded, selected, selectable, appearance, size',
+    apiSlots: 'Default (label or nested items), items, start, end, aside, and chevron slots',
   },
 }

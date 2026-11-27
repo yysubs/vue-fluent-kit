@@ -9,6 +9,9 @@ export type DemoIconName =
   | 'switch'
   | 'radio'
   | 'field'
+  | 'tree'
+  | 'folder'
+  | 'file'
   | 'palette'
   | 'sun'
   | 'moon'
@@ -88,6 +91,28 @@ withDefaults(
       <path d="M3.5 4.75h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
       <rect x="3.5" y="7.5" width="13" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5" />
       <path d="M3.5 16h9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'tree'">
+      <path d="M4.5 4.5v11M4.5 7.5h4M4.5 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      <rect x="8.5" y="5.5" width="7" height="4" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+      <rect x="8.5" y="11" width="7" height="4" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+    </template>
+    <template v-else-if="name === 'folder'">
+      <path
+        d="M3 6a1.75 1.75 0 0 1 1.75-1.75h3.1c.46 0 .9.19 1.22.52l.95.98h5.23A1.75 1.75 0 0 1 17 7.5v6.75A1.75 1.75 0 0 1 15.25 16H4.75A1.75 1.75 0 0 1 3 14.25V6Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+    </template>
+    <template v-else-if="name === 'file'">
+      <path
+        d="M5.25 3.25h6.1l3.4 3.4v10.1a1.25 1.25 0 0 1-1.25 1.25H5.25A1.25 1.25 0 0 1 4 16.75V4.5a1.25 1.25 0 0 1 1.25-1.25Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+      <path d="M11.25 3.5v3.25h3.25" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
     </template>
     <template v-else-if="name === 'palette'">
       <path
