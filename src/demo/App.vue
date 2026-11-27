@@ -356,25 +356,36 @@ const navGroups = computed(() => {
 /** 只展开指定分组，同级的其他分组自动收起 */
 function expandGroupOnly(target: NavItem['groupKey']) {
   for (const key of Object.keys(groupExpanded) as NavItem['groupKey'][]) {
-    groupExpanded[key] = key === target
+    groupExpanded[key] = false
   }
+  groupExpanded[target] = true
 }
 
-/** 只展开指定文件夹，其他文件夹自动收起 */
+/** 只展开指定文件夹，其他文件夹自动收起；首次展开时需要显式写入键 */
 function expandFolderOnly(target: string) {
   for (const key of Object.keys(folderExpanded)) {
-    folderExpanded[key] = key === target
+    folderExpanded[key] = false
+  }
+  folderExpanded[target] = true
+}
+
+/** 收起全部文件夹 */
+function collapseFolders() {
+  for (const key of Object.keys(folderExpanded)) {
+    folderExpanded[key] = false
   }
 }
 
-/** 跳到某个页面时展开它所在的分组与文件夹，保证当前条目可见 */
+/** 跳到某个页面时展开它所在的分组与文件夹，保证当前条目可见；跳到平级叶子项时收起所有文件夹 */
 function ensureGroupVisible(page: DemoPageId) {
   const matched = navItems.value.find((item) => item.id === page)
   if (!matched) return
   expandGroupOnly(matched.groupKey)
   if (matched.folderKey) {
     expandFolderOnly(matched.folderKey)
+    return
   }
+  collapseFolders()
 }
 
 function navigate(page: DemoPageId) {

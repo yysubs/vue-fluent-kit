@@ -149,16 +149,17 @@ body {
 
 .demo-sidebar-tree__folder::part(positioning-region) {
   height: 32px;
-  padding-inline-end: var(--spacingHorizontalS);
+  padding-inline: var(--spacingHorizontalS);
   border-radius: var(--borderRadiusMedium);
   font-size: 13px;
   line-height: 18px;
   color: var(--colorNeutralForeground2);
 }
 
+/* 文件夹行的箭头占位与叶子行图标同为 16px，保证同级的箭头、图标与文字列对齐 */
 .demo-sidebar-tree__folder::part(chevron) {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   color: var(--colorNeutralForeground3);
 }
 
