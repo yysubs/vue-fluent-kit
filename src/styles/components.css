@@ -390,6 +390,39 @@ fluent-toggle-button:is(:disabled, [disabled], [disabled-focusable]) {
   pointer-events: none;
 }
 
+/* 官方面板宽度固定为 600px，通过公开 ::part(dialog) 暴露可覆盖的最大宽度 */
+fluent-dialog::part(dialog) {
+  max-width: var(--vfk-dialog-max-width, 600px);
+}
+
+/* 官方非模态对话框使用文档流绝对定位并铺满首屏高度，打开时聚焦会直接把页面滚回顶部；
+   改为固定定位并按内容高度居中在视口内，滚动位置保持不变 */
+fluent-dialog[type='non-modal']::part(dialog) {
+  position: fixed;
+  height: fit-content;
+  margin: auto;
+}
+
+.vfk-dialog-body__title,
+.vfk-drawer-body__title {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.vfk-dialog-body__title-action,
+.vfk-dialog-body__close,
+.vfk-drawer-body__close {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 让插槽内容直接参与官方 .actions / .footer 的弹性布局，避免多包一层影响对齐 */
+.vfk-dialog-body__actions,
+.vfk-drawer-body__footer {
+  display: contents;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vfk-color-swatch {
     transition-duration: 0.01ms;

@@ -1835,3 +1835,21 @@ body {
     transition-duration: 0.01ms;
   }
 }
+
+/* 内嵌抽屉演示舞台：限定高度与裁切边界，便于观察 inline 类型的文档流行为 */
+.demo-drawer-inline-stage {
+  display: flex;
+  height: 260px;
+  overflow: hidden;
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+  background: var(--colorNeutralBackground2);
+}
+
+.demo-drawer-inline-stage__content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}

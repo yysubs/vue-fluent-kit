@@ -58,6 +58,14 @@
       "types": "./dist/components/combobox/index.d.ts",
       "import": "./dist/combobox.js"
     },
+    "./dialog": {
+      "types": "./dist/components/dialog/index.d.ts",
+      "import": "./dist/dialog.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/drawer/index.d.ts",
+      "import": "./dist/drawer.js"
+    },
     "./field": {
       "types": "./dist/components/field/index.d.ts",
       "import": "./dist/field.js"
@@ -111,6 +119,8 @@
     "./dist/button*.js",
     "./dist/checkbox*.js",
     "./dist/combobox*.js",
+    "./dist/dialog*.js",
+    "./dist/drawer*.js",
     "./dist/field*.js",
     "./dist/input*.js",
     "./dist/VfkInput*.js",

@@ -41,6 +41,24 @@ export {
 } from './components/combobox'
 
 export {
+  VfkDialog,
+  VfkDialogBody,
+  type DialogType,
+  type VfkDialogBodyProps,
+  type VfkDialogProps,
+} from './components/dialog'
+
+export {
+  VfkDrawer,
+  VfkDrawerBody,
+  type DrawerPosition,
+  type DrawerSize,
+  type DrawerType,
+  type VfkDrawerBodyProps,
+  type VfkDrawerProps,
+} from './components/drawer'
+
+export {
   VfkField,
   type FieldOrientation,
   type FieldSize,

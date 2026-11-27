@@ -30,6 +30,8 @@ export default defineConfig({
         button: fileURLToPath(new URL('./src/components/button/index.ts', import.meta.url)),
         checkbox: fileURLToPath(new URL('./src/components/checkbox/index.ts', import.meta.url)),
         combobox: fileURLToPath(new URL('./src/components/combobox/index.ts', import.meta.url)),
+        dialog: fileURLToPath(new URL('./src/components/dialog/index.ts', import.meta.url)),
+        drawer: fileURLToPath(new URL('./src/components/drawer/index.ts', import.meta.url)),
         field: fileURLToPath(new URL('./src/components/field/index.ts', import.meta.url)),
         input: fileURLToPath(new URL('./src/components/input/index.ts', import.meta.url)),
         menu: fileURLToPath(new URL('./src/components/menu/index.ts', import.meta.url)),

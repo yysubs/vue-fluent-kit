@@ -68,6 +68,8 @@ export interface DemoMessages {
     navSwatchPickerSub: string
     navCheckboxSub: string
     navComboboxSub: string
+    navDialogSub: string
+    navDrawerSub: string
     navSwitchSub: string
     navRadioSub: string
     navFieldSub: string
@@ -139,6 +141,8 @@ export interface DemoMessages {
         | 'button'
         | 'checkbox'
         | 'combobox'
+        | 'dialog'
+        | 'drawer'
         | 'field'
         | 'input'
         | 'menu'
@@ -236,6 +240,8 @@ const zhCN: DemoMessages = {
     navSwatchPickerSub: '色板单选',
     navCheckboxSub: '复选框',
     navComboboxSub: '可输入下拉框',
+    navDialogSub: '对话框',
+    navDrawerSub: '抽屉',
     navSwitchSub: '开关',
     navRadioSub: '单选组',
     navFieldSub: '表单字段',
@@ -315,7 +321,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '基础按钮、全套表单与输入控件、色板单选、树形控件、标签页与浮层菜单（14 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
+    roadmapSub: '基础按钮、全套表单与输入控件、色板单选、树形控件、标签页与浮层菜单、对话框与抽屉（16 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -390,9 +396,16 @@ const zhCN: DemoMessages = {
         page: 'tabs',
       },
       {
+        name: 'VfkDialog / VfkDrawer',
+        tag: '<fluent-dialog>',
+        desc: '模态、非模态与警报对话框，以及左右滑出的抽屉，基于原生 <dialog> 提供焦点陷阱与 Escape 关闭',
+        status: 'done',
+        page: 'dialog',
+      },
+      {
         name: '浮层与反馈控件',
         tag: '<fluent-*>',
-        desc: 'Dialog、Drawer、Tooltip、Badge、ProgressBar 按需逐步扩充',
+        desc: 'Tooltip、Badge、ProgressBar、MessageBar 按需逐步扩充',
         status: 'planned',
       },
     ],
@@ -529,6 +542,8 @@ const zhTW: DemoMessages = {
     navSwatchPickerSub: '色板單選',
     navCheckboxSub: '核取方塊',
     navComboboxSub: '可輸入下拉框',
+    navDialogSub: '對話方塊',
+    navDrawerSub: '抽屜',
     navSwitchSub: '開關',
     navRadioSub: '單選組',
     navFieldSub: '表單欄位',
@@ -608,7 +623,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '基礎按鈕、全套表單與輸入元件、色板單選、樹狀元件、分頁列與浮層選單（14 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
+    roadmapSub: '基礎按鈕、全套表單與輸入元件、色板單選、樹狀元件、分頁列與浮層選單、對話方塊與抽屜（16 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -683,9 +698,16 @@ const zhTW: DemoMessages = {
         page: 'tabs',
       },
       {
+        name: 'VfkDialog / VfkDrawer',
+        tag: '<fluent-dialog>',
+        desc: '模態、非模態與警報對話方塊，以及左右滑出的抽屜，基於原生 <dialog> 提供焦點陷阱與 Escape 關閉',
+        status: 'done',
+        page: 'dialog',
+      },
+      {
         name: '浮層與回饋元件',
         tag: '<fluent-*>',
-        desc: 'Dialog、Drawer、Tooltip、Badge、ProgressBar 按需逐步擴充',
+        desc: 'Tooltip、Badge、ProgressBar、MessageBar 按需逐步擴充',
         status: 'planned',
       },
     ],
@@ -822,6 +844,8 @@ const enUS: DemoMessages = {
     navSwatchPickerSub: 'Color Swatch',
     navCheckboxSub: 'Tri-state',
     navComboboxSub: 'Autocomplete',
+    navDialogSub: 'Modal',
+    navDrawerSub: 'Side Panel',
     navSwitchSub: 'Toggle',
     navRadioSub: 'Single Choice',
     navFieldSub: 'Form Wrapper',
@@ -901,7 +925,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core buttons, the full form and picker set, Tree, Tabs, and Menu (14 component suites) are implemented; overlays and feedback controls follow on demand.',
+    roadmapSub: 'Core buttons, the full form and picker set, Tree, Tabs, Menu, Dialog, and Drawer (16 component suites) are implemented; overlays and feedback controls follow on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -969,9 +993,16 @@ const enUS: DemoMessages = {
         page: 'tabs',
       },
       {
+        name: 'VfkDialog / VfkDrawer',
+        tag: '<fluent-dialog>',
+        desc: 'Modal, non-modal, and alert dialogs plus start/end drawers, with native <dialog> focus trapping and Escape dismissal',
+        status: 'done',
+        page: 'dialog',
+      },
+      {
         name: 'Overlays & Feedback',
         tag: '<fluent-*>',
-        desc: 'Dialog, Drawer, Tooltip, Badge, ProgressBar added incrementally on demand',
+        desc: 'Tooltip, Badge, ProgressBar, MessageBar added incrementally on demand',
         status: 'planned',
       },
     ],

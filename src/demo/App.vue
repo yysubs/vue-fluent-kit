@@ -9,6 +9,8 @@ import { useDemoI18n } from './i18n'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import ComboboxPage from './pages/ComboboxPage.vue'
+import DialogPage from './pages/DialogPage.vue'
+import DrawerPage from './pages/DrawerPage.vue'
 import FieldPage from './pages/FieldPage.vue'
 import InputPage from './pages/InputPage.vue'
 import MenuPage from './pages/MenuPage.vue'
@@ -101,6 +103,26 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupComponents,
     icon: 'select',
     keywords: 'combobox vfkcombobox fluent-dropdown autocomplete filter freeform 可输入下拉框 可輸入下拉框 自动完成 自動完成 筛选 篩選',
+  },
+  {
+    id: 'dialog',
+    title: 'Dialog',
+    sub: messages.value.shell.navDialogSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'dialog',
+    keywords:
+      'dialog modal alert non-modal vfkdialog fluent-dialog overlay backdrop 对话框 對話方塊 模态 模態 弹窗 彈窗',
+  },
+  {
+    id: 'drawer',
+    title: 'Drawer',
+    sub: messages.value.shell.navDrawerSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'drawer',
+    keywords:
+      'drawer inline vfkdrawer fluent-drawer side panel sheet 抽屉 抽屜 侧栏 側欄 滑出',
   },
   {
     id: 'field',
@@ -209,6 +231,8 @@ const validPageIds = new Set<DemoPageId>([
   'button',
   'checkbox',
   'combobox',
+  'dialog',
+  'drawer',
   'field',
   'input',
   'menu',
@@ -560,6 +584,8 @@ onUnmounted(() => {
         <ButtonPage v-else-if="currentPage === 'button'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <ComboboxPage v-else-if="currentPage === 'combobox'" />
+        <DialogPage v-else-if="currentPage === 'dialog'" />
+        <DrawerPage v-else-if="currentPage === 'drawer'" />
         <FieldPage v-else-if="currentPage === 'field'" />
         <InputPage v-else-if="currentPage === 'input'" />
         <MenuPage v-else-if="currentPage === 'menu'" />

@@ -421,6 +421,65 @@ export interface DemoControlsMessages {
     apiChange: string
     apiTabProps: string
   }
+  dialog: {
+    desc: string
+    catalogDesc: string
+    secTypes: string
+    secBody: string
+    sampleTitle: string
+    sampleBody: string
+    confirm: string
+    cancel: string
+    btnModal: string
+    btnAlert: string
+    btnNonModal: string
+    bodyTitle: string
+    bodyDesc: string
+    stateLabel: string
+    stateOpen: string
+    stateClosed: string
+    cardTypesTitle: string
+    cardTypesDesc: string
+    cardBodyTitle: string
+    cardBodyDesc: string
+    apiModelValue: string
+    apiType: string
+    apiAria: string
+    apiMaxWidth: string
+    apiUpdate: string
+    apiOpenChange: string
+    apiSlots: string
+    apiBody: string
+  }
+  drawer: {
+    desc: string
+    catalogDesc: string
+    secTypes: string
+    secPosition: string
+    sampleTitle: string
+    sampleBody: string
+    footerApply: string
+    btnModal: string
+    btnNonModal: string
+    btnInline: string
+    btnEnd: string
+    stateLabel: string
+    stateOpen: string
+    stateClosed: string
+    cardTypesTitle: string
+    cardTypesDesc: string
+    cardPositionTitle: string
+    cardPositionDesc: string
+    apiModelValue: string
+    apiType: string
+    apiPositionSize: string
+    apiWidth: string
+    apiAria: string
+    apiUpdate: string
+    apiOpenChange: string
+    apiSlots: string
+    apiBody: string
+  }
   menu: {
     desc: string
     secCheckRadio: string
@@ -881,6 +940,65 @@ export const controlsZhCN: DemoControlsMessages = {
     apiUpdate: '选中标签变化时触发，用于 v-model',
     apiChange: '选中标签变化时触发，附带原生事件对象',
     apiTabProps: 'VfkTab 支持 value、label、disabled、id 以及 default / start / end 插槽',
+  },
+  dialog: {
+    catalogDesc: '原生 <dialog> 模态、非模态与警报三种模式，标题自动关联',
+    desc: '薄封装官方 <fluent-dialog> 与 <fluent-dialog-body>，基于原生 <dialog> 提供模态、非模态与警报三种模式，内置焦点陷阱、Escape 关闭、标题自动关联与底部操作区。',
+    secTypes: '三种模态类型',
+    secBody: '标题区、操作区与面板宽度',
+    sampleTitle: '发布新版本',
+    sampleBody: '确认后将同步更新文档站点与 npm 包。',
+    confirm: '确认发布',
+    cancel: '取消',
+    btnModal: '打开模态对话框',
+    btnAlert: '打开警报对话框',
+    btnNonModal: '打开非模态对话框',
+    bodyTitle: '自定义面板宽度与标题操作',
+    bodyDesc: '通过 maxWidth 覆盖官方默认的 600px，标题右侧可放附加操作。',
+    stateLabel: '当前状态',
+    stateOpen: '已打开',
+    stateClosed: '已关闭',
+    cardTypesTitle: 'modal / alert / non-modal',
+    cardTypesDesc: 'modal 点击遮罩即可关闭，alert 必须显式确认，non-modal 不带遮罩也不锁背景焦点。',
+    cardBodyTitle: '标题操作区与自定义宽度',
+    cardBodyDesc: '底部 #action 区在窄容器下自动纵向排列，宽容器下右对齐横排。',
+    apiModelValue: '打开状态，用于 v-model 双向绑定',
+    apiType: '模态类型（modal / non-modal / alert）',
+    apiAria: 'ariaLabel、ariaLabelledby 与 ariaDescribedby，未传时自动关联内部标题',
+    apiMaxWidth: '面板最大宽度，默认沿用官方 600px',
+    apiUpdate: '打开状态变化时同步更新 v-model',
+    apiOpenChange: '打开状态变化时触发，附带原生事件对象',
+    apiSlots: '默认插槽：对话框内容（放置 VfkDialogBody）',
+    apiBody: 'VfkDialogBody 支持 title、closable、closeLabel 以及 title / title-action / close / action / default 插槽',
+  },
+  drawer: {
+    catalogDesc: '模态、非模态与内嵌三种抽屉，左右滑出与四档预设宽度',
+    desc: '薄封装官方 <fluent-drawer> 与 <fluent-drawer-body>，支持 modal / non-modal / inline 三种类型、左右两侧滑出、四档预设宽度与自定义宽度。',
+    secTypes: '三种呈现类型',
+    secPosition: '位置、尺寸与底部操作区',
+    sampleTitle: '筛选条件',
+    sampleBody: '按年份、画质与字幕语言组合筛选剧集。',
+    footerApply: '应用筛选',
+    btnModal: '从左侧滑出',
+    btnNonModal: '无遮罩浮层',
+    btnInline: '内嵌抽屉',
+    btnEnd: '从右侧滑出',
+    stateLabel: '当前状态',
+    stateOpen: '已打开',
+    stateClosed: '已关闭',
+    cardTypesTitle: 'modal / non-modal / inline',
+    cardTypesDesc: 'modal 带遮罩与焦点陷阱，non-modal 不锁背景焦点，inline 直接排入文档流。',
+    cardPositionTitle: 'position="end" 与自定义宽度',
+    cardPositionDesc: '右侧滑出时可配合 width 覆盖预设宽度，底部 #footer 固定操作按钮。',
+    apiModelValue: '打开状态，用于 v-model 双向绑定',
+    apiType: '呈现类型（modal / non-modal / inline）',
+    apiPositionSize: '滑出位置（start / end）与预设宽度（small / medium / large / full）',
+    apiWidth: '自定义宽度，优先于 size',
+    apiAria: 'ariaLabelledby 与 ariaDescribedby，未传时自动关联内部标题',
+    apiUpdate: '打开状态变化时同步更新 v-model',
+    apiOpenChange: '打开状态变化时触发，附带原生事件对象',
+    apiSlots: '默认插槽：抽屉内容（放置 VfkDrawerBody）',
+    apiBody: 'VfkDrawerBody 支持 title、closable、closeLabel 以及 title / close / footer / default 插槽',
   },
   menu: {
     desc: '薄封装官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 与 <fluent-menu-item>，支持原生 Popover 浮层、拆分按钮、多选/单选菜单项、多级子菜单与右键菜单。',
@@ -1343,6 +1461,65 @@ export const controlsZhTW: DemoControlsMessages = {
     apiChange: '選取分頁變化時觸發，附帶原生事件物件',
     apiTabProps: 'VfkTab 支援 value、label、disabled、id 以及 default / start / end 插槽',
   },
+  dialog: {
+    catalogDesc: '原生 <dialog> 模態、非模態與警報三種模式，標題自動關聯',
+    desc: '薄封裝官方 <fluent-dialog> 與 <fluent-dialog-body>，基於原生 <dialog> 提供模態、非模態與警報三種模式，內建焦點陷阱、Escape 關閉、標題自動關聯與底部操作區。',
+    secTypes: '三種模態類型',
+    secBody: '標題區、操作區與面板寬度',
+    sampleTitle: '發佈新版本',
+    sampleBody: '確認後將同步更新文件網站與 npm 套件。',
+    confirm: '確認發佈',
+    cancel: '取消',
+    btnModal: '開啟模態對話方塊',
+    btnAlert: '開啟警報對話方塊',
+    btnNonModal: '開啟非模態對話方塊',
+    bodyTitle: '自訂面板寬度與標題操作',
+    bodyDesc: '透過 maxWidth 覆寫官方預設的 600px，標題右側可放置附加操作。',
+    stateLabel: '目前狀態',
+    stateOpen: '已開啟',
+    stateClosed: '已關閉',
+    cardTypesTitle: 'modal / alert / non-modal',
+    cardTypesDesc: 'modal 點擊遮罩即可關閉，alert 必須明確確認，non-modal 不帶遮罩也不鎖背景焦點。',
+    cardBodyTitle: '標題操作區與自訂寬度',
+    cardBodyDesc: '底部 #action 區在窄容器下自動縱向排列，寬容器下靠右橫排。',
+    apiModelValue: '開啟狀態，用於 v-model 雙向綁定',
+    apiType: '模態類型（modal / non-modal / alert）',
+    apiAria: 'ariaLabel、ariaLabelledby 與 ariaDescribedby，未傳時自動關聯內部標題',
+    apiMaxWidth: '面板最大寬度，預設沿用官方 600px',
+    apiUpdate: '開啟狀態變化時同步更新 v-model',
+    apiOpenChange: '開啟狀態變化時觸發，附帶原生事件物件',
+    apiSlots: '預設插槽：對話方塊內容（放置 VfkDialogBody）',
+    apiBody: 'VfkDialogBody 支援 title、closable、closeLabel 以及 title / title-action / close / action / default 插槽',
+  },
+  drawer: {
+    catalogDesc: '模態、非模態與內嵌三種抽屜，左右滑出與四段預設寬度',
+    desc: '薄封裝官方 <fluent-drawer> 與 <fluent-drawer-body>，支援 modal / non-modal / inline 三種類型、左右兩側滑出、四段預設寬度與自訂寬度。',
+    secTypes: '三種呈現類型',
+    secPosition: '位置、尺寸與底部操作區',
+    sampleTitle: '篩選條件',
+    sampleBody: '依年份、畫質與字幕語言組合篩選劇集。',
+    footerApply: '套用篩選',
+    btnModal: '從左側滑出',
+    btnNonModal: '無遮罩浮層',
+    btnInline: '內嵌抽屜',
+    btnEnd: '從右側滑出',
+    stateLabel: '目前狀態',
+    stateOpen: '已開啟',
+    stateClosed: '已關閉',
+    cardTypesTitle: 'modal / non-modal / inline',
+    cardTypesDesc: 'modal 帶遮罩與焦點陷阱，non-modal 不鎖背景焦點，inline 直接排入文件流。',
+    cardPositionTitle: 'position="end" 與自訂寬度',
+    cardPositionDesc: '右側滑出時可搭配 width 覆寫預設寬度，底部 #footer 固定操作按鈕。',
+    apiModelValue: '開啟狀態，用於 v-model 雙向綁定',
+    apiType: '呈現類型（modal / non-modal / inline）',
+    apiPositionSize: '滑出位置（start / end）與預設寬度（small / medium / large / full）',
+    apiWidth: '自訂寬度，優先於 size',
+    apiAria: 'ariaLabelledby 與 ariaDescribedby，未傳時自動關聯內部標題',
+    apiUpdate: '開啟狀態變化時同步更新 v-model',
+    apiOpenChange: '開啟狀態變化時觸發，附帶原生事件物件',
+    apiSlots: '預設插槽：抽屜內容（放置 VfkDrawerBody）',
+    apiBody: 'VfkDrawerBody 支援 title、closable、closeLabel 以及 title / close / footer / default 插槽',
+  },
   menu: {
     desc: '薄封裝官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 與 <fluent-menu-item>，支援原生 Popover 浮層、拆分按鈕、多選/單選選單項、多層子選單與右鍵選單。',
     secCheckRadio: '核取與單選選單項',
@@ -1803,6 +1980,65 @@ export const controlsEnUS: DemoControlsMessages = {
     apiUpdate: 'Emitted when the active tab changes for v-model',
     apiChange: 'Emitted on tab change with native event',
     apiTabProps: 'VfkTab supports value, label, disabled, id and default / start / end slots',
+  },
+  dialog: {
+    catalogDesc: 'Native <dialog> with modal, non-modal, and alert modes plus automatic title association',
+    desc: 'Thin Vue wrapper over official <fluent-dialog> and <fluent-dialog-body>, built on the native <dialog> element with modal, non-modal, and alert modes, focus trapping, Escape dismissal, automatic title association, and a footer action area.',
+    secTypes: 'Three Modal Types',
+    secBody: 'Title, Actions & Panel Width',
+    sampleTitle: 'Publish a new release',
+    sampleBody: 'Confirming will update the docs site and the npm package.',
+    confirm: 'Publish',
+    cancel: 'Cancel',
+    btnModal: 'Open modal dialog',
+    btnAlert: 'Open alert dialog',
+    btnNonModal: 'Open non-modal dialog',
+    bodyTitle: 'Custom panel width & title action',
+    bodyDesc: 'Use maxWidth to override the official 600px panel width; extra actions can sit next to the title.',
+    stateLabel: 'State',
+    stateOpen: 'Open',
+    stateClosed: 'Closed',
+    cardTypesTitle: 'modal / alert / non-modal',
+    cardTypesDesc: 'modal closes on backdrop click, alert requires explicit confirmation, and non-modal has no backdrop and keeps background focus free.',
+    cardBodyTitle: 'Title actions & custom width',
+    cardBodyDesc: 'The #action footer stacks vertically in narrow containers and right-aligns in wide ones.',
+    apiModelValue: 'Open state for v-model two-way binding',
+    apiType: 'Modal type (modal / non-modal / alert)',
+    apiAria: 'ariaLabel, ariaLabelledby and ariaDescribedby; falls back to the inner title automatically',
+    apiMaxWidth: 'Panel max width, defaults to the official 600px',
+    apiUpdate: 'Emitted when the open state changes for v-model',
+    apiOpenChange: 'Emitted on open-state change with the native event',
+    apiSlots: 'Default slot: dialog content (place VfkDialogBody)',
+    apiBody: 'VfkDialogBody supports title, closable, closeLabel and title / title-action / close / action / default slots',
+  },
+  drawer: {
+    catalogDesc: 'Modal, non-modal, and inline panels with start/end placement and four preset widths',
+    desc: 'Thin Vue wrapper over official <fluent-drawer> and <fluent-drawer-body> supporting modal / non-modal / inline types, start or end placement, four preset widths, and custom widths.',
+    secTypes: 'Three Drawer Types',
+    secPosition: 'Placement, Size & Footer Actions',
+    sampleTitle: 'Filters',
+    sampleBody: 'Filter episodes by year, resolution, and subtitle language.',
+    footerApply: 'Apply filters',
+    btnModal: 'Slide in from start',
+    btnNonModal: 'Floating without backdrop',
+    btnInline: 'Inline drawer',
+    btnEnd: 'Slide in from end',
+    stateLabel: 'State',
+    stateOpen: 'Open',
+    stateClosed: 'Closed',
+    cardTypesTitle: 'modal / non-modal / inline',
+    cardTypesDesc: 'modal has a backdrop and focus trap, non-modal keeps background focus free, and inline flows with the document.',
+    cardPositionTitle: 'position="end" with a custom width',
+    cardPositionDesc: 'Combine end placement with width to override the preset, with fixed actions in the #footer slot.',
+    apiModelValue: 'Open state for v-model two-way binding',
+    apiType: 'Presentation type (modal / non-modal / inline)',
+    apiPositionSize: 'Placement (start / end) and preset width (small / medium / large / full)',
+    apiWidth: 'Custom width, takes precedence over size',
+    apiAria: 'ariaLabelledby and ariaDescribedby; falls back to the inner title automatically',
+    apiUpdate: 'Emitted when the open state changes for v-model',
+    apiOpenChange: 'Emitted on open-state change with the native event',
+    apiSlots: 'Default slot: drawer content (place VfkDrawerBody)',
+    apiBody: 'VfkDrawerBody supports title, closable, closeLabel and title / close / footer / default slots',
   },
   menu: {
     desc: 'Thin Vue wrapper over official <fluent-menu>, <fluent-menu-button>, <fluent-menu-list>, and <fluent-menu-item> supporting native Popover menus, split buttons, checkbox/radio items, submenus, and context menus.',
