@@ -304,12 +304,34 @@ function selectBrand(preset: BrandPreset) {
             v-for="item in messages.overview.roadmapItems"
             :key="item.name"
             class="demo-roadmap-card"
+            :class="{ 'demo-roadmap-card--done': item.status === 'done' }"
           >
             <div class="demo-roadmap-card__top">
               <span class="demo-catalog-card__title">{{ item.name }}</span>
-              <code class="demo-inline-code">{{ item.tag }}</code>
+              <span
+                class="demo-tag"
+                :class="item.status === 'done' ? 'demo-tag--success' : undefined"
+              >
+                {{
+                  item.status === 'done'
+                    ? messages.overview.roadmapStatusDone
+                    : messages.overview.roadmapStatusPlanned
+                }}
+              </span>
             </div>
             <p class="demo-catalog-card__desc">{{ item.desc }}</p>
+            <div class="demo-roadmap-card__foot">
+              <code class="demo-inline-code">{{ item.tag }}</code>
+              <VfkButton
+                v-if="item.page"
+                appearance="subtle"
+                size="small"
+                @click="emit('navigate', item.page)"
+              >
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
           </article>
         </div>
       </section>

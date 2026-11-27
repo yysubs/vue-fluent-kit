@@ -1,16 +1,26 @@
 # 设计 token 契约
 
-本库的 token 直接采用 Fluent UI v9 的设计 token，来源是官方仓库的 `@fluentui/tokens`（1.0.0-alpha.24）。token 名、分层、刻度和取值都以 `webLightTheme` / `webDarkTheme` 为准，两套主题各 459 个 token。
+本库的 Design Tokens 采用 Fluent 2 官方规范，来源为 `@fluentui/tokens`（当前运行时依赖 `1.0.0-alpha.25`）。基础语义变量表由 `webLightTheme` / `webDarkTheme` 生成，两套主题各 459 个 token。
 
-库是纯 CSS，token 以 CSS 变量输出，变量名就是官方 token 名前面加 `--`，不加库前缀。CSS 类名仍用 `vfk-` 前缀。
+所有官方 token 以 CSS 自定义属性输出，变量名就是官方 token 名前面加 `--`，不加库前缀；本库新增的材质与品牌扩展变量使用 `--vfk*` 前缀，外层样式类统一使用 `vfk-` 前缀。CSS 变量天然穿透 `@fluentui/web-components` 的 Shadow DOM，因此修改任意作用域的 CSS 变量都会同步作用于对应的 Fluent 2 控件。
+
+## 样式分层与构建产物
+
+`src/styles/index.css` 按以下四层组织，库构建时由 `scripts/copy-style.mjs` 按顺序合并输出到 `dist/style.css`（对应导出 `@yysubs/vue-fluent-kit/style.css`）：
+
+1. `src/styles/tokens.css`：Fluent 2 浅色/深色 459 项官方变量与层级变量（不手改）。
+2. `src/styles/brand.css`：品牌字体与圆角覆写入口（`--vfkBrandFontFamily`、`--vfkBrandRadiusMedium`）。
+3. `src/styles/surfaces.css`：Acrylic（亚克力）与 Mica（云母）材质变量及工具类。
+4. `src/styles/components.css`：薄封装组件的外层 Light DOM 轻量布局样式（不穿透 Shadow DOM）。
 
 ## 命名
 
-token 分三类：
+token 分四类：
 
 - 全局 token：圆角、间距、字号、行高、字重、字体、描边宽度、时长、曲线、阴影。名字是刻度或用途，例如 `borderRadiusMedium`、`spacingHorizontalM`、`fontSizeBase300`、`durationNormal`。
 - 语义颜色 token：`colorNeutral*`、`colorBrand*`、`colorStatus*`、`colorPalette*`。名字由「类别 + 用途 + 层级 + 状态」组成，例如 `colorNeutralBackground2Hover`、`colorBrandBackgroundPressed`、`colorStatusDangerBorder1`。
 - 层级 token：`zIndex*`，带默认值，不放进主题。
+- 扩展 token：`--vfkBrand*` 与 `--vfkSurface*`，用于品牌入口和 Acrylic / Mica 材质定制。
 
 颜色 token 有固定的层级和状态后缀：
 
@@ -19,9 +29,9 @@ token 分三类：
 - 状态色 success / warning / danger 各有 `Background1–3`、`Foreground1–3`、`ForegroundInverted`、`Border1/2/Active`；danger 的实心背景另有 `Background3Hover` / `Background3Pressed`。
 - 调色板 token 是 35 种共享颜色的深浅名，给图表、头像、标签这类需要固定色相的地方用，不表达语义。
 
-## 主题
+## 主题与运行时控制
 
-官方把主题当成一张完整的 token 表，`webLightTheme` 和 `webDarkTheme` 各 459 项，由 `createLightTheme()` / `createDarkTheme()` 生成。本库按这个模型输出两套值：
+`tokens.css` 静态输出两套主题变量，通过 `data-vfk-theme` 属性切换：
 
 ```css
 :root,
@@ -36,15 +46,48 @@ token 分三类：
 }
 ```
 
-默认是浅色。项目要用深色，在 `html` 或任意容器上写 `data-vfk-theme="dark"`；属性会往下继承，也能嵌套，深色区域里再放 `data-vfk-theme="light"` 就回到浅色。
+默认是浅色。项目要用深色，在 `html` 或任意容器上设置 `data-vfk-theme="dark"`；属性会往下继承，也能嵌套，深色区域里再放 `data-vfk-theme="light"` 就回到浅色。
 
-官方由 `FluentProvider` 在运行时把主题写成 CSS 变量，并明确说变量名算内部实现，组件只用 `tokens` 对象取值。本库没有运行时，两套主题只能写成静态 CSS，变量名就是公开接口。这是和官方在结构上的主要差异：官方换主题换一张 token 表，本库换主题换一个属性，变量名和 token 集合都不变。
+运行时主题与品牌色控制由 `src/theme/` 提供（支持根入口或子路径 `@yysubs/vue-fluent-kit/theme` 导入）：
+
+- `useTheme()`：全局响应式主题控制器，支持 `'light' | 'dark' | 'system'` 三种模式，自动监听系统配色变化并同步到 `document.documentElement`。
+- `setVfkTheme(mode, target?)`：设置全局或指定 DOM 节点的 `data-vfk-theme`。
+- `VfkThemeProvider`：局部主题与品牌色容器组件，支持 `theme`（`'light' | 'dark'`）、`brand`（`BrandVariants`）与 `as`（默认 `'div'`）。
+- `applyBrandTokens(brand, resolved?, target?)` / `resetBrandTokens(target?)`：调用 `@fluentui/tokens` 的 `createLightTheme(brand)` / `createDarkTheme(brand)` 生成整套品牌色变量（名称含 `Brand` 的 token）并写入节点行内样式，清除时恢复默认主题色。
 
 覆盖方式：
 
-- 单个 token 在任意作用域重写，例如只给某个面板换底色。
-- 换品牌色时按官方 `createLightTheme(brand)` / `createDarkTheme(brand)` 的规则生成整套品牌 token 再替换。只改 `colorBrandBackground` 会对不上 Hover/Pressed 和前景、描边。
-- 高对比度跟官方一样依赖 `forced-colors`，不单独出高对比度主题。
+- 单个 token 可在任意作用域重写，例如只给某个面板换底色。
+- 换品牌色时使用 `applyBrandTokens(brand)` 或按 `createLightTheme(brand)` / `createDarkTheme(brand)` 成套替换，避免只改 `colorBrandBackground` 导致 Hover/Pressed、前景与描边不匹配。
+- 高对比度依赖系统 `@media (forced-colors: active)`，不单独出高对比度主题。
+
+## 品牌与材质扩展变量
+
+### 品牌覆写入口（`brand.css`）
+
+| CSS 变量 | 默认值 | 说明 |
+| --- | --- | --- |
+| `--vfkBrandFontFamily` | `var(--fontFamilyBase)` | 品牌默认字体入口 |
+| `--vfkBrandRadiusMedium` | `var(--borderRadiusMedium)` | 品牌默认中等圆角入口 |
+
+### Acrylic 与 Mica 材质（`surfaces.css`）
+
+| CSS 变量 | Light | Dark | 说明 |
+| --- | --- | --- | --- |
+| `--vfkSurfaceAcrylicBg` | `rgba(252, 252, 252, 0.78)` | `rgba(36, 36, 36, 0.76)` | 亚克力半透明填充色 |
+| `--vfkSurfaceAcrylicBgFallback` | `var(--colorNeutralBackground1)` | `var(--colorNeutralBackground2)` | 不支持模糊或减少透明时的回退底色 |
+| `--vfkSurfaceAcrylicBlur` | `24px` | `24px` | 亚克力背景模糊半径 |
+| `--vfkSurfaceAcrylicSaturate` | `1.4` | `1.3` | 亚克力背景饱和度增强系数 |
+| `--vfkSurfaceAcrylicBorder` | `rgba(0, 0, 0, 0.08)` | `rgba(255, 255, 255, 0.08)` | 亚克力高光描边色 |
+| `--vfkSurfaceMicaBg` | 品牌微染色渐变 + `colorNeutralBackground2` | 品牌微染色渐变 + `colorNeutralBackground2` | 云母主画布背景 |
+| `--vfkSurfaceMicaCardBg` | `rgba(255, 255, 255, 0.76)` | `rgba(41, 41, 41, 0.74)` | 云母表面上的半透明卡片背景 |
+| `--vfkSurfaceMicaBorder` | `var(--colorNeutralStroke2)` | `var(--colorNeutralStroke2)` | 云母卡片边框色 |
+
+配套样式类：
+
+- `.vfk-surface-acrylic`：应用亚克力背景、高光边框和 `backdrop-filter`，在不支持 `backdrop-filter` 或开启 `prefers-reduced-transparency: reduce` 时自动回退为 `--vfkSurfaceAcrylicBgFallback`。
+- `.vfk-surface-mica`：应用云母低饱和品牌染色画布。
+- `.vfk-surface-mica-card`：应用云母卡片背景与边框；在 `prefers-reduced-transparency: reduce` 下回退为 `--colorNeutralBackground1`。
 
 ## 颜色
 

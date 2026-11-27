@@ -2,7 +2,107 @@
 
 基于官方 `@fluentui/web-components`（Fluent 2 规范）的 Vue 3 轻量二次封装组件库。采用薄封装策略，保留官方原生交互与无障碍实现，聚焦 Vue `v-model` 双向绑定、TypeScript 类型提示、默认属性统一与独立 Design Tokens 主题层。
 
-## 开发
+- 在线预览：<https://vfk.yysubs.com>
+- 控件规格：[CONTROLS.md](CONTROLS.md)
+- 变量契约：[TOKENS.md](TOKENS.md)
+
+## 安装与接入
+
+要求 Vue `^3.5.0`。
+
+```bash
+pnpm add @yysubs/vue-fluent-kit
+```
+
+### 1. 配置 Vite 识别 Fluent 自定义元素
+
+在业务项目的 `vite.config.ts` 中使用 `isFluentCustomElement`，避免 Vue 编译器将 `<fluent-*>` 标签当作未注册组件发出警告：
+
+```ts
+import vue from '@vitejs/plugin-vue'
+import { isFluentCustomElement } from '@yysubs/vue-fluent-kit/custom-elements'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: isFluentCustomElement,
+        },
+      },
+    }),
+  ],
+})
+```
+
+### 2. 引入全局 Design Tokens 样式
+
+在应用入口（如 `src/main.ts`）引入合并后的主题与材质样式：
+
+```ts
+import '@yysubs/vue-fluent-kit/style.css'
+```
+
+### 3. 使用组件（支持根入口与子路径按需导入）
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+// 根入口导入
+import { VfkButton, VfkCheckbox, VfkInput } from '@yysubs/vue-fluent-kit'
+// 也可按需从子路径导入，仅注册用到的自定义元素：
+// import { VfkButton } from '@yysubs/vue-fluent-kit/button'
+// import { VfkInput } from '@yysubs/vue-fluent-kit/input'
+// import { VfkCheckbox } from '@yysubs/vue-fluent-kit/checkbox'
+
+const keyword = ref('')
+const agreed = ref(false)
+</script>
+
+<template>
+  <VfkInput v-model="keyword" placeholder="输入关键词" />
+  <VfkCheckbox v-model="agreed" label="同意条款" />
+  <VfkButton appearance="primary" :disabled="!agreed">提交</VfkButton>
+</template>
+```
+
+### 4. 主题、品牌色与材质表面
+
+```vue
+<script setup lang="ts">
+import { VfkThemeProvider, useTheme } from '@yysubs/vue-fluent-kit/theme'
+
+const { mode, resolvedTheme, setTheme, applyBrandTokens, resetBrandTokens } = useTheme()
+
+// 切换全局明暗模式：'light' | 'dark' | 'system'
+setTheme('system')
+
+// 按需应用自定义 16 级品牌色（BrandVariants），恢复默认可调用 resetBrandTokens()
+// applyBrandTokens(myBrandVariants)
+</script>
+
+<template>
+  <!-- 局部反色与 Mica/Acrylic 材质 -->
+  <VfkThemeProvider theme="dark" class="vfk-surface-mica">
+    <div class="vfk-surface-acrylic">局部深色亚克力区域</div>
+  </VfkThemeProvider>
+</template>
+```
+
+## 导出入口
+
+| 导出路径 | 说明 |
+| --- | --- |
+| `@yysubs/vue-fluent-kit` | 根入口，汇总版本、主题控制、`isFluentCustomElement` 与已封装组件 |
+| `@yysubs/vue-fluent-kit/style.css` | 合并后的 Design Tokens、品牌入口、Acrylic/Mica 材质与轻量组件样式 |
+| `@yysubs/vue-fluent-kit/theme` | `useTheme`、`setVfkTheme`、`applyBrandTokens`、`resetBrandTokens`、`VfkThemeProvider` |
+| `@yysubs/vue-fluent-kit/custom-elements` | `isFluentCustomElement`（供 Vite `compilerOptions.isCustomElement` 使用） |
+| `@yysubs/vue-fluent-kit/button` | `VfkButton` 及相关类型 |
+| `@yysubs/vue-fluent-kit/input` | `VfkInput` 及相关类型 |
+| `@yysubs/vue-fluent-kit/checkbox` | `VfkCheckbox` 及相关类型 |
+
+## 本地开发
 
 ```bash
 pnpm install
@@ -20,6 +120,7 @@ pnpm test       # 单元测试
   - `tokens.css`：由 `@fluentui/tokens` 生成的 Fluent 2 浅色/深色语义变量
   - `brand.css`：品牌色、圆角与字体覆写入口
   - `surfaces.css`：Acrylic（亚克力）与 Mica（云母）材质变量与工具类
+  - `components.css`：薄封装组件的外层轻量布局样式
 - `src/custom-elements.ts`：导出 `isFluentCustomElement`，用于 Vite `compilerOptions.isCustomElement`
 - `src/demo/`：开发与在线预览页面，不进入库构建
 
@@ -32,7 +133,8 @@ pnpm test       # 单元测试
 
 预览站点由 Cloudflare Workers 构建 `pnpm build:demo` 生成的 `dist-demo/` 产物部署，配置位于 `wrangler.jsonc` 和 `vite.demo.config.ts`。
 
-- 非 `master` 分支使用 `npx wrangler preview` 生成分支预览，`wrangler.jsonc` 保留 `"previews": {}` 配置块。
+- 生产预览：`https://vfk.yysubs.com`（对应 `master` 分支）。
+- 非 `master` 分支由 Cloudflare Workers 自动构建并生成分支预览，`wrangler.jsonc` 保留 `"previews": {}` 配置块。
 
 ## 许可
 

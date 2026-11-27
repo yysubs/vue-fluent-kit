@@ -586,6 +586,11 @@ body {
   color: var(--colorBrandForeground2);
 }
 
+.demo-tag--success {
+  background: var(--colorStatusSuccessBackground1);
+  color: var(--colorStatusSuccessForeground1);
+}
+
 .demo-page-header__desc {
   margin: var(--spacingVerticalM) 0 0;
   max-width: 68ch;
@@ -1710,12 +1715,26 @@ body {
   background: var(--colorNeutralBackground1);
 }
 
+.demo-roadmap-card--done {
+  border-color: var(--colorStatusSuccessBorder1);
+}
+
 .demo-roadmap-card__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacingHorizontalS);
   flex-wrap: wrap;
+}
+
+.demo-roadmap-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacingHorizontalS);
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: var(--spacingVerticalXS);
 }
 
 /* Responsive Breakpoints */
