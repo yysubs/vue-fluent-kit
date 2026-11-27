@@ -60,6 +60,7 @@ export interface DemoMessages {
     groupDesignSystem: string
     navOverviewTitle: string
     navOverviewSub: string
+    navBadgeSub: string
     navButtonSub: string
     navToggleButtonSub: string
     navInputSub: string
@@ -75,6 +76,8 @@ export interface DemoMessages {
     navFieldSub: string
     navMenuSub: string
     navTabsSub: string
+    navTextareaSub: string
+    navTooltipSub: string
     navTreeSub: string
     navTokensTitle: string
     navTokensSub: string
@@ -138,6 +141,7 @@ export interface DemoMessages {
       desc: string
       status: 'done' | 'planned'
       page?:
+        | 'badge'
         | 'button'
         | 'checkbox'
         | 'combobox'
@@ -152,7 +156,9 @@ export interface DemoMessages {
         | 'swatch-picker'
         | 'switch'
         | 'tabs'
+        | 'textarea'
         | 'toggle-button'
+        | 'tooltip'
         | 'tree'
     }[]
   }
@@ -232,6 +238,7 @@ const zhCN: DemoMessages = {
     groupDesignSystem: '设计系统',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概览',
+    navBadgeSub: '徽标',
     navButtonSub: '按钮',
     navToggleButtonSub: '切换按钮',
     navInputSub: '输入框',
@@ -247,6 +254,8 @@ const zhCN: DemoMessages = {
     navFieldSub: '表单字段',
     navMenuSub: '浮层菜单',
     navTabsSub: '标签页',
+    navTextareaSub: '多行文本',
+    navTooltipSub: '文字提示',
     navTreeSub: '树形控件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
@@ -321,7 +330,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '基础按钮、全套表单与输入控件、色板单选、树形控件、标签页与浮层菜单、对话框与抽屉（16 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
+    roadmapSub: '基础按钮、全套表单与输入控件、色板单选、树形控件、标签页与浮层菜单、对话框与抽屉、徽标、多行文本框与文字提示（19 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -403,9 +412,30 @@ const zhCN: DemoMessages = {
         page: 'dialog',
       },
       {
+        name: 'VfkBadge',
+        tag: '<fluent-badge>',
+        desc: '徽标控件，支持四种外观、八种语义颜色、六档尺寸与三种形状',
+        status: 'done',
+        page: 'badge',
+      },
+      {
+        name: 'VfkTextarea',
+        tag: '<fluent-textarea>',
+        desc: '多行文本框，支持受控 v-model、三种外观、拖拽缩放与随内容自动增高',
+        status: 'done',
+        page: 'textarea',
+      },
+      {
+        name: 'VfkTooltip',
+        tag: '<fluent-tooltip>',
+        desc: '文字提示，基于原生 Popover 与锚点定位，悬停或聚焦触发并自动关联 aria-describedby',
+        status: 'done',
+        page: 'tooltip',
+      },
+      {
         name: '浮层与反馈控件',
         tag: '<fluent-*>',
-        desc: 'Tooltip、Badge、ProgressBar、MessageBar 按需逐步扩充',
+        desc: 'MessageBar、ProgressBar 按需逐步扩充',
         status: 'planned',
       },
     ],
@@ -534,6 +564,7 @@ const zhTW: DemoMessages = {
     groupDesignSystem: '設計系統',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概覽',
+    navBadgeSub: '徽章',
     navButtonSub: '按鈕',
     navToggleButtonSub: '切換按鈕',
     navInputSub: '輸入框',
@@ -549,6 +580,8 @@ const zhTW: DemoMessages = {
     navFieldSub: '表單欄位',
     navMenuSub: '浮層選單',
     navTabsSub: '分頁列',
+    navTextareaSub: '多行文字',
+    navTooltipSub: '文字提示',
     navTreeSub: '樹狀元件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
@@ -623,7 +656,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '基礎按鈕、全套表單與輸入元件、色板單選、樹狀元件、分頁列與浮層選單、對話方塊與抽屜（16 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
+    roadmapSub: '基礎按鈕、全套表單與輸入元件、色板單選、樹狀元件、分頁列與浮層選單、對話方塊與抽屜、徽章、多行文字框與文字提示（19 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -705,9 +738,30 @@ const zhTW: DemoMessages = {
         page: 'dialog',
       },
       {
+        name: 'VfkBadge',
+        tag: '<fluent-badge>',
+        desc: '徽章元件，支援四種外觀、八種語意顏色、六段尺寸與三種形狀',
+        status: 'done',
+        page: 'badge',
+      },
+      {
+        name: 'VfkTextarea',
+        tag: '<fluent-textarea>',
+        desc: '多行文字框，支援受控 v-model、三種外觀、拖曳縮放與隨內容自動增高',
+        status: 'done',
+        page: 'textarea',
+      },
+      {
+        name: 'VfkTooltip',
+        tag: '<fluent-tooltip>',
+        desc: '文字提示，基於原生 Popover 與錨點定位，懸停或聚焦觸發並自動關聯 aria-describedby',
+        status: 'done',
+        page: 'tooltip',
+      },
+      {
         name: '浮層與回饋元件',
         tag: '<fluent-*>',
-        desc: 'Tooltip、Badge、ProgressBar、MessageBar 按需逐步擴充',
+        desc: 'MessageBar、ProgressBar 按需逐步擴充',
         status: 'planned',
       },
     ],
@@ -836,6 +890,7 @@ const enUS: DemoMessages = {
     groupDesignSystem: 'Design System',
     navOverviewTitle: 'Introduction',
     navOverviewSub: 'Start',
+    navBadgeSub: 'Label',
     navButtonSub: 'Action',
     navToggleButtonSub: 'Toggle',
     navInputSub: 'Text Field',
@@ -851,6 +906,8 @@ const enUS: DemoMessages = {
     navFieldSub: 'Form Wrapper',
     navMenuSub: 'Popover Menu',
     navTabsSub: 'TabList',
+    navTextareaSub: 'Multiline',
+    navTooltipSub: 'Hint',
     navTreeSub: 'Hierarchy',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
@@ -925,7 +982,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core buttons, the full form and picker set, Tree, Tabs, Menu, Dialog, and Drawer (16 component suites) are implemented; overlays and feedback controls follow on demand.',
+    roadmapSub: 'Core buttons, the full form and picker set, Tree, Tabs, Menu, Dialog, Drawer, Badge, Textarea, and Tooltip (19 component suites) are implemented; overlays and feedback controls follow on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -1000,9 +1057,30 @@ const enUS: DemoMessages = {
         page: 'dialog',
       },
       {
+        name: 'VfkBadge',
+        tag: '<fluent-badge>',
+        desc: 'Badge with four appearances, eight semantic colors, six sizes, and three shapes',
+        status: 'done',
+        page: 'badge',
+      },
+      {
+        name: 'VfkTextarea',
+        tag: '<fluent-textarea>',
+        desc: 'Multi-line textarea with controlled v-model, three appearances, resize handles, and auto-resize',
+        status: 'done',
+        page: 'textarea',
+      },
+      {
+        name: 'VfkTooltip',
+        tag: '<fluent-tooltip>',
+        desc: 'Tooltip positioned by native Popover and anchor positioning, triggered on hover or focus',
+        status: 'done',
+        page: 'tooltip',
+      },
+      {
         name: 'Overlays & Feedback',
         tag: '<fluent-*>',
-        desc: 'Tooltip, Badge, ProgressBar, MessageBar added incrementally on demand',
+        desc: 'MessageBar, ProgressBar added incrementally on demand',
         status: 'planned',
       },
     ],

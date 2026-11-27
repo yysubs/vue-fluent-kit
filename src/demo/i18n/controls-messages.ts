@@ -480,6 +480,62 @@ export interface DemoControlsMessages {
     apiSlots: string
     apiBody: string
   }
+  badge: {
+    desc: string
+    catalogDesc: string
+    secAppearances: string
+    secColors: string
+    secSizesShapes: string
+    sampleText: string
+    apiAppearance: string
+    apiColor: string
+    apiSize: string
+    apiShape: string
+    apiSlots: string
+  }
+  textarea: {
+    desc: string
+    catalogDesc: string
+    secAppearances: string
+    secResize: string
+    secStates: string
+    placeholder: string
+    sampleLabel: string
+    cardAppearancesTitle: string
+    cardAppearancesDesc: string
+    cardResizeTitle: string
+    cardResizeDesc: string
+    cardStatesTitle: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiResize: string
+    apiAutoResize: string
+    apiBlock: string
+    apiMinHeight: string
+    apiFlags: string
+    apiUpdate: string
+    apiChange: string
+    apiSlotLabel: string
+  }
+  tooltip: {
+    desc: string
+    catalogDesc: string
+    secDirections: string
+    secContent: string
+    triggerLabel: string
+    richTextTitle: string
+    richTextBody: string
+    cardDirectionsTitle: string
+    cardDirectionsDesc: string
+    cardContentTitle: string
+    cardContentDesc: string
+    apiText: string
+    apiAnchor: string
+    apiPositioning: string
+    apiDelay: string
+    apiSlots: string
+  }
   menu: {
     desc: string
     secCheckRadio: string
@@ -999,6 +1055,62 @@ export const controlsZhCN: DemoControlsMessages = {
     apiOpenChange: '打开状态变化时触发，附带原生事件对象',
     apiSlots: '默认插槽：抽屉内容（放置 VfkDrawerBody）',
     apiBody: 'VfkDrawerBody 支持 title、closable、closeLabel 以及 title / close / footer / default 插槽',
+  },
+  badge: {
+    desc: '薄封装官方 <fluent-badge>，支持 filled / tint / outline / ghost 四种外观、八种语义颜色、六档尺寸（tiny 与 extra-small 为纯圆点）与三种形状。',
+    catalogDesc: '四种外观 × 八种颜色，六档尺寸与三种形状',
+    secAppearances: '四种外观',
+    secColors: '八种语义颜色',
+    secSizesShapes: '尺寸与形状',
+    sampleText: '徽标',
+    apiAppearance: '外观（filled / tint / outline / ghost）',
+    apiColor: '语义颜色（brand / danger / success / warning 等八种）',
+    apiSize: '尺寸（tiny / extra-small / small / medium / large / extra-large）',
+    apiShape: '形状（circular / rounded / square）',
+    apiSlots: '默认插槽放文字，start / end 放前置图标与后置内容',
+  },
+  textarea: {
+    desc: '薄封装官方 <fluent-textarea>，支持受控 v-model、三种外观、三档尺寸、拖拽缩放与随内容自动增高，并保留原生表单关联与校验接口。',
+    catalogDesc: '受控 v-model、三种外观、三档尺寸与拖拽缩放',
+    secAppearances: '外观与尺寸',
+    secResize: '缩放与自动增高',
+    secStates: '禁用、只读与最小高度',
+    placeholder: '写下你想说的...',
+    sampleLabel: '备注',
+    cardAppearancesTitle: '三种外观（outline / filled-lighter / filled-darker）',
+    cardAppearancesDesc: '与 VfkInput 保持一致的外观命名，聚焦时底部品牌色高亮条同步变化。',
+    cardResizeTitle: 'resize 与 autoResize',
+    cardResizeDesc: 'resize 提供拖拽把手，autoResize 让高度跟随内容，两者不要同时开启。',
+    cardStatesTitle: '禁用、只读与自定义最小高度',
+    apiModelValue: '文本值，用于 v-model 双向绑定',
+    apiAppearance: '视觉外观（outline / filled-lighter / filled-darker）',
+    apiSize: '尺寸（small / medium / large）',
+    apiResize: '用户可拖拽的缩放方向，禁用态自动失效',
+    apiAutoResize: '高度随内容自动变化，开启后不要再设固定高度',
+    apiBlock: '占满整行宽度，否则使用默认 18rem 宽度',
+    apiMinHeight: '最小高度，经公开 ::part(control) 生效',
+    apiFlags: 'placeholder、disabled、readonly、required、maxlength 等原生属性',
+    apiUpdate: '输入时同步更新 v-model',
+    apiChange: '失焦且内容变化时触发',
+    apiSlotLabel: '标签插槽，用于放置 <fluent-label>',
+  },
+  tooltip: {
+    desc: '薄封装官方 <fluent-tooltip>，通过原生 Popover 与 CSS Anchor Positioning 定位，悬停或键盘聚焦触发，自动为触发元素注入 id 与 aria-describedby。',
+    catalogDesc: '原生 Popover 定位，悬停与聚焦触发',
+    secDirections: '方位与对齐',
+    secContent: '富文本内容与自定义锚点',
+    triggerLabel: '悬停查看提示',
+    richTextTitle: '发布说明',
+    richTextBody: '包含破坏性变更，升级前请阅读迁移指引。',
+    cardDirectionsTitle: '四个方向与对齐变体',
+    cardDirectionsDesc: 'positioning 支持 above / below / before / after 三个对齐变体，靠近视口边缘会自动翻转。',
+    cardContentTitle: '富文本与自定义锚点',
+    cardContentDesc: '用 #content 插槽放富内容；已有 id 的元素可用 anchor 直接指定。',
+    apiText: '提示文字，未传 #content 插槽时生效',
+    apiAnchor: '触发元素的 id，不传时自动为默认插槽第一个元素生成',
+    apiPositioning: '方位（above / below / before / after 及 start / end / top / bottom 变体）',
+    apiDelay: '悬停显示延迟（毫秒），聚焦时立即显示',
+    apiSlots: '默认插槽为触发元素，#content 放富文本提示',
   },
   menu: {
     desc: '薄封装官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 与 <fluent-menu-item>，支持原生 Popover 浮层、拆分按钮、多选/单选菜单项、多级子菜单与右键菜单。',
@@ -1520,6 +1632,62 @@ export const controlsZhTW: DemoControlsMessages = {
     apiSlots: '預設插槽：抽屜內容（放置 VfkDrawerBody）',
     apiBody: 'VfkDrawerBody 支援 title、closable、closeLabel 以及 title / close / footer / default 插槽',
   },
+  badge: {
+    desc: '薄封裝官方 <fluent-badge>，支援 filled / tint / outline / ghost 四種外觀、八種語意顏色、六段尺寸（tiny 與 extra-small 為純圓點）與三種形狀。',
+    catalogDesc: '四種外觀 × 八種顏色，六段尺寸與三種形狀',
+    secAppearances: '四種外觀',
+    secColors: '八種語意顏色',
+    secSizesShapes: '尺寸與形狀',
+    sampleText: '徽章',
+    apiAppearance: '外觀（filled / tint / outline / ghost）',
+    apiColor: '語意顏色（brand / danger / success / warning 等八種）',
+    apiSize: '尺寸（tiny / extra-small / small / medium / large / extra-large）',
+    apiShape: '形狀（circular / rounded / square）',
+    apiSlots: '預設插槽放文字，start / end 放前置圖示與後置內容',
+  },
+  textarea: {
+    desc: '薄封裝官方 <fluent-textarea>，支援受控 v-model、三種外觀、三段尺寸、拖曳縮放與隨內容自動增高，並保留原生表單關聯與驗證介面。',
+    catalogDesc: '受控 v-model、三種外觀、三段尺寸與拖曳縮放',
+    secAppearances: '外觀與尺寸',
+    secResize: '縮放與自動增高',
+    secStates: '停用、唯讀與最小高度',
+    placeholder: '寫下你想說的...',
+    sampleLabel: '備註',
+    cardAppearancesTitle: '三種外觀（outline / filled-lighter / filled-darker）',
+    cardAppearancesDesc: '與 VfkInput 保持一致的外觀命名，聚焦時底部品牌色高亮條同步變化。',
+    cardResizeTitle: 'resize 與 autoResize',
+    cardResizeDesc: 'resize 提供拖曳把手，autoResize 讓高度跟隨內容，兩者不要同時開啟。',
+    cardStatesTitle: '停用、唯讀與自訂最小高度',
+    apiModelValue: '文字值，用於 v-model 雙向綁定',
+    apiAppearance: '視覺外觀（outline / filled-lighter / filled-darker）',
+    apiSize: '尺寸（small / medium / large）',
+    apiResize: '使用者可拖曳的縮放方向，停用時自動失效',
+    apiAutoResize: '高度隨內容自動變化，開啟後不要再設固定高度',
+    apiBlock: '佔滿整列寬度，否則使用預設 18rem 寬度',
+    apiMinHeight: '最小高度，經公開 ::part(control) 生效',
+    apiFlags: 'placeholder、disabled、readonly、required、maxlength 等原生屬性',
+    apiUpdate: '輸入時同步更新 v-model',
+    apiChange: '失焦且內容變化時觸發',
+    apiSlotLabel: '標籤插槽，用於放置 <fluent-label>',
+  },
+  tooltip: {
+    desc: '薄封裝官方 <fluent-tooltip>，透過原生 Popover 與 CSS Anchor Positioning 定位，懸停或鍵盤聚焦觸發，自動為觸發元素注入 id 與 aria-describedby。',
+    catalogDesc: '原生 Popover 定位，懸停與聚焦觸發',
+    secDirections: '方位與對齊',
+    secContent: '富文字內容與自訂錨點',
+    triggerLabel: '懸停查看提示',
+    richTextTitle: '發佈說明',
+    richTextBody: '包含破壞性變更，升級前請閱讀遷移指引。',
+    cardDirectionsTitle: '四個方向與對齊變體',
+    cardDirectionsDesc: 'positioning 支援 above / below / before / after 三個對齊變體，靠近視窗邊緣會自動翻轉。',
+    cardContentTitle: '富文字與自訂錨點',
+    cardContentDesc: '用 #content 插槽放富內容；已有 id 的元素可用 anchor 直接指定。',
+    apiText: '提示文字，未傳 #content 插槽時生效',
+    apiAnchor: '觸發元素的 id，未傳時自動為預設插槽第一個元素產生',
+    apiPositioning: '方位（above / below / before / after 及 start / end / top / bottom 變體）',
+    apiDelay: '懸停顯示延遲（毫秒），聚焦時立即顯示',
+    apiSlots: '預設插槽為觸發元素，#content 放富文字提示',
+  },
   menu: {
     desc: '薄封裝官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 與 <fluent-menu-item>，支援原生 Popover 浮層、拆分按鈕、多選/單選選單項、多層子選單與右鍵選單。',
     secCheckRadio: '核取與單選選單項',
@@ -2039,6 +2207,62 @@ export const controlsEnUS: DemoControlsMessages = {
     apiOpenChange: 'Emitted on open-state change with the native event',
     apiSlots: 'Default slot: drawer content (place VfkDrawerBody)',
     apiBody: 'VfkDrawerBody supports title, closable, closeLabel and title / close / footer / default slots',
+  },
+  badge: {
+    desc: 'Thin Vue wrapper over official <fluent-badge> supporting filled / tint / outline / ghost appearances, eight semantic colors, six sizes (tiny and extra-small render as dots), and three shapes.',
+    catalogDesc: 'Four appearances, eight colors, six sizes, and three shapes',
+    secAppearances: 'Four Appearances',
+    secColors: 'Eight Semantic Colors',
+    secSizesShapes: 'Sizes & Shapes',
+    sampleText: 'Badge',
+    apiAppearance: 'Appearance (filled / tint / outline / ghost)',
+    apiColor: 'Semantic color (brand / danger / success / warning and four more)',
+    apiSize: 'Size (tiny / extra-small / small / medium / large / extra-large)',
+    apiShape: 'Shape (circular / rounded / square)',
+    apiSlots: 'Default slot holds text; start / end hold leading icons and trailing content',
+  },
+  textarea: {
+    desc: 'Thin Vue wrapper over official <fluent-textarea> with controlled v-model, three appearances, three sizes, user resizing, and auto-resize, keeping native form association and validity APIs.',
+    catalogDesc: 'Controlled v-model, three appearances, three sizes, and resize handles',
+    secAppearances: 'Appearance & Size',
+    secResize: 'Resize & Auto-resize',
+    secStates: 'Disabled, Read-only & Min Height',
+    placeholder: 'Write something...',
+    sampleLabel: 'Notes',
+    cardAppearancesTitle: 'Three appearances (outline / filled-lighter / filled-darker)',
+    cardAppearancesDesc: 'Appearance names match VfkInput, and the brand underline updates on focus.',
+    cardResizeTitle: 'resize and autoResize',
+    cardResizeDesc: 'resize adds a drag handle while autoResize grows with content — avoid combining both.',
+    cardStatesTitle: 'Disabled, read-only, and custom min height',
+    apiModelValue: 'Text value for v-model two-way binding',
+    apiAppearance: 'Visual appearance (outline / filled-lighter / filled-darker)',
+    apiSize: 'Size (small / medium / large)',
+    apiResize: 'Resize direction available to users; ignored when disabled',
+    apiAutoResize: 'Height follows content; do not combine with a fixed height',
+    apiBlock: 'Fills the row width instead of the default 18rem',
+    apiMinHeight: 'Minimum height applied through the public ::part(control)',
+    apiFlags: 'Native attributes such as placeholder, disabled, readonly, required, maxlength',
+    apiUpdate: 'Emitted on input for v-model',
+    apiChange: 'Emitted on blur when the content changed',
+    apiSlotLabel: 'Label slot for a <fluent-label> element',
+  },
+  tooltip: {
+    desc: 'Thin Vue wrapper over official <fluent-tooltip> positioned with native Popover and CSS Anchor Positioning, triggered by hover or keyboard focus, with automatic id and aria-describedby wiring.',
+    catalogDesc: 'Native Popover positioning, hover and focus triggered',
+    secDirections: 'Directions & Alignment',
+    secContent: 'Rich Content & Custom Anchor',
+    triggerLabel: 'Hover for a hint',
+    richTextTitle: 'Release notes',
+    richTextBody: 'Contains breaking changes — read the migration guide before upgrading.',
+    cardDirectionsTitle: 'Four directions with alignment variants',
+    cardDirectionsDesc: 'positioning accepts above / below / before / after with alignment variants and flips near viewport edges.',
+    cardContentTitle: 'Rich content and custom anchors',
+    cardContentDesc: 'Use the #content slot for rich markup, or point anchor at an element that already has an id.',
+    apiText: 'Tooltip text used when no #content slot is provided',
+    apiAnchor: 'id of the trigger element; generated automatically for the first slotted element',
+    apiPositioning: 'Direction (above / below / before / after plus start / end / top / bottom variants)',
+    apiDelay: 'Hover delay in milliseconds; focus shows the tooltip immediately',
+    apiSlots: 'Default slot is the trigger; #content holds rich tooltip markup',
   },
   menu: {
     desc: 'Thin Vue wrapper over official <fluent-menu>, <fluent-menu-button>, <fluent-menu-list>, and <fluent-menu-item> supporting native Popover menus, split buttons, checkbox/radio items, submenus, and context menus.',

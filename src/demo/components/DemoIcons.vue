@@ -32,6 +32,9 @@ export type DemoIconName =
   | 'layers'
   | 'dialog'
   | 'drawer'
+  | 'badge'
+  | 'textarea'
+  | 'tooltip'
 
 withDefaults(
   defineProps<{
@@ -232,6 +235,18 @@ withDefaults(
       <rect x="2.75" y="4.5" width="14.5" height="11" rx="2" stroke="currentColor" stroke-width="1.5" />
       <path d="M2.75 7.75h14.5" stroke="currentColor" stroke-width="1.5" />
       <path d="M6 11h5.5M6 13h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'badge'">
+      <rect x="2.75" y="5" width="10" height="10" rx="2.5" stroke="currentColor" stroke-width="1.5" />
+      <circle cx="15.25" cy="5.75" r="2.75" fill="currentColor" />
+    </template>
+    <template v-else-if="name === 'textarea'">
+      <rect x="2.5" y="4" width="15" height="12" rx="2" stroke="currentColor" stroke-width="1.5" />
+      <path d="M5.75 7.5h8.5M5.75 10h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+      <path d="m14 13.5 2-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'tooltip'">
+      <path d="M10 3.5c4.14 0 7.5 2.35 7.5 5.25S14.14 14 10 14c-.63 0-1.24-.06-1.82-.17L5.2 15.5l.85-2.85C4.02 11.5 2.5 10.3 2.5 8.75 2.5 5.85 5.86 3.5 10 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
     </template>
     <template v-else-if="name === 'drawer'">
       <rect x="2.75" y="3.5" width="14.5" height="13" rx="2" stroke="currentColor" stroke-width="1.5" />

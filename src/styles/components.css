@@ -403,6 +403,11 @@ fluent-dialog[type='non-modal']::part(dialog) {
   margin: auto;
 }
 
+/* 多行文本框的高度由官方内部 --block-size 固定，通过公开 ::part(control) 暴露最小高度 */
+fluent-textarea::part(control) {
+  min-height: var(--vfk-textarea-min-height, auto);
+}
+
 .vfk-dialog-body__title,
 .vfk-drawer-body__title {
   font: inherit;

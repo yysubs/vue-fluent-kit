@@ -16,6 +16,15 @@ export {
 } from './theme'
 
 export {
+  VfkBadge,
+  type BadgeAppearance,
+  type BadgeColor,
+  type BadgeShape,
+  type BadgeSize,
+  type VfkBadgeProps,
+} from './components/badge'
+
+export {
   VfkButton,
   type ButtonAppearance,
   type ButtonShape,
@@ -138,10 +147,24 @@ export {
 } from './components/tabs'
 
 export {
+  VfkTextarea,
+  type TextareaAppearance,
+  type TextareaResize,
+  type TextareaSize,
+  type VfkTextareaProps,
+} from './components/textarea'
+
+export {
   VfkToggleButton,
   type ToggleButtonValue,
   type VfkToggleButtonProps,
 } from './components/toggle-button'
+
+export {
+  VfkTooltip,
+  type TooltipPositioning,
+  type VfkTooltipProps,
+} from './components/tooltip'
 
 export {
   VfkTree,

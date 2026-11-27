@@ -6,6 +6,7 @@ import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
 import DemoLogo from './components/DemoLogo.vue'
 import { useDemoI18n } from './i18n'
+import BadgePage from './pages/BadgePage.vue'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import ComboboxPage from './pages/ComboboxPage.vue'
@@ -21,8 +22,10 @@ import SelectPage from './pages/SelectPage.vue'
 import SwatchPickerPage from './pages/SwatchPickerPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import TabsPage from './pages/TabsPage.vue'
+import TextareaPage from './pages/TextareaPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
+import TooltipPage from './pages/TooltipPage.vue'
 import TreePage from './pages/TreePage.vue'
 
 interface NavItem {
@@ -65,6 +68,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'overview introduction home 概览 概覽 首页 首頁 架构 架構 主题 主題 品牌 材质 材質 logo',
   },
   {
+    id: 'badge',
+    title: 'Badge',
+    sub: messages.value.shell.navBadgeSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'badge',
+    keywords: 'badge vfkbadge fluent-badge counter 徽标 徽章 标签 標籤 计数 計數',
+  },
+  {
     id: 'button',
     title: 'Button',
     sub: messages.value.shell.navButtonSub,
@@ -74,6 +86,15 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupComponents,
     icon: 'button',
     keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
+  },
+  {
+    id: 'textarea',
+    title: 'Textarea',
+    sub: messages.value.shell.navTextareaSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'textarea',
+    keywords: 'textarea vfktextarea fluent-textarea multiline resize autoresize 多行 文本域 文字框 自動增高',
   },
   {
     id: 'toggle-button',
@@ -206,6 +227,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'tab tabs tablist vfktab vfktablist fluent-tablist 标签页 分頁列 选项卡 選項卡',
   },
   {
+    id: 'tooltip',
+    title: 'Tooltip',
+    sub: messages.value.shell.navTooltipSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'tooltip',
+    keywords: 'tooltip vfktooltip fluent-tooltip hint hover popover anchor 提示 文字提示 浮层 浮層',
+  },
+  {
     id: 'tree',
     title: 'Tree',
     sub: messages.value.shell.navTreeSub,
@@ -228,6 +258,7 @@ const navItems = computed<NavItem[]>(() => [
 
 const validPageIds = new Set<DemoPageId>([
   'overview',
+  'badge',
   'button',
   'checkbox',
   'combobox',
@@ -242,7 +273,9 @@ const validPageIds = new Set<DemoPageId>([
   'swatch-picker',
   'switch',
   'tabs',
+  'textarea',
   'toggle-button',
+  'tooltip',
   'tree',
   'tokens',
 ])
@@ -581,6 +614,7 @@ onUnmounted(() => {
 
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
+        <BadgePage v-else-if="currentPage === 'badge'" />
         <ButtonPage v-else-if="currentPage === 'button'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <ComboboxPage v-else-if="currentPage === 'combobox'" />
@@ -595,7 +629,9 @@ onUnmounted(() => {
         <SwatchPickerPage v-else-if="currentPage === 'swatch-picker'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
         <TabsPage v-else-if="currentPage === 'tabs'" />
+        <TextareaPage v-else-if="currentPage === 'textarea'" />
         <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
+        <TooltipPage v-else-if="currentPage === 'tooltip'" />
         <TreePage v-else-if="currentPage === 'tree'" />
         <TokensPage v-else />
       </main>
