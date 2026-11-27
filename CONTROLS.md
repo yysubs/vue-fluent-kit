@@ -25,6 +25,8 @@
 | `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` | [src/components/button/README.md](src/components/button/README.md) |
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
 | `VfkCombobox` / `VfkOption` | `<fluent-dropdown type="combobox">` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/combobox` | [src/components/combobox/README.md](src/components/combobox/README.md) |
+| `VfkDialog` / `VfkDialogBody` | `<fluent-dialog>` / `<fluent-dialog-body>` | `@yysubs/vue-fluent-kit/dialog` | [src/components/dialog/README.md](src/components/dialog/README.md) |
+| `VfkDrawer` / `VfkDrawerBody` | `<fluent-drawer>` / `<fluent-drawer-body>` | `@yysubs/vue-fluent-kit/drawer` | [src/components/drawer/README.md](src/components/drawer/README.md) |
 | `VfkField` | `<fluent-field>` | `@yysubs/vue-fluent-kit/field` | [src/components/field/README.md](src/components/field/README.md) |
 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
 | `VfkMenu` / `VfkMenuList` / `VfkMenuItem` / `VfkMenuButton` / `VfkMenuDivider` | `<fluent-menu>` / `<fluent-menu-list>` / `<fluent-menu-item>` / `<fluent-menu-button>` | `@yysubs/vue-fluent-kit/menu` | [src/components/menu/README.md](src/components/menu/README.md) |
@@ -43,21 +45,7 @@
 
 以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
 
-### Dialog（对话框）
-
-参照 `@fluentui/react-dialog`（`Dialog`、`DialogTrigger`、`DialogSurface`、`DialogTitle`、`DialogBody`、`DialogContent`、`DialogActions`）。
-
-- **模态类型（`modalType`）**：
-  - `modal`（默认）：带遮罩，开启焦点陷阱（Tab 在弹窗内循环），点击遮罩或按 `Escape` 触发 `onOpenChange` 关闭。
-  - `non-modal`：无遮罩，不锁背景焦点，右上角默认提供关闭按钮。
-  - `alert`：带遮罩，开启焦点陷阱，点击遮罩不关闭，用于必须显式确认的操作。
-- **遮罩（`backdrop`）**：固定定位铺满视口，底色 `colorBackgroundOverlay`，不加背景模糊。
-- **面板（`DialogSurface`）**：
-  - 默认最大宽 `600px`，最大高 `100dvh`，内边距 `24px`，圆角 `borderRadiusXLarge`（`8px`），底色 `colorNeutralBackground1`，文字 `colorNeutralForeground1`，阴影 `shadow64`，边框 `1px solid colorTransparentStroke`，层级 `zIndexPopup`。
-- **内部排版**：
-  - `DialogTitle`：采用 `subtitle1`（`20px` / `28px` / `600`）。
-  - `DialogContent`：采用 `body1`（`14px` / `20px` / `400`）。
-  - `DialogActions`：操作按钮区，默认右对齐，按钮间距 `spacingHorizontalS`。
+`@fluentui/web-components` v3 已提供官方元素、可直接薄封装的控件：`Tooltip`、`MessageBar`、`ProgressBar`、`Badge`、`Accordion`、`Divider`、`Spinner`、`Avatar`、`Slider`、`RatingDisplay`、`Textarea`、`Link`、`AnchorButton`、`CompoundButton`。`Toast`、`Skeleton`、`Popover`、`Tag`、`Table`、`Card`、`NavDrawer` 在官方 v3 包中只有 React 实现，没有对应的自定义元素，需要按 Fluent 2 视觉自行实现（可参考 `VfkSwatchPicker` 的 Light DOM 写法）。
 
 ### Tooltip（文字提示）
 
@@ -158,19 +146,19 @@
   - `large`：内边距 `16px`，圆角 `borderRadiusLarge`（`6px`）。
 - **选中态（`selected`）**：背景切为 `colorNeutralBackground1Selected`，边框 `colorNeutralStroke1Selected`。
 
-### Drawer 与 NavDrawer（抽屉与侧栏导航）
+### NavDrawer（侧栏导航）
 
-参照 `@fluentui/react-drawer` 与 `@fluentui/react-nav`。
+参照 `@fluentui/react-nav`，官方 v3 未提供 `<fluent-nav>` 自定义元素，需基于 `VfkDrawer`（`inline` 类型）与 `VfkTree` 组合自研。
 
-- **类型（`type`）**：`overlay`（模态浮层，带遮罩与 `shadow64`）与 `inline`（内嵌并排，与内容区用边框分隔）。
-- **位置与尺寸**：`position` 支持 `start`（默认，左）、`end`（右）、`bottom`；`size` 支持 `small`（`320px`）、`medium`（`592px`）、`large`（`940px`）、`full`（`100vw`）；`NavDrawer` 默认宽 `260px`，底色 `colorNeutralBackground4`。
+- **尺寸**：默认宽 `260px`，底色 `colorNeutralBackground4`。
 - **导航项（`NavItem`）**：圆角 `borderRadiusMedium`，内边距 `spacingVerticalMNudge spacingHorizontalS spacingVerticalMNudge spacingHorizontalMNudge`，排版 `body1`，悬停底色 `colorNeutralBackground4Hover`，选中项左侧带 `4×20px` 的品牌色竖条。
 
 ---
 
 ## 其它官方组件与项目边界
 
-- **按需补充的官方组件**：`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
+- **按需补充的官方组件**：`Divider`（`<fluent-divider>`）、`Spinner`（`<fluent-spinner>`）、`Accordion`（`<fluent-accordion>` / `<fluent-accordion-item>`）、`Avatar`（`<fluent-avatar>`）、`Slider`（`<fluent-slider>`）、`RatingDisplay`（`<fluent-rating-display>`）、`Textarea`（`<fluent-textarea>`）、`Link`（`<fluent-link>`）、`AnchorButton`（`<fluent-anchor-button>`）、`CompoundButton`（`<fluent-compound-button>`）在 `@fluentui/web-components` v3 中均有自定义元素，后续需要时直接按官方规格排入开发。
+- **官方 v3 未提供的组件**：`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Table` / `DataGrid`（表格）在 web-components 包中没有对应元素，只有 React 实现，需要时按 Fluent 2 视觉自行实现。
 - **图表**：折线图等数据可视化在官方仓库独立于 `@fluentui/react-components`，位于 `@fluentui/react-charts`，配色取自 `colorPalette*` 与 `colorBrand*`，不混入基础控件包。
 - **不进控件库的应用层逻辑**：
   - 业务视图组件、页面级顶栏与固定吸顶计算、浏览器全屏 API 调用、隐藏文件框拖放上传层。

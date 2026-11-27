@@ -5,6 +5,10 @@ import {
   VfkCheckbox,
   VfkColorSwatch,
   VfkCombobox,
+  VfkDialog,
+  VfkDialogBody,
+  VfkDrawer,
+  VfkDrawerBody,
   VfkField,
   VfkInput,
   VfkMenu,
@@ -38,6 +42,8 @@ export type DemoPageId =
   | 'button'
   | 'checkbox'
   | 'combobox'
+  | 'dialog'
+  | 'drawer'
   | 'field'
   | 'input'
   | 'menu'
@@ -78,6 +84,8 @@ const miniRadio = ref('standard')
 const miniField = ref('vue-fluent-kit')
 const miniTab = ref('overview')
 const miniTree = ref('tree-a')
+const cardDialogOpen = ref(false)
+const cardDrawerOpen = ref(false)
 const scopedLightInput = ref('Fluent 2 Light')
 const scopedDarkInput = ref('Fluent 2 Dark')
 const scopedLightCheck = ref(true)
@@ -252,6 +260,56 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.combobox.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'combobox')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkButton appearance="secondary" @click="cardDialogOpen = true">
+                  {{ messages.controls.dialog.btnModal }}
+                </VfkButton>
+              </div>
+              <VfkDialog v-model="cardDialogOpen">
+                <VfkDialogBody :title="messages.controls.dialog.sampleTitle">
+                  <p>{{ messages.controls.dialog.sampleBody }}</p>
+                </VfkDialogBody>
+              </VfkDialog>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkDialog</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.dialog.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'dialog')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkButton appearance="secondary" @click="cardDrawerOpen = true">
+                  {{ messages.controls.drawer.btnModal }}
+                </VfkButton>
+              </div>
+              <VfkDrawer v-model="cardDrawerOpen" size="small">
+                <VfkDrawerBody :title="messages.controls.drawer.sampleTitle">
+                  <p>{{ messages.controls.drawer.sampleBody }}</p>
+                </VfkDrawerBody>
+              </VfkDrawer>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkDrawer</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.drawer.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'drawer')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

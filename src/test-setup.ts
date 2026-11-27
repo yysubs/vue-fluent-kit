@@ -19,3 +19,19 @@ if (typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.attachInt
     return internals
   }
 }
+
+/* jsdom 尚未实现 HTMLDialogElement 的 show / showModal / close，测试环境补一份最小实现 */
+if (typeof HTMLDialogElement !== 'undefined') {
+  const dialogProto = HTMLDialogElement.prototype
+  if (typeof dialogProto.showModal !== 'function') {
+    dialogProto.show = function showDialog(this: HTMLDialogElement) {
+      this.setAttribute('open', '')
+    }
+    dialogProto.showModal = function showModalDialog(this: HTMLDialogElement) {
+      this.setAttribute('open', '')
+    }
+    dialogProto.close = function closeDialog(this: HTMLDialogElement) {
+      this.removeAttribute('open')
+    }
+  }
+}

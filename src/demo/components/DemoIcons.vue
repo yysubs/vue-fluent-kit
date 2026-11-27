@@ -30,6 +30,8 @@ export type DemoIconName =
   | 'github'
   | 'monitor'
   | 'layers'
+  | 'dialog'
+  | 'drawer'
 
 withDefaults(
   defineProps<{
@@ -225,6 +227,16 @@ withDefaults(
         stroke-linecap="round"
         stroke-linejoin="round"
       />
+    </template>
+    <template v-else-if="name === 'dialog'">
+      <rect x="2.75" y="4.5" width="14.5" height="11" rx="2" stroke="currentColor" stroke-width="1.5" />
+      <path d="M2.75 7.75h14.5" stroke="currentColor" stroke-width="1.5" />
+      <path d="M6 11h5.5M6 13h3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'drawer'">
+      <rect x="2.75" y="3.5" width="14.5" height="13" rx="2" stroke="currentColor" stroke-width="1.5" />
+      <path d="M7.5 3.5v13" stroke="currentColor" stroke-width="1.5" />
+      <path d="M4.75 7h1.5M4.75 10h1.5M4.75 13h1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
     </template>
   </svg>
 </template>
