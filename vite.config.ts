@@ -4,16 +4,27 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('fluent-'),
+        },
+      },
+    }),
+  ],
   build: {
     lib: {
-      entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+      entry: {
+        index: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+        theme: fileURLToPath(new URL('./src/theme/index.ts', import.meta.url)),
+        'custom-elements': fileURLToPath(new URL('./src/custom-elements.ts', import.meta.url)),
+      },
       formats: ['es'],
-      fileName: 'index',
       cssFileName: 'style',
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', '@fluentui/tokens', /^@fluentui\/web-components(\/.*)?$/],
     },
     sourcemap: true,
     emptyOutDir: true,

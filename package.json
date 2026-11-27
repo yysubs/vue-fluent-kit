@@ -1,7 +1,7 @@
 {
   "name": "@yysubs/vue-fluent-kit",
   "version": "0.0.0",
-  "description": "Vue 3 component library with a token-driven, plain-CSS base.",
+  "description": "Lightweight Vue 3 thin-wrapper component library built on @fluentui/web-components (Fluent 2).",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -14,6 +14,10 @@
   },
   "keywords": [
     "vue",
+    "vue3",
+    "fluent-ui",
+    "fluent-2",
+    "web-components",
     "component-library",
     "ui"
   ],
@@ -30,11 +34,20 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme.js"
+    },
+    "./custom-elements": {
+      "types": "./dist/custom-elements.d.ts",
+      "import": "./dist/custom-elements.js"
+    },
     "./style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "./dist/index.js"
   ],
   "scripts": {
     "dev": "vite",
@@ -58,5 +71,9 @@
     "vue": "^3.5.45",
     "vue-tsc": "^3.3.14",
     "wrangler": "^4.168.0"
+  },
+  "dependencies": {
+    "@fluentui/tokens": "1.0.0-alpha.25",
+    "@fluentui/web-components": "^3.2.5"
   }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDemoI18n } from '../i18n'
 import DemoCode from './DemoCode.vue'
 
 defineProps<{
@@ -9,16 +10,17 @@ defineProps<{
   stageTitle?: string
 }>()
 
+const { messages } = useDemoI18n()
 const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
 </script>
 
 <template>
-  <section class="demo-workbench" aria-label="交互调试台">
+  <section class="demo-workbench" :aria-label="messages.common.liveCanvas">
     <div class="demo-workbench__body">
       <div class="demo-workbench__stage-wrap">
         <div class="demo-workbench__stage-bar">
-          <span class="demo-workbench__stage-label">{{ stageTitle ?? '实时画布' }}</span>
-          <div class="demo-surface-pills" role="group" aria-label="画布主题">
+          <span class="demo-workbench__stage-label">{{ stageTitle ?? messages.common.liveCanvas }}</span>
+          <div class="demo-surface-pills" role="group" :aria-label="messages.shell.themeSwitchAriaLabel">
             <button
               type="button"
               class="demo-surface-pill"
@@ -26,7 +28,7 @@ const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
               :aria-pressed="surfaceTheme === 'inherit'"
               @click="surfaceTheme = 'inherit'"
             >
-              跟随
+              {{ messages.common.themeFollow }}
             </button>
             <button
               type="button"
@@ -35,7 +37,7 @@ const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
               :aria-pressed="surfaceTheme === 'light'"
               @click="surfaceTheme = 'light'"
             >
-              浅色
+              {{ messages.common.themeLight }}
             </button>
             <button
               type="button"
@@ -44,7 +46,7 @@ const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
               :aria-pressed="surfaceTheme === 'dark'"
               @click="surfaceTheme = 'dark'"
             >
-              深色
+              {{ messages.common.themeDark }}
             </button>
           </div>
         </div>
@@ -62,13 +64,13 @@ const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
       </div>
 
       <div class="demo-workbench__controls">
-        <h3 class="demo-workbench__controls-title">属性面板</h3>
+        <h3 class="demo-workbench__controls-title">{{ messages.common.controlsPanel }}</h3>
         <slot name="controls" />
       </div>
     </div>
 
     <div class="demo-workbench__code">
-      <DemoCode :code="code" label="实时代码" />
+      <DemoCode :code="code" :label="messages.common.liveCode" />
     </div>
   </section>
 </template>
