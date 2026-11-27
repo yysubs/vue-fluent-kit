@@ -8,6 +8,7 @@ import DemoLogo from './components/DemoLogo.vue'
 import { useDemoI18n } from './i18n'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
+import ComboboxPage from './pages/ComboboxPage.vue'
 import FieldPage from './pages/FieldPage.vue'
 import InputPage from './pages/InputPage.vue'
 import MenuPage from './pages/MenuPage.vue'
@@ -15,6 +16,7 @@ import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import RadioPage from './pages/RadioPage.vue'
 import SearchBoxPage from './pages/SearchBoxPage.vue'
 import SelectPage from './pages/SelectPage.vue'
+import SwatchPickerPage from './pages/SwatchPickerPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import TabsPage from './pages/TabsPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
@@ -92,6 +94,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'checkbox vfkcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
   },
   {
+    id: 'combobox',
+    title: 'Combobox',
+    sub: messages.value.shell.navComboboxSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'select',
+    keywords: 'combobox vfkcombobox fluent-dropdown autocomplete filter freeform 可输入下拉框 可輸入下拉框 自动完成 自動完成 筛选 篩選',
+  },
+  {
     id: 'field',
     title: 'Field',
     sub: messages.value.shell.navFieldSub,
@@ -146,6 +157,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'select option dropdown vfkselect vfkoption fluent-dropdown 下拉 选择器 選擇器 选项 選項',
   },
   {
+    id: 'swatch-picker',
+    title: 'SwatchPicker',
+    sub: messages.value.shell.navSwatchPickerSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'palette',
+    keywords: 'swatch swatchpicker colorswatch vfkswatchpicker color palette picker 色板 色块 色塊 颜色 顏色 选色 選色',
+  },
+  {
     id: 'switch',
     title: 'Switch',
     sub: messages.value.shell.navSwitchSub,
@@ -188,12 +208,14 @@ const validPageIds = new Set<DemoPageId>([
   'overview',
   'button',
   'checkbox',
+  'combobox',
   'field',
   'input',
   'menu',
   'radio',
   'search-box',
   'select',
+  'swatch-picker',
   'switch',
   'tabs',
   'toggle-button',
@@ -537,12 +559,14 @@ onUnmounted(() => {
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
         <ButtonPage v-else-if="currentPage === 'button'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
+        <ComboboxPage v-else-if="currentPage === 'combobox'" />
         <FieldPage v-else-if="currentPage === 'field'" />
         <InputPage v-else-if="currentPage === 'input'" />
         <MenuPage v-else-if="currentPage === 'menu'" />
         <RadioPage v-else-if="currentPage === 'radio'" />
         <SearchBoxPage v-else-if="currentPage === 'search-box'" />
         <SelectPage v-else-if="currentPage === 'select'" />
+        <SwatchPickerPage v-else-if="currentPage === 'swatch-picker'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
         <TabsPage v-else-if="currentPage === 'tabs'" />
         <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />

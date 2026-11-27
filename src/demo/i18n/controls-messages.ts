@@ -190,6 +190,49 @@ export interface DemoControlsMessages {
     apiOptionDisabled: string
     apiOptionSlots: string
   }
+  swatchPicker: {
+    desc: string
+    secSizesShapes: string
+    secLayoutSpacing: string
+    secStates: string
+    ariaLabel: string
+    currentColor: string
+    emptyValue: string
+    cardSizesTitle: string
+    cardShapesTitle: string
+    cardGridTitle: string
+    cardGridDesc: string
+    cardSpacingTitle: string
+    cardBorderDisabledTitle: string
+    cardBorderDisabledDesc: string
+    cardGroupDisabledTitle: string
+    colorRed: string
+    colorOrange: string
+    colorYellow: string
+    colorGreen: string
+    colorTeal: string
+    colorBlue: string
+    colorViolet: string
+    colorWhite: string
+    colorGray: string
+    catalogDesc: string
+    apiModelValue: string
+    apiSize: string
+    apiShape: string
+    apiLayout: string
+    apiColumnCount: string
+    apiSpacing: string
+    apiDisabled: string
+    apiUpdate: string
+    apiChange: string
+    apiSlotDefault: string
+    apiSwatchValue: string
+    apiSwatchColor: string
+    apiSwatchBorderColor: string
+    apiSwatchLabel: string
+    apiSwatchDisabled: string
+    apiSwatchSlotDefault: string
+  }
   switch: {
     desc: string
     secBasic: string
@@ -234,6 +277,55 @@ export interface DemoControlsMessages {
     apiUpdate: string
     apiChange: string
     apiRadioProps: string
+  }
+  combobox: {
+    desc: string
+    secAppearances: string
+    secSizes: string
+    secFilterFreeform: string
+    secRichDisabled: string
+    placeholder: string
+    freeformPlaceholder: string
+    freeformPrefix: string
+    currentValue: string
+    lastInput: string
+    emptyValue: string
+    clearSelection: string
+    optVue: string
+    optVite: string
+    optReact: string
+    optSvelte: string
+    optAngular: string
+    optLegacy: string
+    optVueDesc: string
+    optViteDesc: string
+    optReactDesc: string
+    optLegacyDesc: string
+    cardAppearancesTitle: string
+    cardAppearancesDesc: string
+    cardSizesTitle: string
+    cardFilterTitle: string
+    cardFilterDesc: string
+    cardFreeformTitle: string
+    cardFreeformDesc: string
+    cardRichTitle: string
+    cardRichDesc: string
+    cardDisabledTitle: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiPlaceholder: string
+    apiFilter: string
+    apiFreeform: string
+    apiFlags: string
+    apiName: string
+    apiUpdate: string
+    apiChange: string
+    apiInput: string
+    apiSlotDefault: string
+    apiSlotIndicator: string
+    apiSlotFreeform: string
   }
   field: {
     desc: string
@@ -559,6 +651,49 @@ export const controlsZhCN: DemoControlsMessages = {
     apiOptionDisabled: '禁用单个选项，跳过键盘导航与点击',
     apiOptionSlots: '选项主文案、前置图标、副标题描述与自定义勾选图标',
   },
+  swatchPicker: {
+    desc: '参照 Fluent 2 SwatchPicker 规范实现的色板单选组件，提供 radiogroup / radio 语义、roving tabindex 键盘导航、双层选中内阴影以及 4 档尺寸与 3 种形状。',
+    secSizesShapes: '尺寸与形状',
+    secLayoutSpacing: '布局与间距',
+    secStates: '描边与禁用态',
+    ariaLabel: '选择颜色',
+    currentColor: '当前颜色',
+    emptyValue: '（未选择）',
+    cardSizesTitle: '四档色块尺寸',
+    cardShapesTitle: '三种色块形状',
+    cardGridTitle: '网格布局（layout="grid"）',
+    cardGridDesc: '配合 columnCount 固定每行列数，上下方向键按列在色块间跳转。',
+    cardSpacingTitle: '色块间距（small / medium）',
+    cardBorderDisabledTitle: '浅色内描边与单个禁用色块',
+    cardBorderDisabledDesc: '白色等浅色色块可传 borderColor 保持轮廓可辨识；禁用色块叠加斜线且方向键自动跳过。',
+    cardGroupDisabledTitle: '整体禁用',
+    colorRed: '猩红',
+    colorOrange: '亮橙',
+    colorYellow: '暖黄',
+    colorGreen: '翠绿',
+    colorTeal: '青碧',
+    colorBlue: '官方蓝',
+    colorViolet: '紫罗兰',
+    colorWhite: '纯白',
+    colorGray: '中性灰',
+    catalogDesc: '色板单选组件，支持 4 档尺寸、3 种形状、网格布局与方向键导航',
+    apiModelValue: '受控选中色块值，用于 v-model 双向绑定',
+    apiSize: '色块尺寸（extra-small 20px / small 24px / medium 28px / large 32px）',
+    apiShape: '色块形状（square / rounded / circular）',
+    apiLayout: '排列方式（row 单行换行 / grid 固定列数网格）',
+    apiColumnCount: 'grid 布局下每行色块数量',
+    apiSpacing: '色块间距（small 2px / medium 4px）',
+    apiDisabled: '整体禁用色板',
+    apiUpdate: '选中色块变化时触发，同步更新 v-model',
+    apiChange: '选中色块变化时触发，附带原始事件',
+    apiSlotDefault: '放置 VfkColorSwatch 色块列表',
+    apiSwatchValue: '色块唯一值，与 VfkSwatchPicker 的 modelValue 匹配',
+    apiSwatchColor: '色块展示颜色（任意 CSS 颜色值，不传时使用 value）',
+    apiSwatchBorderColor: '1px 内描边颜色，用于浅色色块在浅色表面保持可见',
+    apiSwatchLabel: '无障碍名称与悬停提示（不传时使用 value）',
+    apiSwatchDisabled: '禁用单个色块',
+    apiSwatchSlotDefault: '色块内的图标或标记内容',
+  },
   switch: {
     desc: '基于官方 <fluent-switch> 的薄封装开关控件，支持受控 v-model 布尔切换、自动 label 关联、标签位置配置及无障碍 switch 语义。',
     secBasic: '基础用法与标签位置',
@@ -603,6 +738,55 @@ export const controlsZhCN: DemoControlsMessages = {
     apiUpdate: '选中项变更时同步更新 v-model',
     apiChange: '选中项变更事件',
     apiRadioProps: '子级单选项的值、标签文案与单项禁用配置',
+  },
+  combobox: {
+    desc: '基于官方 <fluent-dropdown type="combobox">、<fluent-listbox> 与 <fluent-option> 的薄封装可输入下拉框，支持实时前缀过滤、freeform 自定义输入、4 种外观与 3 档尺寸。',
+    secAppearances: '外观样式',
+    secSizes: '尺寸规格',
+    secFilterFreeform: '输入过滤与自由输入',
+    secRichDisabled: '富内容选项与禁用态',
+    placeholder: '输入或选择框架...',
+    freeformPlaceholder: '输入任意标签或选择建议...',
+    freeformPrefix: '使用：',
+    currentValue: '当前值',
+    lastInput: '最近输入',
+    emptyValue: '（未选择）',
+    clearSelection: '清空选择',
+    optVue: 'Vue',
+    optVite: 'Vite',
+    optReact: 'React',
+    optSvelte: 'Svelte',
+    optAngular: 'Angular',
+    optLegacy: 'Legacy（已废弃）',
+    optVueDesc: '渐进式前端框架',
+    optViteDesc: '下一代前端构建工具',
+    optReactDesc: '组件化用户界面库',
+    optLegacyDesc: '仅用于演示禁用选项',
+    cardAppearancesTitle: '四种 Fluent 2 外观',
+    cardAppearancesDesc: '与 VfkSelect 保持一致，支持 outline、transparent、filled-darker 与 filled-lighter。',
+    cardSizesTitle: '三档尺寸规格',
+    cardFilterTitle: '按前缀实时过滤（filter）',
+    cardFilterDesc: '默认开启 filter，输入前缀如 "v" 仅保留匹配项（Vue / Vite），方向键只在可见项间移动；收起后恢复全部选项。',
+    cardFreeformTitle: '允许自由输入（freeform）',
+    cardFreeformDesc: '开启 freeform 后，输入不在选项列表中的文本也可直接回车提交，并通过 #freeform 插槽自定义提示前缀。',
+    cardRichTitle: '复用 VfkOption 图标、描述与禁用项',
+    cardRichDesc: '与 VfkSelect 共享 VfkOption，传入 text 属性可在含描述时控制输入框回填文案。',
+    cardDisabledTitle: '禁用状态',
+    catalogDesc: '可输入下拉框，支持前缀过滤、freeform 自定义文本与键盘导航',
+    apiModelValue: '受控选中值（freeform 模式下也可以是自定义输入文本）',
+    apiAppearance: '视觉外观（outline 对应官方默认样式）',
+    apiSize: '组件尺寸（small / medium / large）',
+    apiPlaceholder: '输入框为空时的占位提示文字',
+    apiFilter: '是否按输入文本前缀实时过滤可见选项',
+    apiFreeform: '是否允许提交不在选项列表中的自定义文本',
+    apiFlags: '禁用与必填表单状态',
+    apiName: '原生表单字段名',
+    apiUpdate: '选中项或自由输入提交变化时触发，同步更新 v-model',
+    apiChange: '值变化时触发，附带原生 Event',
+    apiInput: '文本框内容变化时触发，附带当前输入字符串',
+    apiSlotDefault: '放置 VfkOption 列表（内部自动包裹在 fluent-listbox 中）',
+    apiSlotIndicator: '自定义右侧展开箭头图标（slot="indicator"）',
+    apiSlotFreeform: 'freeform 模式下自定义选项中输入文本前的提示文案',
   },
   field: {
     desc: '基于官方 <fluent-field> 的薄封装表单字段容器，统一组合标签、表单控件、校验状态图标/消息与辅助提示文字。',
@@ -928,6 +1112,49 @@ export const controlsZhTW: DemoControlsMessages = {
     apiOptionDisabled: '停用單一選項，略過鍵盤導覽與點擊',
     apiOptionSlots: '選項主文案、前置圖示、副標題描述與自訂勾選圖示',
   },
+  swatchPicker: {
+    desc: '參照 Fluent 2 SwatchPicker 規範實作的色板單選元件，提供 radiogroup / radio 語意、roving tabindex 鍵盤導覽、雙層選中內陰影以及 4 檔尺寸與 3 種形狀。',
+    secSizesShapes: '尺寸與形狀',
+    secLayoutSpacing: '版面與間距',
+    secStates: '描邊與停用態',
+    ariaLabel: '選擇顏色',
+    currentColor: '目前顏色',
+    emptyValue: '（未選擇）',
+    cardSizesTitle: '四檔色塊尺寸',
+    cardShapesTitle: '三種色塊形狀',
+    cardGridTitle: '格狀版面（layout="grid"）',
+    cardGridDesc: '搭配 columnCount 固定每列欄數，上下方向鍵依欄在色塊間跳轉。',
+    cardSpacingTitle: '色塊間距（small / medium）',
+    cardBorderDisabledTitle: '淺色內描邊與單一停用色塊',
+    cardBorderDisabledDesc: '白色等淺色色塊可傳入 borderColor 保持輪廓可辨識；停用色塊疊加斜線且方向鍵自動跳過。',
+    cardGroupDisabledTitle: '整體停用',
+    colorRed: '猩紅',
+    colorOrange: '亮橙',
+    colorYellow: '暖黃',
+    colorGreen: '翠綠',
+    colorTeal: '青碧',
+    colorBlue: '官方藍',
+    colorViolet: '紫羅蘭',
+    colorWhite: '純白',
+    colorGray: '中性灰',
+    catalogDesc: '色板單選元件，支援 4 檔尺寸、3 種形狀、格狀版面與方向鍵導覽',
+    apiModelValue: '受控選中色塊值，用於 v-model 雙向繫結',
+    apiSize: '色塊尺寸（extra-small 20px / small 24px / medium 28px / large 32px）',
+    apiShape: '色塊形狀（square / rounded / circular）',
+    apiLayout: '排列方式（row 單列換行 / grid 固定欄數格狀）',
+    apiColumnCount: 'grid 版面下每列色塊數量',
+    apiSpacing: '色塊間距（small 2px / medium 4px）',
+    apiDisabled: '整體停用色板',
+    apiUpdate: '選中色塊變化時觸發，同步更新 v-model',
+    apiChange: '選中色塊變化時觸發，附帶原始事件',
+    apiSlotDefault: '放置 VfkColorSwatch 色塊清單',
+    apiSwatchValue: '色塊唯一值，與 VfkSwatchPicker 的 modelValue 對應',
+    apiSwatchColor: '色塊顯示顏色（任意 CSS 顏色值，未傳時使用 value）',
+    apiSwatchBorderColor: '1px 內描邊顏色，用於淺色色塊在淺色表面保持可見',
+    apiSwatchLabel: '無障礙名稱與懸停提示（未傳時使用 value）',
+    apiSwatchDisabled: '停用單一色塊',
+    apiSwatchSlotDefault: '色塊內的圖示或標記內容',
+  },
   switch: {
     desc: '基於官方 <fluent-switch> 的薄封裝開關元件，支援受控 v-model 布林切換、自動 label 關聯、標籤位置設定及無障礙 switch 語意。',
     secBasic: '基礎用法與標籤位置',
@@ -972,6 +1199,55 @@ export const controlsZhTW: DemoControlsMessages = {
     apiUpdate: '選取項變更時同步更新 v-model',
     apiChange: '選取項變更事件',
     apiRadioProps: '子級單選項的值、標籤文案與單項停用設定',
+  },
+  combobox: {
+    desc: '基於官方 <fluent-dropdown type="combobox">、<fluent-listbox> 與 <fluent-option> 的薄封裝可輸入下拉框，支援即時前綴篩選、freeform 自訂輸入、4 種外觀與 3 檔尺寸。',
+    secAppearances: '外觀樣式',
+    secSizes: '尺寸規格',
+    secFilterFreeform: '輸入篩選與自由輸入',
+    secRichDisabled: '富內容選項與停用態',
+    placeholder: '輸入或選擇框架...',
+    freeformPlaceholder: '輸入任意標籤或選擇建議...',
+    freeformPrefix: '使用：',
+    currentValue: '目前值',
+    lastInput: '最近輸入',
+    emptyValue: '（未選擇）',
+    clearSelection: '清空選擇',
+    optVue: 'Vue',
+    optVite: 'Vite',
+    optReact: 'React',
+    optSvelte: 'Svelte',
+    optAngular: 'Angular',
+    optLegacy: 'Legacy（已棄用）',
+    optVueDesc: '漸進式前端框架',
+    optViteDesc: '下一代前端建置工具',
+    optReactDesc: '元件化使用者介面函式庫',
+    optLegacyDesc: '僅用於示範停用選項',
+    cardAppearancesTitle: '四種 Fluent 2 外觀',
+    cardAppearancesDesc: '與 VfkSelect 保持一致，支援 outline、transparent、filled-darker 與 filled-lighter。',
+    cardSizesTitle: '三檔尺寸規格',
+    cardFilterTitle: '依前綴即時篩選（filter）',
+    cardFilterDesc: '預設開啟 filter，輸入前綴如 "v" 僅保留符合項目（Vue / Vite），方向鍵只在可見項目間移動；收合後恢復全部選項。',
+    cardFreeformTitle: '允許自由輸入（freeform）',
+    cardFreeformDesc: '開啟 freeform 後，輸入不在選項清單中的文字也可直接按 Enter 提交，並透過 #freeform 插槽自訂提示前綴。',
+    cardRichTitle: '共用 VfkOption 圖示、描述與停用項',
+    cardRichDesc: '與 VfkSelect 共用 VfkOption，傳入 text 屬性可在含描述時控制輸入框回填文案。',
+    cardDisabledTitle: '停用狀態',
+    catalogDesc: '可輸入下拉框，支援前綴篩選、freeform 自訂文字與鍵盤導覽',
+    apiModelValue: '受控選中值（freeform 模式下也可以是自訂輸入文字）',
+    apiAppearance: '視覺外觀（outline 對應官方預設樣式）',
+    apiSize: '元件尺寸（small / medium / large）',
+    apiPlaceholder: '輸入框為空時的佔位提示文字',
+    apiFilter: '是否依輸入文字前綴即時篩選可見選項',
+    apiFreeform: '是否允許提交不在選項清單中的自訂文字',
+    apiFlags: '停用與必填表單狀態',
+    apiName: '原生表單欄位名稱',
+    apiUpdate: '選中項或自由輸入提交變化時觸發，同步更新 v-model',
+    apiChange: '值變化時觸發，附帶原生 Event',
+    apiInput: '文字框內容變化時觸發，附帶目前輸入字串',
+    apiSlotDefault: '放置 VfkOption 清單（內部自動包裹在 fluent-listbox 中）',
+    apiSlotIndicator: '自訂右側展開箭頭圖示（slot="indicator"）',
+    apiSlotFreeform: 'freeform 模式下自訂選項中輸入文字前的提示文案',
   },
   field: {
     desc: '基於官方 <fluent-field> 的薄封裝表單欄位容器，統一組合標籤、表單元件、校驗狀態圖示/訊息與輔助提示文字。',
@@ -1297,6 +1573,49 @@ export const controlsEnUS: DemoControlsMessages = {
     apiOptionDisabled: 'Disables this individual option',
     apiOptionSlots: 'Option label, leading icon, secondary description, and checked indicator slots',
   },
+  swatchPicker: {
+    desc: 'Single-select color swatch picker following Fluent 2 SwatchPicker conventions with radiogroup / radio semantics, roving tabindex navigation, dual-ring selection, 4 sizes, and 3 shapes.',
+    secSizesShapes: 'Sizes & Shapes',
+    secLayoutSpacing: 'Layout & Spacing',
+    secStates: 'Borders & Disabled States',
+    ariaLabel: 'Choose a color',
+    currentColor: 'Selected color',
+    emptyValue: '(none)',
+    cardSizesTitle: 'Four Swatch Sizes',
+    cardShapesTitle: 'Three Swatch Shapes',
+    cardGridTitle: 'Grid Layout (layout="grid")',
+    cardGridDesc: 'Fix columns per row with columnCount; Up/Down arrow keys step by column.',
+    cardSpacingTitle: 'Swatch Spacing (small / medium)',
+    cardBorderDisabledTitle: 'Light Swatch Border & Disabled Swatch',
+    cardBorderDisabledDesc: 'Pass borderColor on light swatches like white to keep edges clear; disabled swatches show a diagonal strike and are skipped by arrow keys.',
+    cardGroupDisabledTitle: 'Disabled Group',
+    colorRed: 'Crimson',
+    colorOrange: 'Orange',
+    colorYellow: 'Gold',
+    colorGreen: 'Green',
+    colorTeal: 'Teal',
+    colorBlue: 'Fluent Blue',
+    colorViolet: 'Violet',
+    colorWhite: 'White',
+    colorGray: 'Neutral Gray',
+    catalogDesc: 'Color swatch radio group with 4 sizes, 3 shapes, grid layout & arrow navigation',
+    apiModelValue: 'Controlled selected swatch value for v-model',
+    apiSize: 'Swatch size (extra-small 20px / small 24px / medium 28px / large 32px)',
+    apiShape: 'Swatch shape (square / rounded / circular)',
+    apiLayout: 'Layout mode (row wrapping / fixed-column grid)',
+    apiColumnCount: 'Number of columns per row when layout="grid"',
+    apiSpacing: 'Gap between swatches (small 2px / medium 4px)',
+    apiDisabled: 'Disable the entire swatch picker',
+    apiUpdate: 'Emitted when the selected swatch changes to sync v-model',
+    apiChange: 'Emitted on selection change with the triggering event',
+    apiSlotDefault: 'VfkColorSwatch items',
+    apiSwatchValue: 'Unique value matched against VfkSwatchPicker modelValue',
+    apiSwatchColor: 'CSS color displayed by the swatch (defaults to value)',
+    apiSwatchBorderColor: '1px inset border color for light swatches on light surfaces',
+    apiSwatchLabel: 'Accessible label and tooltip title (defaults to value)',
+    apiSwatchDisabled: 'Disable this individual swatch',
+    apiSwatchSlotDefault: 'Optional icon or marker rendered inside the swatch',
+  },
   switch: {
     desc: 'Thin Vue wrapper over official <fluent-switch> with controlled boolean v-model, automatic label association, labelPosition, and native ARIA switch semantics.',
     secBasic: 'Basic Usage & Label Position',
@@ -1341,6 +1660,55 @@ export const controlsEnUS: DemoControlsMessages = {
     apiUpdate: 'Emitted when selected radio changes',
     apiChange: 'Fired on selection change with value and event',
     apiRadioProps: 'Child VfkRadio value, label, and individual disabled flag',
+  },
+  combobox: {
+    desc: 'Thin Vue wrapper over <fluent-dropdown type="combobox">, <fluent-listbox>, and <fluent-option> with prefix filtering, freeform input, 4 appearances, and 3 sizes.',
+    secAppearances: 'Appearances',
+    secSizes: 'Sizes',
+    secFilterFreeform: 'Filtering & Freeform',
+    secRichDisabled: 'Rich Options & Disabled',
+    placeholder: 'Type or choose a framework...',
+    freeformPlaceholder: 'Type any tag or pick a suggestion...',
+    freeformPrefix: 'Use: ',
+    currentValue: 'Selected value',
+    lastInput: 'Last query',
+    emptyValue: '(none)',
+    clearSelection: 'Clear selection',
+    optVue: 'Vue',
+    optVite: 'Vite',
+    optReact: 'React',
+    optSvelte: 'Svelte',
+    optAngular: 'Angular',
+    optLegacy: 'Legacy (deprecated)',
+    optVueDesc: 'Progressive frontend framework',
+    optViteDesc: 'Next-generation frontend build tool',
+    optReactDesc: 'Component UI library',
+    optLegacyDesc: 'Shown disabled for demo purposes',
+    cardAppearancesTitle: 'Four Fluent 2 Appearances',
+    cardAppearancesDesc: 'Matches VfkSelect with outline, transparent, filled-darker, and filled-lighter variants.',
+    cardSizesTitle: 'Small / Medium / Large Sizes',
+    cardFilterTitle: 'Live Prefix Filtering (filter)',
+    cardFilterDesc: 'Enabled by default: typing a prefix like "v" keeps matching options (Vue / Vite) and restricts keyboard navigation to visible items; closing restores all options.',
+    cardFreeformTitle: 'Freeform Custom Input (freeform)',
+    cardFreeformDesc: 'Allows committing text not listed in the options via Enter, with a customizable #freeform prefix slot.',
+    cardRichTitle: 'Shared VfkOption Icons, Descriptions & Disabled Items',
+    cardRichDesc: 'Reuses VfkOption from Select; set the text prop to control the input display text when descriptions are present.',
+    cardDisabledTitle: 'Disabled State',
+    catalogDesc: 'Editable combobox with prefix filtering, freeform input & keyboard navigation',
+    apiModelValue: 'Controlled value (can also be custom text when freeform is enabled)',
+    apiAppearance: 'Visual style (outline maps to the default native style)',
+    apiSize: 'Control size (small / medium / large)',
+    apiPlaceholder: 'Placeholder text when the input is empty',
+    apiFilter: 'Filter visible options by input prefix in real time',
+    apiFreeform: 'Allow committing custom text not present in the option list',
+    apiFlags: 'Disabled and required form states',
+    apiName: 'Native form field name',
+    apiUpdate: 'Emitted when selection or freeform commit changes to sync v-model',
+    apiChange: 'Emitted on value change with the native Event',
+    apiInput: 'Emitted as the user types with the current query string',
+    apiSlotDefault: 'Option list (VfkOption elements wrapped in fluent-listbox)',
+    apiSlotIndicator: 'Custom trailing chevron indicator (slot="indicator")',
+    apiSlotFreeform: 'Prefix text rendered before the typed value in the freeform option',
   },
   field: {
     desc: 'Thin Vue wrapper over official <fluent-field> combining label, form control, validation status icon/message, and helper hint.',

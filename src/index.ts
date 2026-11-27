@@ -34,6 +34,13 @@ export {
 } from './components/checkbox'
 
 export {
+  VfkCombobox,
+  type ComboboxAppearance,
+  type ComboboxSize,
+  type VfkComboboxProps,
+} from './components/combobox'
+
+export {
   VfkField,
   type FieldOrientation,
   type FieldSize,
@@ -84,6 +91,17 @@ export {
   type VfkOptionProps,
   type VfkSelectProps,
 } from './components/select'
+
+export {
+  VfkColorSwatch,
+  VfkSwatchPicker,
+  type SwatchPickerLayout,
+  type SwatchPickerShape,
+  type SwatchPickerSize,
+  type SwatchPickerSpacing,
+  type VfkColorSwatchProps,
+  type VfkSwatchPickerProps,
+} from './components/swatch-picker'
 
 export {
   VfkSwitch,
