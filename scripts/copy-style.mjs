@@ -8,6 +8,7 @@ const layers = [
   resolve(root, 'src/styles/tokens.css'),
   resolve(root, 'src/styles/brand.css'),
   resolve(root, 'src/styles/surfaces.css'),
+  resolve(root, 'src/styles/components.css'),
 ]
 
 mkdirSync(dirname(target), { recursive: true })

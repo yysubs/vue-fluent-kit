@@ -1,3 +1,10 @@
+import {
+  controlsEnUS,
+  controlsZhCN,
+  controlsZhTW,
+  type DemoControlsMessages,
+} from './controls-messages'
+
 export type DemoLocale = 'zh-CN' | 'zh-TW' | 'en-US'
 
 export interface DemoLocaleOption {
@@ -51,12 +58,17 @@ export interface DemoMessages {
     themeSwitchAriaLabel: string
     langSwitchAriaLabel: string
     groupOverview: string
+    groupComponents: string
     groupDesignSystem: string
     navOverviewTitle: string
     navOverviewSub: string
+    navButtonSub: string
+    navInputSub: string
+    navCheckboxSub: string
     navTokensTitle: string
     navTokensSub: string
   }
+  controls: DemoControlsMessages
   brands: {
     default: string
     teal: string
@@ -187,12 +199,17 @@ const zhCN: DemoMessages = {
     themeSwitchAriaLabel: '切换主题',
     langSwitchAriaLabel: '切换语言',
     groupOverview: '概览',
+    groupComponents: '基础控件',
     groupDesignSystem: '设计系统',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概览',
+    navButtonSub: '按钮',
+    navInputSub: '输入框',
+    navCheckboxSub: '复选框',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
   },
+  controls: controlsZhCN,
   brands: {
     default: 'Fluent 蓝',
     teal: '青碧 Teal',
@@ -394,12 +411,17 @@ const zhTW: DemoMessages = {
     themeSwitchAriaLabel: '切換主題',
     langSwitchAriaLabel: '切換語言',
     groupOverview: '概覽',
+    groupComponents: '基礎元件',
     groupDesignSystem: '設計系統',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概覽',
+    navButtonSub: '按鈕',
+    navInputSub: '輸入框',
+    navCheckboxSub: '核取方塊',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
   },
+  controls: controlsZhTW,
   brands: {
     default: 'Fluent 藍',
     teal: '青碧 Teal',
@@ -601,12 +623,17 @@ const enUS: DemoMessages = {
     themeSwitchAriaLabel: 'Switch theme',
     langSwitchAriaLabel: 'Switch language',
     groupOverview: 'Overview',
+    groupComponents: 'Components',
     groupDesignSystem: 'Design System',
     navOverviewTitle: 'Introduction',
     navOverviewSub: 'Start',
+    navButtonSub: 'Action',
+    navInputSub: 'Text Field',
+    navCheckboxSub: 'Tri-state',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
   },
+  controls: controlsEnUS,
   brands: {
     default: 'Fluent Blue',
     teal: 'Teal',

@@ -1502,6 +1502,26 @@ body {
   padding: 0;
 }
 
+.demo-native-select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 30px;
+  padding: 0 var(--spacingHorizontalS);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+  border-radius: var(--borderRadiusMedium);
+  background: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+}
+
+.demo-native-select:focus-visible {
+  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+  outline-offset: 1px;
+}
+
 .demo-search-box {
   box-sizing: border-box;
   display: inline-flex;

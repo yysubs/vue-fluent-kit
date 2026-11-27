@@ -6,6 +6,9 @@ import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
 import DemoLogo from './components/DemoLogo.vue'
 import { useDemoI18n } from './i18n'
+import ButtonPage from './pages/ButtonPage.vue'
+import CheckboxPage from './pages/CheckboxPage.vue'
+import InputPage from './pages/InputPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 
@@ -13,7 +16,7 @@ interface NavItem {
   id: DemoPageId
   title: string
   sub?: string
-  groupKey: 'overview' | 'designSystem'
+  groupKey: 'overview' | 'components' | 'designSystem'
   groupLabel: string
   icon: DemoIconName
   keywords: string
@@ -33,8 +36,35 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'overview introduction home 概览 概覽 首页 首頁 架构 架構 主题 主題 品牌 材质 材質 logo',
   },
   {
+    id: 'button',
+    title: 'Button',
+    sub: messages.value.shell.navButtonSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'button',
+    keywords: 'button vbutton fluent-button 按钮 按鈕 图标 圖示 action',
+  },
+  {
+    id: 'input',
+    title: 'Input',
+    sub: messages.value.shell.navInputSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'input',
+    keywords: 'input vinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
+  },
+  {
+    id: 'checkbox',
+    title: 'Checkbox',
+    sub: messages.value.shell.navCheckboxSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'checkbox',
+    keywords: 'checkbox vcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
+  },
+  {
     id: 'tokens',
-    title: messages.value.shell.navTokensTitle,
+    title: 'Design Tokens',
     sub: messages.value.shell.navTokensSub,
     groupKey: 'designSystem',
     groupLabel: messages.value.shell.groupDesignSystem,
@@ -44,7 +74,7 @@ const navItems = computed<NavItem[]>(() => [
   },
 ])
 
-const validPageIds = new Set<DemoPageId>(['overview', 'tokens'])
+const validPageIds = new Set<DemoPageId>(['overview', 'button', 'input', 'checkbox', 'tokens'])
 
 function parseHashPage(): DemoPageId {
   const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase() as DemoPageId
@@ -76,7 +106,7 @@ const navGroups = computed(() => {
       )
     : navItems.value
 
-  const order: NavItem['groupKey'][] = ['overview', 'designSystem']
+  const order: NavItem['groupKey'][] = ['overview', 'components', 'designSystem']
   return order
     .map((groupKey) => {
       const items = filtered.filter((item) => item.groupKey === groupKey)
@@ -278,6 +308,9 @@ onUnmounted(() => {
 
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
+        <ButtonPage v-else-if="currentPage === 'button'" />
+        <InputPage v-else-if="currentPage === 'input'" />
+        <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <TokensPage v-else />
       </main>
     </div>

@@ -19,6 +19,9 @@ export default defineConfig({
         index: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
         theme: fileURLToPath(new URL('./src/theme/index.ts', import.meta.url)),
         'custom-elements': fileURLToPath(new URL('./src/custom-elements.ts', import.meta.url)),
+        button: fileURLToPath(new URL('./src/components/button/index.ts', import.meta.url)),
+        input: fileURLToPath(new URL('./src/components/input/index.ts', import.meta.url)),
+        checkbox: fileURLToPath(new URL('./src/components/checkbox/index.ts', import.meta.url)),
       },
       formats: ['es'],
       cssFileName: 'style',
@@ -31,6 +34,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    setupFiles: ['./src/test-setup.ts'],
     passWithNoTests: true,
   },
 })
