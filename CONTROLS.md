@@ -41,20 +41,26 @@
 
 ### Input（文本输入）
 
-参照 `@fluentui/react-input`。外层容器包原生 `<input>`，支持前后缀插槽（`contentBefore` / `contentAfter`）。
+参照 `@fluentui/react-input`。外层 `<span>` 容器包裹原生 `<input>`，支持前后缀插槽（`contentBefore` / `contentAfter`）。
 
 - **外观（`appearance`）**：
-  - `outline`（默认）：底色 `colorNeutralBackground1`，三边 `1px solid colorNeutralStroke1`，底边 `colorNeutralStrokeAccessible`。
-  - `underline`：底色透明，无圆角，仅底边 `1px solid colorNeutralStrokeAccessible`。
-  - `filled-darker`：底色 `colorNeutralBackground3`，边框透明。
-  - `filled-lighter`：底色 `colorNeutralBackground1`，边框透明。
+  - `outline`（默认）：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground1`，上左右边框 `strokeWidthThin solid colorNeutralStroke1`（悬停 `Hover`、按下与聚焦 `Pressed`），底边 `colorNeutralStrokeAccessible`（悬停 `Hover`、按下与聚焦 `Pressed`）。
+  - `underline`：底色 `colorTransparentBackground`，无圆角（`borderRadiusNone`），仅保留底边 `strokeWidthThin solid colorNeutralStrokeAccessible`（悬停 `Hover`、按下与聚焦 `Pressed`）。
+  - `filled-darker`：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground3`，边框 `colorTransparentStroke`（悬停与聚焦 `colorTransparentStrokeInteractive`）。
+  - `filled-lighter`：圆角 `borderRadiusMedium`，底色 `colorNeutralBackground1`，边框 `colorTransparentStroke`（悬停与聚焦 `colorTransparentStrokeInteractive`）。
+  - 输入文字颜色 `colorNeutralForeground1`，占位文字 `colorNeutralForeground4`；禁用态底色 `colorTransparentBackground`，边框 `colorNeutralStrokeDisabled`（`underline` 仅底边变色），文字、占位文字与前后缀内容均为 `colorNeutralForegroundDisabled`，鼠标样式为 `not-allowed`。
 - **尺寸（`size`）**：
-  - `small`：最小高 `24px`，排版 `caption1`（`12px` / `16px`），无插槽时左右内边距 `spacingHorizontalS`。
-  - `medium`（默认）：最小高 `32px`，排版 `body1`（`14px` / `20px`），无插槽时左右内边距 `spacingHorizontalM`。
-  - `large`：最小高 `40px`，排版 `body2`（`16px` / `22px`），无插槽时左右内边距 `calc(spacingHorizontalM + spacingHorizontalSNudge)`。
+  - `small`：最小高 `24px`，字号 `fontSizeBase200` / 行高 `lineHeightBase200` / 字重 `fontWeightRegular`（`caption1`），内部间距 `spacingHorizontalXXS`，插槽图标 `16px`。
+  - `medium`（默认）：最小高 `32px`，字号 `fontSizeBase300` / 行高 `lineHeightBase300` / 字重 `fontWeightRegular`（`body1`），内部间距 `spacingHorizontalXXS`，插槽图标 `20px`。
+  - `large`：最小高 `40px`，字号 `fontSizeBase400` / 行高 `lineHeightBase400` / 字重 `fontWeightRegular`（`body2`），内部间距 `spacingHorizontalSNudge`，插槽图标 `24px`。
 - **焦点与校验**：
-  - `:focus-within` 时底部伪元素绘制 `2px solid colorCompoundBrandStroke` 指示线（按圆角裁切底角），聚焦展开 `transform: scaleX(1)`（时长 `durationNormal`、曲线 `curveDecelerateMid`），失焦收起 `transform: scaleX(0)`（时长 `durationUltraFast`、曲线 `curveAccelerateMid`）。
-  - 校验错误（`aria-invalid="true"`）在非聚焦态下边框变为 `colorPaletteRedBorder2`。
+  - `:focus-within` 时外层底部伪元素绘制 `strokeWidthThick solid colorCompoundBrandStroke` 指示线（聚焦时按下为 `colorCompoundBrandStrokePressed`；非 `underline` 外观按 `borderRadiusMedium` 裁切底角）。
+  - 校验错误（`aria-invalid="true"`）在未禁用且未聚焦（含悬停）时边框变为 `colorPaletteRedBorder2`（`underline` 仅底边变色），聚焦时让位于底部品牌色指示线。
+- **Vue 接口**：导出 `VInput`。属性为 `modelValue`、`appearance`、`size`、`disabled`、`type`（默认 `'text'`，限文本类输入类型）；事件为 `update:modelValue`（随原生 `input` 事件触发）；未传 `modelValue` 时按原生非受控方式工作，传入 `modelValue` 时与受控值保持同步。通过 `defineExpose` 暴露内部 `input` 元素引用及 `focus`、`blur`、`select` 方法。启用 `inheritAttrs: false`，仅将 `class` 与 `style` 挂在外层 `<span>`，其余原生属性（`placeholder`、`id`、`name`、`readonly`、`required`、`aria-*` 等）和原生事件监听透传给内部 `<input>`。
+- **插槽与内边距**：支持 `contentBefore` 与 `contentAfter` 插槽，仅在传入对应插槽时渲染包装节点，默认颜色 `colorNeutralForeground3`。无对应侧插槽时水平内边距全部落在 `<input>` 上（`small` 为 `spacingHorizontalS`，`medium` 为 `spacingHorizontalM`，`large` 为 `calc(spacingHorizontalM + spacingHorizontalSNudge)`）；有插槽时该侧内边距拆分为外层容器与 `<input>` 两段（`small` 为 `spacingHorizontalSNudge` + `spacingHorizontalXXS`，`medium` 为 `spacingHorizontalMNudge` + `spacingHorizontalXXS`，`large` 为 `spacingHorizontalM` + `spacingHorizontalSNudge`）。插槽内若放置按钮等可聚焦元素，按 DOM 顺序独立参与 Tab 键切换，其可访问名称与禁用状态由调用方自行传入。
+- **过渡**：底部焦点指示线对 `transform` 做过渡，聚焦展开为 `scaleX(1)`（时长 `durationNormal`、曲线 `curveDecelerateMid`），失焦收起为 `scaleX(0)`（时长 `durationUltraFast`、曲线 `curveAccelerateMid`）。
+- **可访问性**：焦点停留在内部原生 `<input>` 上，保留原生输入编辑与 `readonly` 行为；禁用态使用原生 `disabled` 属性移出焦点顺序并隐藏底部焦点指示线；高对比度模式（`forced-colors: active`）下常规边框使用 `ButtonText`，焦点指示线与非聚焦错误边框使用 `Highlight`，禁用态边框、文字与插槽内容使用 `GrayText`；减少动效模式（`prefers-reduced-motion: reduce`）下过渡时长降为 `0.01ms`。
+- **手动验证**：预览页覆盖四种外观、三种尺寸、前后缀插槽、校验错误态、禁用态与受控 `v-model` 实时绑定，并检查浅色/深色主题切换与键盘聚焦动效。
 
 ### Field（表单字段）
 
