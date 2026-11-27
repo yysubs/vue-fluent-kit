@@ -88,15 +88,6 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
   },
   {
-    id: 'textarea',
-    title: 'Textarea',
-    sub: messages.value.shell.navTextareaSub,
-    groupKey: 'components',
-    groupLabel: messages.value.shell.groupComponents,
-    icon: 'textarea',
-    keywords: 'textarea vfktextarea fluent-textarea multiline resize autoresize 多行 文本域 文字框 自動增高',
-  },
-  {
     id: 'toggle-button',
     title: 'ToggleButton',
     sub: messages.value.shell.navToggleButtonSub,
@@ -227,6 +218,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'tab tabs tablist vfktab vfktablist fluent-tablist 标签页 分頁列 选项卡 選項卡',
   },
   {
+    id: 'textarea',
+    title: 'Textarea',
+    sub: messages.value.shell.navTextareaSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'textarea',
+    keywords: 'textarea vfktextarea fluent-textarea multiline resize autoresize 多行 文本域 文字框 自動增高',
+  },
+  {
     id: 'tooltip',
     title: 'Tooltip',
     sub: messages.value.shell.navTooltipSub,
@@ -289,13 +289,11 @@ const currentPage = ref<DemoPageId>(parseHashPage())
 const searchQuery = ref('')
 const sidebarOpen = ref(false)
 const groupExpanded = reactive<Record<NavItem['groupKey'], boolean>>({
-  overview: true,
-  components: true,
-  designSystem: true,
+  overview: false,
+  components: false,
+  designSystem: false,
 })
-const folderExpanded = reactive<Record<string, boolean>>({
-  button: true,
-})
+const folderExpanded = reactive<Record<string, boolean>>({})
 
 const themeOptions = computed<{ value: ThemeMode; label: string; icon: DemoIconName }[]>(() => [
   { value: 'light', label: messages.value.common.themeLight, icon: 'sun' },
@@ -355,16 +353,33 @@ const navGroups = computed(() => {
     .filter((group) => group.leafCount > 0)
 })
 
-function ensureParentFolderExpanded(page: DemoPageId) {
+/** 只展开指定分组，同级的其他分组自动收起 */
+function expandGroupOnly(target: NavItem['groupKey']) {
+  for (const key of Object.keys(groupExpanded) as NavItem['groupKey'][]) {
+    groupExpanded[key] = key === target
+  }
+}
+
+/** 只展开指定文件夹，其他文件夹自动收起 */
+function expandFolderOnly(target: string) {
+  for (const key of Object.keys(folderExpanded)) {
+    folderExpanded[key] = key === target
+  }
+}
+
+/** 跳到某个页面时展开它所在的分组与文件夹，保证当前条目可见 */
+function ensureGroupVisible(page: DemoPageId) {
   const matched = navItems.value.find((item) => item.id === page)
-  if (matched?.folderKey) {
-    folderExpanded[matched.folderKey] = true
+  if (!matched) return
+  expandGroupOnly(matched.groupKey)
+  if (matched.folderKey) {
+    expandFolderOnly(matched.folderKey)
   }
 }
 
 function navigate(page: DemoPageId) {
   currentPage.value = page
-  ensureParentFolderExpanded(page)
+  ensureGroupVisible(page)
   sidebarOpen.value = false
   if (window.location.hash !== `#${page}`) {
     window.history.replaceState(null, '', `#${page}`)
@@ -379,21 +394,27 @@ function handleNavSelect(value: string) {
 }
 
 function handleGroupToggle(groupKey: NavItem['groupKey'], expanded: boolean) {
-  if (!searchQuery.value.trim()) {
-    groupExpanded[groupKey] = expanded
+  if (searchQuery.value.trim()) return
+  if (expanded) {
+    expandGroupOnly(groupKey)
+    return
   }
+  groupExpanded[groupKey] = false
 }
 
 function handleFolderToggle(folderKey: string, expanded: boolean) {
-  if (!searchQuery.value.trim()) {
-    folderExpanded[folderKey] = expanded
+  if (searchQuery.value.trim()) return
+  if (expanded) {
+    expandFolderOnly(folderKey)
+    return
   }
+  folderExpanded[folderKey] = false
 }
 
 function handleHashChange() {
   const next = parseHashPage()
   currentPage.value = next
-  ensureParentFolderExpanded(next)
+  ensureGroupVisible(next)
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -403,6 +424,7 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 onMounted(() => {
+  ensureGroupVisible(currentPage.value)
   window.addEventListener('hashchange', handleHashChange)
   window.addEventListener('keydown', handleKeydown)
 })

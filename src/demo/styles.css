@@ -91,6 +91,12 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 0 var(--spacingHorizontalMNudge) var(--spacingVerticalL);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.demo-sidebar__nav::-webkit-scrollbar {
+  display: none;
 }
 
 .demo-sidebar-tree {
