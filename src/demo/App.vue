@@ -24,11 +24,27 @@ interface NavItem {
   id: DemoPageId
   title: string
   sub?: string
+  folderKey?: string
+  folderTitle?: string
   groupKey: 'overview' | 'components' | 'designSystem'
   groupLabel: string
   icon: DemoIconName
   keywords: string
 }
+
+interface NavFolderEntry {
+  kind: 'folder'
+  key: string
+  title: string
+  children: NavItem[]
+}
+
+interface NavLeafEntry {
+  kind: 'leaf'
+  item: NavItem
+}
+
+type NavEntry = NavFolderEntry | NavLeafEntry
 
 const { mode, setTheme } = useTheme()
 const { locale, messages, localeOptions, setLocale } = useDemoI18n()
@@ -47,10 +63,23 @@ const navItems = computed<NavItem[]>(() => [
     id: 'button',
     title: 'Button',
     sub: messages.value.shell.navButtonSub,
+    folderKey: 'button',
+    folderTitle: 'Button',
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
     icon: 'button',
     keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
+  },
+  {
+    id: 'toggle-button',
+    title: 'ToggleButton',
+    sub: messages.value.shell.navToggleButtonSub,
+    folderKey: 'button',
+    folderTitle: 'Button',
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'toggle',
+    keywords: 'toggle button vfktogglebutton fluent-toggle-button pressed mixed 切换按钮 切換按鈕 按压 按壓',
   },
   {
     id: 'checkbox',
@@ -125,15 +154,6 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'tab tabs tablist vfktab vfktablist fluent-tablist 标签页 分頁列 选项卡 選項卡',
   },
   {
-    id: 'toggle-button',
-    title: 'ToggleButton',
-    sub: messages.value.shell.navToggleButtonSub,
-    groupKey: 'components',
-    groupLabel: messages.value.shell.groupComponents,
-    icon: 'toggle',
-    keywords: 'toggle button vfktogglebutton fluent-toggle-button pressed mixed 切换按钮 切換按鈕 按压 按壓',
-  },
-  {
     id: 'tree',
     title: 'Tree',
     sub: messages.value.shell.navTreeSub,
@@ -183,6 +203,9 @@ const groupExpanded = reactive<Record<NavItem['groupKey'], boolean>>({
   components: true,
   designSystem: true,
 })
+const folderExpanded = reactive<Record<string, boolean>>({
+  button: true,
+})
 
 const themeOptions = computed<{ value: ThemeMode; label: string; icon: DemoIconName }[]>(() => [
   { value: 'light', label: messages.value.common.themeLight, icon: 'sun' },
@@ -200,6 +223,7 @@ const navGroups = computed(() => {
     ? navItems.value.filter(
         (item) =>
           item.title.toLowerCase().includes(q) ||
+          (item.folderTitle && item.folderTitle.toLowerCase().includes(q)) ||
           (item.sub && item.sub.toLowerCase().includes(q)) ||
           item.keywords.toLowerCase().includes(q),
       )
@@ -209,17 +233,48 @@ const navGroups = computed(() => {
   return order
     .map((groupKey) => {
       const items = filtered.filter((item) => item.groupKey === groupKey)
+      const entries: NavEntry[] = []
+      const folderMap = new Map<string, NavFolderEntry>()
+
+      for (const item of items) {
+        if (item.folderKey && item.folderTitle) {
+          let folder = folderMap.get(item.folderKey)
+          if (!folder) {
+            folder = {
+              kind: 'folder',
+              key: item.folderKey,
+              title: item.folderTitle,
+              children: [],
+            }
+            folderMap.set(item.folderKey, folder)
+            entries.push(folder)
+          }
+          folder.children.push(item)
+        } else {
+          entries.push({ kind: 'leaf', item })
+        }
+      }
+
       return {
         key: groupKey,
         name: items[0]?.groupLabel ?? '',
-        items,
+        leafCount: items.length,
+        entries,
       }
     })
-    .filter((group) => group.items.length > 0)
+    .filter((group) => group.leafCount > 0)
 })
+
+function ensureParentFolderExpanded(page: DemoPageId) {
+  const matched = navItems.value.find((item) => item.id === page)
+  if (matched?.folderKey) {
+    folderExpanded[matched.folderKey] = true
+  }
+}
 
 function navigate(page: DemoPageId) {
   currentPage.value = page
+  ensureParentFolderExpanded(page)
   sidebarOpen.value = false
   if (window.location.hash !== `#${page}`) {
     window.history.replaceState(null, '', `#${page}`)
@@ -239,8 +294,16 @@ function handleGroupToggle(groupKey: NavItem['groupKey'], expanded: boolean) {
   }
 }
 
+function handleFolderToggle(folderKey: string, expanded: boolean) {
+  if (!searchQuery.value.trim()) {
+    folderExpanded[folderKey] = expanded
+  }
+}
+
 function handleHashChange() {
-  currentPage.value = parseHashPage()
+  const next = parseHashPage()
+  currentPage.value = next
+  ensureParentFolderExpanded(next)
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -329,27 +392,64 @@ onUnmounted(() => {
           >
             <span class="demo-sidebar-tree__group-label">{{ group.name }}</span>
             <template #aside>
-              <span class="demo-nav-group__count">{{ group.items.length }}</span>
+              <span class="demo-nav-group__count">{{ group.leafCount }}</span>
             </template>
 
-            <VfkTreeItem
-              v-for="item in group.items"
-              :key="item.id"
-              class="demo-sidebar-tree__leaf"
-              :value="item.id"
-              :aria-current="currentPage === item.id ? 'page' : undefined"
-              @click="sidebarOpen = false"
+            <template
+              v-for="entry in group.entries"
+              :key="entry.kind === 'folder' ? `folder:${entry.key}` : entry.item.id"
             >
-              <template #start>
-                <span class="demo-nav-item__icon">
-                  <DemoIcons :name="item.icon" :size="15" />
-                </span>
-              </template>
-              <span class="demo-sidebar-tree__title">{{ item.title }}</span>
-              <template v-if="item.sub" #aside>
-                <span class="demo-nav-item__sub">{{ item.sub }}</span>
-              </template>
-            </VfkTreeItem>
+              <VfkTreeItem
+                v-if="entry.kind === 'folder'"
+                class="demo-sidebar-tree__folder"
+                :value="`folder:${entry.key}`"
+                :selectable="false"
+                :expanded="folderExpanded[entry.key] || Boolean(searchQuery.trim())"
+                @update:expanded="handleFolderToggle(entry.key, $event)"
+              >
+                <span class="demo-sidebar-tree__title">{{ entry.title }}</span>
+                <template #aside>
+                  <span class="demo-nav-group__count">{{ entry.children.length }}</span>
+                </template>
+
+                <VfkTreeItem
+                  v-for="child in entry.children"
+                  :key="child.id"
+                  class="demo-sidebar-tree__leaf"
+                  :value="child.id"
+                  :aria-current="currentPage === child.id ? 'page' : undefined"
+                  @click="sidebarOpen = false"
+                >
+                  <template #start>
+                    <span class="demo-nav-item__icon">
+                      <DemoIcons :name="child.icon" :size="15" />
+                    </span>
+                  </template>
+                  <span class="demo-sidebar-tree__title">{{ child.title }}</span>
+                  <template v-if="child.sub" #aside>
+                    <span class="demo-nav-item__sub">{{ child.sub }}</span>
+                  </template>
+                </VfkTreeItem>
+              </VfkTreeItem>
+
+              <VfkTreeItem
+                v-else
+                class="demo-sidebar-tree__leaf"
+                :value="entry.item.id"
+                :aria-current="currentPage === entry.item.id ? 'page' : undefined"
+                @click="sidebarOpen = false"
+              >
+                <template #start>
+                  <span class="demo-nav-item__icon">
+                    <DemoIcons :name="entry.item.icon" :size="15" />
+                  </span>
+                </template>
+                <span class="demo-sidebar-tree__title">{{ entry.item.title }}</span>
+                <template v-if="entry.item.sub" #aside>
+                  <span class="demo-nav-item__sub">{{ entry.item.sub }}</span>
+                </template>
+              </VfkTreeItem>
+            </template>
           </VfkTreeItem>
         </VfkTree>
 
@@ -384,6 +484,10 @@ onUnmounted(() => {
 
           <div class="demo-breadcrumb" :aria-label="messages.shell.breadcrumbAriaLabel">
             <span>{{ currentNavItem.groupLabel }}</span>
+            <template v-if="currentNavItem.folderTitle">
+              <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
+              <span>{{ currentNavItem.folderTitle }}</span>
+            </template>
             <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
             <span class="demo-breadcrumb__current">{{ currentNavItem.title }}</span>
           </div>

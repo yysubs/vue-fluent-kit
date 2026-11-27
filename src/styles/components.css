@@ -183,3 +183,27 @@ fluent-menu-item {
   margin: var(--spacingVerticalXS) calc(var(--spacingHorizontalXS) * -1);
   background: var(--colorNeutralStroke2);
 }
+
+/* 修正官方 fluent-toggle-button 在 pressed 且禁用态下，:state(pressed) 规则覆盖禁用背景/悬停/按压态的问题 */
+fluent-toggle-button:is(:disabled, [disabled], [disabled-focusable]) {
+  --colorNeutralBackground1Selected: var(--colorNeutralBackgroundDisabled);
+  --colorNeutralBackground1Hover: var(--colorNeutralBackgroundDisabled);
+  --colorNeutralBackground1Pressed: var(--colorNeutralBackgroundDisabled);
+  --colorNeutralForeground1: var(--colorNeutralForegroundDisabled);
+  --colorNeutralStroke1: var(--colorNeutralStrokeDisabled);
+  --colorNeutralStroke1Hover: var(--colorNeutralStrokeDisabled);
+  --colorNeutralStroke1Pressed: var(--colorNeutralStrokeDisabled);
+  --colorBrandBackgroundSelected: var(--colorNeutralBackgroundDisabled);
+  --colorBrandBackgroundHover: var(--colorNeutralBackgroundDisabled);
+  --colorBrandBackgroundPressed: var(--colorNeutralBackgroundDisabled);
+  --colorNeutralForegroundOnBrand: var(--colorNeutralForegroundDisabled);
+  --colorSubtleBackgroundSelected: var(--colorTransparentBackground);
+  --colorSubtleBackgroundHover: var(--colorTransparentBackground);
+  --colorSubtleBackgroundPressed: var(--colorTransparentBackground);
+  --colorNeutralForeground2Selected: var(--colorNeutralForegroundDisabled);
+  --colorNeutralForeground2Hover: var(--colorNeutralForegroundDisabled);
+  --colorNeutralForeground2Pressed: var(--colorNeutralForegroundDisabled);
+  --colorNeutralForeground2BrandSelected: var(--colorNeutralForegroundDisabled);
+  --colorNeutralForeground2BrandHover: var(--colorNeutralForegroundDisabled);
+  --colorNeutralForeground2BrandPressed: var(--colorNeutralForegroundDisabled);
+}

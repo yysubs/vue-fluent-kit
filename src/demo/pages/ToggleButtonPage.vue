@@ -50,6 +50,14 @@ const pinActive = ref(true)
 const filterActive = ref(false)
 const notifyActive = ref<ToggleButtonValue>('mixed')
 
+const variantStates = ref({
+  small: true,
+  medium: true,
+  large: true,
+  circular: true,
+  square: true,
+})
+
 const stateText = computed(() => {
   if (pressed.value === 'mixed') return messages.value.controls.toggleButton.mixedLabel
   return pressed.value
@@ -306,13 +314,13 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-stack">
           <DemoCard :title="messages.controls.toggleButton.cardVariantsTitle" :code="variantsCode">
             <div class="demo-row">
-              <VfkToggleButton :model-value="true" size="small">Small</VfkToggleButton>
-              <VfkToggleButton :model-value="true" size="medium">Medium</VfkToggleButton>
-              <VfkToggleButton :model-value="true" size="large">Large</VfkToggleButton>
-              <VfkToggleButton :model-value="true" shape="circular" aria-label="Toggle">
+              <VfkToggleButton v-model="variantStates.small" size="small">Small</VfkToggleButton>
+              <VfkToggleButton v-model="variantStates.medium" size="medium">Medium</VfkToggleButton>
+              <VfkToggleButton v-model="variantStates.large" size="large">Large</VfkToggleButton>
+              <VfkToggleButton v-model="variantStates.circular" shape="circular" aria-label="Toggle">
                 <template #start><DemoIcons name="sparkle" :size="15" /></template>
               </VfkToggleButton>
-              <VfkToggleButton :model-value="true" shape="square">Square</VfkToggleButton>
+              <VfkToggleButton v-model="variantStates.square" shape="square">Square</VfkToggleButton>
             </div>
           </DemoCard>
 

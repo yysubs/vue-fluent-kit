@@ -87,4 +87,39 @@ describe('VfkToggleButton', () => {
     await focusableDisabled.find('fluent-toggle-button').trigger('click')
     expect(focusableDisabled.emitted('update:modelValue')).toBeUndefined()
   })
+
+  it('即使底层 press() 在 Vue 微任务之后再次翻转，仍保持与受控 modelValue 一致', async () => {
+    const wrapper = mount(VfkToggleButton, {
+      props: {
+        modelValue: true,
+        'onUpdate:modelValue': (val: boolean) => {
+          void wrapper.setProps({ modelValue: val })
+        },
+      },
+      slots: { default: '自动保存' },
+    })
+
+    await nextTick()
+    const el = wrapper.find('fluent-toggle-button')
+    const dom = el.element as HTMLElement & { pressed: boolean; press: () => void }
+    expect(dom.pressed).toBe(true)
+
+    // 模拟真实浏览器中 Vue 微任务先更新 pressed=false、随后底层 clickHandler 调用 press() 翻回 true
+    await el.trigger('click')
+    await nextTick()
+    dom.press()
+    expect(dom.pressed).toBe(true)
+
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(dom.pressed).toBe(false)
+
+    // 再次点击由 false 切回 true，同样抵抗滞后的 press() 反转
+    await el.trigger('click')
+    await nextTick()
+    dom.press()
+    expect(dom.pressed).toBe(false)
+
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(dom.pressed).toBe(true)
+  })
 })

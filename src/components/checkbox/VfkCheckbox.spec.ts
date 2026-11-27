@@ -69,6 +69,7 @@ describe('VfkCheckbox', () => {
     el.dispatchEvent(new Event('change', { bubbles: true }))
     await nextTick()
 
+    expect(wrapper.find('fluent-checkbox').attributes('disabled')).toBe('')
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(el.checked).toBe(false)
     expect(wrapper.find('.vfk-checkbox').classes()).toContain('vfk-checkbox--disabled')

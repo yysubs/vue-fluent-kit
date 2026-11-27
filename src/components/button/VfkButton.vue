@@ -42,7 +42,7 @@ const isIconOnly = computed(() => {
 function handleClick(event: MouseEvent) {
   if (props.disabled || props.disabledFocusable) {
     event.preventDefault()
-    event.stopPropagation()
+    event.stopImmediatePropagation()
     return
   }
   emit('click', event)
@@ -61,10 +61,10 @@ defineExpose({
     :appearance="nativeAppearance"
     :shape="shape"
     :size="size"
-    :type="type"
-    :disabled="disabled ? '' : undefined"
-    :disabled-focusable="disabledFocusable ? '' : undefined"
-    :icon-only="isIconOnly ? '' : undefined"
+    :type.attr="type"
+    :disabled.attr="disabled ? '' : undefined"
+    :disabled-focusable.attr="disabledFocusable ? '' : undefined"
+    :icon-only.attr="isIconOnly ? '' : undefined"
     @click="handleClick"
   >
     <span v-if="$slots.start" slot="start" class="vfk-slot-inline"><slot name="start" /></span>

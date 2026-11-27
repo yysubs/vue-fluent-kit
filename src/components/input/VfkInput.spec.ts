@@ -75,4 +75,19 @@ describe('VfkInput', () => {
     expect(el.find('[slot="start"] .prefix').exists()).toBe(true)
     expect(el.find('[slot="end"] .suffix').exists()).toBe(true)
   })
+
+  it('正确映射 disabled、readonly 与 required 布尔属性', () => {
+    const wrapper = mount(VfkInput, {
+      props: {
+        disabled: true,
+        readonly: true,
+        required: true,
+      },
+    })
+
+    const el = wrapper.find('fluent-text-input')
+    expect(el.attributes('disabled')).toBe('')
+    expect(el.attributes('readonly')).toBe('')
+    expect(el.attributes('required')).toBe('')
+  })
 })

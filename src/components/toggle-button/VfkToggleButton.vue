@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '@fluentui/web-components/toggle-button.js'
-import { computed, nextTick, onMounted, ref, useSlots, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 import type { VfkToggleButtonProps } from './types'
 
 interface FluentToggleButtonElement extends HTMLElement {
@@ -38,6 +38,7 @@ defineSlots<{
 
 const slots = useSlots()
 const el = ref<FluentToggleButtonElement | null>(null)
+let postClickTimer: ReturnType<typeof setTimeout> | null = null
 
 /** 官方 fluent-toggle-button 默认即为 secondary，未传 appearance 属性时呈现次级按钮样式 */
 const nativeAppearance = computed(() =>
@@ -56,21 +57,39 @@ function syncPressedState() {
   el.value.mixed = props.modelValue === 'mixed'
 }
 
+/** 在微任务与点击事件派发结束后的下一宏任务各同步一次，避免真实浏览器中官方 clickHandler 滞后反转状态 */
+function scheduleSyncPressedState() {
+  void nextTick(syncPressedState)
+  if (postClickTimer !== null) {
+    clearTimeout(postClickTimer)
+  }
+  postClickTimer = setTimeout(() => {
+    postClickTimer = null
+    syncPressedState()
+  }, 0)
+}
+
 onMounted(syncPressedState)
+onBeforeUnmount(() => {
+  if (postClickTimer !== null) {
+    clearTimeout(postClickTimer)
+    postClickTimer = null
+  }
+})
 watch(() => props.modelValue, syncPressedState, { flush: 'post' })
 
 function handleClick(event: MouseEvent) {
   if (props.disabled || props.disabledFocusable) {
     event.preventDefault()
-    event.stopPropagation()
-    syncPressedState()
+    event.stopImmediatePropagation()
+    scheduleSyncPressedState()
     return
   }
   const next = props.modelValue !== true
   emit('update:modelValue', next)
   emit('change', next, event)
   emit('click', event)
-  void nextTick(syncPressedState)
+  scheduleSyncPressedState()
 }
 
 defineExpose({
@@ -87,8 +106,8 @@ defineExpose({
     :shape="shape"
     :size="size"
     :type.attr="type"
-    :pressed.attr="modelValue === true ? '' : undefined"
-    :mixed.attr="modelValue === 'mixed' ? '' : undefined"
+    :pressed.prop="modelValue === true"
+    :mixed.prop="modelValue === 'mixed'"
     :disabled.attr="disabled ? '' : undefined"
     :disabled-focusable.attr="disabledFocusable ? '' : undefined"
     :icon-only.attr="isIconOnly ? '' : undefined"

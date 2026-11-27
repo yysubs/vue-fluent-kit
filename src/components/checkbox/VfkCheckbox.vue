@@ -98,10 +98,10 @@ defineExpose({
       :indeterminate.prop="modelValue === 'mixed'"
       :shape="shape"
       :size="size"
-      :disabled="disabled ? '' : undefined"
-      :required="required ? '' : undefined"
-      :name="name"
-      :value="value"
+      :disabled.attr="disabled ? '' : undefined"
+      :required.attr="required ? '' : undefined"
+      :name.attr="name"
+      :value.attr="value"
       @change="handleChange"
     >
       <slot v-if="$slots.checkedIndicator" name="checkedIndicator" slot="checked-indicator" />
