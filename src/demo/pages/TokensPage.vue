@@ -156,16 +156,16 @@ async function copyToken(token: string) {
 <template>
   <div>
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">设计系统</p>
+      <p class="demo-page-header__eyebrow">Theme</p>
       <div class="demo-page-header__title-row">
-        <h1 class="demo-page-header__title">Design Tokens &amp; Surfaces</h1>
+        <h1 class="demo-page-header__title">Design Tokens</h1>
         <div class="demo-page-header__tags">
           <span class="demo-tag demo-tag--brand">@fluentui/tokens</span>
           <span class="demo-tag">Acrylic &amp; Mica</span>
         </div>
       </div>
       <p class="demo-page-header__desc">
-        独立样式层统一管理 Fluent 2 语义变量、品牌色阶与亚克力/云母材质表面，天然穿透
+        所有颜色、字号、间距、圆角、阴影与材质变量统一维护在独立样式层，天然穿透
         <code class="demo-inline-code">@fluentui/web-components</code> 的 Shadow DOM。点击任意条目即可复制
         <code class="demo-inline-code">var(--token)</code>。
       </p>
@@ -250,7 +250,12 @@ async function copyToken(token: string) {
 
     <!-- 颜色变量 -->
     <template v-if="activeTab === 'colors'">
-      <section v-for="group in filteredColorGroups" :key="group.name" class="demo-section">
+      <section
+        v-for="(group, idx) in filteredColorGroups"
+        :key="group.name"
+        class="demo-section"
+        :class="{ 'demo-section--first': idx === 0 }"
+      >
         <div class="demo-section__head">
           <h2 class="demo-section__title">{{ group.name }}</h2>
         </div>
@@ -282,12 +287,12 @@ async function copyToken(token: string) {
 
     <!-- 材质表面（Acrylic / Mica） -->
     <template v-else-if="activeTab === 'surfaces'">
-      <section class="demo-section">
+      <section class="demo-section demo-section--first">
         <div class="demo-section__head">
           <div>
-            <h2 class="demo-section__title">Acrylic（亚克力）与 Mica（云母）材质预览</h2>
+            <h2 class="demo-section__title">Acrylic（亚克力）与 Mica（云母）材质</h2>
             <p class="demo-section__sub">
-              自动适配浅色/深色模式，并在系统开启「减少透明效果」或不支持 backdrop-filter 时自动回退。
+              自动适配浅色/深色主题，在不支持 backdrop-filter 或开启「减少透明效果」时自动回退。
             </p>
           </div>
         </div>
@@ -296,7 +301,7 @@ async function copyToken(token: string) {
           <div class="demo-surface-stage demo-surface-stage--acrylic">
             <div class="demo-surface-panel vfk-surface-acrylic">
               <div class="demo-row" style="align-items: center">
-                <DemoLogo :size="30" />
+                <DemoLogo :size="32" />
                 <div>
                   <h3 class="demo-card__title">Acrylic 亚克力浮层</h3>
                   <p class="demo-card__desc">适合顶栏、浮层菜单、侧边抽屉与上下文卡片</p>
@@ -309,7 +314,7 @@ async function copyToken(token: string) {
           <div class="demo-surface-stage vfk-surface-mica">
             <div class="demo-surface-panel vfk-surface-mica-card">
               <div class="demo-row" style="align-items: center">
-                <DemoLogo :size="30" />
+                <DemoLogo :size="32" />
                 <div>
                   <h3 class="demo-card__title">Mica 云母画布</h3>
                   <p class="demo-card__desc">低饱和品牌色微染色，适合应用主底板与大面积容器</p>
@@ -342,7 +347,7 @@ async function copyToken(token: string) {
     </template>
 
     <!-- 排版刻度 -->
-    <section v-else-if="activeTab === 'typography'" class="demo-section">
+    <section v-else-if="activeTab === 'typography'" class="demo-section demo-section--first">
       <div class="demo-type-list">
         <div v-for="item in typeScale" :key="item.name" class="demo-type-row">
           <div>
@@ -371,7 +376,7 @@ async function copyToken(token: string) {
 
     <!-- 圆角与阴影 -->
     <template v-else-if="activeTab === 'elevation'">
-      <section class="demo-section">
+      <section class="demo-section demo-section--first">
         <div class="demo-section__head">
           <h2 class="demo-section__title">阴影层级（Shadows）</h2>
         </div>
@@ -416,7 +421,7 @@ async function copyToken(token: string) {
     </template>
 
     <!-- 间距刻度 -->
-    <section v-else class="demo-section">
+    <section v-else class="demo-section demo-section--first">
       <div class="demo-type-list">
         <div v-for="item in spacingTokens" :key="item.token" class="demo-type-row">
           <code class="demo-api-name">{{ item.token }}</code>

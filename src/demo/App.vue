@@ -20,11 +20,11 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     id: 'overview',
-    title: '概览',
-    sub: 'Overview',
+    title: 'Introduction',
+    sub: '概览',
     group: '概览',
     icon: 'grid',
-    keywords: 'overview home 概览 首页 架构 主题 品牌 材质 logo',
+    keywords: 'overview introduction home 概览 首页 架构 主题 品牌 材质 logo',
   },
   {
     id: 'tokens',
@@ -49,9 +49,9 @@ const searchQuery = ref('')
 const sidebarOpen = ref(false)
 
 const themeOptions: { value: ThemeMode; label: string; icon: DemoIconName }[] = [
-  { value: 'light', label: '浅色', icon: 'sun' },
-  { value: 'dark', label: '深色', icon: 'moon' },
-  { value: 'system', label: '系统', icon: 'monitor' },
+  { value: 'light', label: 'Web Light', icon: 'sun' },
+  { value: 'dark', label: 'Web Dark', icon: 'moon' },
+  { value: 'system', label: 'System', icon: 'monitor' },
 ]
 
 const currentNavItem = computed(
@@ -109,7 +109,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="demo-shell vfk-surface-mica" :data-vfk-theme="resolvedTheme">
+  <div class="demo-shell" :data-vfk-theme="resolvedTheme">
     <!-- 移动端抽屉遮罩 -->
     <div
       v-if="sidebarOpen"
@@ -118,14 +118,16 @@ onUnmounted(() => {
       @click="sidebarOpen = false"
     />
 
-    <!-- 左侧导航栏 -->
+    <!-- 左侧 Storybook 风格导航栏 -->
     <aside
       class="demo-sidebar"
       :class="{ 'demo-sidebar--open': sidebarOpen }"
       aria-label="组件导航"
     >
       <div class="demo-sidebar__brand">
-        <DemoLogo :size="28" />
+        <span class="demo-sidebar__logo">
+          <DemoLogo :size="28" />
+        </span>
         <div class="demo-sidebar__brand-text">
           <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
           <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent 2 WC</span>
@@ -141,8 +143,8 @@ onUnmounted(() => {
             v-model="searchQuery"
             type="text"
             class="demo-search-box__input"
-            placeholder="快速查找页面..."
-            aria-label="快速查找页面"
+            placeholder="查找组件或变量..."
+            aria-label="查找组件或变量"
           />
           <button
             v-if="searchQuery"
@@ -173,7 +175,7 @@ onUnmounted(() => {
               >
                 <span class="demo-nav-item__main">
                   <span class="demo-nav-item__icon">
-                    <DemoIcons :name="item.icon" :size="16" />
+                    <DemoIcons :name="item.icon" :size="15" />
                   </span>
                   <span>{{ item.title }}</span>
                 </span>
@@ -192,14 +194,14 @@ onUnmounted(() => {
         <div class="demo-sidebar__kbd-row">
           <span>按</span>
           <kbd class="demo-kbd">Tab</kbd>
-          <span>可逐项检查键盘焦点环</span>
+          <span>逐项检查键盘焦点环</span>
         </div>
       </div>
     </aside>
 
     <!-- 右侧主工作区 -->
     <div class="demo-main">
-      <header class="demo-topbar vfk-surface-acrylic">
+      <header class="demo-topbar">
         <div class="demo-topbar__left">
           <button
             type="button"
@@ -210,10 +212,10 @@ onUnmounted(() => {
             <DemoIcons :name="sidebarOpen ? 'close' : 'menu'" :size="18" />
           </button>
 
+          <span class="demo-topbar__tab" aria-hidden="true">Docs</span>
+
           <div class="demo-breadcrumb" aria-label="当前位置">
-            <span>{{
-              currentNavItem.group === currentNavItem.title ? 'vue-fluent-kit' : currentNavItem.group
-            }}</span>
+            <span>{{ currentNavItem.group }}</span>
             <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
             <span class="demo-breadcrumb__current">{{ currentNavItem.title }}</span>
           </div>
@@ -230,7 +232,7 @@ onUnmounted(() => {
               :aria-pressed="mode === opt.value"
               @click="setTheme(opt.value)"
             >
-              <DemoIcons :name="opt.icon" :size="14" />
+              <DemoIcons :name="opt.icon" :size="13" />
               <span>{{ opt.label }}</span>
             </button>
           </div>
@@ -241,7 +243,7 @@ onUnmounted(() => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <DemoIcons name="github" :size="15" />
+            <DemoIcons name="github" :size="14" />
             <span>GitHub</span>
           </a>
         </div>
