@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VButton, VCheckbox, VToggleButton } from '../index'
+import { VButton, VCheckbox, VInput, VSelect, VToggleButton } from '../index'
 import '../styles/index.css'
 
 const theme = ref<'light' | 'dark'>('light')
 const pressed = ref(false)
+const inputValue = ref('Fluent UI v9')
+const searchValue = ref('vue-fluent-kit')
+const searchInputRef = ref<InstanceType<typeof VInput> | null>(null)
+const selectedRegion = ref('east-asia')
+
+function clearSearch() {
+  searchValue.value = ''
+  searchInputRef.value?.focus()
+}
 
 const optionEmail = ref(true)
 const optionPush = ref(false)
@@ -74,7 +83,7 @@ const groups = [
     <header class="vfk-demo__head">
       <div>
         <h1 class="vfk-demo__title">vue-fluent-kit</h1>
-        <p class="vfk-demo__desc">Button、Checkbox 与主题 token 预览。</p>
+        <p class="vfk-demo__desc">Button、Input、Select、Checkbox 与主题 token 预览。</p>
       </div>
       <div class="vfk-demo__head-actions">
         <VButton
@@ -114,6 +123,178 @@ const groups = [
     </section>
 
     <section class="vfk-demo__group">
+      <h2 class="vfk-demo__group-title">Input 文本输入</h2>
+
+      <div class="vfk-demo__surface">
+        <div class="vfk-demo__inputs">
+          <VInput placeholder="Outline（默认）" aria-label="Outline 外观" />
+          <VInput appearance="underline" placeholder="Underline" aria-label="Underline 外观" />
+          <VInput
+            appearance="filled-darker"
+            placeholder="Filled darker"
+            aria-label="Filled darker 外观"
+          />
+          <VInput
+            appearance="filled-lighter"
+            placeholder="Filled lighter"
+            aria-label="Filled lighter 外观"
+          />
+        </div>
+      </div>
+
+      <div class="vfk-demo__inputs">
+        <VInput size="small" placeholder="Small (24px)" aria-label="Small 尺寸" />
+        <VInput size="medium" placeholder="Medium (32px)" aria-label="Medium 尺寸" />
+        <VInput size="large" placeholder="Large (40px)" aria-label="Large 尺寸" />
+      </div>
+
+      <div class="vfk-demo__inputs">
+        <VInput
+          ref="searchInputRef"
+          v-model="searchValue"
+          placeholder="带前置图标与清空按钮"
+          aria-label="搜索关键字"
+        >
+          <template #contentBefore>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path
+                d="M8.5 3a5.5 5.5 0 0 1 4.23 9.02l4.12 4.13a.5.5 0 0 1-.63.76l-.07-.06-4.13-4.12A5.5 5.5 0 1 1 8.5 3Zm0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"
+              />
+            </svg>
+          </template>
+          <template v-if="searchValue" #contentAfter>
+            <VButton
+              appearance="transparent"
+              size="small"
+              aria-label="清空输入"
+              @click="clearSearch"
+            >
+              <template #icon><span aria-hidden="true">✕</span></template>
+            </VButton>
+          </template>
+        </VInput>
+
+        <VInput type="number" placeholder="0.00" aria-label="金额">
+          <template #contentBefore><span>¥</span></template>
+          <template #contentAfter><span>CNY</span></template>
+        </VInput>
+      </div>
+
+      <div class="vfk-demo__inputs">
+        <VInput aria-invalid="true" model-value="invalid-email@" aria-label="校验错误" />
+        <VInput
+          appearance="underline"
+          aria-invalid="true"
+          model-value="underline invalid"
+          aria-label="下划线校验错误"
+        />
+        <VInput readonly model-value="只读文本" aria-label="只读输入" />
+        <VInput disabled model-value="禁用状态" aria-label="禁用输入">
+          <template #contentBefore><span>#</span></template>
+        </VInput>
+      </div>
+
+      <div class="vfk-demo__binding">
+        <VInput
+          v-model="inputValue"
+          placeholder="输入文字查看实时绑定"
+          aria-label="受控双向绑定输入"
+        />
+        <VButton size="small" appearance="subtle" @click="inputValue = 'Fluent UI v9'">
+          重置
+        </VButton>
+        <span class="vfk-demo__binding-output">
+          当前值：<code class="vfk-demo__token">{{ inputValue || '（空）' }}</code>
+        </span>
+      </div>
+    </section>
+
+    <section class="vfk-demo__group">
+      <h2 class="vfk-demo__group-title">Select 原生下拉</h2>
+      <div class="vfk-demo__surface vfk-demo__surface--grid">
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-outline">Outline（默认）</label>
+          <VSelect id="demo-select-outline" appearance="outline">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-underline">Underline</label>
+          <VSelect id="demo-select-underline" appearance="underline">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-darker">Filled Darker</label>
+          <VSelect id="demo-select-darker" appearance="filled-darker">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-lighter">Filled Lighter</label>
+          <VSelect id="demo-select-lighter" appearance="filled-lighter">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+      </div>
+
+      <div class="vfk-demo__buttons">
+        <VSelect size="small" aria-label="Small select">
+          <option value="small">Small (24px)</option>
+          <option value="compact">Compact</option>
+        </VSelect>
+        <VSelect size="medium" aria-label="Medium select">
+          <option value="medium">Medium (32px)</option>
+          <option value="standard">Standard</option>
+        </VSelect>
+        <VSelect size="large" aria-label="Large select">
+          <option value="large">Large (40px)</option>
+          <option value="spacious">Spacious</option>
+        </VSelect>
+      </div>
+
+      <div class="vfk-demo__buttons">
+        <VSelect v-model="selectedRegion" aria-label="Select region">
+          <optgroup label="Asia Pacific">
+            <option value="east-asia">East Asia</option>
+            <option value="southeast-asia">Southeast Asia</option>
+          </optgroup>
+          <optgroup label="Europe & Americas">
+            <option value="west-europe">West Europe</option>
+            <option value="north-america">North America</option>
+          </optgroup>
+        </VSelect>
+        <VSelect aria-invalid="true" aria-label="Invalid select">
+          <option value="invalid">校验错误（outline）</option>
+          <option value="retry">重试</option>
+        </VSelect>
+        <VSelect appearance="underline" aria-invalid="true" aria-label="Invalid underline select">
+          <option value="invalid-underline">校验错误（underline）</option>
+          <option value="retry">重试</option>
+        </VSelect>
+        <VSelect disabled aria-label="Disabled select">
+          <option value="disabled">已禁用</option>
+        </VSelect>
+        <VSelect aria-label="Custom icon select">
+          <option value="custom">自定义图标</option>
+          <option value="fluent">默认列表</option>
+          <template #icon><span aria-hidden="true">▾</span></template>
+        </VSelect>
+      </div>
+      <p class="vfk-demo__hint">
+        当前受控选中值：<code class="vfk-demo__token">{{ selectedRegion }}</code>
+      </p>
+    </section>
+
+    <section class="vfk-demo__group">
       <h2 class="vfk-demo__group-title">Checkbox 勾选框</h2>
       <div class="vfk-demo__checkbox-tree">
         <VCheckbox
@@ -145,7 +326,6 @@ const groups = [
         <VCheckbox model-value="mixed" disabled label="禁用半选" />
       </div>
     </section>
-
     <section v-for="group in groups" :key="group.name" class="vfk-demo__group">
       <h2 class="vfk-demo__group-title">{{ group.name }}</h2>
       <ul class="vfk-demo__list">
@@ -190,7 +370,8 @@ const groups = [
 }
 
 .vfk-demo__buttons + .vfk-demo__buttons,
-.vfk-demo__checkbox-tree + .vfk-demo__buttons {
+.vfk-demo__checkbox-tree + .vfk-demo__buttons,
+.vfk-demo__surface + .vfk-demo__buttons {
   margin-top: var(--spacingVerticalM);
 }
 
@@ -207,6 +388,59 @@ const groups = [
   padding-left: var(--spacingHorizontalXXL);
 }
 
+.vfk-demo__surface {
+  padding: var(--spacingVerticalM);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+  background: var(--colorNeutralBackground2);
+}
+
+.vfk-demo__surface--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacingVerticalM) var(--spacingHorizontalM);
+}
+
+.vfk-demo__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingVerticalXS);
+}
+
+.vfk-demo__field-label {
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  color: var(--colorNeutralForeground2);
+}
+
+.vfk-demo__hint {
+  margin: var(--spacingVerticalS) 0 0;
+  color: var(--colorNeutralForeground3);
+}
+
+.vfk-demo__inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: center;
+  gap: var(--spacingVerticalS) var(--spacingHorizontalM);
+}
+
+.vfk-demo__surface + .vfk-demo__inputs,
+.vfk-demo__inputs + .vfk-demo__inputs,
+.vfk-demo__inputs + .vfk-demo__binding {
+  margin-top: var(--spacingVerticalM);
+}
+
+.vfk-demo__binding {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacingHorizontalS);
+}
+
+.vfk-demo__binding-output {
+  color: var(--colorNeutralForeground2);
+}
 .vfk-demo__title {
   margin: 0 0 var(--spacingVerticalS);
   font-size: var(--fontSizeBase500);
