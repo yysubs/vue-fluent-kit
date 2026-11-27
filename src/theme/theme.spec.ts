@@ -87,12 +87,14 @@ describe('theme utilities', () => {
   })
 
   it('VfkThemeProvider 未传 brand 时沿用全局品牌色并按局部明暗计算色阶', async () => {
+    const { activeBrand } = useTheme()
     const lightWrapper = mount(VfkThemeProvider, { props: { theme: 'light' } })
     const darkWrapper = mount(VfkThemeProvider, { props: { theme: 'dark' } })
 
     applyBrandTokens(sampleBrand)
     await nextTick()
 
+    expect(activeBrand.value).toBe(sampleBrand)
     const lightEl = lightWrapper.element as HTMLElement
     const darkEl = darkWrapper.element as HTMLElement
     expect(lightEl.style.getPropertyValue('--colorBrandBackground')).toBe(sampleBrand[80])
@@ -100,6 +102,7 @@ describe('theme utilities', () => {
 
     resetBrandTokens()
     await nextTick()
+    expect(activeBrand.value).toBeNull()
     expect(lightEl.style.getPropertyValue('--colorBrandBackground')).toBe('')
     expect(darkEl.style.getPropertyValue('--colorBrandBackground')).toBe('')
   })
