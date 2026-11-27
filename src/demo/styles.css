@@ -49,6 +49,17 @@ body {
   height: 52px;
   padding: 0 var(--spacingHorizontalL);
   flex-shrink: 0;
+  color: var(--colorNeutralForeground1);
+  text-decoration: none;
+}
+
+.demo-sidebar__brand:hover .demo-sidebar__brand-name {
+  color: var(--colorBrandForegroundLink);
+}
+
+.demo-sidebar__brand:focus-visible {
+  outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+  outline-offset: -2px;
 }
 
 .demo-sidebar__logo {
@@ -58,25 +69,13 @@ body {
   flex-shrink: 0;
 }
 
-.demo-sidebar__brand-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
 .demo-sidebar__brand-name {
   font-size: 15px;
   font-weight: var(--fontWeightBold);
   line-height: 1.2;
   color: var(--colorNeutralForeground1);
   letter-spacing: -0.02em;
-}
-
-.demo-sidebar__brand-meta {
-  font-size: 11px;
-  line-height: 1.3;
-  color: var(--colorNeutralForeground4);
-  font-family: var(--fontFamilyMonospace);
+  transition: color var(--durationFaster) var(--curveEasyEase);
 }
 
 .demo-sidebar__search {
@@ -264,10 +263,12 @@ body {
   flex-shrink: 0;
 }
 
-.demo-sidebar__kbd-row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacingHorizontalXS);
+.demo-sidebar__version {
+  display: inline-block;
+  font-family: var(--fontFamilyMonospace);
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  color: var(--colorNeutralForeground3);
 }
 
 .demo-kbd {

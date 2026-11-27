@@ -350,15 +350,17 @@ onUnmounted(() => {
       :class="{ 'demo-sidebar--open': sidebarOpen }"
       :aria-label="messages.shell.navAriaLabel"
     >
-      <div class="demo-sidebar__brand">
+      <a
+        class="demo-sidebar__brand"
+        href="https://github.com/yysubs/vue-fluent-kit"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <span class="demo-sidebar__logo">
           <DemoLogo :size="28" />
         </span>
-        <div class="demo-sidebar__brand-text">
-          <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
-          <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent 2 WC</span>
-        </div>
-      </div>
+        <span class="demo-sidebar__brand-name">Vue Fluent Kit</span>
+      </a>
 
       <div class="demo-sidebar__search">
         <VfkSearchBox
@@ -457,11 +459,7 @@ onUnmounted(() => {
       </nav>
 
       <div class="demo-sidebar__footer">
-        <div class="demo-sidebar__kbd-row">
-          <span>{{ messages.shell.kbdPrefix }}</span>
-          <kbd class="demo-kbd">Tab</kbd>
-          <span>{{ messages.shell.kbdSuffix }}</span>
-        </div>
+        <span class="demo-sidebar__version">v{{ version }}</span>
       </div>
     </aside>
 

@@ -50,8 +50,6 @@ export interface DemoMessages {
     clearSearchAriaLabel: string
     emptySearchPrefix: string
     emptySearchSuffix: string
-    kbdPrefix: string
-    kbdSuffix: string
     openMenuAriaLabel: string
     docsTab: string
     breadcrumbAriaLabel: string
@@ -216,8 +214,6 @@ const zhCN: DemoMessages = {
     clearSearchAriaLabel: '清空查找',
     emptySearchPrefix: '未找到与「',
     emptySearchSuffix: '」匹配的条目',
-    kbdPrefix: '按',
-    kbdSuffix: '逐项检查键盘焦点环',
     openMenuAriaLabel: '打开导航菜单',
     docsTab: '文档',
     breadcrumbAriaLabel: '当前位置',
@@ -495,8 +491,6 @@ const zhTW: DemoMessages = {
     clearSearchAriaLabel: '清除搜尋',
     emptySearchPrefix: '找不到與「',
     emptySearchSuffix: '」相符的項目',
-    kbdPrefix: '按',
-    kbdSuffix: '逐項檢查鍵盤焦點環',
     openMenuAriaLabel: '開啟導覽選單',
     docsTab: '文件',
     breadcrumbAriaLabel: '目前位置',
@@ -774,8 +768,6 @@ const enUS: DemoMessages = {
     clearSearchAriaLabel: 'Clear search',
     emptySearchPrefix: 'No results matching "',
     emptySearchSuffix: '"',
-    kbdPrefix: 'Press',
-    kbdSuffix: 'to inspect focus rings',
     openMenuAriaLabel: 'Toggle navigation menu',
     docsTab: 'Docs',
     breadcrumbAriaLabel: 'Breadcrumb',
