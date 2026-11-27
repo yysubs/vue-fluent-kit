@@ -26,9 +26,11 @@
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
 | `VfkField` | `<fluent-field>` | `@yysubs/vue-fluent-kit/field` | [src/components/field/README.md](src/components/field/README.md) |
 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
+| `VfkMenu` / `VfkMenuList` / `VfkMenuItem` / `VfkMenuButton` / `VfkMenuDivider` | `<fluent-menu>` / `<fluent-menu-list>` / `<fluent-menu-item>` / `<fluent-menu-button>` | `@yysubs/vue-fluent-kit/menu` | [src/components/menu/README.md](src/components/menu/README.md) |
 | `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
 | `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
 | `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
+| `VfkTabList` / `VfkTab` | `<fluent-tablist>` / `<fluent-tab>` | `@yysubs/vue-fluent-kit/tabs` | [src/components/tabs/README.md](src/components/tabs/README.md) |
 | `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
 | `VfkTree` / `VfkTreeItem` | `<fluent-tree>` / `<fluent-tree-item>` | `@yysubs/vue-fluent-kit/tree` | [src/components/tree/README.md](src/components/tree/README.md) |
 
@@ -59,33 +61,6 @@
 - **尺寸（`size`）**：`extra-small`（`20×20px`）、`small`（`24×24px`）、`medium`（默认，`28×28px`）、`large`（`32×32px`）。
 - **形状（`shape`）**：`square`（默认，`borderRadiusNone`）、`rounded`（`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）。
 - **选中与悬停**：选中态使用双层内阴影 `inset 0 0 0 strokeWidthThicker colorBrandStroke1, inset 0 0 0 5px colorStrokeFocus1`（小尺寸缩减描边宽度），保证在深浅色块上都清晰可见。
-
-### Tabs（标签页）
-
-参照 `@fluentui/react-tabs`（`TabList` 与 `Tab`）。
-
-- **方向（`vertical`）**：水平（默认）或垂直。
-- **外观（`appearance`）**：
-  - `transparent`（默认）：透明底，悬停 `colorTransparentBackgroundHover`。
-  - `subtle`：悬停 `colorSubtleBackgroundHover`。
-  - `subtle-circular` / `filled-circular`：圆角 `borderRadiusCircular` 的胶囊标签页。
-- **尺寸（`size`）**：
-  - `small`：水平内边距 `spacingVerticalSNudge spacingHorizontalSNudge`（垂直模式为 `spacingVerticalXXS spacingHorizontalSNudge`），排版 `body1`。
-  - `medium`（默认）：水平内边距 `spacingVerticalM spacingHorizontalMNudge`（垂直模式为 `spacingVerticalSNudge spacingHorizontalMNudge`），排版 `body1`。
-  - `large`：水平内边距 `spacingVerticalL spacingHorizontalMNudge`（垂直模式为 `spacingVerticalS spacingHorizontalMNudge`），排版 `body2`。
-- **选中指示条**：默认在选中项底部（垂直模式在左侧）绘制圆角 `borderRadiusCircular`、厚度 `strokeWidthThicker`（水平 `small` 为 `strokeWidthThick`）、背景 `colorCompoundBrandStroke` 的指示条；选中文字字重 `fontWeightSemibold`（通过预留宽度避免切换抖动）。
-
-### Menu（浮层菜单）
-
-参照 `@fluentui/react-menu`（`Menu`、`MenuTrigger`、`MenuPopover`、`MenuList`、`MenuItem`、`MenuItemCheckbox`、`MenuItemRadio`、`MenuDivider`、`MenuGroup`）。
-
-- **弹出面板（`MenuPopover`）**：
-  - 底色 `colorNeutralBackground1`，圆角 `borderRadiusMedium`，阴影 `shadow16`，内边距 `4px`，1px 透明轮廓用于高对比度，层级 `zIndexPopup`。
-- **菜单项（`MenuItem`）**：
-  - 最小高 `32px`，圆角 `borderRadiusMedium`，内边距 `spacingVerticalSNudge`（`6px`），字号 `fontSizeBase300` / 行高 `lineHeightBase300`，文字 `colorNeutralForeground2`。
-  - 悬停或键盘聚焦时底色 `colorNeutralBackground1Hover`、文字 `colorNeutralForeground2Hover`；按下底色 `colorNeutralBackground1Pressed`。
-  - 支持前置图标（`20px`）、快捷键提示（`secondaryContent`）、子菜单箭头以及勾选/单选变体。
-- **键盘交互**：上下方向键切换焦点，右方向键展开子菜单，左方向键或 `Escape` 收起。
 
 ---
 

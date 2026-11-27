@@ -272,6 +272,69 @@ export interface DemoControlsMessages {
     apiItemProps: string
     apiSlots: string
   }
+  tabs: {
+    desc: string
+    secLayout: string
+    secIcons: string
+    currentValue: string
+    tabOverview: string
+    tabSpecs: string
+    tabLogs: string
+    tabDisabled: string
+    panelOverview: string
+    panelSpecs: string
+    panelLogs: string
+    cardVerticalTitle: string
+    cardVerticalDesc: string
+    cardSizesTitle: string
+    cardIconsTitle: string
+    cardIconsDesc: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiOrientation: string
+    apiSize: string
+    apiDisabled: string
+    apiUpdate: string
+    apiChange: string
+    apiTabProps: string
+  }
+  menu: {
+    desc: string
+    secCheckRadio: string
+    secSubmenuContext: string
+    triggerLabel: string
+    primaryActionLabel: string
+    lastAction: string
+    noneAction: string
+    itemNew: string
+    itemCopy: string
+    itemExport: string
+    itemDelete: string
+    itemDisabled: string
+    cardCheckRadioTitle: string
+    cardCheckRadioDesc: string
+    checkGrid: string
+    checkRuler: string
+    radioAsc: string
+    radioDesc: string
+    checkRadioTrigger: string
+    cardSubmenuTitle: string
+    cardSubmenuDesc: string
+    submenuTrigger: string
+    submenuShare: string
+    submenuCopyLink: string
+    submenuEmail: string
+    contextZoneHint: string
+    catalogDesc: string
+    apiFlags: string
+    apiSplit: string
+    apiMaxHeight: string
+    apiOpenChange: string
+    apiListSelect: string
+    apiItemProps: string
+    apiSlots: string
+  }
 }
 
 export const controlsZhCN: DemoControlsMessages = {
@@ -547,6 +610,69 @@ export const controlsZhCN: DemoControlsMessages = {
     apiToggle: '任意子节点展开或收起时触发，返回 { value, expanded }',
     apiItemProps: '子节点支持 value、label、expanded、selected、selectable、appearance、size',
     apiSlots: '默认插槽（文案或嵌套子节点）、items、start、end、aside、chevron',
+  },
+  tabs: {
+    desc: '薄封装官方 <fluent-tablist> 与 <fluent-tab>，支持 v-model 选中同步、水平/垂直方向、transparent / subtle 外观、三种尺寸、图标插槽以及方向键循环导航。',
+    secLayout: '垂直方向与尺寸刻度',
+    secIcons: '前置图标、计数徽标与内容面板',
+    currentValue: '当前标签',
+    tabOverview: '概览',
+    tabSpecs: '接口规格',
+    tabLogs: '更新记录',
+    tabDisabled: '禁用标签',
+    panelOverview: '概览面板：展示当前标签页关联的核心摘要信息。',
+    panelSpecs: '接口规格面板：展示 Props、Emits 与插槽约定。',
+    panelLogs: '更新记录面板：按版本记录改动与兼容说明。',
+    cardVerticalTitle: '垂直标签栏（orientation="vertical"）',
+    cardVerticalDesc: '适合侧边分组切换，选中指示条自动移到左侧。',
+    cardSizesTitle: '三种尺寸（small / medium / large）',
+    cardIconsTitle: 'start / end 插槽与联动面板',
+    cardIconsDesc: '搭配 #start 放图标、#end 放计数徽标，配合 v-model 切换下方内容区。',
+    catalogDesc: '水平/垂直标签页，支持 v-model、滑动指示条与前后置插槽',
+    apiModelValue: '当前选中标签的 value，与 VfkTab 的 value 对应',
+    apiAppearance: '标签栏外观变体（transparent / subtle）',
+    apiOrientation: '排列方向（horizontal / vertical）',
+    apiSize: '尺寸（small / medium / large）',
+    apiDisabled: '是否禁用整个标签栏',
+    apiUpdate: '选中标签变化时触发，用于 v-model',
+    apiChange: '选中标签变化时触发，附带原生事件对象',
+    apiTabProps: 'VfkTab 支持 value、label、disabled、id 以及 default / start / end 插槽',
+  },
+  menu: {
+    desc: '薄封装官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 与 <fluent-menu-item>，支持原生 Popover 浮层、拆分按钮、多选/单选菜单项、多级子菜单与右键菜单。',
+    secCheckRadio: '复选与单选菜单项',
+    secSubmenuContext: '多级子菜单与右键菜单',
+    triggerLabel: '操作菜单',
+    primaryActionLabel: '保存更改',
+    lastAction: '最近触发',
+    noneAction: '（暂无）',
+    itemNew: '新建文件',
+    itemCopy: '复制副本',
+    itemExport: '导出配置',
+    itemDelete: '删除项目',
+    itemDisabled: '归档（禁用）',
+    cardCheckRadioTitle: 'menuitemcheckbox 与 menuitemradio（含分隔线）',
+    cardCheckRadioDesc: '点击勾选/单选项时菜单保持打开，VfkMenuDivider 自动分隔单选组边界。',
+    checkGrid: '显示参考网格',
+    checkRuler: '显示标尺',
+    radioAsc: '按名称升序',
+    radioDesc: '按名称降序',
+    checkRadioTrigger: '视图选项',
+    cardSubmenuTitle: '子菜单与右键上下文菜单（openOnContext）',
+    cardSubmenuDesc: '在 VfkMenuItem 内嵌套 VfkMenuList 即可生成多级子菜单；开启 openOnContext 后右键触发。',
+    submenuTrigger: '更多操作',
+    submenuShare: '分享到',
+    submenuCopyLink: '复制链接',
+    submenuEmail: '发送邮件',
+    contextZoneHint: '在此区域点击鼠标右键打开上下文菜单',
+    catalogDesc: '原生 Popover 浮层菜单，支持拆分按钮、勾选/单选项、子菜单与右键触发',
+    apiFlags: '悬停打开、右键打开、滚动关闭、点击菜单项保持打开',
+    apiSplit: '拆分按钮模式，搭配 #primary-action 与 #trigger 使用',
+    apiMaxHeight: '限制菜单浮层最大高度（映射为 --menu-max-height）',
+    apiOpenChange: '菜单浮层展开或收起时触发',
+    apiListSelect: '任意子级 VfkMenuItem 触发时在 VfkMenuList 上统一回调',
+    apiItemProps: 'VfkMenuItem 支持 value、label、role、checked（v-model:checked）、disabled',
+    apiSlots: 'VfkMenu 提供 trigger / primary-action / default；VfkMenuItem 提供 start / end / submenu',
   },
 }
 
@@ -824,6 +950,69 @@ export const controlsZhTW: DemoControlsMessages = {
     apiItemProps: '子節點支援 value、label、expanded、selected、selectable、appearance、size',
     apiSlots: '預設插槽（文案或巢狀子節點）、items、start、end、aside、chevron',
   },
+  tabs: {
+    desc: '薄封裝官方 <fluent-tablist> 與 <fluent-tab>，支援 v-model 選取同步、水平/垂直方向、transparent / subtle 外觀、三種尺寸、圖示插槽以及方向鍵循環導覽。',
+    secLayout: '垂直方向與尺寸刻度',
+    secIcons: '前置圖示、計數徽標與內容面板',
+    currentValue: '目前分頁',
+    tabOverview: '概覽',
+    tabSpecs: '介面規格',
+    tabLogs: '更新紀錄',
+    tabDisabled: '停用分頁',
+    panelOverview: '概覽面板：展示目前分頁關聯的核心摘要資訊。',
+    panelSpecs: '介面規格面板：展示 Props、Emits 與插槽約定。',
+    panelLogs: '更新紀錄面板：依版本紀錄變更與相容說明。',
+    cardVerticalTitle: '垂直分頁列（orientation="vertical"）',
+    cardVerticalDesc: '適合側邊分組切換，選取指示條自動移到左側。',
+    cardSizesTitle: '三種尺寸（small / medium / large）',
+    cardIconsTitle: 'start / end 插槽與聯動面板',
+    cardIconsDesc: '搭配 #start 放圖示、#end 放計數徽標，配合 v-model 切換下方內容區。',
+    catalogDesc: '水平/垂直分頁，支援 v-model、滑動指示條與前後置插槽',
+    apiModelValue: '目前選取分頁的 value，與 VfkTab 的 value 對應',
+    apiAppearance: '分頁列外觀變體（transparent / subtle）',
+    apiOrientation: '排列方向（horizontal / vertical）',
+    apiSize: '尺寸（small / medium / large）',
+    apiDisabled: '是否停用整個分頁列',
+    apiUpdate: '選取分頁變化時觸發，用於 v-model',
+    apiChange: '選取分頁變化時觸發，附帶原生事件物件',
+    apiTabProps: 'VfkTab 支援 value、label、disabled、id 以及 default / start / end 插槽',
+  },
+  menu: {
+    desc: '薄封裝官方 <fluent-menu>、<fluent-menu-button>、<fluent-menu-list> 與 <fluent-menu-item>，支援原生 Popover 浮層、拆分按鈕、多選/單選選單項、多層子選單與右鍵選單。',
+    secCheckRadio: '核取與單選選單項',
+    secSubmenuContext: '多層子選單與右鍵選單',
+    triggerLabel: '操作選單',
+    primaryActionLabel: '儲存變更',
+    lastAction: '最近觸發',
+    noneAction: '（暫無）',
+    itemNew: '新增檔案',
+    itemCopy: '複製副本',
+    itemExport: '匯出設定',
+    itemDelete: '刪除項目',
+    itemDisabled: '封存（停用）',
+    cardCheckRadioTitle: 'menuitemcheckbox 與 menuitemradio（含分隔線）',
+    cardCheckRadioDesc: '點擊核取/單選項時選單保持開啟，VfkMenuDivider 自動分隔單選組邊界。',
+    checkGrid: '顯示參考格線',
+    checkRuler: '顯示尺規',
+    radioAsc: '依名稱升冪',
+    radioDesc: '依名稱降冪',
+    checkRadioTrigger: '檢視選項',
+    cardSubmenuTitle: '子選單與右鍵快顯選單（openOnContext）',
+    cardSubmenuDesc: '在 VfkMenuItem 內巢狀放入 VfkMenuList 即可生成多層子選單；開啟 openOnContext 後右鍵觸發。',
+    submenuTrigger: '更多操作',
+    submenuShare: '分享至',
+    submenuCopyLink: '複製連結',
+    submenuEmail: '傳送電子郵件',
+    contextZoneHint: '在此區域點擊滑鼠右鍵開啟快顯選單',
+    catalogDesc: '原生 Popover 浮層選單，支援拆分按鈕、核取/單選項、子選單與右鍵觸發',
+    apiFlags: '懸停開啟、右鍵開啟、捲動關閉、點擊選單項保持開啟',
+    apiSplit: '拆分按鈕模式，搭配 #primary-action 與 #trigger 使用',
+    apiMaxHeight: '限制選單浮層最大高度（對應 --menu-max-height）',
+    apiOpenChange: '選單浮層展開或收合時觸發',
+    apiListSelect: '任意子級 VfkMenuItem 觸發時於 VfkMenuList 統一回呼',
+    apiItemProps: 'VfkMenuItem 支援 value、label、role、checked（v-model:checked）、disabled',
+    apiSlots: 'VfkMenu 提供 trigger / primary-action / default；VfkMenuItem 提供 start / end / submenu',
+  },
 }
 
 export const controlsEnUS: DemoControlsMessages = {
@@ -1099,5 +1288,68 @@ export const controlsEnUS: DemoControlsMessages = {
     apiToggle: 'Emitted when any item expands or collapses with { value, expanded }',
     apiItemProps: 'Item props: value, label, expanded, selected, selectable, appearance, size',
     apiSlots: 'Default (label or nested items), items, start, end, aside, and chevron slots',
+  },
+  tabs: {
+    desc: 'Thin Vue wrapper over official <fluent-tablist> and <fluent-tab> supporting v-model sync, horizontal/vertical orientation, transparent/subtle appearances, 3 sizes, icon slots, and arrow-key navigation.',
+    secLayout: 'Vertical Orientation & Sizes',
+    secIcons: 'Icons, Badges & Tab Panels',
+    currentValue: 'Active tab',
+    tabOverview: 'Overview',
+    tabSpecs: 'Specifications',
+    tabLogs: 'Changelog',
+    tabDisabled: 'Disabled',
+    panelOverview: 'Overview panel: displays summary information for the active tab.',
+    panelSpecs: 'Specifications panel: covers props, emits, and slot contracts.',
+    panelLogs: 'Changelog panel: tracks releases and compatibility notes.',
+    cardVerticalTitle: 'Vertical TabList (orientation="vertical")',
+    cardVerticalDesc: 'Ideal for side section switching; the indicator bar moves to the start edge.',
+    cardSizesTitle: 'Three Sizes (small / medium / large)',
+    cardIconsTitle: 'start / end Slots & Linked Panel',
+    cardIconsDesc: 'Combine #start icons and #end badges with v-model to switch panel content.',
+    catalogDesc: 'Horizontal/vertical tabs with v-model, sliding indicator & icon slots',
+    apiModelValue: 'Selected tab value bound via v-model',
+    apiAppearance: 'Tablist appearance variant (transparent / subtle)',
+    apiOrientation: 'Layout orientation (horizontal / vertical)',
+    apiSize: 'Tab size (small / medium / large)',
+    apiDisabled: 'Disables the entire tablist',
+    apiUpdate: 'Emitted when the active tab changes for v-model',
+    apiChange: 'Emitted on tab change with native event',
+    apiTabProps: 'VfkTab supports value, label, disabled, id and default / start / end slots',
+  },
+  menu: {
+    desc: 'Thin Vue wrapper over official <fluent-menu>, <fluent-menu-button>, <fluent-menu-list>, and <fluent-menu-item> supporting native Popover menus, split buttons, checkbox/radio items, submenus, and context menus.',
+    secCheckRadio: 'Checkbox & Radio Menu Items',
+    secSubmenuContext: 'Nested Submenu & Context Menu',
+    triggerLabel: 'Actions',
+    primaryActionLabel: 'Save changes',
+    lastAction: 'Last action',
+    noneAction: '(none)',
+    itemNew: 'New file',
+    itemCopy: 'Duplicate',
+    itemExport: 'Export config',
+    itemDelete: 'Delete item',
+    itemDisabled: 'Archive (disabled)',
+    cardCheckRadioTitle: 'menuitemcheckbox & menuitemradio (with Divider)',
+    cardCheckRadioDesc: 'Menu stays open when toggling checkable items; VfkMenuDivider separates radio groups.',
+    checkGrid: 'Show grid',
+    checkRuler: 'Show ruler',
+    radioAsc: 'Sort A to Z',
+    radioDesc: 'Sort Z to A',
+    checkRadioTrigger: 'View options',
+    cardSubmenuTitle: 'Submenu & Right-Click Context Menu (openOnContext)',
+    cardSubmenuDesc: 'Nest a VfkMenuList inside VfkMenuItem for submenus; enable openOnContext for right-click menus.',
+    submenuTrigger: 'More actions',
+    submenuShare: 'Share via',
+    submenuCopyLink: 'Copy link',
+    submenuEmail: 'Send email',
+    contextZoneHint: 'Right-click anywhere in this box to open the context menu',
+    catalogDesc: 'Native Popover menu with split button, checkable items, submenus & context trigger',
+    apiFlags: 'Hover open, right-click context open, close on scroll, persist on item click',
+    apiSplit: 'Split button mode pairing #primary-action and #trigger',
+    apiMaxHeight: 'Sets maximum menu popover height (--menu-max-height)',
+    apiOpenChange: 'Emitted when the menu popover opens or closes',
+    apiListSelect: 'Emitted on VfkMenuList whenever any descendant VfkMenuItem is invoked',
+    apiItemProps: 'VfkMenuItem supports value, label, role, checked (v-model:checked), disabled',
+    apiSlots: 'VfkMenu offers trigger / primary-action / default; VfkMenuItem offers start / end / submenu',
   },
 }

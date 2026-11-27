@@ -70,6 +70,8 @@ export interface DemoMessages {
     navSwitchSub: string
     navRadioSub: string
     navFieldSub: string
+    navMenuSub: string
+    navTabsSub: string
     navTreeSub: string
     navTokensTitle: string
     navTokensSub: string
@@ -132,7 +134,18 @@ export interface DemoMessages {
       tag: string
       desc: string
       status: 'done' | 'planned'
-      page?: 'button' | 'checkbox' | 'field' | 'input' | 'radio' | 'select' | 'switch' | 'toggle-button' | 'tree'
+      page?:
+        | 'button'
+        | 'checkbox'
+        | 'field'
+        | 'input'
+        | 'menu'
+        | 'radio'
+        | 'select'
+        | 'switch'
+        | 'tabs'
+        | 'toggle-button'
+        | 'tree'
     }[]
   }
   tokens: {
@@ -221,6 +234,8 @@ const zhCN: DemoMessages = {
     navSwitchSub: '开关',
     navRadioSub: '单选组',
     navFieldSub: '表单字段',
+    navMenuSub: '浮层菜单',
+    navTabsSub: '标签页',
     navTreeSub: '树形控件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
@@ -295,7 +310,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '基础按钮、全套表单控件与树形控件（9 组组件）已完成，后续按需扩充其余导航、浮层与反馈控件。',
+    roadmapSub: '基础按钮、全套表单控件、树形控件、标签页与浮层菜单（11 组组件）已完成，后续按需扩充其余浮层与反馈控件。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -342,9 +357,16 @@ const zhCN: DemoMessages = {
         page: 'tree',
       },
       {
-        name: '导航与浮层控件',
+        name: 'VfkTabList / VfkMenu',
+        tag: '<fluent-tablist>',
+        desc: '水平/垂直标签页与原生 Popover 浮层菜单（支持拆分按钮、多选/单选项、子菜单与右键菜单）',
+        status: 'done',
+        page: 'tabs',
+      },
+      {
+        name: '浮层与反馈控件',
         tag: '<fluent-*>',
-        desc: 'Tabs、Dialog、Drawer、Menu、Tooltip、Badge 按需逐步扩充',
+        desc: 'Dialog、Drawer、Tooltip、Badge、ProgressBar 按需逐步扩充',
         status: 'planned',
       },
     ],
@@ -483,6 +505,8 @@ const zhTW: DemoMessages = {
     navSwitchSub: '開關',
     navRadioSub: '單選組',
     navFieldSub: '表單欄位',
+    navMenuSub: '浮層選單',
+    navTabsSub: '分頁列',
     navTreeSub: '樹狀元件',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
@@ -557,7 +581,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '基礎按鈕、全套表單元件與樹狀元件（9 組元件）已完成，後續按需擴充其餘導覽、浮層與回饋元件。',
+    roadmapSub: '基礎按鈕、全套表單元件、樹狀元件、分頁列與浮層選單（11 組元件）已完成，後續按需擴充其餘浮層與回饋元件。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -604,9 +628,16 @@ const zhTW: DemoMessages = {
         page: 'tree',
       },
       {
-        name: '導覽與浮層元件',
+        name: 'VfkTabList / VfkMenu',
+        tag: '<fluent-tablist>',
+        desc: '水平/垂直分頁列與原生 Popover 浮層選單（支援拆分按鈕、多選/單選項、子選單與右鍵選單）',
+        status: 'done',
+        page: 'tabs',
+      },
+      {
+        name: '浮層與回饋元件',
         tag: '<fluent-*>',
-        desc: 'Tabs、Dialog、Drawer、Menu、Tooltip、Badge 按需逐步擴充',
+        desc: 'Dialog、Drawer、Tooltip、Badge、ProgressBar 按需逐步擴充',
         status: 'planned',
       },
     ],
@@ -745,6 +776,8 @@ const enUS: DemoMessages = {
     navSwitchSub: 'Toggle',
     navRadioSub: 'Single Choice',
     navFieldSub: 'Form Wrapper',
+    navMenuSub: 'Popover Menu',
+    navTabsSub: 'TabList',
     navTreeSub: 'Hierarchy',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
@@ -819,7 +852,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core buttons, the full form control set, and Tree (9 component suites) are implemented; overlays and feedback controls follow on demand.',
+    roadmapSub: 'Core buttons, the full form control set, Tree, Tabs, and Menu (11 component suites) are implemented; overlays and feedback controls follow on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -866,9 +899,16 @@ const enUS: DemoMessages = {
         page: 'tree',
       },
       {
-        name: 'Navigation & Overlays',
+        name: 'VfkTabList / VfkMenu',
+        tag: '<fluent-tablist>',
+        desc: 'Horizontal/vertical tabs and native Popover menus with split buttons, checkable items, submenus, and context menus',
+        status: 'done',
+        page: 'tabs',
+      },
+      {
+        name: 'Overlays & Feedback',
         tag: '<fluent-*>',
-        desc: 'Tabs, Dialog, Drawer, Menu, Tooltip, Badge added incrementally on demand',
+        desc: 'Dialog, Drawer, Tooltip, Badge, ProgressBar added incrementally on demand',
         status: 'planned',
       },
     ],

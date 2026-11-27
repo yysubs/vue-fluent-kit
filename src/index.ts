@@ -48,6 +48,18 @@ export {
 } from './components/input'
 
 export {
+  VfkMenu,
+  VfkMenuButton,
+  VfkMenuDivider,
+  VfkMenuItem,
+  VfkMenuList,
+  type MenuItemRole,
+  type VfkMenuButtonProps,
+  type VfkMenuItemProps,
+  type VfkMenuProps,
+} from './components/menu'
+
+export {
   VfkRadio,
   VfkRadioGroup,
   type RadioGroupOrientation,
@@ -69,6 +81,16 @@ export {
   type SwitchLabelPosition,
   type VfkSwitchProps,
 } from './components/switch'
+
+export {
+  VfkTab,
+  VfkTabList,
+  type TabAppearance,
+  type TabOrientation,
+  type TabSize,
+  type VfkTabListProps,
+  type VfkTabProps,
+} from './components/tabs'
 
 export {
   VfkToggleButton,

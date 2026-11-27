@@ -10,6 +10,7 @@ export type DemoIconName =
   | 'radio'
   | 'field'
   | 'tree'
+  | 'tabs'
   | 'folder'
   | 'file'
   | 'palette'
@@ -96,6 +97,10 @@ withDefaults(
       <path d="M4.5 4.5v11M4.5 7.5h4M4.5 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
       <rect x="8.5" y="5.5" width="7" height="4" rx="1.2" stroke="currentColor" stroke-width="1.4" />
       <rect x="8.5" y="11" width="7" height="4" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+    </template>
+    <template v-else-if="name === 'tabs'">
+      <rect x="2.75" y="4.5" width="14.5" height="11" rx="2" stroke="currentColor" stroke-width="1.5" />
+      <path d="M2.75 9h14.5M8.5 4.5V9" stroke="currentColor" stroke-width="1.5" />
     </template>
     <template v-else-if="name === 'folder'">
       <path
