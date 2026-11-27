@@ -28,6 +28,7 @@
 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
 | `VfkMenu` / `VfkMenuList` / `VfkMenuItem` / `VfkMenuButton` / `VfkMenuDivider` | `<fluent-menu>` / `<fluent-menu-list>` / `<fluent-menu-item>` / `<fluent-menu-button>` | `@yysubs/vue-fluent-kit/menu` | [src/components/menu/README.md](src/components/menu/README.md) |
 | `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
+| `VfkSearchBox` | `<fluent-text-input>`（基于 `VfkInput`） | `@yysubs/vue-fluent-kit/search-box` | [src/components/search-box/README.md](src/components/search-box/README.md) |
 | `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
 | `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
 | `VfkTabList` / `VfkTab` | `<fluent-tablist>` / `<fluent-tab>` | `@yysubs/vue-fluent-kit/tabs` | [src/components/tabs/README.md](src/components/tabs/README.md) |
@@ -39,10 +40,6 @@
 ## 基础控件（计划中）
 
 以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
-
-### SearchBox（搜索框）
-
-参照 `@fluentui/react-search`。基于 `VfkInput` 扩展，前置搜索图标，聚焦或有值时后置清除按钮（点击清空并把焦点还给输入框）。尺寸与外观同 `VfkInput`。
 
 ### Combobox（可输入自动完成）
 

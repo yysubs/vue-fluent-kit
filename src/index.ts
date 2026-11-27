@@ -70,6 +70,13 @@ export {
 } from './components/radio'
 
 export {
+  VfkSearchBox,
+  type SearchBoxAppearance,
+  type SearchBoxSize,
+  type VfkSearchBoxProps,
+} from './components/search-box'
+
+export {
   VfkOption,
   VfkSelect,
   type SelectAppearance,

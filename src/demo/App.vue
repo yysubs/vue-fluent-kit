@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
-import { useTheme, version, VfkTree, VfkTreeItem, type ThemeMode } from '../index'
+import { useTheme, version, VfkSearchBox, VfkTree, VfkTreeItem, type ThemeMode } from '../index'
 import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
@@ -13,6 +13,7 @@ import InputPage from './pages/InputPage.vue'
 import MenuPage from './pages/MenuPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import RadioPage from './pages/RadioPage.vue'
+import SearchBoxPage from './pages/SearchBoxPage.vue'
 import SelectPage from './pages/SelectPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import TabsPage from './pages/TabsPage.vue'
@@ -127,6 +128,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'radio radiogroup vfkradio vfkradiogroup fluent-radio-group 单选 單選 单选组 單選組',
   },
   {
+    id: 'search-box',
+    title: 'SearchBox',
+    sub: messages.value.shell.navSearchBoxSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'search',
+    keywords: 'search searchbox vfksearchbox clear dismiss query 搜索 搜尋 搜索框 搜尋框 清除',
+  },
+  {
     id: 'select',
     title: 'Select',
     sub: messages.value.shell.navSelectSub,
@@ -182,6 +192,7 @@ const validPageIds = new Set<DemoPageId>([
   'input',
   'menu',
   'radio',
+  'search-box',
   'select',
   'switch',
   'tabs',
@@ -339,38 +350,27 @@ onUnmounted(() => {
       :class="{ 'demo-sidebar--open': sidebarOpen }"
       :aria-label="messages.shell.navAriaLabel"
     >
-      <div class="demo-sidebar__brand">
+      <a
+        class="demo-sidebar__brand"
+        href="https://github.com/yysubs/vue-fluent-kit"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <span class="demo-sidebar__logo">
           <DemoLogo :size="28" />
         </span>
-        <div class="demo-sidebar__brand-text">
-          <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
-          <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent 2 WC</span>
-        </div>
-      </div>
+        <span class="demo-sidebar__brand-name">Vue Fluent Kit</span>
+      </a>
 
       <div class="demo-sidebar__search">
-        <div class="demo-search-box">
-          <span class="demo-search-box__icon" aria-hidden="true">
-            <DemoIcons name="search" :size="14" />
-          </span>
-          <input
-            v-model="searchQuery"
-            type="text"
-            class="demo-search-box__input"
-            :placeholder="messages.shell.searchPlaceholder"
-            :aria-label="messages.shell.searchAriaLabel"
-          />
-          <button
-            v-if="searchQuery"
-            type="button"
-            class="demo-search-box__clear"
-            :aria-label="messages.shell.clearSearchAriaLabel"
-            @click="searchQuery = ''"
-          >
-            <DemoIcons name="close" :size="12" />
-          </button>
-        </div>
+        <VfkSearchBox
+          v-model="searchQuery"
+          appearance="filled-darker"
+          size="medium"
+          :placeholder="messages.shell.searchPlaceholder"
+          :aria-label="messages.shell.searchAriaLabel"
+          :dismiss-label="messages.shell.clearSearchAriaLabel"
+        />
       </div>
 
       <nav class="demo-sidebar__nav">
@@ -459,11 +459,7 @@ onUnmounted(() => {
       </nav>
 
       <div class="demo-sidebar__footer">
-        <div class="demo-sidebar__kbd-row">
-          <span>{{ messages.shell.kbdPrefix }}</span>
-          <kbd class="demo-kbd">Tab</kbd>
-          <span>{{ messages.shell.kbdSuffix }}</span>
-        </div>
+        <span class="demo-sidebar__version">v{{ version }}</span>
       </div>
     </aside>
 
@@ -545,6 +541,7 @@ onUnmounted(() => {
         <InputPage v-else-if="currentPage === 'input'" />
         <MenuPage v-else-if="currentPage === 'menu'" />
         <RadioPage v-else-if="currentPage === 'radio'" />
+        <SearchBoxPage v-else-if="currentPage === 'search-box'" />
         <SelectPage v-else-if="currentPage === 'select'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
         <TabsPage v-else-if="currentPage === 'tabs'" />

@@ -33,6 +33,7 @@ export default defineConfig({
         input: fileURLToPath(new URL('./src/components/input/index.ts', import.meta.url)),
         menu: fileURLToPath(new URL('./src/components/menu/index.ts', import.meta.url)),
         radio: fileURLToPath(new URL('./src/components/radio/index.ts', import.meta.url)),
+        'search-box': fileURLToPath(new URL('./src/components/search-box/index.ts', import.meta.url)),
         select: fileURLToPath(new URL('./src/components/select/index.ts', import.meta.url)),
         switch: fileURLToPath(new URL('./src/components/switch/index.ts', import.meta.url)),
         tabs: fileURLToPath(new URL('./src/components/tabs/index.ts', import.meta.url)),

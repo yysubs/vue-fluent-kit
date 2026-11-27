@@ -121,6 +121,36 @@ export interface DemoControlsMessages {
     apiClick: string
     apiSlots: string
   }
+  searchBox: {
+    desc: string
+    secAppearances: string
+    secSizes: string
+    secStates: string
+    placeholder: string
+    fieldLabel: string
+    dismissLabel: string
+    lastSearchLabel: string
+    clearCountLabel: string
+    noneYet: string
+    cardAppearancesTitle: string
+    cardAppearancesDesc: string
+    cardSizesTitle: string
+    cardSlotsTitle: string
+    cardStatesTitle: string
+    readonlySample: string
+    disabledSample: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiPlaceholder: string
+    apiDismissLabel: string
+    apiFlags: string
+    apiUpdate: string
+    apiSearch: string
+    apiClear: string
+    apiSlots: string
+  }
   select: {
     desc: string
     secAppearances: string
@@ -459,6 +489,36 @@ export const controlsZhCN: DemoControlsMessages = {
     apiChange: '按压态变更事件，附带最新布尔值与事件对象',
     apiClick: '点击触发（disabled / disabledFocusable 时不触发）',
     apiSlots: '按钮正文及前后置图标插槽（映射 slot="start" / "end"）',
+  },
+  searchBox: {
+    desc: '参照 Fluent 2 SearchBox 规范并基于 VfkInput 扩展的搜索框，内置前置搜索图标、聚焦或有值时自动显示的清除按钮（点击清空并归还焦点），以及 Enter 搜索与 Escape 清空快捷键。',
+    secAppearances: '外观样式',
+    secSizes: '尺寸与自定义插槽',
+    secStates: '状态与事件',
+    placeholder: '搜索组件或变量...',
+    fieldLabel: '快速检索',
+    dismissLabel: '清除搜索',
+    lastSearchLabel: '最近搜索',
+    clearCountLabel: '清除次数',
+    noneYet: '暂无',
+    cardAppearancesTitle: '四种 Fluent 2 外观',
+    cardAppearancesDesc: '外观与 VfkInput 保持一致，支持 outline、underline、filled-darker 与 filled-lighter。',
+    cardSizesTitle: '三档尺寸规格',
+    cardSlotsTitle: '自定义前置图标与后置快捷键',
+    cardStatesTitle: '只读与禁用态',
+    readonlySample: '只读搜索内容',
+    disabledSample: '已禁用搜索框',
+    catalogDesc: '基于 VfkInput 扩展，前置搜索图标、清除按钮还原焦点与 Enter/Escape 快捷键',
+    apiModelValue: '受控搜索文本，用于 v-model 双向绑定',
+    apiAppearance: '视觉外观，与 VfkInput 一致',
+    apiSize: '控件尺寸（small / medium / large）',
+    apiPlaceholder: '空值时的占位提示文字',
+    apiDismissLabel: '内置清除按钮的无障碍名称（aria-label）',
+    apiFlags: '禁用、只读与必填表单状态',
+    apiUpdate: '输入或清空时触发，同步更新 v-model',
+    apiSearch: '按下 Enter 键（非输入法组合态）时触发并附带当前关键词',
+    apiClear: '点击清除按钮或按 Escape 清空时触发',
+    apiSlots: '内置标签（#default）、前置图标（#start）、清除图标（#dismiss）与附加后缀（#end）',
   },
   select: {
     desc: '基于官方 <fluent-dropdown>、<fluent-listbox> 与 <fluent-option> 的薄封装下拉选择器，支持单选 v-model、4 种外观、3 档尺寸及带描述/图标的选项。',
@@ -799,6 +859,36 @@ export const controlsZhTW: DemoControlsMessages = {
     apiClick: '點擊觸發（disabled / disabledFocusable 時不觸發）',
     apiSlots: '按鈕正文及前後置圖示插槽（對應 slot="start" / "end"）',
   },
+  searchBox: {
+    desc: '參照 Fluent 2 SearchBox 規範並基於 VfkInput 擴充的搜尋框，內建前置搜尋圖示、聚焦或有值時自動顯示的清除按鈕（點擊清空並歸還焦點），以及 Enter 搜尋與 Escape 清空快捷鍵。',
+    secAppearances: '外觀樣式',
+    secSizes: '尺寸與自訂插槽',
+    secStates: '狀態與事件',
+    placeholder: '搜尋元件或變數...',
+    fieldLabel: '快速檢索',
+    dismissLabel: '清除搜尋',
+    lastSearchLabel: '最近搜尋',
+    clearCountLabel: '清除次數',
+    noneYet: '尚無',
+    cardAppearancesTitle: '四種 Fluent 2 外觀',
+    cardAppearancesDesc: '外觀與 VfkInput 保持一致，支援 outline、underline、filled-darker 與 filled-lighter。',
+    cardSizesTitle: '三檔尺寸規格',
+    cardSlotsTitle: '自訂前置圖示與後置快捷鍵',
+    cardStatesTitle: '唯讀與停用態',
+    readonlySample: '唯讀搜尋內容',
+    disabledSample: '已停用搜尋框',
+    catalogDesc: '基於 VfkInput 擴充，前置搜尋圖示、清除按鈕還原焦點與 Enter/Escape 快捷鍵',
+    apiModelValue: '受控搜尋文字，用於 v-model 雙向繫結',
+    apiAppearance: '視覺外觀，與 VfkInput 一致',
+    apiSize: '元件尺寸（small / medium / large）',
+    apiPlaceholder: '空值時的佔位提示文字',
+    apiDismissLabel: '內建清除按鈕的無障礙名稱（aria-label）',
+    apiFlags: '停用、唯讀與必填表單狀態',
+    apiUpdate: '輸入或清空時觸發，同步更新 v-model',
+    apiSearch: '按下 Enter 鍵（非輸入法組字態）時觸發並附帶目前關鍵字',
+    apiClear: '點擊清除按鈕或按 Escape 清空時觸發',
+    apiSlots: '內建標籤（#default）、前置圖示（#start）、清除圖示（#dismiss）與附加後綴（#end）',
+  },
   select: {
     desc: '基於官方 <fluent-dropdown>、<fluent-listbox> 與 <fluent-option> 的薄封裝下拉選擇器，支援單選 v-model、4 種外觀、3 檔尺寸及帶描述/圖示的選項。',
     secAppearances: '外觀樣式',
@@ -1137,6 +1227,36 @@ export const controlsEnUS: DemoControlsMessages = {
     apiChange: 'Fired on toggle with next boolean value and click event',
     apiClick: 'Fired on click (suppressed when disabled or disabledFocusable)',
     apiSlots: 'Primary label and leading/trailing icon slots (slot="start" / "end")',
+  },
+  searchBox: {
+    desc: 'Extended from VfkInput following Fluent 2 SearchBox conventions, with a leading search icon, a focus/value-driven dismiss button that returns focus to the input, and Enter / Escape keyboard shortcuts.',
+    secAppearances: 'Appearances',
+    secSizes: 'Sizes & Custom Slots',
+    secStates: 'States & Events',
+    placeholder: 'Search components or tokens...',
+    fieldLabel: 'Quick search',
+    dismissLabel: 'Clear search',
+    lastSearchLabel: 'Last search',
+    clearCountLabel: 'Clear count',
+    noneYet: 'none',
+    cardAppearancesTitle: 'Four Fluent 2 Appearances',
+    cardAppearancesDesc: 'Inherits the same outline, underline, filled-darker, and filled-lighter variants as VfkInput.',
+    cardSizesTitle: 'Small / Medium / Large Sizes',
+    cardSlotsTitle: 'Custom Leading Icon & Trailing Shortcut',
+    cardStatesTitle: 'Read-only & Disabled',
+    readonlySample: 'Read-only search text',
+    disabledSample: 'Disabled search box',
+    catalogDesc: 'VfkInput extension with leading search icon, clear button & Enter/Escape shortcuts',
+    apiModelValue: 'Controlled search text for v-model',
+    apiAppearance: 'Visual style matching VfkInput',
+    apiSize: 'Control size (small / medium / large)',
+    apiPlaceholder: 'Placeholder text when empty',
+    apiDismissLabel: 'Accessible aria-label for the built-in clear button',
+    apiFlags: 'Disabled, read-only, and required form states',
+    apiUpdate: 'Emitted on typing or clearing to keep v-model in sync',
+    apiSearch: 'Emitted when pressing Enter (non-IME composing) with the current query',
+    apiClear: 'Emitted when cleared via the dismiss button or Escape key',
+    apiSlots: 'Built-in label (#default), leading icon (#start), clear icon (#dismiss), and trailing content (#end)',
   },
   select: {
     desc: 'Thin Vue wrapper over official <fluent-dropdown>, <fluent-listbox>, and <fluent-option> with single-select v-model, 4 appearances, 3 sizes, and rich option slots.',

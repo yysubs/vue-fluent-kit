@@ -50,8 +50,6 @@ export interface DemoMessages {
     clearSearchAriaLabel: string
     emptySearchPrefix: string
     emptySearchSuffix: string
-    kbdPrefix: string
-    kbdSuffix: string
     openMenuAriaLabel: string
     docsTab: string
     breadcrumbAriaLabel: string
@@ -65,6 +63,7 @@ export interface DemoMessages {
     navButtonSub: string
     navToggleButtonSub: string
     navInputSub: string
+    navSearchBoxSub: string
     navSelectSub: string
     navCheckboxSub: string
     navSwitchSub: string
@@ -141,6 +140,7 @@ export interface DemoMessages {
         | 'input'
         | 'menu'
         | 'radio'
+        | 'search-box'
         | 'select'
         | 'switch'
         | 'tabs'
@@ -214,8 +214,6 @@ const zhCN: DemoMessages = {
     clearSearchAriaLabel: '清空查找',
     emptySearchPrefix: '未找到与「',
     emptySearchSuffix: '」匹配的条目',
-    kbdPrefix: '按',
-    kbdSuffix: '逐项检查键盘焦点环',
     openMenuAriaLabel: '打开导航菜单',
     docsTab: '文档',
     breadcrumbAriaLabel: '当前位置',
@@ -229,6 +227,7 @@ const zhCN: DemoMessages = {
     navButtonSub: '按钮',
     navToggleButtonSub: '切换按钮',
     navInputSub: '输入框',
+    navSearchBoxSub: '搜索框',
     navSelectSub: '下拉选择',
     navCheckboxSub: '复选框',
     navSwitchSub: '开关',
@@ -327,6 +326,13 @@ const zhCN: DemoMessages = {
         desc: '受控文本输入与下拉选择器，支持 v-model、前后缀与富内容选项',
         status: 'done',
         page: 'select',
+      },
+      {
+        name: 'VfkSearchBox',
+        tag: 'VfkInput + dismiss',
+        desc: '基于 VfkInput 扩展的搜索框，内置前置搜索图标、聚焦/有值清除按钮（还原焦点）与 Enter/Escape 快捷键',
+        status: 'done',
+        page: 'search-box',
       },
       {
         name: 'VfkCheckbox / VfkSwitch',
@@ -485,8 +491,6 @@ const zhTW: DemoMessages = {
     clearSearchAriaLabel: '清除搜尋',
     emptySearchPrefix: '找不到與「',
     emptySearchSuffix: '」相符的項目',
-    kbdPrefix: '按',
-    kbdSuffix: '逐項檢查鍵盤焦點環',
     openMenuAriaLabel: '開啟導覽選單',
     docsTab: '文件',
     breadcrumbAriaLabel: '目前位置',
@@ -500,6 +504,7 @@ const zhTW: DemoMessages = {
     navButtonSub: '按鈕',
     navToggleButtonSub: '切換按鈕',
     navInputSub: '輸入框',
+    navSearchBoxSub: '搜尋框',
     navSelectSub: '下拉選擇',
     navCheckboxSub: '核取方塊',
     navSwitchSub: '開關',
@@ -598,6 +603,13 @@ const zhTW: DemoMessages = {
         desc: '受控文字輸入與下拉選擇器，支援 v-model、前後綴與富內容選項',
         status: 'done',
         page: 'select',
+      },
+      {
+        name: 'VfkSearchBox',
+        tag: 'VfkInput + dismiss',
+        desc: '基於 VfkInput 擴充的搜尋框，內建前置搜尋圖示、聚焦/有值清除按鈕（還原焦點）與 Enter/Escape 快捷鍵',
+        status: 'done',
+        page: 'search-box',
       },
       {
         name: 'VfkCheckbox / VfkSwitch',
@@ -756,8 +768,6 @@ const enUS: DemoMessages = {
     clearSearchAriaLabel: 'Clear search',
     emptySearchPrefix: 'No results matching "',
     emptySearchSuffix: '"',
-    kbdPrefix: 'Press',
-    kbdSuffix: 'to inspect focus rings',
     openMenuAriaLabel: 'Toggle navigation menu',
     docsTab: 'Docs',
     breadcrumbAriaLabel: 'Breadcrumb',
@@ -771,6 +781,7 @@ const enUS: DemoMessages = {
     navButtonSub: 'Action',
     navToggleButtonSub: 'Toggle',
     navInputSub: 'Text Field',
+    navSearchBoxSub: 'Search',
     navSelectSub: 'Dropdown',
     navCheckboxSub: 'Tri-state',
     navSwitchSub: 'Toggle',
@@ -869,6 +880,13 @@ const enUS: DemoMessages = {
         desc: 'Controlled text input and dropdown select with v-model, prefix/suffix, and rich options',
         status: 'done',
         page: 'select',
+      },
+      {
+        name: 'VfkSearchBox',
+        tag: 'VfkInput + dismiss',
+        desc: 'Search input extending VfkInput with leading search icon, focus/value-driven clear button, and Enter/Escape shortcuts',
+        status: 'done',
+        page: 'search-box',
       },
       {
         name: 'VfkCheckbox / VfkSwitch',
