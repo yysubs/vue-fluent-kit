@@ -246,6 +246,7 @@ body {
 }
 
 .demo-backdrop {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: calc(var(--zIndexOverlay, 1000) - 1);
@@ -290,7 +291,7 @@ body {
   height: 100%;
 }
 
-.demo-topbar__menu-btn {
+.demo-topbar .demo-topbar__menu-btn {
   display: none;
 }
 
@@ -1709,6 +1710,10 @@ body {
 }
 
 @media (max-width: 960px) {
+  .demo-backdrop {
+    display: block;
+  }
+
   .demo-sidebar {
     transform: translateX(-100%);
     box-shadow: var(--shadow28);
@@ -1726,7 +1731,7 @@ body {
     padding: 0 var(--spacingHorizontalL);
   }
 
-  .demo-topbar__menu-btn {
+  .demo-topbar .demo-topbar__menu-btn {
     display: inline-flex;
   }
 
