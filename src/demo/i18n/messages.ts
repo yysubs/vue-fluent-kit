@@ -63,7 +63,9 @@ export interface DemoMessages {
     navOverviewTitle: string
     navOverviewSub: string
     navButtonSub: string
+    navToggleButtonSub: string
     navInputSub: string
+    navSelectSub: string
     navCheckboxSub: string
     navTokensTitle: string
     navTokensSub: string
@@ -126,7 +128,7 @@ export interface DemoMessages {
       tag: string
       desc: string
       status: 'done' | 'planned'
-      page?: 'button' | 'input' | 'checkbox'
+      page?: 'button' | 'toggle-button' | 'input' | 'select' | 'checkbox'
     }[]
   }
   tokens: {
@@ -208,7 +210,9 @@ const zhCN: DemoMessages = {
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概览',
     navButtonSub: '按钮',
+    navToggleButtonSub: '切换按钮',
     navInputSub: '输入框',
+    navSelectSub: '下拉选择',
     navCheckboxSub: '复选框',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
@@ -283,7 +287,7 @@ const zhCN: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封装路线',
-    roadmapSub: '首批基础控件（VfkButton、VfkInput、VfkCheckbox）已完成，其余控件按需逐步薄封装接入。',
+    roadmapSub: '核心表单与按钮控件（VfkButton、VfkToggleButton、VfkInput、VfkSelect、VfkCheckbox）已完成，其余控件按需逐步薄封装接入。',
     roadmapStatusDone: '已实现',
     roadmapStatusPlanned: '计划中',
     roadmapItems: [
@@ -295,6 +299,13 @@ const zhCN: DemoMessages = {
         page: 'button',
       },
       {
+        name: 'VfkToggleButton',
+        tag: '<fluent-toggle-button>',
+        desc: '支持 v-model 与 mixed 态的按压切换按钮，保留官方 ARIA 状态',
+        status: 'done',
+        page: 'toggle-button',
+      },
+      {
         name: 'VfkInput',
         tag: '<fluent-text-input>',
         desc: '受控文本输入、v-model 双向绑定、前后缀插槽与尺寸映射',
@@ -302,23 +313,18 @@ const zhCN: DemoMessages = {
         page: 'input',
       },
       {
+        name: 'VfkSelect / VfkOption',
+        tag: '<fluent-dropdown>',
+        desc: '基于官方下拉选择组件薄封装的受控选择器与富内容选项',
+        status: 'done',
+        page: 'select',
+      },
+      {
         name: 'VfkCheckbox',
         tag: '<fluent-checkbox>',
         desc: '支持 boolean / mixed 三态的复选框与标签组合',
         status: 'done',
         page: 'checkbox',
-      },
-      {
-        name: 'VfkToggleButton',
-        tag: '<fluent-toggle-button>',
-        desc: '支持 v-model 的按压切换按钮，保留官方 ARIA 状态',
-        status: 'planned',
-      },
-      {
-        name: 'VfkSelect / VfkOption',
-        tag: '<fluent-dropdown>',
-        desc: '基于官方下拉选择组件薄封装的受控选择器',
-        status: 'planned',
       },
       {
         name: '更多 Fluent 2 控件',
@@ -455,7 +461,9 @@ const zhTW: DemoMessages = {
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概覽',
     navButtonSub: '按鈕',
+    navToggleButtonSub: '切換按鈕',
     navInputSub: '輸入框',
+    navSelectSub: '下拉選擇',
     navCheckboxSub: '核取方塊',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
@@ -501,7 +509,7 @@ const zhTW: DemoMessages = {
     scopedAcrylicTitle: 'Acrylic 浮層 + Mica 底板',
     scopedLightSub: '半透明毛玻璃 + 細高光描邊',
     scopedDarkSub: '任意層級局部巢狀反色',
-    shadowTitle: 'Shadow DOM 樣式覆寫規範',
+    shadowTitle: 'Shadow DOM 樣式覆蓋規範',
     shadowSub: '統一遵循以下四級優先順序，避免強行穿透內部私有結構導致官方升級失效。',
     shadowRules: [
       {
@@ -530,7 +538,7 @@ const zhTW: DemoMessages = {
       },
     ],
     roadmapTitle: '按需封裝路線',
-    roadmapSub: '首批基礎元件（VfkButton、VfkInput、VfkCheckbox）已完成，其餘元件按需逐步薄封裝接入。',
+    roadmapSub: '核心表單與按鈕元件（VfkButton、VfkToggleButton、VfkInput、VfkSelect、VfkCheckbox）已完成，其餘元件按需逐步薄封裝接入。',
     roadmapStatusDone: '已實作',
     roadmapStatusPlanned: '規劃中',
     roadmapItems: [
@@ -542,6 +550,13 @@ const zhTW: DemoMessages = {
         page: 'button',
       },
       {
+        name: 'VfkToggleButton',
+        tag: '<fluent-toggle-button>',
+        desc: '支援 v-model 與 mixed 態的按壓切換按鈕，保留官方 ARIA 狀態',
+        status: 'done',
+        page: 'toggle-button',
+      },
+      {
         name: 'VfkInput',
         tag: '<fluent-text-input>',
         desc: '受控文字輸入、v-model 雙向繫結、前後綴插槽與尺寸對應',
@@ -549,23 +564,18 @@ const zhTW: DemoMessages = {
         page: 'input',
       },
       {
+        name: 'VfkSelect / VfkOption',
+        tag: '<fluent-dropdown>',
+        desc: '基於官方下拉選單元件薄封裝的受控選擇器與富內容選項',
+        status: 'done',
+        page: 'select',
+      },
+      {
         name: 'VfkCheckbox',
         tag: '<fluent-checkbox>',
         desc: '支援 boolean / mixed 三態的核取方塊與標籤組合',
         status: 'done',
         page: 'checkbox',
-      },
-      {
-        name: 'VfkToggleButton',
-        tag: '<fluent-toggle-button>',
-        desc: '支援 v-model 的按壓切換按鈕，保留官方 ARIA 狀態',
-        status: 'planned',
-      },
-      {
-        name: 'VfkSelect / VfkOption',
-        tag: '<fluent-dropdown>',
-        desc: '基於官方下拉選單元件薄封裝的受控選擇器',
-        status: 'planned',
       },
       {
         name: '更多 Fluent 2 元件',
@@ -702,7 +712,9 @@ const enUS: DemoMessages = {
     navOverviewTitle: 'Introduction',
     navOverviewSub: 'Start',
     navButtonSub: 'Action',
+    navToggleButtonSub: 'Toggle',
     navInputSub: 'Text Field',
+    navSelectSub: 'Dropdown',
     navCheckboxSub: 'Tri-state',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
@@ -777,7 +789,7 @@ const enUS: DemoMessages = {
       },
     ],
     roadmapTitle: 'Incremental Wrapper Roadmap',
-    roadmapSub: 'Core controls (VfkButton, VfkInput, VfkCheckbox) are implemented; remaining components will be wrapped on demand.',
+    roadmapSub: 'Core controls (VfkButton, VfkToggleButton, VfkInput, VfkSelect, VfkCheckbox) are implemented; remaining components will be wrapped on demand.',
     roadmapStatusDone: 'Done',
     roadmapStatusPlanned: 'Planned',
     roadmapItems: [
@@ -789,6 +801,13 @@ const enUS: DemoMessages = {
         page: 'button',
       },
       {
+        name: 'VfkToggleButton',
+        tag: '<fluent-toggle-button>',
+        desc: 'Toggle button with v-model, mixed state, and native ARIA pressed state',
+        status: 'done',
+        page: 'toggle-button',
+      },
+      {
         name: 'VfkInput',
         tag: '<fluent-text-input>',
         desc: 'Controlled text input with v-model, slots, and unified size mapping',
@@ -796,23 +815,18 @@ const enUS: DemoMessages = {
         page: 'input',
       },
       {
+        name: 'VfkSelect / VfkOption',
+        tag: '<fluent-dropdown>',
+        desc: 'Controlled select wrapper powered by official Fluent dropdown & options',
+        status: 'done',
+        page: 'select',
+      },
+      {
         name: 'VfkCheckbox',
         tag: '<fluent-checkbox>',
         desc: 'Tri-state boolean / mixed checkbox paired with accessible label',
         status: 'done',
         page: 'checkbox',
-      },
-      {
-        name: 'VfkToggleButton',
-        tag: '<fluent-toggle-button>',
-        desc: 'Toggle button with v-model binding and native ARIA pressed state',
-        status: 'planned',
-      },
-      {
-        name: 'VfkSelect / VfkOption',
-        tag: '<fluent-dropdown>',
-        desc: 'Controlled select wrapper powered by official Fluent dropdown',
-        status: 'planned',
       },
       {
         name: 'More Fluent 2 Controls',

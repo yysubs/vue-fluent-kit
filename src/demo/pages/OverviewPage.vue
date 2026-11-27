@@ -1,13 +1,30 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VfkButton, VfkCheckbox, VfkInput, VfkThemeProvider, useTheme, version } from '../../index'
+import {
+  VfkButton,
+  VfkCheckbox,
+  VfkInput,
+  VfkOption,
+  VfkSelect,
+  VfkThemeProvider,
+  VfkToggleButton,
+  useTheme,
+  version,
+} from '../../index'
 import { demoBrandPresets, type BrandPreset } from '../brand-presets'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoLogo from '../components/DemoLogo.vue'
 import DemoToc, { type TocItem } from '../components/DemoToc.vue'
 import { useDemoI18n } from '../i18n'
 
-export type DemoPageId = 'overview' | 'button' | 'input' | 'checkbox' | 'tokens'
+export type DemoPageId =
+  | 'overview'
+  | 'button'
+  | 'toggle-button'
+  | 'input'
+  | 'select'
+  | 'checkbox'
+  | 'tokens'
 
 const emit = defineEmits<{
   navigate: [page: DemoPageId]
@@ -20,7 +37,9 @@ const activePresetId = computed<BrandPreset['id']>(() => {
   return demoBrandPresets.find((preset) => preset.brand === activeBrand.value)?.id ?? 'default'
 })
 
+const miniToggle = ref(true)
 const miniInput = ref('')
+const miniSelect = ref('prod')
 const miniChecked = ref(true)
 const scopedLightInput = ref('Fluent 2 Light')
 const scopedDarkInput = ref('Fluent 2 Dark')
@@ -41,6 +60,10 @@ function selectBrand(preset: BrandPreset) {
   } else {
     resetBrandTokens()
   }
+}
+
+function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 </script>
 
@@ -71,7 +94,7 @@ function selectBrand(preset: BrandPreset) {
           </div>
         </div>
         <div class="demo-row">
-          <VfkButton appearance="primary" @click="emit('navigate', 'button')">
+          <VfkButton appearance="primary" @click="scrollToSection('intro-catalog')">
             {{ messages.controls.implementedTitle }}
           </VfkButton>
           <VfkButton appearance="outline" @click="emit('navigate', 'tokens')">
@@ -157,6 +180,30 @@ function selectBrand(preset: BrandPreset) {
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkToggleButton v-model="miniToggle" appearance="primary" size="medium">
+                  <template #start><DemoIcons name="sparkle" :size="14" /></template>
+                  {{ messages.controls.toggleButton.sampleLabel }}
+                </VfkToggleButton>
+                <VfkToggleButton :model-value="false" appearance="outline" size="medium">
+                  {{ messages.controls.toggleButton.toolbarFilter }}
+                </VfkToggleButton>
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkToggleButton</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.toggleButton.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'toggle-button')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
               <VfkInput
                 v-model="miniInput"
                 :placeholder="messages.controls.input.searchPlaceholder"
@@ -171,6 +218,30 @@ function selectBrand(preset: BrandPreset) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.input.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkSelect
+                v-model="miniSelect"
+                :placeholder="messages.controls.select.placeholder"
+                style="width: 100%; max-width: 240px"
+              >
+                <VfkOption value="prod">{{ messages.controls.select.optProd }}</VfkOption>
+                <VfkOption value="staging">{{ messages.controls.select.optStaging }}</VfkOption>
+                <VfkOption value="dev">{{ messages.controls.select.optDev }}</VfkOption>
+              </VfkSelect>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkSelect</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.select.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'select')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

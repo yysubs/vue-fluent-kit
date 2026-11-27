@@ -10,6 +10,8 @@ import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import InputPage from './pages/InputPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
+import SelectPage from './pages/SelectPage.vue'
+import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 
 interface NavItem {
@@ -45,6 +47,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
   },
   {
+    id: 'toggle-button',
+    title: 'ToggleButton',
+    sub: messages.value.shell.navToggleButtonSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'toggle',
+    keywords: 'toggle button vfktogglebutton fluent-toggle-button pressed mixed 切换按钮 切換按鈕 按压 按壓',
+  },
+  {
     id: 'input',
     title: 'Input',
     sub: messages.value.shell.navInputSub,
@@ -52,6 +63,15 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupComponents,
     icon: 'input',
     keywords: 'input vfkinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
+  },
+  {
+    id: 'select',
+    title: 'Select',
+    sub: messages.value.shell.navSelectSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'select',
+    keywords: 'select option dropdown vfkselect vfkoption fluent-dropdown 下拉 选择器 選擇器 选项 選項',
   },
   {
     id: 'checkbox',
@@ -74,7 +94,15 @@ const navItems = computed<NavItem[]>(() => [
   },
 ])
 
-const validPageIds = new Set<DemoPageId>(['overview', 'button', 'input', 'checkbox', 'tokens'])
+const validPageIds = new Set<DemoPageId>([
+  'overview',
+  'button',
+  'toggle-button',
+  'input',
+  'select',
+  'checkbox',
+  'tokens',
+])
 
 function parseHashPage(): DemoPageId {
   const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase() as DemoPageId
@@ -309,7 +337,9 @@ onUnmounted(() => {
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
         <ButtonPage v-else-if="currentPage === 'button'" />
+        <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
         <InputPage v-else-if="currentPage === 'input'" />
+        <SelectPage v-else-if="currentPage === 'select'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <TokensPage v-else />
       </main>

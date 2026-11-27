@@ -1204,6 +1204,17 @@ body {
   padding: var(--spacingVerticalM) var(--spacingHorizontalL);
 }
 
+.demo-catalog-card__body > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.demo-catalog-card__body fluent-button,
+.demo-roadmap-card__foot fluent-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .demo-catalog-card__title {
   margin: 0;
   font-size: var(--fontSizeBase400);

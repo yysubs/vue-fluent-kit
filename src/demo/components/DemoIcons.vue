@@ -2,6 +2,7 @@
 export type DemoIconName =
   | 'grid'
   | 'button'
+  | 'toggle'
   | 'input'
   | 'select'
   | 'checkbox'
@@ -54,6 +55,10 @@ withDefaults(
     <template v-else-if="name === 'button'">
       <rect x="2.5" y="5.5" width="15" height="9" rx="2.5" stroke="currentColor" stroke-width="1.5" />
       <path d="M6.5 10h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'toggle'">
+      <rect x="2.5" y="5.5" width="15" height="9" rx="4.5" stroke="currentColor" stroke-width="1.5" />
+      <circle cx="13" cy="10" r="2.25" fill="currentColor" />
     </template>
     <template v-else-if="name === 'input'">
       <rect x="2.5" y="5" width="15" height="10" rx="2" stroke="currentColor" stroke-width="1.5" />

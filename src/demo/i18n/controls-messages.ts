@@ -88,6 +88,78 @@ export interface DemoControlsMessages {
     apiSlotDefault: string
     apiSlotIndicator: string
   }
+  toggleButton: {
+    desc: string
+    secAppearances: string
+    secControlled: string
+    secVariants: string
+    sampleLabel: string
+    pressedLabel: string
+    unpressedLabel: string
+    mixedLabel: string
+    setMixed: string
+    stateLabel: string
+    cardAppearancesTitle: string
+    cardAppearancesDesc: string
+    cardControlledTitle: string
+    cardControlledDesc: string
+    cardVariantsTitle: string
+    cardDisabledTitle: string
+    toolbarPin: string
+    toolbarFilter: string
+    toolbarNotify: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiShape: string
+    apiDisabled: string
+    apiDisabledFocusable: string
+    apiIconOnly: string
+    apiUpdate: string
+    apiChange: string
+    apiClick: string
+    apiSlots: string
+  }
+  select: {
+    desc: string
+    secAppearances: string
+    secSizes: string
+    secRichDisabled: string
+    placeholder: string
+    clearSelection: string
+    currentValue: string
+    emptyValue: string
+    cardAppearancesTitle: string
+    cardAppearancesDesc: string
+    cardSizesTitle: string
+    cardRichTitle: string
+    cardRichDesc: string
+    cardDisabledTitle: string
+    optProd: string
+    optProdDesc: string
+    optStaging: string
+    optStagingDesc: string
+    optDev: string
+    optDevDesc: string
+    optLegacy: string
+    optLegacyDesc: string
+    catalogDesc: string
+    apiModelValue: string
+    apiAppearance: string
+    apiSize: string
+    apiPlaceholder: string
+    apiFlags: string
+    apiName: string
+    apiUpdate: string
+    apiChange: string
+    apiSlotDefault: string
+    apiSlotIndicator: string
+    apiOptionValue: string
+    apiOptionText: string
+    apiOptionDisabled: string
+    apiOptionSlots: string
+  }
 }
 
 export const controlsZhCN: DemoControlsMessages = {
@@ -179,6 +251,78 @@ export const controlsZhCN: DemoControlsMessages = {
     apiChange: '勾选状态变更事件',
     apiSlotDefault: '自定义标签内容',
     apiSlotIndicator: '自定义选中 / 半选指示图标',
+  },
+  toggleButton: {
+    desc: '基于官方 <fluent-toggle-button> 的薄封装切换按钮，支持 true / false / "mixed" 受控 v-model 绑定、5 种视觉外观以及原生 aria-pressed 无障碍状态。',
+    secAppearances: '视觉外观',
+    secControlled: '受控切换与半按压态',
+    secVariants: '尺寸、形状与禁用态',
+    sampleLabel: '自动保存',
+    pressedLabel: '已按下',
+    unpressedLabel: '未按下',
+    mixedLabel: '半按压（mixed）',
+    setMixed: '设为 mixed',
+    stateLabel: '当前状态',
+    cardAppearancesTitle: '五种 Fluent 2 切换按钮外观',
+    cardAppearancesDesc: '点击各按钮可对比按下与弹起状态的视觉差异。',
+    cardControlledTitle: '工具栏受控 v-model 与 mixed 状态',
+    cardControlledDesc: '点击切换布尔值；处于 mixed 半按压态时点击会统一切换为 true。',
+    cardVariantsTitle: '尺寸、形状与仅图标模式',
+    cardDisabledTitle: '禁用与可聚焦禁用',
+    toolbarPin: '置顶预览',
+    toolbarFilter: '仅看错误',
+    toolbarNotify: '部署通知',
+    catalogDesc: '受控 v-model、boolean / mixed 按压态、5 种外观与图标插槽',
+    apiModelValue: '当前按压状态，支持 true / false / "mixed"',
+    apiAppearance: '按钮视觉外观，secondary 映射为官方默认样式',
+    apiSize: '按钮尺寸',
+    apiShape: '圆角形状',
+    apiDisabled: '是否禁用',
+    apiDisabledFocusable: '禁用但保留键盘聚焦，便于无障碍工具读取',
+    apiIconOnly: '是否仅显示图标，未传时根据插槽自动判断',
+    apiUpdate: '切换按压态时同步更新 v-model',
+    apiChange: '按压态变更事件，附带最新布尔值与事件对象',
+    apiClick: '点击触发（disabled / disabledFocusable 时不触发）',
+    apiSlots: '按钮正文及前后置图标插槽（映射 slot="start" / "end"）',
+  },
+  select: {
+    desc: '基于官方 <fluent-dropdown>、<fluent-listbox> 与 <fluent-option> 的薄封装下拉选择器，支持单选 v-model、4 种外观、3 档尺寸及带描述/图标的选项。',
+    secAppearances: '外观样式',
+    secSizes: '尺寸规格',
+    secRichDisabled: '图标描述与禁用态',
+    placeholder: '请选择部署环境...',
+    clearSelection: '清空选择',
+    currentValue: '当前选中值',
+    emptyValue: '（未选择）',
+    cardAppearancesTitle: '四种 Fluent 2 下拉外观',
+    cardAppearancesDesc: '支持 outline（默认）、transparent、filled-darker 与 filled-lighter。',
+    cardSizesTitle: '尺寸（small / medium / large）',
+    cardRichTitle: '带图标、副标题描述与禁用选项',
+    cardRichDesc: '选项包含描述时可通过 text 属性指定触发器展示的简短文案。',
+    cardDisabledTitle: '整体禁用态',
+    optProd: '生产环境',
+    optProdDesc: '面向正式流量，自动启用高可用副本',
+    optStaging: '预发布环境',
+    optStagingDesc: '与生产配置一致，供上线前验收',
+    optDev: '开发环境',
+    optDevDesc: '跟随分支自动构建预览',
+    optLegacy: '旧版集群（已停用）',
+    optLegacyDesc: '仅保留历史归档，不可选择',
+    catalogDesc: '基于 fluent-dropdown 的受控 v-model 选择器与选项插槽',
+    apiModelValue: '受控选中项的值，用于 v-model 双向绑定',
+    apiAppearance: '下拉触发器视觉外观，outline 为默认样式',
+    apiSize: '下拉触发器尺寸',
+    apiPlaceholder: '未选中项时显示的占位文案',
+    apiFlags: '禁用与必填状态',
+    apiName: '表单字段名',
+    apiUpdate: '选中项变更时同步更新 v-model',
+    apiChange: '选中项变更事件，附带最新值与事件对象',
+    apiSlotDefault: '放置 VfkOption 列表（内部自动包裹 fluent-listbox）',
+    apiSlotIndicator: '自定义右侧展开箭头图标（映射 slot="indicator"）',
+    apiOptionValue: '选项唯一值，与 VfkSelect 的 modelValue 匹配',
+    apiOptionText: '选项包含描述等内容时，覆盖显示在触发器上的文案',
+    apiOptionDisabled: '禁用单个选项，跳过键盘导航与点击',
+    apiOptionSlots: '选项主文案、前置图标、副标题描述与自定义勾选图标',
   },
 }
 
@@ -272,6 +416,78 @@ export const controlsZhTW: DemoControlsMessages = {
     apiSlotDefault: '自訂標籤內容',
     apiSlotIndicator: '自訂選取 / 半選指示圖示',
   },
+  toggleButton: {
+    desc: '基於官方 <fluent-toggle-button> 的薄封裝切換按鈕，支援 true / false / "mixed" 受控 v-model 繫結、5 種視覺外觀以及原生 aria-pressed 無障礙狀態。',
+    secAppearances: '視覺外觀',
+    secControlled: '受控切換與半按壓態',
+    secVariants: '尺寸、形狀與停用態',
+    sampleLabel: '自動儲存',
+    pressedLabel: '已按下',
+    unpressedLabel: '未按下',
+    mixedLabel: '半按壓（mixed）',
+    setMixed: '設為 mixed',
+    stateLabel: '目前狀態',
+    cardAppearancesTitle: '五種 Fluent 2 切換按鈕外觀',
+    cardAppearancesDesc: '點選各按鈕可對比按下與彈起狀態的視覺差異。',
+    cardControlledTitle: '工具列受控 v-model 與 mixed 狀態',
+    cardControlledDesc: '點擊切換布林值；處於 mixed 半按壓態時點擊會統一切換為 true。',
+    cardVariantsTitle: '尺寸、形狀與僅圖示模式',
+    cardDisabledTitle: '停用與可聚焦停用',
+    toolbarPin: '置頂預覽',
+    toolbarFilter: '僅看錯誤',
+    toolbarNotify: '部署通知',
+    catalogDesc: '受控 v-model、boolean / mixed 按壓態、5 種外觀與圖示插槽',
+    apiModelValue: '目前按壓狀態，支援 true / false / "mixed"',
+    apiAppearance: '按鈕視覺外觀，secondary 對應官方預設樣式',
+    apiSize: '按鈕尺寸',
+    apiShape: '圓角形狀',
+    apiDisabled: '是否停用',
+    apiDisabledFocusable: '停用但保留鍵盤聚焦，便於無障礙工具讀取',
+    apiIconOnly: '是否僅顯示圖示，未傳時依插槽自動判斷',
+    apiUpdate: '切換按壓態時同步更新 v-model',
+    apiChange: '按壓態變更事件，附帶最新布林值與事件物件',
+    apiClick: '點擊觸發（disabled / disabledFocusable 時不觸發）',
+    apiSlots: '按鈕正文及前後置圖示插槽（對應 slot="start" / "end"）',
+  },
+  select: {
+    desc: '基於官方 <fluent-dropdown>、<fluent-listbox> 與 <fluent-option> 的薄封裝下拉選擇器，支援單選 v-model、4 種外觀、3 檔尺寸及帶描述/圖示的選項。',
+    secAppearances: '外觀樣式',
+    secSizes: '尺寸規格',
+    secRichDisabled: '圖示描述與停用態',
+    placeholder: '請選擇部署環境...',
+    clearSelection: '清空選擇',
+    currentValue: '目前選取值',
+    emptyValue: '（未選擇）',
+    cardAppearancesTitle: '四種 Fluent 2 下拉外觀',
+    cardAppearancesDesc: '支援 outline（預設）、transparent、filled-darker 與 filled-lighter。',
+    cardSizesTitle: '尺寸（small / medium / large）',
+    cardRichTitle: '帶圖示、副標題描述與停用選項',
+    cardRichDesc: '選項包含描述時可透過 text 屬性指定觸發器顯示的簡短文案。',
+    cardDisabledTitle: '整體停用態',
+    optProd: '正式環境',
+    optProdDesc: '面向正式流量，自動啟用高可用副本',
+    optStaging: '預發佈環境',
+    optStagingDesc: '與正式設定一致，供上線前驗收',
+    optDev: '開發環境',
+    optDevDesc: '跟隨分支自動建置預覽',
+    optLegacy: '舊版叢集（已停用）',
+    optLegacyDesc: '僅保留歷史封存，不可選擇',
+    catalogDesc: '基於 fluent-dropdown 的受控 v-model 選擇器與選項插槽',
+    apiModelValue: '受控選取項的值，用於 v-model 雙向繫結',
+    apiAppearance: '下拉觸發器視覺外觀，outline 為預設樣式',
+    apiSize: '下拉觸發器尺寸',
+    apiPlaceholder: '未選取項目時顯示的佔位文案',
+    apiFlags: '停用與必填狀態',
+    apiName: '表單欄位名稱',
+    apiUpdate: '選取項變更時同步更新 v-model',
+    apiChange: '選取項變更事件，附帶最新值與事件物件',
+    apiSlotDefault: '放置 VfkOption 列表（內部自動包裹 fluent-listbox）',
+    apiSlotIndicator: '自訂右側展開箭頭圖示（對應 slot="indicator"）',
+    apiOptionValue: '選項唯一值，與 VfkSelect 的 modelValue 對應',
+    apiOptionText: '選項包含描述等內容時，覆寫顯示於觸發器上的文案',
+    apiOptionDisabled: '停用單一選項，略過鍵盤導覽與點擊',
+    apiOptionSlots: '選項主文案、前置圖示、副標題描述與自訂勾選圖示',
+  },
 }
 
 export const controlsEnUS: DemoControlsMessages = {
@@ -363,5 +579,77 @@ export const controlsEnUS: DemoControlsMessages = {
     apiChange: 'Fired on user toggle with next boolean value',
     apiSlotDefault: 'Custom label content',
     apiSlotIndicator: 'Custom checked / indeterminate indicator icons',
+  },
+  toggleButton: {
+    desc: 'Thin Vue wrapper over official <fluent-toggle-button> supporting true / false / "mixed" v-model, 5 appearances, and native aria-pressed accessibility state.',
+    secAppearances: 'Appearances',
+    secControlled: 'Controlled Toggle & Mixed State',
+    secVariants: 'Sizes, Shapes & Disabled',
+    sampleLabel: 'Auto save',
+    pressedLabel: 'Pressed',
+    unpressedLabel: 'Unpressed',
+    mixedLabel: 'Mixed',
+    setMixed: 'Set mixed',
+    stateLabel: 'Current state',
+    cardAppearancesTitle: 'Five Fluent 2 ToggleButton Appearances',
+    cardAppearancesDesc: 'Click each button to compare pressed and unpressed states.',
+    cardControlledTitle: 'Controlled Toolbar v-model & Mixed State',
+    cardControlledDesc: 'Clicking toggles boolean state; clicking a mixed button transitions it to true.',
+    cardVariantsTitle: 'Sizes, Shapes & Icon-Only Mode',
+    cardDisabledTitle: 'Disabled & Disabled Focusable',
+    toolbarPin: 'Pin preview',
+    toolbarFilter: 'Errors only',
+    toolbarNotify: 'Deploy alerts',
+    catalogDesc: 'Controlled v-model, boolean / mixed pressed states & icon slots',
+    apiModelValue: 'Pressed state: true, false, or "mixed"',
+    apiAppearance: 'Visual appearance; secondary uses default official styling',
+    apiSize: 'Button size',
+    apiShape: 'Corner radius shape',
+    apiDisabled: 'Disables interaction and focus',
+    apiDisabledFocusable: 'Disables action while remaining keyboard focusable for screen readers',
+    apiIconOnly: 'Icon-only square sizing; auto-detected when only icon slots are provided',
+    apiUpdate: 'Emitted when pressed state toggles',
+    apiChange: 'Fired on toggle with next boolean value and click event',
+    apiClick: 'Fired on click (suppressed when disabled or disabledFocusable)',
+    apiSlots: 'Primary label and leading/trailing icon slots (slot="start" / "end")',
+  },
+  select: {
+    desc: 'Thin Vue wrapper over official <fluent-dropdown>, <fluent-listbox>, and <fluent-option> with single-select v-model, 4 appearances, 3 sizes, and rich option slots.',
+    secAppearances: 'Appearances',
+    secSizes: 'Sizes',
+    secRichDisabled: 'Icons, Descriptions & Disabled',
+    placeholder: 'Select environment...',
+    clearSelection: 'Clear selection',
+    currentValue: 'Selected value',
+    emptyValue: '(none)',
+    cardAppearancesTitle: 'Four Fluent 2 Select Appearances',
+    cardAppearancesDesc: 'Supports outline (default), transparent, filled-darker, and filled-lighter.',
+    cardSizesTitle: 'Sizes (small / medium / large)',
+    cardRichTitle: 'Options with Icons, Descriptions & Disabled Item',
+    cardRichDesc: 'Use the text prop on VfkOption to show a concise label in the trigger when descriptions are present.',
+    cardDisabledTitle: 'Disabled Select',
+    optProd: 'Production',
+    optProdDesc: 'Live traffic with automated failover replicas',
+    optStaging: 'Staging',
+    optStagingDesc: 'Mirrors production for pre-release verification',
+    optDev: 'Development',
+    optDevDesc: 'Automatic branch preview deployments',
+    optLegacy: 'Legacy cluster (deprecated)',
+    optLegacyDesc: 'Read-only archive, unavailable for selection',
+    catalogDesc: 'Controlled v-model dropdown built on fluent-dropdown & fluent-option',
+    apiModelValue: 'Controlled selected value for v-model',
+    apiAppearance: 'Trigger visual appearance; outline is the default',
+    apiSize: 'Trigger size',
+    apiPlaceholder: 'Placeholder shown when nothing is selected',
+    apiFlags: 'Disabled and required states',
+    apiName: 'Form field name',
+    apiUpdate: 'Emitted when selection changes to update v-model',
+    apiChange: 'Fired when selection changes with value and event',
+    apiSlotDefault: 'VfkOption items (automatically wrapped in fluent-listbox)',
+    apiSlotIndicator: 'Custom trailing chevron indicator (maps to slot="indicator")',
+    apiOptionValue: 'Unique value matched against VfkSelect modelValue',
+    apiOptionText: 'Display label override for trigger when option includes description content',
+    apiOptionDisabled: 'Disables this individual option',
+    apiOptionSlots: 'Option label, leading icon, secondary description, and checked indicator slots',
   },
 }

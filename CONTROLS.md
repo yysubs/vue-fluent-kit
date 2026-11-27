@@ -16,59 +16,25 @@
 | 禁用态 | 使用 `colorNeutralBackgroundDisabled`、`colorNeutralForegroundDisabled`、`colorNeutralStrokeDisabled`；支持 `disabledFocusable` 的控件保持键盘焦点可达并阻止触发业务事件 |
 | 高对比度与动效 | 适配 `@media (forced-colors: active)`、`@media (prefers-reduced-motion: reduce)` 与 `@media (prefers-reduced-transparency: reduce)` |
 
-### 当前实现状态
+## 已实现控件
 
-| 状态 | 控件 | 底层自定义元素 | 子路径导出 |
+已实现控件的详细规格与接口说明拆分存放在各自组件目录的 `README.md` 中：
+
+| 控件 | 底层自定义元素 | 子路径导出 | 规格文档 |
 | --- | --- | --- | --- |
-| 已实现 | `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` |
-| 已实现 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` |
-| 已实现 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` |
-| 计划中 | `VfkToggleButton`、`VfkSelect` / `VfkOption` 及下方其余控件 | `<fluent-*>` | 按需新增 |
+| `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` | [src/components/button/README.md](src/components/button/README.md) |
+| `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
+| `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
+| `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
+| `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
 
 ---
 
-## 基础控件
+## 基础控件（计划中）
 
-### Button（按钮）— 已实现 `VfkButton` / 计划中 `VfkToggleButton`
+以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
 
-参照 Fluent 2 按钮规范，薄封装 `@fluentui/web-components` 的 `<fluent-button>`（后续补充 `<fluent-toggle-button>`）。
-
-- **外观（`appearance`）**：
-  - `secondary`（默认）：对应 `<fluent-button>` 未传 `appearance` 时的默认次级外观（背景 `colorNeutralBackground1`，边框 `colorNeutralStroke1`）。
-  - `primary`：品牌强调按钮（背景 `colorBrandBackground`，文字 `colorNeutralForegroundOnBrand`）。
-  - `outline`：透明底描边按钮（边框 `colorNeutralStroke1`）。
-  - `subtle`：低强调按钮（背景 `colorSubtleBackground`，文字 `colorNeutralForeground2`）。
-  - `transparent`：纯文字/图标透明按钮。
-- **形状（`shape`）**：`rounded`（默认，`borderRadiusMedium`）、`circular`（`borderRadiusCircular`）、`square`（`borderRadiusNone`）。
-- **尺寸（`size`）**：`small`、`medium`（默认）、`large`。
-- **Vue 接口（`VfkButton`，子路径 `@yysubs/vue-fluent-kit/button`）**：
-  - **Props**：`appearance`（默认 `'secondary'`）、`shape`（默认 `'rounded'`）、`size`（默认 `'medium'`）、`type`（`'button' | 'submit' | 'reset'`，默认 `'button'`）、`disabled`、`disabledFocusable`、`iconOnly`（未传时当无默认插槽且存在 `start` 或 `end` 插槽自动开启）。
-  - **Emits**：`click`（携带 `MouseEvent`；当 `disabled` 或 `disabledFocusable` 为 `true` 时阻止冒泡并拦截触发）。
-  - **Slots**：`default`（按钮正文）、`start`（前置图标/内容，映射到 `slot="start"`）、`end`（后置图标/内容，映射到 `slot="end"`）。
-  - **Expose**：`{ el, focus, blur }`。
-- **切换态（计划中：`VfkToggleButton`）**：基于 `<fluent-toggle-button>`，支持受控 `v-model` 绑定按压状态，保留官方 `aria-pressed` 语义。
-- **可访问性**：保留 `<fluent-button>` 原生键盘操作与焦点环；仅图标按钮的可访问名称由调用方通过 `aria-label` 提供。
-- **手动验证**：预览页覆盖外观、尺寸、形状、禁用、`disabledFocusable`、前后置图标与仅图标模式，并检查浅色/深色主题、品牌色切换与键盘焦点。
-
-### Input（文本输入）— 已实现 `VfkInput`
-
-参照 Fluent 2 输入框规范，薄封装 `@fluentui/web-components` 的 `<fluent-text-input>`。
-
-- **外观（`appearance`）**：
-  - `outline`（默认）：描边输入框，底边强调线，聚焦时底部展开品牌色高亮条。
-  - `underline`：无圆角，仅保留底边线与聚焦高亮条。
-  - `filled-darker`：较深中性填充背景（`colorNeutralBackground3`）。
-  - `filled-lighter`：浅中性填充背景（`colorNeutralBackground1`）。
-- **尺寸（`size`）**：`small`、`medium`（默认）、`large`，内部映射到官方 `control-size` 属性。
-- **Vue 接口（`VfkInput`，子路径 `@yysubs/vue-fluent-kit/input`）**：
-  - **Props**：`modelValue`（`string`）、`appearance`（默认 `'outline'`）、`size`（默认 `'medium'`）、`type`（`'text' | 'email' | 'password' | 'tel' | 'url'`，默认 `'text'`）、`placeholder`、`disabled`、`readonly`、`required`、`name`、`autocomplete`、`maxlength`、`minlength`。
-  - **Emits**：`update:modelValue`、`input`（`[value, event]`）、`change`（`[value, event]`）。受控模式下若父级未更新 `modelValue`，会在下一轮微任务同步恢复底层元素的 `value`；禁用态下忽略输入变更。
-  - **Slots**：`default`（内置标签内容）、`start`（前缀内容，映射到 `slot="start"`）、`end`（后缀内容，映射到 `slot="end"`）。
-  - **Expose**：`{ el, focus, blur, select }`。
-- **可访问性**：保留 `<fluent-text-input>` 内部 `<input>` 的原生编辑、`readonly`、`required` 与表单语义；透传 `aria-*` 等附加属性。
-- **手动验证**：预览页覆盖四种外观、三种尺寸、前后缀插槽、内置标签、禁用、只读与受控 `v-model` 实时绑定，并检查浅色/深色主题切换与键盘聚焦。
-
-### Field（表单字段）— 计划中
+### Field（表单字段）
 
 参照 `@fluentui/react-field` 与 `<fluent-field>`。组合标签（`Label`）、表单控件、校验状态图标与消息（`validationMessage`）、提示文字（`hint`）。
 
@@ -79,20 +45,11 @@
   - `success`：图标用 `colorPaletteGreenForeground1`。
   - `none`：仅展示 `hint`（`caption1`，颜色 `colorNeutralForeground3`）。
 
-### SearchBox（搜索框）— 计划中
+### SearchBox（搜索框）
 
 参照 `@fluentui/react-search`。基于 `VfkInput` 扩展，前置搜索图标，聚焦或有值时后置清除按钮（点击清空并把焦点还给输入框）。尺寸与外观同 `VfkInput`。
 
-### Select / Dropdown（下拉选择）— 计划中 `VfkSelect` / `VfkOption`
-
-基于 `@fluentui/web-components` 的 `<fluent-dropdown>` 与 `<fluent-option>` 薄封装受控下拉选择器，统一 `Vfk*` 命名与 `v-model` 双向绑定。
-
-- **外观（`appearance`）**：`outline`（默认）、`underline`、`filled-darker`、`filled-lighter`。
-- **尺寸（`size`）**：`small`、`medium`（默认）、`large`。
-- **受控与交互**：支持单选 `v-model`、占位提示、禁用与分组选项；保留官方键盘上下键导航、`Enter` 选中与 `Escape` 收起行为。
-- **可访问性**：保留官方 ARIA `combobox` / `listbox` / `option` 角色与状态同步，深浅色主题下展开面板清晰可读。
-
-### Combobox（可输入自动完成）— 计划中
+### Combobox（可输入自动完成）
 
 参照 `@fluentui/react-combobox` 与 `<fluent-combobox>`（含 `Option`、`OptionGroup`）。
 
@@ -100,25 +57,6 @@
 - **弹出列表（`Listbox`）**：底色 `colorNeutralBackground1`，圆角 `borderRadiusMedium`，阴影 `shadow16`，层级 `zIndexFloating`。
 - **选项（`Option`）**：圆角 `borderRadiusMedium`，字号 `fontSizeBase300` / 行高 `lineHeightBase300`，选中项带勾选图标。
 - **键盘交互**：上下方向键移动活动项，`Enter` 选中，`Escape` 收起，点击外部收起。
-
-### Checkbox（勾选框）— 已实现 `VfkCheckbox`
-
-参照 Fluent 2 勾选框规范，薄封装 `@fluentui/web-components` 的 `<fluent-checkbox>`，在外层 `.vfk-checkbox` 中配对 `<label>` 与必填星号。
-
-- **尺寸（`size`）**：`medium`（默认）、`large`。
-- **形状（`shape`）**：`square`（默认）、`circular`。
-- **三态与受控同步**：
-  - `modelValue` 支持 `boolean | 'mixed'`（默认 `false`），自动将 `checked` 与 `indeterminate` 属性同步到底层 `<fluent-checkbox>`。
-  - 若父组件受控未更新 `modelValue`，会在下一轮微任务恢复底层状态；禁用态下忽略变更事件。
-- **Vue 接口（`VfkCheckbox`，子路径 `@yysubs/vue-fluent-kit/checkbox`）**：
-  - **Props**：`modelValue`（默认 `false`）、`shape`（默认 `'square'`）、`size`（默认 `'medium'`）、`disabled`、`required`、`label`、`labelPosition`（`'after'` 默认 | `'before'`）、`id`（未传时通过 `useId()` 自动生成）、`name`、`value`。
-  - **Emits**：`update:modelValue`（`boolean`）、`change`（`[value: boolean, event: Event]`）。
-  - **Slots**：`default`（标签内容，优先于 `label` 属性）、`checkedIndicator`（映射到 `slot="checked-indicator"`）、`indeterminateIndicator`（映射到 `slot="indeterminate-indicator"`）。
-  - **Expose**：`{ el, focus, blur }`。
-  - **属性透传**：关闭默认继承（`inheritAttrs: false`），`class` 与 `style` 挂在外层 `.vfk-checkbox`，其余原生属性与 `aria-*` 透传给 `<fluent-checkbox>`。
-- **标签与必填标识**：默认插槽与 `label` 均未提供时不渲染 `<label>`（纯框场景由调用方传入 `aria-label`）；开启 `required` 且存在标签时渲染 `aria-hidden="true"` 的必填星号（颜色 `colorPaletteRedForeground3`，禁用态为 `colorNeutralForegroundDisabled`）。
-- **可访问性**：保留 `<fluent-checkbox>` 键盘空格切换、焦点环与三态语义，标签通过 `for` 与 `id` 绑定。
-- **手动验证**：预览页覆盖未选中/选中/半选及全选联动、尺寸、形状、标签位置（在左/在右）、必填标识、无标签纯框和禁用态，并检查浅色/深色主题及键盘焦点。
 
 ### SwatchPicker（色板单选）
 
