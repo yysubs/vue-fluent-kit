@@ -407,11 +407,6 @@ onUnmounted(() => {
                 :expanded="folderExpanded[entry.key] || Boolean(searchQuery.trim())"
                 @update:expanded="handleFolderToggle(entry.key, $event)"
               >
-                <template #start>
-                  <span class="demo-nav-item__icon">
-                    <DemoIcons name="folder" :size="15" />
-                  </span>
-                </template>
                 <span class="demo-sidebar-tree__title">{{ entry.title }}</span>
                 <template #aside>
                   <span class="demo-nav-group__count">{{ entry.children.length }}</span>
