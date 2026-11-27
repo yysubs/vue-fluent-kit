@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import '@fluentui/web-components/button.js'
 import { computed, ref, useSlots } from 'vue'
-import type { VButtonProps } from './types'
+import type { VfButtonProps } from './types'
 
-const props = withDefaults(defineProps<VButtonProps>(), {
+const props = withDefaults(defineProps<VfButtonProps>(), {
   appearance: 'secondary',
   shape: 'rounded',
   size: 'medium',

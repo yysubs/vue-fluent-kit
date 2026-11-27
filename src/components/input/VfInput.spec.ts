@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { VInput } from './index'
+import { VfInput } from './index'
 
-describe('VInput', () => {
+describe('VfInput', () => {
   it('注册 fluent-text-input 并映射 appearance 与 control-size', () => {
     expect(customElements.get('fluent-text-input')).toBeDefined()
 
-    const wrapper = mount(VInput, {
+    const wrapper = mount(VfInput, {
       props: {
         appearance: 'filled-darker',
         size: 'large',
@@ -23,7 +23,7 @@ describe('VInput', () => {
   })
 
   it('支持 v-model 双向绑定与 change 事件', async () => {
-    const wrapper = mount(VInput, {
+    const wrapper = mount(VfInput, {
       props: {
         modelValue: '初始值',
         'onUpdate:modelValue': (val: string) => wrapper.setProps({ modelValue: val }),
@@ -47,7 +47,7 @@ describe('VInput', () => {
   })
 
   it('受控模式下父级未更新 modelValue 时还原底层值', async () => {
-    const wrapper = mount(VInput, {
+    const wrapper = mount(VfInput, {
       props: {
         modelValue: '固定值',
       },
@@ -62,7 +62,7 @@ describe('VInput', () => {
   })
 
   it('渲染 start、end 与默认 label 插槽', () => {
-    const wrapper = mount(VInput, {
+    const wrapper = mount(VfInput, {
       slots: {
         default: '用户名',
         start: '<span class="prefix">@</span>',

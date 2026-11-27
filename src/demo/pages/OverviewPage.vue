@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VButton, VCheckbox, VInput, VThemeProvider, useTheme, version } from '../../index'
+import { VfButton, VfCheckbox, VfInput, VfThemeProvider, useTheme, version } from '../../index'
 import { demoBrandPresets, type BrandPreset } from '../brand-presets'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoLogo from '../components/DemoLogo.vue'
@@ -69,12 +69,12 @@ function selectBrand(preset: BrandPreset) {
           </div>
         </div>
         <div class="demo-row">
-          <VButton appearance="primary" @click="emit('navigate', 'button')">
+          <VfButton appearance="primary" @click="emit('navigate', 'button')">
             {{ messages.controls.implementedTitle }}
-          </VButton>
-          <VButton appearance="outline" @click="emit('navigate', 'tokens')">
+          </VfButton>
+          <VfButton appearance="outline" @click="emit('navigate', 'tokens')">
             {{ messages.overview.ctaTokens }}
-          </VButton>
+          </VfButton>
         </div>
       </div>
 
@@ -136,61 +136,61 @@ function selectBrand(preset: BrandPreset) {
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
               <div class="demo-row">
-                <VButton appearance="primary" size="medium">Primary</VButton>
-                <VButton appearance="outline" size="medium">Outline</VButton>
-                <VButton appearance="subtle" size="medium">Subtle</VButton>
+                <VfButton appearance="primary" size="medium">Primary</VfButton>
+                <VfButton appearance="outline" size="medium">Outline</VfButton>
+                <VfButton appearance="subtle" size="medium">Subtle</VfButton>
               </div>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VButton</h3>
+                <h3 class="demo-catalog-card__title">VfButton</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.button.catalogDesc }}</p>
               </div>
-              <VButton appearance="subtle" size="small" @click="emit('navigate', 'button')">
+              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'button')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VButton>
+              </VfButton>
             </div>
           </article>
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
-              <VInput
+              <VfInput
                 v-model="miniInput"
                 :placeholder="messages.controls.input.searchPlaceholder"
                 style="width: 100%; max-width: 260px"
               >
                 <template #start><DemoIcons name="search" :size="15" /></template>
-              </VInput>
+              </VfInput>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VInput</h3>
+                <h3 class="demo-catalog-card__title">VfInput</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.input.catalogDesc }}</p>
               </div>
-              <VButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
+              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VButton>
+              </VfButton>
             </div>
           </article>
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
               <div class="demo-row">
-                <VCheckbox v-model="miniChecked" :label="messages.controls.checkbox.optA" />
-                <VCheckbox model-value="mixed" :label="messages.controls.checkbox.optB" />
+                <VfCheckbox v-model="miniChecked" :label="messages.controls.checkbox.optA" />
+                <VfCheckbox model-value="mixed" :label="messages.controls.checkbox.optB" />
               </div>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VCheckbox</h3>
+                <h3 class="demo-catalog-card__title">VfCheckbox</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.checkbox.catalogDesc }}</p>
               </div>
-              <VButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
+              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VButton>
+              </VfButton>
             </div>
           </article>
         </div>
@@ -205,7 +205,7 @@ function selectBrand(preset: BrandPreset) {
               {{ messages.overview.themingSubPrefix }}
               <code class="demo-inline-code">{{ resolvedTheme }}</code>
               {{ messages.overview.themingSubMid }}
-              <code class="demo-inline-code">VThemeProvider</code>
+              <code class="demo-inline-code">VfThemeProvider</code>
               {{ messages.overview.themingSubSuffix }}
             </p>
           </div>
@@ -233,33 +233,33 @@ function selectBrand(preset: BrandPreset) {
             </div>
 
             <div class="demo-theme-split">
-              <VThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
+              <VfThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VThemeProvider · Light</span>
+                  <span class="demo-theme-pane__title">VfThemeProvider · Light</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedLightTag }}</span>
                 </div>
                 <div class="demo-stack">
-                  <VInput v-model="scopedLightInput" size="small" />
+                  <VfInput v-model="scopedLightInput" size="small" />
                   <div class="demo-row" style="justify-content: space-between; align-items: center">
-                    <VCheckbox v-model="scopedLightCheck" :label="messages.controls.checkbox.optA" />
-                    <VButton appearance="primary" size="small">Primary</VButton>
+                    <VfCheckbox v-model="scopedLightCheck" :label="messages.controls.checkbox.optA" />
+                    <VfButton appearance="primary" size="small">Primary</VfButton>
                   </div>
                 </div>
-              </VThemeProvider>
+              </VfThemeProvider>
 
-              <VThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
+              <VfThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VThemeProvider · Dark</span>
+                  <span class="demo-theme-pane__title">VfThemeProvider · Dark</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedDarkTag }}</span>
                 </div>
                 <div class="demo-stack">
-                  <VInput v-model="scopedDarkInput" size="small" />
+                  <VfInput v-model="scopedDarkInput" size="small" />
                   <div class="demo-row" style="justify-content: space-between; align-items: center">
-                    <VCheckbox v-model="scopedDarkCheck" :label="messages.controls.checkbox.optA" />
-                    <VButton appearance="primary" size="small">Primary</VButton>
+                    <VfCheckbox v-model="scopedDarkCheck" :label="messages.controls.checkbox.optA" />
+                    <VfButton appearance="primary" size="small">Primary</VfButton>
                   </div>
                 </div>
-              </VThemeProvider>
+              </VfThemeProvider>
             </div>
           </div>
         </div>

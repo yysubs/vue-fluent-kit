@@ -6,35 +6,35 @@ export {
   resetBrandTokens,
   setVfkTheme,
   useTheme,
-  VThemeProvider,
+  VfThemeProvider,
   type BrandVariants,
   type ResolvedTheme,
   type ThemeMode,
-  type VThemeProviderProps,
+  type VfThemeProviderProps,
 } from './theme'
 
 export {
-  VButton,
+  VfButton,
   type ButtonAppearance,
   type ButtonShape,
   type ButtonSize,
   type ButtonType,
-  type VButtonProps,
+  type VfButtonProps,
 } from './components/button'
 
 export {
-  VInput,
+  VfInput,
   type InputAppearance,
   type InputSize,
   type InputType,
-  type VInputProps,
+  type VfInputProps,
 } from './components/input'
 
 export {
-  VCheckbox,
+  VfCheckbox,
   type CheckboxLabelPosition,
   type CheckboxShape,
   type CheckboxSize,
   type CheckboxValue,
-  type VCheckboxProps,
+  type VfCheckboxProps,
 } from './components/checkbox'

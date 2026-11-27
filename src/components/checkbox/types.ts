@@ -10,7 +10,7 @@ export type CheckboxSize = 'medium' | 'large'
 /** 标签相对勾选框的位置 */
 export type CheckboxLabelPosition = 'after' | 'before'
 
-export interface VCheckboxProps {
+export interface VfCheckboxProps {
   /** 当前勾选状态，用于 v-model 双向绑定 */
   modelValue?: CheckboxValue
   /** 指示器形状 */

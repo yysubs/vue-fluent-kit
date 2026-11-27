@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@fluentui/web-components/checkbox.js'
 import { computed, nextTick, onMounted, ref, useAttrs, useId, watch, type StyleValue } from 'vue'
-import type { VCheckboxProps } from './types'
+import type { VfCheckboxProps } from './types'
 
 interface FluentCheckboxElement extends HTMLElement {
   checked: boolean
@@ -12,7 +12,7 @@ interface FluentCheckboxElement extends HTMLElement {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<VCheckboxProps>(), {
+const props = withDefaults(defineProps<VfCheckboxProps>(), {
   modelValue: false,
   shape: 'square',
   size: 'medium',

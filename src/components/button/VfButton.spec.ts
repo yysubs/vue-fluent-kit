@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { VButton } from './index'
+import { VfButton } from './index'
 
-describe('VButton', () => {
+describe('VfButton', () => {
   it('注册 fluent-button 并正确映射默认属性', () => {
     expect(customElements.get('fluent-button')).toBeDefined()
 
-    const wrapper = mount(VButton, {
+    const wrapper = mount(VfButton, {
       slots: { default: '提交' },
     })
 
@@ -20,7 +20,7 @@ describe('VButton', () => {
   })
 
   it('传递 appearance、shape、size 与 start/end 插槽', () => {
-    const wrapper = mount(VButton, {
+    const wrapper = mount(VfButton, {
       props: {
         appearance: 'primary',
         shape: 'circular',
@@ -43,7 +43,7 @@ describe('VButton', () => {
   })
 
   it('仅有图标插槽时自动标记 icon-only', () => {
-    const wrapper = mount(VButton, {
+    const wrapper = mount(VfButton, {
       slots: {
         start: '<svg />',
       },
@@ -53,18 +53,18 @@ describe('VButton', () => {
   })
 
   it('正常状态触发 click，disabled 或 disabledFocusable 时拦截 click', async () => {
-    const enabled = mount(VButton, { slots: { default: '点我' } })
+    const enabled = mount(VfButton, { slots: { default: '点我' } })
     await enabled.find('fluent-button').trigger('click')
     expect(enabled.emitted('click')).toHaveLength(1)
 
-    const disabled = mount(VButton, {
+    const disabled = mount(VfButton, {
       props: { disabled: true },
       slots: { default: '禁用' },
     })
     await disabled.find('fluent-button').trigger('click')
     expect(disabled.emitted('click')).toBeUndefined()
 
-    const focusableDisabled = mount(VButton, {
+    const focusableDisabled = mount(VfButton, {
       props: { disabledFocusable: true },
       slots: { default: '可聚焦禁用' },
     })

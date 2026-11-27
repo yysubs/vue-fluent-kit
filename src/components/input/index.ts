@@ -1,2 +1,2 @@
-export { default as VInput } from './VInput.vue'
-export type { InputAppearance, InputSize, InputType, VInputProps } from './types'
+export { default as VfInput } from './VfInput.vue'
+export type { InputAppearance, InputSize, InputType, VfInputProps } from './types'
