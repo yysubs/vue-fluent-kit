@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {
+  VfkBadge,
   VfkButton,
   VfkCheckbox,
   VfkColorSwatch,
@@ -24,8 +25,10 @@ import {
   VfkSwitch,
   VfkTab,
   VfkTabList,
+  VfkTextarea,
   VfkThemeProvider,
   VfkToggleButton,
+  VfkTooltip,
   VfkTree,
   VfkTreeItem,
   useTheme,
@@ -39,6 +42,7 @@ import { useDemoI18n } from '../i18n'
 
 export type DemoPageId =
   | 'overview'
+  | 'badge'
   | 'button'
   | 'checkbox'
   | 'combobox'
@@ -53,7 +57,9 @@ export type DemoPageId =
   | 'swatch-picker'
   | 'switch'
   | 'tabs'
+  | 'textarea'
   | 'toggle-button'
+  | 'tooltip'
   | 'tree'
   | 'tokens'
 
@@ -83,6 +89,7 @@ const miniSwitch = ref(true)
 const miniRadio = ref('standard')
 const miniField = ref('vue-fluent-kit')
 const miniTab = ref('overview')
+const miniTextarea = ref('')
 const miniTree = ref('tree-a')
 const cardDialogOpen = ref(false)
 const cardDrawerOpen = ref(false)
@@ -203,6 +210,26 @@ function scrollToSection(id: string) {
         </div>
 
         <div class="demo-catalog-grid">
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkBadge color="brand">3</VfkBadge>
+                <VfkBadge appearance="tint" color="success">Done</VfkBadge>
+                <VfkBadge appearance="outline" color="danger">!</VfkBadge>
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkBadge</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.badge.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'badge')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
               <div class="demo-row">
@@ -516,6 +543,27 @@ function scrollToSection(id: string) {
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
+              <VfkTextarea
+                v-model="miniTextarea"
+                size="small"
+                block
+                :placeholder="messages.controls.textarea.placeholder"
+              />
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkTextarea</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.textarea.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'textarea')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
               <div class="demo-row">
                 <VfkToggleButton v-model="miniToggle" appearance="primary" size="medium">
                   <template #start><DemoIcons name="sparkle" :size="14" /></template>
@@ -532,6 +580,28 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.toggleButton.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'toggle-button')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkTooltip :text="messages.controls.tooltip.triggerLabel">
+                  <VfkButton appearance="secondary" size="small">
+                    {{ messages.controls.tooltip.triggerLabel }}
+                  </VfkButton>
+                </VfkTooltip>
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkTooltip</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.tooltip.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'tooltip')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

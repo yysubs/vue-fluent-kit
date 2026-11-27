@@ -22,6 +22,7 @@
 
 | 控件 | 底层自定义元素 | 子路径导出 | 规格文档 |
 | --- | --- | --- | --- |
+| `VfkBadge` | `<fluent-badge>` | `@yysubs/vue-fluent-kit/badge` | [src/components/badge/README.md](src/components/badge/README.md) |
 | `VfkButton` | `<fluent-button>` | `@yysubs/vue-fluent-kit/button` | [src/components/button/README.md](src/components/button/README.md) |
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
 | `VfkCombobox` / `VfkOption` | `<fluent-dropdown type="combobox">` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/combobox` | [src/components/combobox/README.md](src/components/combobox/README.md) |
@@ -36,7 +37,9 @@
 | `VfkSwatchPicker` / `VfkColorSwatch` | Light DOM（`role="radiogroup"` / `role="radio"`） | `@yysubs/vue-fluent-kit/swatch-picker` | [src/components/swatch-picker/README.md](src/components/swatch-picker/README.md) |
 | `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
 | `VfkTabList` / `VfkTab` | `<fluent-tablist>` / `<fluent-tab>` | `@yysubs/vue-fluent-kit/tabs` | [src/components/tabs/README.md](src/components/tabs/README.md) |
+| `VfkTextarea` | `<fluent-textarea>` | `@yysubs/vue-fluent-kit/textarea` | [src/components/textarea/README.md](src/components/textarea/README.md) |
 | `VfkToggleButton` | `<fluent-toggle-button>` | `@yysubs/vue-fluent-kit/toggle-button` | [src/components/toggle-button/README.md](src/components/toggle-button/README.md) |
+| `VfkTooltip` | `<fluent-tooltip>` | `@yysubs/vue-fluent-kit/tooltip` | [src/components/tooltip/README.md](src/components/tooltip/README.md) |
 | `VfkTree` / `VfkTreeItem` | `<fluent-tree>` / `<fluent-tree-item>` | `@yysubs/vue-fluent-kit/tree` | [src/components/tree/README.md](src/components/tree/README.md) |
 
 ---
@@ -45,15 +48,7 @@
 
 以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
 
-`@fluentui/web-components` v3 已提供官方元素、可直接薄封装的控件：`Tooltip`、`MessageBar`、`ProgressBar`、`Badge`、`Accordion`、`Divider`、`Spinner`、`Avatar`、`Slider`、`RatingDisplay`、`Textarea`、`Link`、`AnchorButton`、`CompoundButton`。`Toast`、`Skeleton`、`Popover`、`Tag`、`Table`、`Card`、`NavDrawer` 在官方 v3 包中只有 React 实现，没有对应的自定义元素，需要按 Fluent 2 视觉自行实现（可参考 `VfkSwatchPicker` 的 Light DOM 写法）。
-
-### Tooltip（文字提示）
-
-参照 `@fluentui/react-tooltip`。用于悬停或聚焦触发元素时的简短说明。
-
-- **外观**：`normal`（默认，底色 `colorNeutralBackground1`，文字 `colorNeutralForeground1`）与 `inverted`（底色 `colorNeutralBackgroundStatic`，文字 `colorNeutralForegroundStaticInverted`）。
-- **尺寸与排版**：最大宽 `240px`，圆角 `borderRadiusMedium`，内边距 `4px 11px 6px 11px`，字号 `fontSizeBase200` / 行高 `lineHeightBase200`，阴影 `shadow8`，层级 `zIndexPriority`，`pointer-events: none`。
-- **箭头（`withArrow`）**：可选指向目标中心的旋转方块箭头，贴视口边缘时自动翻转与夹紧。
+`@fluentui/web-components` v3 已提供官方元素、可直接薄封装的控件：`MessageBar`、`ProgressBar`、`CounterBadge`、`Accordion`、`Divider`、`Spinner`、`Avatar`、`Slider`、`RatingDisplay`、`Link`、`AnchorButton`、`CompoundButton`、`Label`、`Image`。`Toast`、`Skeleton`、`Popover`、`Tag`、`Table`、`Card`、`NavDrawer` 在官方 v3 包中只有 React 实现，没有对应的自定义元素，需要按 Fluent 2 视觉自行实现（可参考 `VfkSwatchPicker` 的 Light DOM 写法）。
 
 ### Popover（气泡卡片）
 
@@ -157,7 +152,7 @@
 
 ## 其它官方组件与项目边界
 
-- **按需补充的官方组件**：`Divider`（`<fluent-divider>`）、`Spinner`（`<fluent-spinner>`）、`Accordion`（`<fluent-accordion>` / `<fluent-accordion-item>`）、`Avatar`（`<fluent-avatar>`）、`Slider`（`<fluent-slider>`）、`RatingDisplay`（`<fluent-rating-display>`）、`Textarea`（`<fluent-textarea>`）、`Link`（`<fluent-link>`）、`AnchorButton`（`<fluent-anchor-button>`）、`CompoundButton`（`<fluent-compound-button>`）在 `@fluentui/web-components` v3 中均有自定义元素，后续需要时直接按官方规格排入开发。
+- **按需补充的官方组件**：`Divider`（`<fluent-divider>`）、`Spinner`（`<fluent-spinner>`）、`Accordion`（`<fluent-accordion>` / `<fluent-accordion-item>`）、`Avatar`（`<fluent-avatar>`）、`Slider`（`<fluent-slider>`）、`RatingDisplay`（`<fluent-rating-display>`）、`CounterBadge`（`<fluent-counter-badge>`）、`Label`（`<fluent-label>`）、`Link`（`<fluent-link>`）、`AnchorButton`（`<fluent-anchor-button>`）、`CompoundButton`（`<fluent-compound-button>`）、`Image`（`<fluent-image>`）在 `@fluentui/web-components` v3 中均有自定义元素，后续需要时直接按官方规格排入开发。
 - **官方 v3 未提供的组件**：`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Table` / `DataGrid`（表格）在 web-components 包中没有对应元素，只有 React 实现，需要时按 Fluent 2 视觉自行实现。
 - **图表**：折线图等数据可视化在官方仓库独立于 `@fluentui/react-components`，位于 `@fluentui/react-charts`，配色取自 `colorPalette*` 与 `colorBrand*`，不混入基础控件包。
 - **不进控件库的应用层逻辑**：

@@ -46,6 +46,10 @@
       "types": "./dist/custom-elements.d.ts",
       "import": "./dist/custom-elements.js"
     },
+    "./badge": {
+      "types": "./dist/components/badge/index.d.ts",
+      "import": "./dist/badge.js"
+    },
     "./button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/button.js"
@@ -102,9 +106,17 @@
       "types": "./dist/components/tabs/index.d.ts",
       "import": "./dist/tabs.js"
     },
+    "./textarea": {
+      "types": "./dist/components/textarea/index.d.ts",
+      "import": "./dist/textarea.js"
+    },
     "./toggle-button": {
       "types": "./dist/components/toggle-button/index.d.ts",
       "import": "./dist/toggle-button.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "import": "./dist/tooltip.js"
     },
     "./tree": {
       "types": "./dist/components/tree/index.d.ts",
@@ -116,6 +128,7 @@
   "sideEffects": [
     "**/*.css",
     "./dist/index.js",
+    "./dist/badge*.js",
     "./dist/button*.js",
     "./dist/checkbox*.js",
     "./dist/combobox*.js",
@@ -131,7 +144,9 @@
     "./dist/swatch-picker*.js",
     "./dist/switch*.js",
     "./dist/tabs*.js",
+    "./dist/textarea*.js",
     "./dist/toggle-button*.js",
+    "./dist/tooltip*.js",
     "./dist/tree*.js"
   ],
   "scripts": {

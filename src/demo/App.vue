@@ -6,6 +6,7 @@ import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
 import DemoLogo from './components/DemoLogo.vue'
 import { useDemoI18n } from './i18n'
+import BadgePage from './pages/BadgePage.vue'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import ComboboxPage from './pages/ComboboxPage.vue'
@@ -21,8 +22,10 @@ import SelectPage from './pages/SelectPage.vue'
 import SwatchPickerPage from './pages/SwatchPickerPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import TabsPage from './pages/TabsPage.vue'
+import TextareaPage from './pages/TextareaPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
+import TooltipPage from './pages/TooltipPage.vue'
 import TreePage from './pages/TreePage.vue'
 
 interface NavItem {
@@ -63,6 +66,15 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupOverview,
     icon: 'grid',
     keywords: 'overview introduction home 概览 概覽 首页 首頁 架构 架構 主题 主題 品牌 材质 材質 logo',
+  },
+  {
+    id: 'badge',
+    title: 'Badge',
+    sub: messages.value.shell.navBadgeSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'badge',
+    keywords: 'badge vfkbadge fluent-badge counter 徽标 徽章 标签 標籤 计数 計數',
   },
   {
     id: 'button',
@@ -206,6 +218,24 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'tab tabs tablist vfktab vfktablist fluent-tablist 标签页 分頁列 选项卡 選項卡',
   },
   {
+    id: 'textarea',
+    title: 'Textarea',
+    sub: messages.value.shell.navTextareaSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'textarea',
+    keywords: 'textarea vfktextarea fluent-textarea multiline resize autoresize 多行 文本域 文字框 自動增高',
+  },
+  {
+    id: 'tooltip',
+    title: 'Tooltip',
+    sub: messages.value.shell.navTooltipSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'tooltip',
+    keywords: 'tooltip vfktooltip fluent-tooltip hint hover popover anchor 提示 文字提示 浮层 浮層',
+  },
+  {
     id: 'tree',
     title: 'Tree',
     sub: messages.value.shell.navTreeSub,
@@ -228,6 +258,7 @@ const navItems = computed<NavItem[]>(() => [
 
 const validPageIds = new Set<DemoPageId>([
   'overview',
+  'badge',
   'button',
   'checkbox',
   'combobox',
@@ -242,7 +273,9 @@ const validPageIds = new Set<DemoPageId>([
   'swatch-picker',
   'switch',
   'tabs',
+  'textarea',
   'toggle-button',
+  'tooltip',
   'tree',
   'tokens',
 ])
@@ -256,13 +289,11 @@ const currentPage = ref<DemoPageId>(parseHashPage())
 const searchQuery = ref('')
 const sidebarOpen = ref(false)
 const groupExpanded = reactive<Record<NavItem['groupKey'], boolean>>({
-  overview: true,
-  components: true,
-  designSystem: true,
+  overview: false,
+  components: false,
+  designSystem: false,
 })
-const folderExpanded = reactive<Record<string, boolean>>({
-  button: true,
-})
+const folderExpanded = reactive<Record<string, boolean>>({})
 
 const themeOptions = computed<{ value: ThemeMode; label: string; icon: DemoIconName }[]>(() => [
   { value: 'light', label: messages.value.common.themeLight, icon: 'sun' },
@@ -322,16 +353,44 @@ const navGroups = computed(() => {
     .filter((group) => group.leafCount > 0)
 })
 
-function ensureParentFolderExpanded(page: DemoPageId) {
-  const matched = navItems.value.find((item) => item.id === page)
-  if (matched?.folderKey) {
-    folderExpanded[matched.folderKey] = true
+/** 只展开指定分组，同级的其他分组自动收起 */
+function expandGroupOnly(target: NavItem['groupKey']) {
+  for (const key of Object.keys(groupExpanded) as NavItem['groupKey'][]) {
+    groupExpanded[key] = false
   }
+  groupExpanded[target] = true
+}
+
+/** 只展开指定文件夹，其他文件夹自动收起；首次展开时需要显式写入键 */
+function expandFolderOnly(target: string) {
+  for (const key of Object.keys(folderExpanded)) {
+    folderExpanded[key] = false
+  }
+  folderExpanded[target] = true
+}
+
+/** 收起全部文件夹 */
+function collapseFolders() {
+  for (const key of Object.keys(folderExpanded)) {
+    folderExpanded[key] = false
+  }
+}
+
+/** 跳到某个页面时展开它所在的分组与文件夹，保证当前条目可见；跳到平级叶子项时收起所有文件夹 */
+function ensureGroupVisible(page: DemoPageId) {
+  const matched = navItems.value.find((item) => item.id === page)
+  if (!matched) return
+  expandGroupOnly(matched.groupKey)
+  if (matched.folderKey) {
+    expandFolderOnly(matched.folderKey)
+    return
+  }
+  collapseFolders()
 }
 
 function navigate(page: DemoPageId) {
   currentPage.value = page
-  ensureParentFolderExpanded(page)
+  ensureGroupVisible(page)
   sidebarOpen.value = false
   if (window.location.hash !== `#${page}`) {
     window.history.replaceState(null, '', `#${page}`)
@@ -346,21 +405,27 @@ function handleNavSelect(value: string) {
 }
 
 function handleGroupToggle(groupKey: NavItem['groupKey'], expanded: boolean) {
-  if (!searchQuery.value.trim()) {
-    groupExpanded[groupKey] = expanded
+  if (searchQuery.value.trim()) return
+  if (expanded) {
+    expandGroupOnly(groupKey)
+    return
   }
+  groupExpanded[groupKey] = false
 }
 
 function handleFolderToggle(folderKey: string, expanded: boolean) {
-  if (!searchQuery.value.trim()) {
-    folderExpanded[folderKey] = expanded
+  if (searchQuery.value.trim()) return
+  if (expanded) {
+    expandFolderOnly(folderKey)
+    return
   }
+  folderExpanded[folderKey] = false
 }
 
 function handleHashChange() {
   const next = parseHashPage()
   currentPage.value = next
-  ensureParentFolderExpanded(next)
+  ensureGroupVisible(next)
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -370,6 +435,7 @@ function handleKeydown(event: KeyboardEvent) {
 }
 
 onMounted(() => {
+  ensureGroupVisible(currentPage.value)
   window.addEventListener('hashchange', handleHashChange)
   window.addEventListener('keydown', handleKeydown)
 })
@@ -581,6 +647,7 @@ onUnmounted(() => {
 
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
+        <BadgePage v-else-if="currentPage === 'badge'" />
         <ButtonPage v-else-if="currentPage === 'button'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <ComboboxPage v-else-if="currentPage === 'combobox'" />
@@ -595,7 +662,9 @@ onUnmounted(() => {
         <SwatchPickerPage v-else-if="currentPage === 'swatch-picker'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
         <TabsPage v-else-if="currentPage === 'tabs'" />
+        <TextareaPage v-else-if="currentPage === 'textarea'" />
         <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
+        <TooltipPage v-else-if="currentPage === 'tooltip'" />
         <TreePage v-else-if="currentPage === 'tree'" />
         <TokensPage v-else />
       </main>
