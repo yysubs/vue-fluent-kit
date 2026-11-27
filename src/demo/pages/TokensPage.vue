@@ -148,7 +148,7 @@ async function copyToken(token: string) {
 <template>
   <div>
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">设计基础</p>
+      <p class="demo-page-header__eyebrow">Theme</p>
       <div class="demo-page-header__title-row">
         <h1 class="demo-page-header__title">Design Tokens</h1>
         <div class="demo-page-header__tags">
@@ -225,7 +225,12 @@ async function copyToken(token: string) {
 
     <!-- 颜色变量 -->
     <template v-if="activeTab === 'colors'">
-      <section v-for="group in filteredColorGroups" :key="group.name" class="demo-section">
+      <section
+        v-for="(group, idx) in filteredColorGroups"
+        :key="group.name"
+        class="demo-section"
+        :class="{ 'demo-section--first': idx === 0 }"
+      >
         <div class="demo-section__head">
           <h2 class="demo-section__title">{{ group.name }}</h2>
         </div>
@@ -256,7 +261,7 @@ async function copyToken(token: string) {
     </template>
 
     <!-- 排版刻度 -->
-    <section v-else-if="activeTab === 'typography'" class="demo-section">
+    <section v-else-if="activeTab === 'typography'" class="demo-section demo-section--first">
       <div class="demo-type-list">
         <div v-for="item in typeScale" :key="item.name" class="demo-type-row">
           <div>
@@ -281,7 +286,7 @@ async function copyToken(token: string) {
 
     <!-- 圆角与阴影 -->
     <template v-else-if="activeTab === 'elevation'">
-      <section class="demo-section">
+      <section class="demo-section demo-section--first">
         <div class="demo-section__head">
           <h2 class="demo-section__title">阴影层级（Shadows）</h2>
         </div>
@@ -326,7 +331,7 @@ async function copyToken(token: string) {
     </template>
 
     <!-- 间距刻度 -->
-    <section v-else class="demo-section">
+    <section v-else class="demo-section demo-section--first">
       <div class="demo-type-list">
         <div v-for="item in spacingTokens" :key="item.token" class="demo-type-row">
           <code class="demo-api-name">{{ item.token }}</code>

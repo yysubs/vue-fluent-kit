@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VButton } from '../../index'
 import DemoCode from './DemoCode.vue'
-import DemoIcons from './DemoIcons.vue'
 
 withDefaults(
   defineProps<{
@@ -10,7 +8,7 @@ withDefaults(
     title: string
     /** 卡片说明 */
     description?: string
-    /** 示例源码，传入后显示「代码」展开按钮 */
+    /** 示例源码，传入后在画布底栏显示 Show code 开关 */
     code?: string
     /** 是否横跨整行 */
     full?: boolean
@@ -33,31 +31,34 @@ const showCode = ref(false)
         <h3 class="demo-card__title">{{ title }}</h3>
         <p v-if="description" class="demo-card__desc">{{ description }}</p>
       </div>
-      <div v-if="code || $slots.actions" class="demo-card__actions">
+      <div v-if="$slots.actions" class="demo-card__actions">
         <slot name="actions" />
-        <VButton
-          v-if="code"
-          appearance="subtle"
-          size="small"
-          :aria-expanded="showCode"
-          @click="showCode = !showCode"
-        >
-          <template #icon><DemoIcons name="code" :size="14" /></template>
-          {{ showCode ? '收起' : '代码' }}
-        </VButton>
       </div>
     </header>
 
-    <div class="demo-card__preview" :class="{ 'demo-card__preview--tinted': tinted }">
-      <slot />
-    </div>
+    <div class="demo-card__canvas">
+      <div class="demo-card__preview" :class="{ 'demo-card__preview--tinted': tinted }">
+        <slot />
+      </div>
 
-    <div v-if="$slots.footer" class="demo-card__footer">
-      <slot name="footer" />
-    </div>
+      <div v-if="$slots.footer || code" class="demo-card__bar">
+        <div class="demo-card__footer-text">
+          <slot name="footer" />
+        </div>
+        <button
+          v-if="code"
+          type="button"
+          class="demo-card__code-toggle"
+          :aria-expanded="showCode"
+          @click="showCode = !showCode"
+        >
+          {{ showCode ? 'Hide code' : 'Show code' }}
+        </button>
+      </div>
 
-    <div v-if="code && showCode" class="demo-card__code">
-      <DemoCode :code="code" />
+      <div v-if="code && showCode" class="demo-card__code">
+        <DemoCode :code="code" />
+      </div>
     </div>
   </article>
 </template>
