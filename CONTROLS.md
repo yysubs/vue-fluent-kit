@@ -27,23 +27,15 @@
 | `VfkInput` | `<fluent-text-input>` | `@yysubs/vue-fluent-kit/input` | [src/components/input/README.md](src/components/input/README.md) |
 | `VfkSelect` / `VfkOption` | `<fluent-dropdown>` / `<fluent-listbox>` / `<fluent-option>` | `@yysubs/vue-fluent-kit/select` | [src/components/select/README.md](src/components/select/README.md) |
 | `VfkCheckbox` | `<fluent-checkbox>` | `@yysubs/vue-fluent-kit/checkbox` | [src/components/checkbox/README.md](src/components/checkbox/README.md) |
+| `VfkSwitch` | `<fluent-switch>` | `@yysubs/vue-fluent-kit/switch` | [src/components/switch/README.md](src/components/switch/README.md) |
+| `VfkRadioGroup` / `VfkRadio` | `<fluent-radio-group>` / `<fluent-radio>` | `@yysubs/vue-fluent-kit/radio` | [src/components/radio/README.md](src/components/radio/README.md) |
+| `VfkField` | `<fluent-field>` | `@yysubs/vue-fluent-kit/field` | [src/components/field/README.md](src/components/field/README.md) |
 
 ---
 
 ## 基础控件（计划中）
 
 以下为待按需薄封装的控件参考规格；每完成一个控件后，将其详细规格迁入对应 `src/components/<name>/README.md` 并更新上方「已实现控件」索引表。
-
-### Field（表单字段）
-
-参照 `@fluentui/react-field` 与 `<fluent-field>`。组合标签（`Label`）、表单控件、校验状态图标与消息（`validationMessage`）、提示文字（`hint`）。
-
-- **方向（`orientation`）**：`vertical`（默认，标签在上）或 `horizontal`（标签在左，占固定列宽）。
-- **校验状态（`validationState`）**：
-  - `error`：消息与图标用 `colorPaletteRedForeground1`，给内部控件透传 `aria-invalid="true"`。
-  - `warning`：图标用 `colorPaletteDarkOrangeForeground1`。
-  - `success`：图标用 `colorPaletteGreenForeground1`。
-  - `none`：仅展示 `hint`（`caption1`，颜色 `colorNeutralForeground3`）。
 
 ### SearchBox（搜索框）
 
@@ -225,7 +217,7 @@
 
 ## 其它官方组件与项目边界
 
-- **按需补充的官方组件**：`Switch`（开关）、`RadioGroup`（单选组）、`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Tree`（树）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
+- **按需补充的官方组件**：`Divider`（分隔线）、`Spinner`（加载圈）、`Accordion`（折叠面板）、`Avatar`（头像）、`Breadcrumb`（面包屑）、`Toolbar`（工具栏）、`Tree`（树）在 `@fluentui/react-components` 中均有标准定义，后续需要时直接按官方规格排入开发。
 - **图表**：折线图等数据可视化在官方仓库独立于 `@fluentui/react-components`，位于 `@fluentui/react-charts`，配色取自 `colorPalette*` 与 `colorBrand*`，不混入基础控件包。
 - **不进控件库的应用层逻辑**：
   - 业务视图组件、页面级顶栏与固定吸顶计算、浏览器全屏 API 调用、隐藏文件框拖放上传层。

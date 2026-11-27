@@ -6,6 +6,9 @@ export type DemoIconName =
   | 'input'
   | 'select'
   | 'checkbox'
+  | 'switch'
+  | 'radio'
+  | 'field'
   | 'palette'
   | 'sun'
   | 'moon'
@@ -72,6 +75,19 @@ withDefaults(
     <template v-else-if="name === 'checkbox'">
       <rect x="3.5" y="3.5" width="13" height="13" rx="2.5" stroke="currentColor" stroke-width="1.5" />
       <path d="M6.75 10.25 9 12.5l4.25-4.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </template>
+    <template v-else-if="name === 'switch'">
+      <rect x="2.5" y="6" width="15" height="8" rx="4" stroke="currentColor" stroke-width="1.5" />
+      <circle cx="13.5" cy="10" r="2.2" fill="currentColor" />
+    </template>
+    <template v-else-if="name === 'radio'">
+      <circle cx="10" cy="10" r="6.5" stroke="currentColor" stroke-width="1.5" />
+      <circle cx="10" cy="10" r="3" fill="currentColor" />
+    </template>
+    <template v-else-if="name === 'field'">
+      <path d="M3.5 4.75h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      <rect x="3.5" y="7.5" width="13" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5" />
+      <path d="M3.5 16h9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
     </template>
     <template v-else-if="name === 'palette'">
       <path

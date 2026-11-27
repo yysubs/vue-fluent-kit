@@ -53,3 +53,25 @@ export {
   type CheckboxValue,
   type VfkCheckboxProps,
 } from './components/checkbox'
+
+export {
+  VfkSwitch,
+  type SwitchLabelPosition,
+  type VfkSwitchProps,
+} from './components/switch'
+
+export {
+  VfkRadio,
+  VfkRadioGroup,
+  type RadioGroupOrientation,
+  type VfkRadioGroupProps,
+  type VfkRadioProps,
+} from './components/radio'
+
+export {
+  VfkField,
+  type FieldOrientation,
+  type FieldSize,
+  type FieldValidationState,
+  type VfkFieldProps,
+} from './components/field'

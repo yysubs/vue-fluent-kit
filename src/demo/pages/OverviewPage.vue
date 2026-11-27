@@ -3,9 +3,13 @@ import { computed, ref } from 'vue'
 import {
   VfkButton,
   VfkCheckbox,
+  VfkField,
   VfkInput,
   VfkOption,
+  VfkRadio,
+  VfkRadioGroup,
   VfkSelect,
+  VfkSwitch,
   VfkThemeProvider,
   VfkToggleButton,
   useTheme,
@@ -24,6 +28,9 @@ export type DemoPageId =
   | 'input'
   | 'select'
   | 'checkbox'
+  | 'switch'
+  | 'radio'
+  | 'field'
   | 'tokens'
 
 const emit = defineEmits<{
@@ -41,6 +48,9 @@ const miniToggle = ref(true)
 const miniInput = ref('')
 const miniSelect = ref('prod')
 const miniChecked = ref(true)
+const miniSwitch = ref(true)
+const miniRadio = ref('standard')
+const miniField = ref('vue-fluent-kit')
 const scopedLightInput = ref('Fluent 2 Light')
 const scopedDarkInput = ref('Fluent 2 Dark')
 const scopedLightCheck = ref(true)
@@ -261,6 +271,66 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.checkbox.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkSwitch v-model="miniSwitch" :label="messages.controls.switch.sampleLabel" />
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkSwitch</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.switch.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'switch')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkRadioGroup v-model="miniRadio" orientation="horizontal">
+                <VfkRadio value="standard" :label="messages.controls.radio.optStandard" />
+                <VfkRadio value="fast" :label="messages.controls.radio.optFast" />
+              </VfkRadioGroup>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkRadioGroup</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.radio.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'radio')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkField
+                :label="messages.controls.field.sampleLabel"
+                validation-state="success"
+                :validation-message="messages.controls.field.sampleSuccess"
+                style="max-width: 240px"
+              >
+                <VfkInput v-model="miniField" size="small" style="width: 100%" />
+              </VfkField>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkField</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.field.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'field')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

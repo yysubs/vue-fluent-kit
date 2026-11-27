@@ -62,6 +62,18 @@
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/checkbox.js"
     },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/switch.js"
+    },
+    "./radio": {
+      "types": "./dist/components/radio/index.d.ts",
+      "import": "./dist/radio.js"
+    },
+    "./field": {
+      "types": "./dist/components/field/index.d.ts",
+      "import": "./dist/field.js"
+    },
     "./style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
@@ -72,7 +84,10 @@
     "./dist/toggle-button*.js",
     "./dist/input*.js",
     "./dist/select*.js",
-    "./dist/checkbox*.js"
+    "./dist/checkbox*.js",
+    "./dist/switch*.js",
+    "./dist/radio*.js",
+    "./dist/field*.js"
   ],
   "scripts": {
     "dev": "vite",

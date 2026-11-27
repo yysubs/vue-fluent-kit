@@ -8,9 +8,12 @@ import DemoLogo from './components/DemoLogo.vue'
 import { useDemoI18n } from './i18n'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
+import FieldPage from './pages/FieldPage.vue'
 import InputPage from './pages/InputPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
+import RadioPage from './pages/RadioPage.vue'
 import SelectPage from './pages/SelectPage.vue'
+import SwitchPage from './pages/SwitchPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 
@@ -83,6 +86,33 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'checkbox vfkcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
   },
   {
+    id: 'switch',
+    title: 'Switch',
+    sub: messages.value.shell.navSwitchSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'switch',
+    keywords: 'switch vfkswitch fluent-switch toggle 开关 開關 切换 切換',
+  },
+  {
+    id: 'radio',
+    title: 'RadioGroup',
+    sub: messages.value.shell.navRadioSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'radio',
+    keywords: 'radio radiogroup vfkradio vfkradiogroup fluent-radio-group 单选 單選 单选组 單選組',
+  },
+  {
+    id: 'field',
+    title: 'Field',
+    sub: messages.value.shell.navFieldSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'field',
+    keywords: 'field vfkfield fluent-field form label validation hint 表单字段 表單欄位 校验 校驗 提示',
+  },
+  {
     id: 'tokens',
     title: 'Design Tokens',
     sub: messages.value.shell.navTokensSub,
@@ -101,6 +131,9 @@ const validPageIds = new Set<DemoPageId>([
   'input',
   'select',
   'checkbox',
+  'switch',
+  'radio',
+  'field',
   'tokens',
 ])
 
@@ -341,6 +374,9 @@ onUnmounted(() => {
         <InputPage v-else-if="currentPage === 'input'" />
         <SelectPage v-else-if="currentPage === 'select'" />
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
+        <SwitchPage v-else-if="currentPage === 'switch'" />
+        <RadioPage v-else-if="currentPage === 'radio'" />
+        <FieldPage v-else-if="currentPage === 'field'" />
         <TokensPage v-else />
       </main>
     </div>

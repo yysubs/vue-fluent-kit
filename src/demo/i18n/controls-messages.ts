@@ -160,6 +160,81 @@ export interface DemoControlsMessages {
     apiOptionDisabled: string
     apiOptionSlots: string
   }
+  switch: {
+    desc: string
+    secBasic: string
+    secStates: string
+    sampleLabel: string
+    stateOn: string
+    stateOff: string
+    stateLabel: string
+    cardBasicTitle: string
+    cardBasicDesc: string
+    cardStatesTitle: string
+    labelBefore: string
+    requiredLabel: string
+    disabledOn: string
+    disabledOff: string
+    catalogDesc: string
+    apiModelValue: string
+    apiLabel: string
+    apiLabelPosition: string
+    apiFlags: string
+    apiUpdate: string
+    apiChange: string
+    apiSlotDefault: string
+  }
+  radio: {
+    desc: string
+    secOrientation: string
+    secStates: string
+    currentValue: string
+    cardOrientationTitle: string
+    cardOrientationDesc: string
+    cardStatesTitle: string
+    optStandard: string
+    optFast: string
+    optCustom: string
+    optDisabled: string
+    catalogDesc: string
+    apiModelValue: string
+    apiOrientation: string
+    apiFlags: string
+    apiName: string
+    apiUpdate: string
+    apiChange: string
+    apiRadioProps: string
+  }
+  field: {
+    desc: string
+    secValidation: string
+    secForm: string
+    sampleLabel: string
+    sampleHint: string
+    sampleError: string
+    sampleWarning: string
+    sampleSuccess: string
+    cardValidationTitle: string
+    cardValidationDesc: string
+    cardFormTitle: string
+    cardFormDesc: string
+    formNameLabel: string
+    formNamePlaceholder: string
+    formNameHint: string
+    formEnvLabel: string
+    formStrategyLabel: string
+    formAutoDeployLabel: string
+    catalogDesc: string
+    apiLabel: string
+    apiFor: string
+    apiOrientation: string
+    apiSize: string
+    apiFlags: string
+    apiValidationState: string
+    apiValidationMessage: string
+    apiHint: string
+    apiSlots: string
+  }
 }
 
 export const controlsZhCN: DemoControlsMessages = {
@@ -323,6 +398,81 @@ export const controlsZhCN: DemoControlsMessages = {
     apiOptionText: '选项包含描述等内容时，覆盖显示在触发器上的文案',
     apiOptionDisabled: '禁用单个选项，跳过键盘导航与点击',
     apiOptionSlots: '选项主文案、前置图标、副标题描述与自定义勾选图标',
+  },
+  switch: {
+    desc: '基于官方 <fluent-switch> 的薄封装开关控件，支持受控 v-model 布尔切换、自动 label 关联、标签位置配置及无障碍 switch 语义。',
+    secBasic: '基础用法与标签位置',
+    secStates: '禁用与必填状态',
+    sampleLabel: '启用自动同步',
+    stateOn: '已开启',
+    stateOff: '已关闭',
+    stateLabel: '当前状态',
+    cardBasicTitle: '开关与标签位置（after / before）',
+    cardBasicDesc: '点击开关或关联标签均可切换状态，键盘支持 Space 切换。',
+    cardStatesTitle: '禁用态与必填标识',
+    labelBefore: '标签位于左侧',
+    requiredLabel: '必填开关项',
+    disabledOn: '禁用（已开启）',
+    disabledOff: '禁用（已关闭）',
+    catalogDesc: '受控布尔 v-model 开关、labelPosition 配置与自动标签关联',
+    apiModelValue: '开关布尔值，用于 v-model 双向绑定',
+    apiLabel: '标签文本（未传默认插槽时生效）',
+    apiLabelPosition: '标签相对开关的位置',
+    apiFlags: '禁用与必填状态（开启 required 时显示星号）',
+    apiUpdate: '开关切换时同步更新 v-model',
+    apiChange: '开关状态变更事件',
+    apiSlotDefault: '自定义标签内容',
+  },
+  radio: {
+    desc: '基于官方 <fluent-radio-group> 与 <fluent-radio> 的薄封装单选组，支持受控 v-model、垂直/水平排列、方向键切换与单项或整组禁用。',
+    secOrientation: '排列方向',
+    secStates: '整组禁用',
+    currentValue: '当前选中值',
+    cardOrientationTitle: '水平排列（orientation="horizontal"）',
+    cardOrientationDesc: '支持通过上下/左右方向键在可用单选项间循环切换焦点。',
+    cardStatesTitle: '整组禁用态',
+    optStandard: '标准构建',
+    optFast: '极速缓存',
+    optCustom: '自定义脚本',
+    optDisabled: '旧版镜像（不可选）',
+    catalogDesc: '受控单选组、垂直/水平排列、方向键导航与标签配对',
+    apiModelValue: '当前选中项的值，用于 v-model 双向绑定',
+    apiOrientation: '单选项排列方向',
+    apiFlags: '整组禁用与必选状态',
+    apiName: '表单字段名，自动同步到所有子级 VfkRadio',
+    apiUpdate: '选中项变更时同步更新 v-model',
+    apiChange: '选中项变更事件',
+    apiRadioProps: '子级单选项的值、标签文案与单项禁用配置',
+  },
+  field: {
+    desc: '基于官方 <fluent-field> 的薄封装表单字段容器，统一组合标签、表单控件、校验状态图标/消息与辅助提示文字。',
+    secValidation: '校验状态',
+    secForm: '组合表单示例',
+    sampleLabel: '项目标识',
+    sampleHint: '仅支持小写字母、数字与连字符',
+    sampleError: '格式无效，不能包含特殊字符',
+    sampleWarning: '建议长度不少于 6 个字符',
+    sampleSuccess: '该标识可用',
+    cardValidationTitle: '四种校验状态（error / warning / success / none）',
+    cardValidationDesc: 'error 状态自动为消息添加 role="alert" 并呈现错误语义色。',
+    cardFormTitle: '水平表单组合（Input / Select / RadioGroup / Switch）',
+    cardFormDesc: '展示 VfkField 配合全部表单控件使用时的对齐与排版效果。',
+    formNameLabel: '项目名称',
+    formNamePlaceholder: '输入项目名称',
+    formNameHint: '将作为分支预览域名的前缀',
+    formEnvLabel: '部署环境',
+    formStrategyLabel: '构建策略',
+    formAutoDeployLabel: '自动部署',
+    catalogDesc: '组合标签、校验状态图标/消息、提示文案与水平/垂直布局',
+    apiLabel: '字段标签文本（未传 label 插槽时生效）',
+    apiFor: '关联目标控件的 id',
+    apiOrientation: '标签与控件的排列方向（vertical / horizontal）',
+    apiSize: '标签文字尺寸',
+    apiFlags: '必填星号与禁用标签状态',
+    apiValidationState: '校验反馈状态，控制状态图标与消息配色',
+    apiValidationMessage: '校验反馈文案',
+    apiHint: '辅助提示文案',
+    apiSlots: '控件区、自定义标签、校验消息与辅助提示插槽',
   },
 }
 
@@ -488,6 +638,81 @@ export const controlsZhTW: DemoControlsMessages = {
     apiOptionDisabled: '停用單一選項，略過鍵盤導覽與點擊',
     apiOptionSlots: '選項主文案、前置圖示、副標題描述與自訂勾選圖示',
   },
+  switch: {
+    desc: '基於官方 <fluent-switch> 的薄封裝開關元件，支援受控 v-model 布林切換、自動 label 關聯、標籤位置設定及無障礙 switch 語意。',
+    secBasic: '基礎用法與標籤位置',
+    secStates: '停用與必填狀態',
+    sampleLabel: '啟用自動同步',
+    stateOn: '已開啟',
+    stateOff: '已關閉',
+    stateLabel: '目前狀態',
+    cardBasicTitle: '開關與標籤位置（after / before）',
+    cardBasicDesc: '點擊開關或關聯標籤皆可切換狀態，鍵盤支援 Space 切換。',
+    cardStatesTitle: '停用態與必填標記',
+    labelBefore: '標籤位於左側',
+    requiredLabel: '必填開關項',
+    disabledOn: '停用（已開啟）',
+    disabledOff: '停用（已關閉）',
+    catalogDesc: '受控布林 v-model 開關、labelPosition 設定與自動標籤關聯',
+    apiModelValue: '開關布林值，用於 v-model 雙向繫結',
+    apiLabel: '標籤文字（未傳預設插槽時生效）',
+    apiLabelPosition: '標籤相對開關的位置',
+    apiFlags: '停用與必填狀態（開啟 required 時顯示星號）',
+    apiUpdate: '開關切換時同步更新 v-model',
+    apiChange: '開關狀態變更事件',
+    apiSlotDefault: '自訂標籤內容',
+  },
+  radio: {
+    desc: '基於官方 <fluent-radio-group> 與 <fluent-radio> 的薄封裝單選組，支援受控 v-model、垂直/水平排列、方向鍵切換與單項或整組停用。',
+    secOrientation: '排列方向',
+    secStates: '整組停用',
+    currentValue: '目前選取值',
+    cardOrientationTitle: '水平排列（orientation="horizontal"）',
+    cardOrientationDesc: '支援透過上下/左右方向鍵在可用單選項間循環切換焦點。',
+    cardStatesTitle: '整組停用態',
+    optStandard: '標準建置',
+    optFast: '極速快取',
+    optCustom: '自訂腳本',
+    optDisabled: '舊版映像（不可選）',
+    catalogDesc: '受控單選組、垂直/水平排列、方向鍵導覽與標籤配對',
+    apiModelValue: '目前選取項的值，用於 v-model 雙向繫結',
+    apiOrientation: '單選項排列方向',
+    apiFlags: '整組停用與必選狀態',
+    apiName: '表單欄位名稱，自動同步到所有子級 VfkRadio',
+    apiUpdate: '選取項變更時同步更新 v-model',
+    apiChange: '選取項變更事件',
+    apiRadioProps: '子級單選項的值、標籤文案與單項停用設定',
+  },
+  field: {
+    desc: '基於官方 <fluent-field> 的薄封裝表單欄位容器，統一組合標籤、表單元件、校驗狀態圖示/訊息與輔助提示文字。',
+    secValidation: '校驗狀態',
+    secForm: '組合表單範例',
+    sampleLabel: '專案識別碼',
+    sampleHint: '僅支援小寫字母、數字與連字號',
+    sampleError: '格式無效，不可包含特殊字元',
+    sampleWarning: '建議長度不少於 6 個字元',
+    sampleSuccess: '此識別碼可用',
+    cardValidationTitle: '四種校驗狀態（error / warning / success / none）',
+    cardValidationDesc: 'error 狀態自動為訊息加上 role="alert" 並呈現錯誤語意色。',
+    cardFormTitle: '水平表單組合（Input / Select / RadioGroup / Switch）',
+    cardFormDesc: '展示 VfkField 搭配全部表單元件使用時的對齊與排版效果。',
+    formNameLabel: '專案名稱',
+    formNamePlaceholder: '輸入專案名稱',
+    formNameHint: '將作為分支預覽網域的前綴',
+    formEnvLabel: '部署環境',
+    formStrategyLabel: '建置策略',
+    formAutoDeployLabel: '自動部署',
+    catalogDesc: '組合標籤、校驗狀態圖示/訊息、提示文案與水平/垂直版面',
+    apiLabel: '欄位標籤文字（未傳 label 插槽時生效）',
+    apiFor: '關聯目標元件的 id',
+    apiOrientation: '標籤與元件的排列方向（vertical / horizontal）',
+    apiSize: '標籤文字尺寸',
+    apiFlags: '必填星號與停用標籤狀態',
+    apiValidationState: '校驗回饋狀態，控制狀態圖示與訊息配色',
+    apiValidationMessage: '校驗回饋文案',
+    apiHint: '輔助提示文案',
+    apiSlots: '元件區、自訂標籤、校驗訊息與輔助提示插槽',
+  },
 }
 
 export const controlsEnUS: DemoControlsMessages = {
@@ -651,5 +876,80 @@ export const controlsEnUS: DemoControlsMessages = {
     apiOptionText: 'Display label override for trigger when option includes description content',
     apiOptionDisabled: 'Disables this individual option',
     apiOptionSlots: 'Option label, leading icon, secondary description, and checked indicator slots',
+  },
+  switch: {
+    desc: 'Thin Vue wrapper over official <fluent-switch> with controlled boolean v-model, automatic label association, labelPosition, and native ARIA switch semantics.',
+    secBasic: 'Basic Usage & Label Position',
+    secStates: 'Disabled & Required',
+    sampleLabel: 'Enable auto sync',
+    stateOn: 'On',
+    stateOff: 'Off',
+    stateLabel: 'Current state',
+    cardBasicTitle: 'Switch & Label Position (after / before)',
+    cardBasicDesc: 'Click the switch or its linked label to toggle, or press Space when focused.',
+    cardStatesTitle: 'Disabled & Required States',
+    labelBefore: 'Label before switch',
+    requiredLabel: 'Required toggle',
+    disabledOn: 'Disabled (On)',
+    disabledOff: 'Disabled (Off)',
+    catalogDesc: 'Controlled boolean v-model switch, labelPosition & accessible label',
+    apiModelValue: 'Boolean checked state for v-model',
+    apiLabel: 'Label text (used when default slot is omitted)',
+    apiLabelPosition: 'Label position relative to the switch',
+    apiFlags: 'Disabled and required states (shows asterisk when required)',
+    apiUpdate: 'Emitted when switch toggles to update v-model',
+    apiChange: 'Fired on toggle with next boolean value',
+    apiSlotDefault: 'Custom label content',
+  },
+  radio: {
+    desc: 'Thin Vue wrapper over official <fluent-radio-group> and <fluent-radio> with controlled v-model, vertical/horizontal layout, arrow-key navigation, and disabled states.',
+    secOrientation: 'Orientation',
+    secStates: 'Disabled Group',
+    currentValue: 'Selected value',
+    cardOrientationTitle: 'Horizontal Layout (orientation="horizontal")',
+    cardOrientationDesc: 'Supports arrow-key roving focus across enabled radio options.',
+    cardStatesTitle: 'Disabled Group',
+    optStandard: 'Standard build',
+    optFast: 'Fast cache',
+    optCustom: 'Custom script',
+    optDisabled: 'Legacy image (disabled)',
+    catalogDesc: 'Controlled radio group, vertical/horizontal layout & arrow-key navigation',
+    apiModelValue: 'Controlled selected value for v-model',
+    apiOrientation: 'Layout direction of radio items',
+    apiFlags: 'Group disabled and required states',
+    apiName: 'Form field name synced to child VfkRadio items',
+    apiUpdate: 'Emitted when selected radio changes',
+    apiChange: 'Fired on selection change with value and event',
+    apiRadioProps: 'Child VfkRadio value, label, and individual disabled flag',
+  },
+  field: {
+    desc: 'Thin Vue wrapper over official <fluent-field> combining label, form control, validation status icon/message, and helper hint.',
+    secValidation: 'Validation States',
+    secForm: 'Composite Form Example',
+    sampleLabel: 'Project slug',
+    sampleHint: 'Lowercase letters, numbers, and hyphens only',
+    sampleError: 'Invalid format; special characters are not allowed',
+    sampleWarning: 'Recommended length is at least 6 characters',
+    sampleSuccess: 'Slug is available',
+    cardValidationTitle: 'Four Validation States (error / warning / success / none)',
+    cardValidationDesc: 'Error state applies danger semantics and role="alert" automatically.',
+    cardFormTitle: 'Horizontal Form Composition (Input / Select / RadioGroup / Switch)',
+    cardFormDesc: 'Demonstrates VfkField aligning the full set of form controls together.',
+    formNameLabel: 'Project name',
+    formNamePlaceholder: 'Enter project name',
+    formNameHint: 'Used as the branch preview subdomain prefix',
+    formEnvLabel: 'Environment',
+    formStrategyLabel: 'Build strategy',
+    formAutoDeployLabel: 'Auto deploy',
+    catalogDesc: 'Combines label, validation icons/messages, hint & vertical/horizontal layout',
+    apiLabel: 'Field label text (used when #label slot is omitted)',
+    apiFor: 'Target form control id passed to internal label',
+    apiOrientation: 'Label placement direction (vertical / horizontal)',
+    apiSize: 'Label typography size',
+    apiFlags: 'Required asterisk and disabled label appearance',
+    apiValidationState: 'Validation state controlling icon and semantic color',
+    apiValidationMessage: 'Validation feedback text',
+    apiHint: 'Helper hint text',
+    apiSlots: 'Default control, custom label, validation message, and hint slots',
   },
 }

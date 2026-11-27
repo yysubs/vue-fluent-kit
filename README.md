@@ -103,6 +103,9 @@ setTheme('system')
 | `@yysubs/vue-fluent-kit/input` | `VfkInput` 及相关类型 |
 | `@yysubs/vue-fluent-kit/select` | `VfkSelect`、`VfkOption` 及相关类型 |
 | `@yysubs/vue-fluent-kit/checkbox` | `VfkCheckbox` 及相关类型 |
+| `@yysubs/vue-fluent-kit/switch` | `VfkSwitch` 及相关类型 |
+| `@yysubs/vue-fluent-kit/radio` | `VfkRadioGroup`、`VfkRadio` 及相关类型 |
+| `@yysubs/vue-fluent-kit/field` | `VfkField` 及相关类型 |
 
 ## 本地开发
 
