@@ -10,7 +10,7 @@
 | --- | --- |
 | 封装策略 | 底层优先采用 `@fluentui/web-components` 对应元素；Shadow DOM 样式覆盖优先用 CSS 变量，其次用官方公开 `::part()`，禁止通过脚本修改 `shadowRoot` 或依赖未公开内部结构 |
 | 导出方式 | 每组件独立目录 `src/components/<name>/`，汇总到根入口 `@yysubs/vue-fluent-kit` 并提供子路径导出（如 `@yysubs/vue-fluent-kit/button`） |
-| 主题切换 | 根节点或 `<VfkThemeProvider>` 设置 `data-vfk-theme="light"`（默认）或 `data-vfk-theme="dark"`；`useTheme()` 同时支持 `system` 跟随系统 |
+| 主题切换 | `useTheme()` 默认为 `system` 跟随系统；根节点或 `<VfkThemeProvider>` 通过 `data-vfk-theme="light"` / `"dark"` 切换明暗 |
 | 基础排版 | 字体 `var(--fontFamilyBase)`，正文默认对应 `body1`（`14px` / `20px` / `400`），数字等宽场景用 `font-variant-numeric: tabular-nums` |
 | 焦点环 | 保留官方控件键盘焦点样式，使用 `colorStrokeFocus2` 与 `colorStrokeFocus1`；输入框类采用底部品牌色高亮条 |
 | 禁用态 | 使用 `colorNeutralBackgroundDisabled`、`colorNeutralForegroundDisabled`、`colorNeutralStrokeDisabled`；支持 `disabledFocusable` 的控件保持键盘焦点可达并阻止触发业务事件 |

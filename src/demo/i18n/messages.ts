@@ -216,9 +216,9 @@ const zhCN: DemoMessages = {
   controls: controlsZhCN,
   brands: {
     default: 'Fluent 蓝',
-    teal: '青碧 Teal',
-    violet: '堇紫 Violet',
-    forest: '森绿 Forest',
+    teal: 'Teal 青碧',
+    violet: 'Violet 堇紫',
+    forest: 'Forest 森绿',
   },
   overview: {
     tocHighlights: '核心架构',
@@ -463,9 +463,9 @@ const zhTW: DemoMessages = {
   controls: controlsZhTW,
   brands: {
     default: 'Fluent 藍',
-    teal: '青碧 Teal',
-    violet: '堇紫 Violet',
-    forest: '森綠 Forest',
+    teal: 'Teal 青碧',
+    violet: 'Violet 堇紫',
+    forest: 'Forest 森綠',
   },
   overview: {
     tocHighlights: '核心架構',

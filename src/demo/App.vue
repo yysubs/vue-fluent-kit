@@ -22,7 +22,7 @@ interface NavItem {
   keywords: string
 }
 
-const { mode, resolvedTheme, setTheme } = useTheme()
+const { mode, setTheme } = useTheme()
 const { locale, messages, localeOptions, setLocale } = useDemoI18n()
 
 const navItems = computed<NavItem[]>(() => [
@@ -150,7 +150,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="demo-shell" :data-vfk-theme="resolvedTheme">
+  <div class="demo-shell">
     <!-- 移动端抽屉遮罩 -->
     <div
       v-if="sidebarOpen"

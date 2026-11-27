@@ -25,7 +25,7 @@ function readSystemDark(): boolean {
   return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
-const mode = ref<ThemeMode>('light')
+const mode = ref<ThemeMode>('system')
 const systemDark = ref<boolean>(readSystemDark())
 const activeBrand = ref<BrandVariants | null>(null)
 

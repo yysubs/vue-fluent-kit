@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { VfkThemeProvider } from '../../index'
 import { useDemoI18n } from '../i18n'
 import DemoCode from './DemoCode.vue'
 
@@ -51,12 +52,12 @@ const surfaceTheme = ref<'inherit' | 'light' | 'dark'>('inherit')
           </div>
         </div>
 
-        <div
+        <VfkThemeProvider
+          :theme="surfaceTheme === 'inherit' ? undefined : surfaceTheme"
           class="demo-workbench__stage"
-          :data-vfk-theme="surfaceTheme === 'inherit' ? undefined : surfaceTheme"
         >
           <slot name="stage" />
-        </div>
+        </VfkThemeProvider>
 
         <div v-if="$slots.readout" class="demo-workbench__readout">
           <slot name="readout" />

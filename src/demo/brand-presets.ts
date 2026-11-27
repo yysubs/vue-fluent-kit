@@ -20,7 +20,7 @@ export const demoBrandPresets: BrandPreset[] = [
   },
   {
     id: 'teal',
-    label: '青碧 Teal',
+    label: 'Teal 青碧',
     swatch: '#27a6aa',
     brand: {
       10: '#021a1b',
@@ -43,7 +43,7 @@ export const demoBrandPresets: BrandPreset[] = [
   },
   {
     id: 'violet',
-    label: '堇紫 Violet',
+    label: 'Violet 堇紫',
     swatch: '#8d73d3',
     brand: {
       10: '#160d2d',
@@ -66,7 +66,7 @@ export const demoBrandPresets: BrandPreset[] = [
   },
   {
     id: 'forest',
-    label: '森绿 Forest',
+    label: 'Forest 森绿',
     swatch: '#31a162',
     brand: {
       10: '#041c0e',

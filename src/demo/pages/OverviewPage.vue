@@ -13,9 +13,12 @@ const emit = defineEmits<{
   navigate: [page: DemoPageId]
 }>()
 
-const { resolvedTheme, applyBrandTokens, resetBrandTokens } = useTheme()
+const { resolvedTheme, activeBrand, applyBrandTokens, resetBrandTokens } = useTheme()
 const { messages } = useDemoI18n()
-const activePresetId = ref<BrandPreset['id']>('default')
+const activePresetId = computed<BrandPreset['id']>(() => {
+  if (!activeBrand.value) return 'default'
+  return demoBrandPresets.find((preset) => preset.brand === activeBrand.value)?.id ?? 'default'
+})
 
 const miniInput = ref('')
 const miniChecked = ref(true)
@@ -33,7 +36,6 @@ const tocItems = computed<TocItem[]>(() => [
 ])
 
 function selectBrand(preset: BrandPreset) {
-  activePresetId.value = preset.id
   if (preset.brand) {
     applyBrandTokens(preset.brand)
   } else {

@@ -23,22 +23,24 @@ const props = withDefaults(defineProps<VfkThemeProviderProps>(), {
   as: 'div',
 })
 
-const { resolvedTheme } = useTheme()
+const { resolvedTheme, activeBrand } = useTheme()
 const containerRef = ref<HTMLElement | null>(null)
 
 const effectiveTheme = computed<ResolvedTheme>(() => props.theme ?? resolvedTheme.value)
+const effectiveBrand = computed<BrandVariants | null>(() => props.brand ?? activeBrand.value)
 
+/** 将局部或全局品牌色按当前容器明暗模式写入，避免 data-vfk-theme 属性重置全局品牌色 */
 function syncBrand() {
   if (!containerRef.value) return
-  if (props.brand) {
-    applyBrandTokens(props.brand, effectiveTheme.value, containerRef.value)
+  if (effectiveBrand.value) {
+    applyBrandTokens(effectiveBrand.value, effectiveTheme.value, containerRef.value)
   } else {
     resetBrandTokens(containerRef.value)
   }
 }
 
 onMounted(syncBrand)
-watch([() => props.brand, effectiveTheme], syncBrand)
+watch([effectiveBrand, effectiveTheme], syncBrand)
 onBeforeUnmount(() => {
   if (containerRef.value) {
     resetBrandTokens(containerRef.value)
