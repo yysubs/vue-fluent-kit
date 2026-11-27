@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Upgrade npm for Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify tag matches package.json version
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "Tag v$TAG_VERSION does not match package.json version $PKG_VERSION"
+            exit 1
+          fi
+
+      - name: Test and build
+        run: |
+          pnpm test
+          pnpm build
+
+      - name: Publish to npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+          fi
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if [[ "$PKG_VERSION" == *-* ]]; then
+            npm publish --provenance --access public --tag next --ignore-scripts
+          else
+            npm publish --provenance --access public --ignore-scripts
+          fi
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if [[ "$PKG_VERSION" == *-* ]]; then
+            gh release create "$GITHUB_REF_NAME" --generate-notes --prerelease
+          else
+            gh release create "$GITHUB_REF_NAME" --generate-notes
+          fi
