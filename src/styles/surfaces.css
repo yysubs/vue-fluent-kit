@@ -1,0 +1,66 @@
+/* Fluent 2 材质表面变量与样式类：Acrylic（亚克力）与 Mica（云母） */
+
+:root,
+[data-vfk-theme='light'] {
+  --vfkSurfaceAcrylicBg: rgba(252, 252, 252, 0.78);
+  --vfkSurfaceAcrylicBgFallback: var(--colorNeutralBackground1);
+  --vfkSurfaceAcrylicBlur: 24px;
+  --vfkSurfaceAcrylicSaturate: 1.4;
+  --vfkSurfaceAcrylicBorder: rgba(0, 0, 0, 0.08);
+
+  --vfkSurfaceMicaBg:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--colorBrandBackground) 8%, transparent), transparent 44%),
+    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--colorBrandForeground1) 6%, transparent), transparent 40%),
+    var(--colorNeutralBackground2);
+  --vfkSurfaceMicaCardBg: rgba(255, 255, 255, 0.76);
+  --vfkSurfaceMicaBorder: var(--colorNeutralStroke2);
+}
+
+[data-vfk-theme='dark'] {
+  --vfkSurfaceAcrylicBg: rgba(36, 36, 36, 0.76);
+  --vfkSurfaceAcrylicBgFallback: var(--colorNeutralBackground2);
+  --vfkSurfaceAcrylicBlur: 24px;
+  --vfkSurfaceAcrylicSaturate: 1.3;
+  --vfkSurfaceAcrylicBorder: rgba(255, 255, 255, 0.08);
+
+  --vfkSurfaceMicaBg:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--colorBrandBackground) 14%, transparent), transparent 44%),
+    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--colorBrandForeground1) 9%, transparent), transparent 40%),
+    var(--colorNeutralBackground2);
+  --vfkSurfaceMicaCardBg: rgba(41, 41, 41, 0.74);
+  --vfkSurfaceMicaBorder: var(--colorNeutralStroke2);
+}
+
+.vfk-surface-acrylic {
+  background-color: var(--vfkSurfaceAcrylicBg);
+  border: var(--strokeWidthThin) solid var(--vfkSurfaceAcrylicBorder);
+  backdrop-filter: blur(var(--vfkSurfaceAcrylicBlur)) saturate(var(--vfkSurfaceAcrylicSaturate));
+  -webkit-backdrop-filter: blur(var(--vfkSurfaceAcrylicBlur)) saturate(var(--vfkSurfaceAcrylicSaturate));
+}
+
+.vfk-surface-mica {
+  background: var(--vfkSurfaceMicaBg);
+}
+
+.vfk-surface-mica-card {
+  background-color: var(--vfkSurfaceMicaCardBg);
+  border: var(--strokeWidthThin) solid var(--vfkSurfaceMicaBorder);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vfk-surface-acrylic {
+    background-color: var(--vfkSurfaceAcrylicBgFallback);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .vfk-surface-acrylic {
+    background-color: var(--vfkSurfaceAcrylicBgFallback);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .vfk-surface-mica-card {
+    background-color: var(--colorNeutralBackground1);
+  }
+}

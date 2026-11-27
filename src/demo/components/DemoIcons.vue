@@ -20,6 +20,8 @@ export type DemoIconName =
   | 'eye'
   | 'eye-off'
   | 'github'
+  | 'monitor'
+  | 'layers'
 
 withDefaults(
   defineProps<{
@@ -152,6 +154,25 @@ withDefaults(
         fill-rule="evenodd"
         clip-rule="evenodd"
         d="M10 2.25a7.75 7.75 0 0 0-2.45 15.1c.39.07.53-.17.53-.37v-1.32c-2.15.47-2.6-1.03-2.6-1.03-.35-.9-.86-1.14-.86-1.14-.7-.48.05-.47.05-.47.78.06 1.19.8 1.19.8.69 1.18 1.81.84 2.25.64.07-.5.27-.84.49-1.03-1.72-.2-3.52-.86-3.52-3.82 0-.84.3-1.53.8-2.07-.08-.2-.35-.98.08-2.04 0 0 .65-.21 2.13.79a7.4 7.4 0 0 1 3.88 0c1.48-1 2.13-.79 2.13-.79.43 1.06.16 1.84.08 2.04.5.54.8 1.23.8 2.07 0 2.97-1.81 3.62-3.53 3.81.28.24.53.71.53 1.44v2.13c0 .21.14.45.54.37A7.75 7.75 0 0 0 10 2.25Z"
+      />
+    </template>
+    <template v-else-if="name === 'monitor'">
+      <rect x="2.75" y="3.75" width="14.5" height="9.75" rx="1.75" stroke="currentColor" stroke-width="1.5" />
+      <path d="M7.25 16.5h5.5M10 13.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </template>
+    <template v-else-if="name === 'layers'">
+      <path
+        d="M10 3.25 2.75 7 10 10.75 17.25 7 10 3.25Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M2.75 10.25 10 14l7.25-3.75M2.75 13.5 10 17.25l7.25-3.75"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </template>
   </svg>

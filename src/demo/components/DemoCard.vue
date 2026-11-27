@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VButton } from '../../index'
 import DemoCode from './DemoCode.vue'
 import DemoIcons from './DemoIcons.vue'
 
@@ -14,7 +13,7 @@ withDefaults(
     code?: string
     /** 是否横跨整行 */
     full?: boolean
-    /** 是否使用次级底色衬托控件（适合展示 filled-lighter / outline 对比） */
+    /** 是否使用次级底色衬托控件 */
     tinted?: boolean
   }>(),
   {
@@ -35,16 +34,16 @@ const showCode = ref(false)
       </div>
       <div v-if="code || $slots.actions" class="demo-card__actions">
         <slot name="actions" />
-        <VButton
+        <button
           v-if="code"
-          appearance="subtle"
-          size="small"
+          type="button"
+          class="demo-btn demo-btn--subtle demo-btn--small"
           :aria-expanded="showCode"
           @click="showCode = !showCode"
         >
-          <template #icon><DemoIcons name="code" :size="14" /></template>
-          {{ showCode ? '收起' : '代码' }}
-        </VButton>
+          <DemoIcons name="code" :size="14" />
+          <span>{{ showCode ? '收起' : '代码' }}</span>
+        </button>
       </div>
     </header>
 

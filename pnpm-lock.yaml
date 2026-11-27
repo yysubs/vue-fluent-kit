@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@fluentui/tokens':
+        specifier: 1.0.0-alpha.25
+        version: 1.0.0-alpha.25
+      '@fluentui/web-components':
+        specifier: ^3.2.5
+        version: 3.2.5(@microsoft/fast-element@3.1.4)(@microsoft/focusgroup-polyfill@1.6.0)
     devDependencies:
       '@types/node':
         specifier: ^26.6.6
@@ -281,6 +288,16 @@ packages:
       '@noble/hashes':
         optional: true
 
+  '@fluentui/tokens@1.0.0-alpha.25':
+    resolution: {integrity: sha512-4CiBaJELy/aJV0Gjkw9kZwd4fmUnm5jyvYrTbngHmT31vCMcSZ9gcm1yzJUc5/QtIZ4rEXctXJ4cXE+EQxQxZw==}
+
+  '@fluentui/web-components@3.2.5':
+    resolution: {integrity: sha512-dVGXzh6jacWylbyh1btHVNYKb6acuYNzH1aAPKiK/XJmVkzg26KB2YroG07Yy9ujjbrffxuZ7AHGFir6HAiAhA==}
+    engines: {node: ^22.0.0 || ^24.0.0 || ^26.0.0}
+    peerDependencies:
+      '@microsoft/fast-element': ^3.0.0
+      '@microsoft/focusgroup-polyfill': ^1.5.0
+
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
     engines: {node: '>=18'}
@@ -456,6 +473,12 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
+  '@microsoft/fast-element@3.1.4':
+    resolution: {integrity: sha512-HiMkg6p4FtJjUpWWf9L8PZDLTwh1eJ5VoxQPc0GZRqnsjn6fkkDMc10QRclwcqeqjIfalSY3ZScqf2YcTEqkzw==}
+
+  '@microsoft/focusgroup-polyfill@1.6.0':
+    resolution: {integrity: sha512-SlJO8FKrdFdSEXtNTNPTlCeqyqbpyLf6suYHTK7G8WYXZf8/BWK0ucERiPgrUIpNewfQjV82BahSOW/p8YNJ1A==}
+
   '@one-ini/wasm@0.2.1':
     resolution: {integrity: sha512-TUqERXGNTifZ9y2g3wPxQrw3HpHv/02DsW3D90T9x0hhonrL1ZqpSmNrU2XkoIq0fP1N6gZfVQzy2Fw1ZvGBNg==}
 
@@ -576,6 +599,9 @@ packages:
 
   '@speed-highlight/core@1.2.24':
     resolution: {integrity: sha512-qeW2e1l78afw8VhRPfPQ1Gjj+KU5XFQ/OFV5ti6eTa9bruO7mJyZtA4vw0ofqmA3tKCkROE9xLk3VZoeRc98nw==}
+
+  '@swc/helpers@0.5.24':
+    resolution: {integrity: sha512-6tcXo4kA8HgGO7AVmawB57RYi/piBPYVHVcO6dXjX+SZw8GoHmi262sp4v2Ha2kNP9Cx84qei27yT+fjS1lxgg==}
 
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
@@ -1529,6 +1555,17 @@ snapshots:
 
   '@exodus/bytes@1.16.0': {}
 
+  '@fluentui/tokens@1.0.0-alpha.25':
+    dependencies:
+      '@swc/helpers': 0.5.24
+
+  '@fluentui/web-components@3.2.5(@microsoft/fast-element@3.1.4)(@microsoft/focusgroup-polyfill@1.6.0)':
+    dependencies:
+      '@fluentui/tokens': 1.0.0-alpha.25
+      '@microsoft/fast-element': 3.1.4
+      '@microsoft/focusgroup-polyfill': 1.6.0
+      tslib: 2.9.1
+
   '@img/colour@1.1.0': {}
 
   '@img/sharp-darwin-arm64@0.35.5':
@@ -1649,6 +1686,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
+  '@microsoft/fast-element@3.1.4': {}
+
+  '@microsoft/focusgroup-polyfill@1.6.0': {}
+
   '@one-ini/wasm@0.2.1': {}
 
   '@oxc-project/types@0.156.0': {}
@@ -1715,6 +1756,8 @@ snapshots:
   '@sindresorhus/is@7.2.0': {}
 
   '@speed-highlight/core@1.2.24': {}
+
+  '@swc/helpers@0.5.24': {}
 
   '@types/chai@5.2.3':
     dependencies:
@@ -2362,8 +2405,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  tslib@2.9.1:
-    optional: true
+  tslib@2.9.1: {}
 
   typescript@5.9.3: {}
 

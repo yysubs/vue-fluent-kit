@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VButton, VInput } from '../../index'
 import DemoIcons from '../components/DemoIcons.vue'
+import DemoLogo from '../components/DemoLogo.vue'
 
-type TokenTab = 'colors' | 'typography' | 'elevation' | 'spacing'
+type TokenTab = 'colors' | 'surfaces' | 'typography' | 'elevation' | 'spacing'
 
 interface ColorTokenItem {
   token: string
@@ -63,6 +63,14 @@ const colorGroups: { name: string; items: ColorTokenItem[] }[] = [
       { token: '--colorStatusDangerBackground3', label: '错误实心', category: '状态' },
     ],
   },
+]
+
+const surfaceTokens = [
+  { token: '--vfkSurfaceAcrylicBg', note: '亚克力半透明填充色' },
+  { token: '--vfkSurfaceAcrylicBlur', note: '亚克力背景模糊半径（24px）' },
+  { token: '--vfkSurfaceAcrylicBorder', note: '亚克力细高光描边' },
+  { token: '--vfkSurfaceMicaBg', note: '云母画布柔和渐变底色' },
+  { token: '--vfkSurfaceMicaCardBg', note: '云母次级卡片表面色' },
 ]
 
 const filteredColorGroups = computed(() => {
@@ -148,17 +156,18 @@ async function copyToken(token: string) {
 <template>
   <div>
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">设计基础</p>
+      <p class="demo-page-header__eyebrow">设计系统</p>
       <div class="demo-page-header__title-row">
-        <h1 class="demo-page-header__title">Design Tokens</h1>
+        <h1 class="demo-page-header__title">Design Tokens &amp; Surfaces</h1>
         <div class="demo-page-header__tags">
           <span class="demo-tag demo-tag--brand">@fluentui/tokens</span>
-          <span class="demo-tag">459 CSS Variables</span>
+          <span class="demo-tag">Acrylic &amp; Mica</span>
         </div>
       </div>
       <p class="demo-page-header__desc">
-        所有颜色、字号、间距、圆角、阴影与动效直接映射 Fluent UI v9 官方同名 CSS 变量。点击任意卡片即可复制
-        <code class="demo-inline-code">var(--token)</code>，切换顶部浅色/深色主题可实时观察变量变化。
+        独立样式层统一管理 Fluent 2 语义变量、品牌色阶与亚克力/云母材质表面，天然穿透
+        <code class="demo-inline-code">@fluentui/web-components</code> 的 Shadow DOM。点击任意条目即可复制
+        <code class="demo-inline-code">var(--token)</code>。
       </p>
     </header>
 
@@ -173,6 +182,16 @@ async function copyToken(token: string) {
           @click="activeTab = 'colors'"
         >
           颜色变量
+        </button>
+        <button
+          type="button"
+          role="tab"
+          class="demo-token-tab"
+          :class="{ 'demo-token-tab--active': activeTab === 'surfaces' }"
+          :aria-selected="activeTab === 'surfaces'"
+          @click="activeTab = 'surfaces'"
+        >
+          材质表面
         </button>
         <button
           type="button"
@@ -206,21 +225,27 @@ async function copyToken(token: string) {
         </button>
       </div>
 
-      <VInput
-        v-if="activeTab === 'colors'"
-        v-model="keyword"
-        size="small"
-        placeholder="筛选颜色变量..."
-        aria-label="筛选颜色变量"
-        style="width: 240px"
-      >
-        <template #contentBefore><DemoIcons name="search" :size="14" /></template>
-        <template v-if="keyword" #contentAfter>
-          <VButton appearance="transparent" size="small" aria-label="清空筛选" @click="keyword = ''">
-            <template #icon><DemoIcons name="close" :size="12" /></template>
-          </VButton>
-        </template>
-      </VInput>
+      <div v-if="activeTab === 'colors'" class="demo-search-box" style="width: 240px">
+        <span class="demo-search-box__icon" aria-hidden="true">
+          <DemoIcons name="search" :size="14" />
+        </span>
+        <input
+          v-model="keyword"
+          type="text"
+          class="demo-search-box__input"
+          placeholder="筛选颜色变量..."
+          aria-label="筛选颜色变量"
+        />
+        <button
+          v-if="keyword"
+          type="button"
+          class="demo-search-box__clear"
+          aria-label="清空筛选"
+          @click="keyword = ''"
+        >
+          <DemoIcons name="close" :size="12" />
+        </button>
+      </div>
     </div>
 
     <!-- 颜色变量 -->
@@ -255,6 +280,67 @@ async function copyToken(token: string) {
       </p>
     </template>
 
+    <!-- 材质表面（Acrylic / Mica） -->
+    <template v-else-if="activeTab === 'surfaces'">
+      <section class="demo-section">
+        <div class="demo-section__head">
+          <div>
+            <h2 class="demo-section__title">Acrylic（亚克力）与 Mica（云母）材质预览</h2>
+            <p class="demo-section__sub">
+              自动适配浅色/深色模式，并在系统开启「减少透明效果」或不支持 backdrop-filter 时自动回退。
+            </p>
+          </div>
+        </div>
+
+        <div class="demo-cards-grid">
+          <div class="demo-surface-stage demo-surface-stage--acrylic">
+            <div class="demo-surface-panel vfk-surface-acrylic">
+              <div class="demo-row" style="align-items: center">
+                <DemoLogo :size="30" />
+                <div>
+                  <h3 class="demo-card__title">Acrylic 亚克力浮层</h3>
+                  <p class="demo-card__desc">适合顶栏、浮层菜单、侧边抽屉与上下文卡片</p>
+                </div>
+              </div>
+              <code class="demo-inline-code">.vfk-surface-acrylic</code>
+            </div>
+          </div>
+
+          <div class="demo-surface-stage vfk-surface-mica">
+            <div class="demo-surface-panel vfk-surface-mica-card">
+              <div class="demo-row" style="align-items: center">
+                <DemoLogo :size="30" />
+                <div>
+                  <h3 class="demo-card__title">Mica 云母画布</h3>
+                  <p class="demo-card__desc">低饱和品牌色微染色，适合应用主底板与大面积容器</p>
+                </div>
+              </div>
+              <code class="demo-inline-code">.vfk-surface-mica / .vfk-surface-mica-card</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section">
+        <div class="demo-section__head">
+          <h2 class="demo-section__title">材质变量列表</h2>
+        </div>
+        <div class="demo-type-list">
+          <div v-for="item in surfaceTokens" :key="item.token" class="demo-type-row">
+            <code class="demo-api-name">{{ item.token }}</code>
+            <span class="demo-card__desc" style="margin: 0">{{ item.note }}</span>
+            <button
+              type="button"
+              class="demo-btn demo-btn--subtle demo-btn--small"
+              @click="copyToken(item.token)"
+            >
+              {{ copiedToken === item.token ? '已复制' : '复制' }}
+            </button>
+          </div>
+        </div>
+      </section>
+    </template>
+
     <!-- 排版刻度 -->
     <section v-else-if="activeTab === 'typography'" class="demo-section">
       <div class="demo-type-list">
@@ -272,9 +358,13 @@ async function copyToken(token: string) {
           >
             {{ item.sample }}
           </div>
-          <VButton size="small" appearance="subtle" @click="copyToken(item.size)">
+          <button
+            type="button"
+            class="demo-btn demo-btn--subtle demo-btn--small"
+            @click="copyToken(item.size)"
+          >
             {{ copiedToken === item.size ? '已复制' : '复制字号' }}
-          </VButton>
+          </button>
         </div>
       </div>
     </section>
@@ -342,9 +432,13 @@ async function copyToken(token: string) {
             />
             <span class="demo-card__desc" style="margin: 0">{{ item.px }}</span>
           </div>
-          <VButton size="small" appearance="subtle" @click="copyToken(item.token)">
+          <button
+            type="button"
+            class="demo-btn demo-btn--subtle demo-btn--small"
+            @click="copyToken(item.token)"
+          >
             {{ copiedToken === item.token ? '已复制' : '复制' }}
-          </VButton>
+          </button>
         </div>
       </div>
     </section>

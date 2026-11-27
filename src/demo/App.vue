@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { VButton, VInput, version } from '../index'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useTheme, version, type ThemeMode } from '../index'
 import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
-import ButtonPage from './pages/ButtonPage.vue'
-import CheckboxPage from './pages/CheckboxPage.vue'
-import InputPage from './pages/InputPage.vue'
+import DemoLogo from './components/DemoLogo.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
-import SelectPage from './pages/SelectPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 
 interface NavItem {
   id: DemoPageId
   title: string
   sub?: string
-  group: '概览' | '基础控件' | '设计系统'
+  group: '概览' | '设计系统'
   icon: DemoIconName
   keywords: string
 }
@@ -27,47 +24,15 @@ const navItems: NavItem[] = [
     sub: 'Overview',
     group: '概览',
     icon: 'grid',
-    keywords: 'overview home 概览 首页 组合 主题',
-  },
-  {
-    id: 'button',
-    title: 'Button',
-    sub: '按钮',
-    group: '基础控件',
-    icon: 'button',
-    keywords: 'button togglebutton 按钮 切换 图标',
-  },
-  {
-    id: 'input',
-    title: 'Input',
-    sub: '文本输入',
-    group: '基础控件',
-    icon: 'input',
-    keywords: 'input text field 输入框 文本 前后缀',
-  },
-  {
-    id: 'select',
-    title: 'Select',
-    sub: '原生下拉',
-    group: '基础控件',
-    icon: 'select',
-    keywords: 'select dropdown option 下拉 选择',
-  },
-  {
-    id: 'checkbox',
-    title: 'Checkbox',
-    sub: '勾选框',
-    group: '基础控件',
-    icon: 'checkbox',
-    keywords: 'checkbox mixed indeterminate 勾选 多选 半选',
+    keywords: 'overview home 概览 首页 架构 主题 品牌 材质 logo',
   },
   {
     id: 'tokens',
     title: 'Design Tokens',
-    sub: '变量',
+    sub: '变量与材质',
     group: '设计系统',
     icon: 'palette',
-    keywords: 'token color theme typography spacing shadow 变量 颜色 字体 阴影',
+    keywords: 'token color theme typography spacing shadow surface acrylic mica 变量 颜色 字体 阴影 亚克力 云母',
   },
 ]
 
@@ -78,10 +43,16 @@ function parseHashPage(): DemoPageId {
   return validPageIds.has(raw) ? raw : 'overview'
 }
 
-const theme = ref<'light' | 'dark'>('light')
+const { mode, resolvedTheme, setTheme } = useTheme()
 const currentPage = ref<DemoPageId>(parseHashPage())
 const searchQuery = ref('')
 const sidebarOpen = ref(false)
+
+const themeOptions: { value: ThemeMode; label: string; icon: DemoIconName }[] = [
+  { value: 'light', label: '浅色', icon: 'sun' },
+  { value: 'dark', label: '深色', icon: 'moon' },
+  { value: 'system', label: '系统', icon: 'monitor' },
+]
 
 const currentNavItem = computed(
   () => navItems.find((item) => item.id === currentPage.value) ?? navItems[0],
@@ -98,7 +69,7 @@ const navGroups = computed(() => {
       )
     : navItems
 
-  const order: NavItem['group'][] = ['概览', '基础控件', '设计系统']
+  const order: NavItem['group'][] = ['概览', '设计系统']
   return order
     .map((group) => ({
       name: group,
@@ -116,10 +87,6 @@ function navigate(page: DemoPageId) {
   window.scrollTo({ top: 0, behavior: 'auto' })
 }
 
-function syncThemeToDocument(next: 'light' | 'dark') {
-  document.documentElement.setAttribute('data-vfk-theme', next)
-}
-
 function handleHashChange() {
   currentPage.value = parseHashPage()
 }
@@ -129,8 +96,6 @@ function handleKeydown(event: KeyboardEvent) {
     sidebarOpen.value = false
   }
 }
-
-watch(theme, syncThemeToDocument, { immediate: true })
 
 onMounted(() => {
   window.addEventListener('hashchange', handleHashChange)
@@ -144,7 +109,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="demo-shell" :data-vfk-theme="theme">
+  <div class="demo-shell vfk-surface-mica" :data-vfk-theme="resolvedTheme">
     <!-- 移动端抽屉遮罩 -->
     <div
       v-if="sidebarOpen"
@@ -160,40 +125,35 @@ onUnmounted(() => {
       aria-label="组件导航"
     >
       <div class="demo-sidebar__brand">
-        <span class="demo-sidebar__logo" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="2" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" />
-            <rect x="8.5" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
-            <rect x="2" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
-            <rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.35" />
-          </svg>
-        </span>
+        <DemoLogo :size="28" />
         <div class="demo-sidebar__brand-text">
           <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
-          <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent v9</span>
+          <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent 2 WC</span>
         </div>
       </div>
 
       <div class="demo-sidebar__search">
-        <VInput
-          v-model="searchQuery"
-          size="small"
-          appearance="filled-lighter"
-          placeholder="快速查找控件..."
-          aria-label="快速查找控件"
-        >
-          <template #contentBefore><DemoIcons name="search" :size="14" /></template>
-          <template v-if="searchQuery" #contentAfter>
-            <VButton
-              appearance="transparent"
-              size="small"
-              aria-label="清空查找"
-              @click="searchQuery = ''"
-            >
-              <template #icon><DemoIcons name="close" :size="12" /></template>
-            </VButton>
-          </template>
-        </VInput>
+        <div class="demo-search-box">
+          <span class="demo-search-box__icon" aria-hidden="true">
+            <DemoIcons name="search" :size="14" />
+          </span>
+          <input
+            v-model="searchQuery"
+            type="text"
+            class="demo-search-box__input"
+            placeholder="快速查找页面..."
+            aria-label="快速查找页面"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="demo-search-box__clear"
+            aria-label="清空查找"
+            @click="searchQuery = ''"
+          >
+            <DemoIcons name="close" :size="12" />
+          </button>
+        </div>
       </div>
 
       <nav class="demo-sidebar__nav">
@@ -239,19 +199,16 @@ onUnmounted(() => {
 
     <!-- 右侧主工作区 -->
     <div class="demo-main">
-      <header class="demo-topbar">
+      <header class="demo-topbar vfk-surface-acrylic">
         <div class="demo-topbar__left">
-          <VButton
-            class="demo-topbar__menu-btn"
-            appearance="subtle"
-            size="small"
+          <button
+            type="button"
+            class="demo-btn demo-btn--subtle demo-btn--icon demo-topbar__menu-btn"
             aria-label="打开导航菜单"
             @click="sidebarOpen = !sidebarOpen"
           >
-            <template #icon>
-              <DemoIcons :name="sidebarOpen ? 'close' : 'menu'" :size="18" />
-            </template>
-          </VButton>
+            <DemoIcons :name="sidebarOpen ? 'close' : 'menu'" :size="18" />
+          </button>
 
           <div class="demo-breadcrumb" aria-label="当前位置">
             <span>{{
@@ -265,24 +222,16 @@ onUnmounted(() => {
         <div class="demo-topbar__right">
           <div class="demo-theme-switch" role="group" aria-label="切换主题">
             <button
+              v-for="opt in themeOptions"
+              :key="opt.value"
               type="button"
               class="demo-theme-switch__btn"
-              :class="{ 'demo-theme-switch__btn--active': theme === 'light' }"
-              :aria-pressed="theme === 'light'"
-              @click="theme = 'light'"
+              :class="{ 'demo-theme-switch__btn--active': mode === opt.value }"
+              :aria-pressed="mode === opt.value"
+              @click="setTheme(opt.value)"
             >
-              <DemoIcons name="sun" :size="14" />
-              <span>浅色</span>
-            </button>
-            <button
-              type="button"
-              class="demo-theme-switch__btn"
-              :class="{ 'demo-theme-switch__btn--active': theme === 'dark' }"
-              :aria-pressed="theme === 'dark'"
-              @click="theme = 'dark'"
-            >
-              <DemoIcons name="moon" :size="14" />
-              <span>深色</span>
+              <DemoIcons :name="opt.icon" :size="14" />
+              <span>{{ opt.label }}</span>
             </button>
           </div>
 
@@ -300,11 +249,7 @@ onUnmounted(() => {
 
       <main class="demo-content">
         <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
-        <ButtonPage v-else-if="currentPage === 'button'" />
-        <InputPage v-else-if="currentPage === 'input'" />
-        <SelectPage v-else-if="currentPage === 'select'" />
-        <CheckboxPage v-else-if="currentPage === 'checkbox'" />
-        <TokensPage v-else-if="currentPage === 'tokens'" />
+        <TokensPage v-else />
       </main>
     </div>
   </div>

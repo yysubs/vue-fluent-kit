@@ -1,7 +1,14 @@
 export const version = '0.0.0'
 
-export { default as VButton } from './components/Button.vue'
-export { default as VInput } from './components/Input.vue'
-export { default as VSelect } from './components/Select.vue'
-export { default as VToggleButton } from './components/ToggleButton.vue'
-export { default as VCheckbox } from './components/Checkbox.vue'
+export { isFluentCustomElement } from './custom-elements'
+export {
+  applyBrandTokens,
+  resetBrandTokens,
+  setVfkTheme,
+  useTheme,
+  VThemeProvider,
+  type BrandVariants,
+  type ResolvedTheme,
+  type ThemeMode,
+  type VThemeProviderProps,
+} from './theme'
