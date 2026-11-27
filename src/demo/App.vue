@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VButton, VInput, VToggleButton } from '../index'
+import { VButton, VInput, VSelect, VToggleButton } from '../index'
 import '../styles/index.css'
 
 const theme = ref<'light' | 'dark'>('light')
@@ -8,6 +8,7 @@ const pressed = ref(false)
 const inputValue = ref('Fluent UI v9')
 const searchValue = ref('vue-fluent-kit')
 const searchInputRef = ref<InstanceType<typeof VInput> | null>(null)
+const selectedRegion = ref('east-asia')
 
 function clearSearch() {
   searchValue.value = ''
@@ -56,7 +57,7 @@ const groups = [
     <header class="vfk-demo__head">
       <div>
         <h1 class="vfk-demo__title">vue-fluent-kit</h1>
-        <p class="vfk-demo__desc">Button、Input 与主题 token 预览。</p>
+        <p class="vfk-demo__desc">Button、Input、Select 与主题 token 预览。</p>
       </div>
       <div class="vfk-demo__head-actions">
         <VButton
@@ -182,6 +183,91 @@ const groups = [
       </div>
     </section>
 
+    <section class="vfk-demo__group">
+      <h2 class="vfk-demo__group-title">Select 原生下拉</h2>
+      <div class="vfk-demo__surface vfk-demo__surface--grid">
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-outline">Outline（默认）</label>
+          <VSelect id="demo-select-outline" appearance="outline">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-underline">Underline</label>
+          <VSelect id="demo-select-underline" appearance="underline">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-darker">Filled Darker</label>
+          <VSelect id="demo-select-darker" appearance="filled-darker">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+        <div class="vfk-demo__field">
+          <label class="vfk-demo__field-label" for="demo-select-lighter">Filled Lighter</label>
+          <VSelect id="demo-select-lighter" appearance="filled-lighter">
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+          </VSelect>
+        </div>
+      </div>
+
+      <div class="vfk-demo__buttons">
+        <VSelect size="small" aria-label="Small select">
+          <option value="small">Small (24px)</option>
+          <option value="compact">Compact</option>
+        </VSelect>
+        <VSelect size="medium" aria-label="Medium select">
+          <option value="medium">Medium (32px)</option>
+          <option value="standard">Standard</option>
+        </VSelect>
+        <VSelect size="large" aria-label="Large select">
+          <option value="large">Large (40px)</option>
+          <option value="spacious">Spacious</option>
+        </VSelect>
+      </div>
+
+      <div class="vfk-demo__buttons">
+        <VSelect v-model="selectedRegion" aria-label="Select region">
+          <optgroup label="Asia Pacific">
+            <option value="east-asia">East Asia</option>
+            <option value="southeast-asia">Southeast Asia</option>
+          </optgroup>
+          <optgroup label="Europe & Americas">
+            <option value="west-europe">West Europe</option>
+            <option value="north-america">North America</option>
+          </optgroup>
+        </VSelect>
+        <VSelect aria-invalid="true" aria-label="Invalid select">
+          <option value="invalid">校验错误（outline）</option>
+          <option value="retry">重试</option>
+        </VSelect>
+        <VSelect appearance="underline" aria-invalid="true" aria-label="Invalid underline select">
+          <option value="invalid-underline">校验错误（underline）</option>
+          <option value="retry">重试</option>
+        </VSelect>
+        <VSelect disabled aria-label="Disabled select">
+          <option value="disabled">已禁用</option>
+        </VSelect>
+        <VSelect aria-label="Custom icon select">
+          <option value="custom">自定义图标</option>
+          <option value="fluent">默认列表</option>
+          <template #icon><span aria-hidden="true">▾</span></template>
+        </VSelect>
+      </div>
+      <p class="vfk-demo__hint">
+        当前受控选中值：<code class="vfk-demo__token">{{ selectedRegion }}</code>
+      </p>
+    </section>
+
     <section v-for="group in groups" :key="group.name" class="vfk-demo__group">
       <h2 class="vfk-demo__group-title">{{ group.name }}</h2>
       <ul class="vfk-demo__list">
@@ -225,7 +311,8 @@ const groups = [
   gap: var(--spacingHorizontalS);
 }
 
-.vfk-demo__buttons + .vfk-demo__buttons {
+.vfk-demo__buttons + .vfk-demo__buttons,
+.vfk-demo__surface + .vfk-demo__buttons {
   margin-top: var(--spacingVerticalM);
 }
 
@@ -234,6 +321,29 @@ const groups = [
   border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
   border-radius: var(--borderRadiusMedium);
   background: var(--colorNeutralBackground2);
+}
+
+.vfk-demo__surface--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacingVerticalM) var(--spacingHorizontalM);
+}
+
+.vfk-demo__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingVerticalXS);
+}
+
+.vfk-demo__field-label {
+  font-size: var(--fontSizeBase200);
+  line-height: var(--lineHeightBase200);
+  color: var(--colorNeutralForeground2);
+}
+
+.vfk-demo__hint {
+  margin: var(--spacingVerticalS) 0 0;
+  color: var(--colorNeutralForeground3);
 }
 
 .vfk-demo__inputs {
@@ -259,7 +369,6 @@ const groups = [
 .vfk-demo__binding-output {
   color: var(--colorNeutralForeground2);
 }
-
 .vfk-demo__title {
   margin: 0 0 var(--spacingVerticalS);
   font-size: var(--fontSizeBase500);
