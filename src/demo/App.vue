@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
-import { useTheme, version, VfkTree, VfkTreeItem, type ThemeMode } from '../index'
+import { useTheme, version, VfkSearchBox, VfkTree, VfkTreeItem, type ThemeMode } from '../index'
 import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
@@ -361,27 +361,14 @@ onUnmounted(() => {
       </div>
 
       <div class="demo-sidebar__search">
-        <div class="demo-search-box">
-          <span class="demo-search-box__icon" aria-hidden="true">
-            <DemoIcons name="search" :size="14" />
-          </span>
-          <input
-            v-model="searchQuery"
-            type="text"
-            class="demo-search-box__input"
-            :placeholder="messages.shell.searchPlaceholder"
-            :aria-label="messages.shell.searchAriaLabel"
-          />
-          <button
-            v-if="searchQuery"
-            type="button"
-            class="demo-search-box__clear"
-            :aria-label="messages.shell.clearSearchAriaLabel"
-            @click="searchQuery = ''"
-          >
-            <DemoIcons name="close" :size="12" />
-          </button>
-        </div>
+        <VfkSearchBox
+          v-model="searchQuery"
+          appearance="filled-darker"
+          size="medium"
+          :placeholder="messages.shell.searchPlaceholder"
+          :aria-label="messages.shell.searchAriaLabel"
+          :dismiss-label="messages.shell.clearSearchAriaLabel"
+        />
       </div>
 
       <nav class="demo-sidebar__nav">

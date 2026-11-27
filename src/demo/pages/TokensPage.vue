@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { VfkSearchBox } from '../../index'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoLogo from '../components/DemoLogo.vue'
 import { useDemoI18n } from '../i18n'
@@ -226,27 +227,16 @@ async function copyToken(token: string) {
         </button>
       </div>
 
-      <div v-if="activeTab === 'colors'" class="demo-search-box" style="width: 240px">
-        <span class="demo-search-box__icon" aria-hidden="true">
-          <DemoIcons name="search" :size="14" />
-        </span>
-        <input
-          v-model="keyword"
-          type="text"
-          class="demo-search-box__input"
-          :placeholder="messages.tokens.filterPlaceholder"
-          :aria-label="messages.tokens.filterAriaLabel"
-        />
-        <button
-          v-if="keyword"
-          type="button"
-          class="demo-search-box__clear"
-          :aria-label="messages.tokens.clearFilterAriaLabel"
-          @click="keyword = ''"
-        >
-          <DemoIcons name="close" :size="12" />
-        </button>
-      </div>
+      <VfkSearchBox
+        v-if="activeTab === 'colors'"
+        v-model="keyword"
+        appearance="filled-darker"
+        size="medium"
+        :placeholder="messages.tokens.filterPlaceholder"
+        :aria-label="messages.tokens.filterAriaLabel"
+        :dismiss-label="messages.tokens.clearFilterAriaLabel"
+        style="width: 240px"
+      />
     </div>
 
     <!-- 颜色变量 -->
