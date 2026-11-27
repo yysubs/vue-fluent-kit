@@ -1,7 +1,11 @@
 # @yysubs/vue-fluent-kit
 
+[![npm version](https://img.shields.io/npm/v/@yysubs/vue-fluent-kit.svg)](https://www.npmjs.com/package/@yysubs/vue-fluent-kit)
+[![npm downloads](https://img.shields.io/npm/dm/@yysubs/vue-fluent-kit.svg)](https://www.npmjs.com/package/@yysubs/vue-fluent-kit)
+
 基于官方 `@fluentui/web-components`（Fluent 2 规范）的 Vue 3 轻量二次封装组件库。采用薄封装策略，保留官方原生交互与无障碍实现，聚焦 Vue `v-model` 双向绑定、TypeScript 类型提示、默认属性统一与独立 Design Tokens 主题层。
 
+- npm 包：<https://www.npmjs.com/package/@yysubs/vue-fluent-kit>
 - 在线预览：<https://vfk.yysubs.com>
 - 控件规格：[CONTROLS.md](CONTROLS.md)
 - 变量契约：[TOKENS.md](TOKENS.md)
