@@ -12,6 +12,7 @@ import {
   VfkOption,
   VfkRadio,
   VfkRadioGroup,
+  VfkSearchBox,
   VfkSelect,
   VfkSwitch,
   VfkTab,
@@ -37,6 +38,7 @@ export type DemoPageId =
   | 'input'
   | 'menu'
   | 'radio'
+  | 'search-box'
   | 'select'
   | 'switch'
   | 'tabs'
@@ -61,6 +63,7 @@ const activePresetId = computed<BrandPreset['id']>(() => {
 
 const miniToggle = ref(true)
 const miniInput = ref('')
+const miniSearch = ref('Fluent 2')
 const miniSelect = ref('prod')
 const miniChecked = ref(true)
 const miniSwitch = ref(true)
@@ -309,6 +312,27 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.radio.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'radio')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkSearchBox
+                v-model="miniSearch"
+                :placeholder="messages.controls.searchBox.placeholder"
+                :dismiss-label="messages.controls.searchBox.dismissLabel"
+                style="width: 100%; max-width: 260px"
+              />
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkSearchBox</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.searchBox.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'search-box')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>

@@ -70,6 +70,10 @@
       "types": "./dist/components/radio/index.d.ts",
       "import": "./dist/radio.js"
     },
+    "./search-box": {
+      "types": "./dist/components/search-box/index.d.ts",
+      "import": "./dist/search-box.js"
+    },
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/select.js"
@@ -100,8 +104,10 @@
     "./dist/checkbox*.js",
     "./dist/field*.js",
     "./dist/input*.js",
+    "./dist/VfkInput*.js",
     "./dist/menu*.js",
     "./dist/radio*.js",
+    "./dist/search-box*.js",
     "./dist/select*.js",
     "./dist/switch*.js",
     "./dist/tabs*.js",

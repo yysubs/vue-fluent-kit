@@ -13,6 +13,7 @@ import InputPage from './pages/InputPage.vue'
 import MenuPage from './pages/MenuPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import RadioPage from './pages/RadioPage.vue'
+import SearchBoxPage from './pages/SearchBoxPage.vue'
 import SelectPage from './pages/SelectPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
 import TabsPage from './pages/TabsPage.vue'
@@ -127,6 +128,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'radio radiogroup vfkradio vfkradiogroup fluent-radio-group 单选 單選 单选组 單選組',
   },
   {
+    id: 'search-box',
+    title: 'SearchBox',
+    sub: messages.value.shell.navSearchBoxSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'search',
+    keywords: 'search searchbox vfksearchbox clear dismiss query 搜索 搜尋 搜索框 搜尋框 清除',
+  },
+  {
     id: 'select',
     title: 'Select',
     sub: messages.value.shell.navSelectSub,
@@ -182,6 +192,7 @@ const validPageIds = new Set<DemoPageId>([
   'input',
   'menu',
   'radio',
+  'search-box',
   'select',
   'switch',
   'tabs',
@@ -545,6 +556,7 @@ onUnmounted(() => {
         <InputPage v-else-if="currentPage === 'input'" />
         <MenuPage v-else-if="currentPage === 'menu'" />
         <RadioPage v-else-if="currentPage === 'radio'" />
+        <SearchBoxPage v-else-if="currentPage === 'search-box'" />
         <SelectPage v-else-if="currentPage === 'select'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
         <TabsPage v-else-if="currentPage === 'tabs'" />
