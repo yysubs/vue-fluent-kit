@@ -395,6 +395,14 @@ fluent-dialog::part(dialog) {
   max-width: var(--vfk-dialog-max-width, 600px);
 }
 
+/* 官方非模态对话框使用文档流绝对定位并铺满首屏高度，打开时聚焦会直接把页面滚回顶部；
+   改为固定定位并按内容高度居中在视口内，滚动位置保持不变 */
+fluent-dialog[type='non-modal']::part(dialog) {
+  position: fixed;
+  height: fit-content;
+  margin: auto;
+}
+
 .vfk-dialog-body__title,
 .vfk-drawer-body__title {
   font: inherit;

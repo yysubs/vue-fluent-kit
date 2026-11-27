@@ -24,7 +24,7 @@
 - **Expose**：`{ el, show, hide }`
 - **模态类型**：
   - `modal`：带遮罩，焦点陷阱由原生 `<dialog>` 提供，点击遮罩或按 `Escape` 关闭。
-  - `non-modal`：无遮罩，不锁背景焦点，按 `Escape` 关闭。
+  - `non-modal`：无遮罩，不锁背景焦点，面板固定在视口内居中显示（不随页面滚动改变位置），按 `Escape` 关闭。
   - `alert`：带遮罩，`role="alertdialog"`，点击遮罩不关闭，只能通过关闭按钮或显式确认关闭。
 
 ### `VfkDialogBody`
