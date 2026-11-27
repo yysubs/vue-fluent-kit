@@ -10,10 +10,12 @@ import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import FieldPage from './pages/FieldPage.vue'
 import InputPage from './pages/InputPage.vue'
+import MenuPage from './pages/MenuPage.vue'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import RadioPage from './pages/RadioPage.vue'
 import SelectPage from './pages/SelectPage.vue'
 import SwitchPage from './pages/SwitchPage.vue'
+import TabsPage from './pages/TabsPage.vue'
 import ToggleButtonPage from './pages/ToggleButtonPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 import TreePage from './pages/TreePage.vue'
@@ -78,6 +80,15 @@ const navItems = computed<NavItem[]>(() => [
     keywords: 'input vfkinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
   },
   {
+    id: 'menu',
+    title: 'Menu',
+    sub: messages.value.shell.navMenuSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'menu',
+    keywords: 'menu menulist menuitem menubutton popover submenu context vfkmenu fluent-menu 菜单 選單 浮层 浮層 右键 右鍵',
+  },
+  {
     id: 'radio',
     title: 'RadioGroup',
     sub: messages.value.shell.navRadioSub,
@@ -103,6 +114,15 @@ const navItems = computed<NavItem[]>(() => [
     groupLabel: messages.value.shell.groupComponents,
     icon: 'switch',
     keywords: 'switch vfkswitch fluent-switch toggle 开关 開關 切换 切換',
+  },
+  {
+    id: 'tabs',
+    title: 'Tabs',
+    sub: messages.value.shell.navTabsSub,
+    groupKey: 'components',
+    groupLabel: messages.value.shell.groupComponents,
+    icon: 'tabs',
+    keywords: 'tab tabs tablist vfktab vfktablist fluent-tablist 标签页 分頁列 选项卡 選項卡',
   },
   {
     id: 'toggle-button',
@@ -140,9 +160,11 @@ const validPageIds = new Set<DemoPageId>([
   'checkbox',
   'field',
   'input',
+  'menu',
   'radio',
   'select',
   'switch',
+  'tabs',
   'toggle-button',
   'tree',
   'tokens',
@@ -417,9 +439,11 @@ onUnmounted(() => {
         <CheckboxPage v-else-if="currentPage === 'checkbox'" />
         <FieldPage v-else-if="currentPage === 'field'" />
         <InputPage v-else-if="currentPage === 'input'" />
+        <MenuPage v-else-if="currentPage === 'menu'" />
         <RadioPage v-else-if="currentPage === 'radio'" />
         <SelectPage v-else-if="currentPage === 'select'" />
         <SwitchPage v-else-if="currentPage === 'switch'" />
+        <TabsPage v-else-if="currentPage === 'tabs'" />
         <ToggleButtonPage v-else-if="currentPage === 'toggle-button'" />
         <TreePage v-else-if="currentPage === 'tree'" />
         <TokensPage v-else />

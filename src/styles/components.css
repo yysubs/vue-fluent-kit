@@ -166,3 +166,20 @@
 .vfk-field__hint {
   color: var(--colorNeutralForeground3);
 }
+
+/* 隔离同页多组标签栏或浮层菜单之间的 CSS Anchor 命名作用域 */
+fluent-tablist {
+  anchor-scope: --tab;
+}
+
+fluent-menu,
+fluent-menu-item {
+  anchor-scope: --menu-trigger;
+}
+
+.vfk-menu-divider {
+  grid-column: 1 / -1;
+  height: var(--strokeWidthThin);
+  margin: var(--spacingVerticalXS) calc(var(--spacingHorizontalXS) * -1);
+  background: var(--colorNeutralStroke2);
+}

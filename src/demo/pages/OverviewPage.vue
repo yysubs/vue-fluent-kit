@@ -5,11 +5,17 @@ import {
   VfkCheckbox,
   VfkField,
   VfkInput,
+  VfkMenu,
+  VfkMenuButton,
+  VfkMenuItem,
+  VfkMenuList,
   VfkOption,
   VfkRadio,
   VfkRadioGroup,
   VfkSelect,
   VfkSwitch,
+  VfkTab,
+  VfkTabList,
   VfkThemeProvider,
   VfkToggleButton,
   VfkTree,
@@ -29,9 +35,11 @@ export type DemoPageId =
   | 'checkbox'
   | 'field'
   | 'input'
+  | 'menu'
   | 'radio'
   | 'select'
   | 'switch'
+  | 'tabs'
   | 'toggle-button'
   | 'tree'
   | 'tokens'
@@ -58,6 +66,7 @@ const miniChecked = ref(true)
 const miniSwitch = ref(true)
 const miniRadio = ref('standard')
 const miniField = ref('vue-fluent-kit')
+const miniTab = ref('overview')
 const miniTree = ref('tree-a')
 const scopedLightInput = ref('Fluent 2 Light')
 const scopedDarkInput = ref('Fluent 2 Dark')
@@ -262,6 +271,33 @@ function scrollToSection(id: string) {
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
+              <VfkMenu>
+                <template #trigger>
+                  <VfkMenuButton size="medium">
+                    <template #start><DemoIcons name="menu" :size="14" /></template>
+                    {{ messages.controls.menu.triggerLabel }}
+                  </VfkMenuButton>
+                </template>
+                <VfkMenuList>
+                  <VfkMenuItem value="new" :label="messages.controls.menu.itemNew" />
+                  <VfkMenuItem value="copy" :label="messages.controls.menu.itemCopy" />
+                </VfkMenuList>
+              </VfkMenu>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkMenu</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.menu.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'menu')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
               <VfkRadioGroup v-model="miniRadio" orientation="horizontal">
                 <VfkRadio value="standard" :label="messages.controls.radio.optStandard" />
                 <VfkRadio value="fast" :label="messages.controls.radio.optFast" />
@@ -315,6 +351,25 @@ function scrollToSection(id: string) {
                 <p class="demo-catalog-card__desc">{{ messages.controls.switch.catalogDesc }}</p>
               </div>
               <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'switch')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkTabList v-model="miniTab" size="small">
+                <VfkTab value="overview" :label="messages.controls.tabs.tabOverview" />
+                <VfkTab value="specs" :label="messages.controls.tabs.tabSpecs" />
+              </VfkTabList>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkTabList</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.tabs.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'tabs')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
               </VfkButton>
