@@ -25,6 +25,7 @@ describe('VfkSelect / VfkOption', () => {
 
     const dropdown = wrapper.find('fluent-dropdown')
     expect(dropdown.exists()).toBe(true)
+    expect(dropdown.attributes('initial-display')).toBe('')
     expect(dropdown.attributes('type')).toBe('dropdown')
     expect(dropdown.attributes('appearance')).toBe('filled-darker')
     expect(dropdown.attributes('size')).toBe('large')

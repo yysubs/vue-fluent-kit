@@ -202,70 +202,38 @@ const eventSlotRows = computed<ApiRow[]>(() => [
           </template>
 
           <template #controls>
-            <div class="demo-control">
-              <span class="demo-control__label">appearance</span>
-              <div class="demo-pills">
-                <button
-                  v-for="item in appearances"
-                  :key="item"
-                  type="button"
-                  class="demo-pill"
-                  :class="{ 'demo-pill--active': appearance === item }"
-                  @click="appearance = item"
-                >
-                  {{ item }}
-                </button>
-              </div>
+            <div class="demo-control-field">
+              <label class="demo-control-field__label" for="tb-appearance">appearance</label>
+              <select id="tb-appearance" v-model="appearance" class="demo-native-select">
+                <option v-for="item in appearances" :key="item" :value="item">{{ item }}</option>
+              </select>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">size</span>
-              <div class="demo-pills">
-                <button
-                  v-for="item in sizes"
-                  :key="item"
-                  type="button"
-                  class="demo-pill"
-                  :class="{ 'demo-pill--active': size === item }"
-                  @click="size = item"
-                >
-                  {{ item }}
-                </button>
-              </div>
+            <div class="demo-control-field">
+              <label class="demo-control-field__label" for="tb-size">size</label>
+              <select id="tb-size" v-model="size" class="demo-native-select">
+                <option v-for="item in sizes" :key="item" :value="item">{{ item }}</option>
+              </select>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">shape</span>
-              <div class="demo-pills">
-                <button
-                  v-for="item in shapes"
-                  :key="item"
-                  type="button"
-                  class="demo-pill"
-                  :class="{ 'demo-pill--active': shape === item }"
-                  @click="shape = item"
-                >
-                  {{ item }}
-                </button>
-              </div>
+            <div class="demo-control-field">
+              <label class="demo-control-field__label" for="tb-shape">shape</label>
+              <select id="tb-shape" v-model="shape" class="demo-native-select">
+                <option v-for="item in shapes" :key="item" :value="item">{{ item }}</option>
+              </select>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">state</span>
-              <div class="demo-row">
-                <VfkButton appearance="outline" size="small" @click="pressed = 'mixed'">
-                  {{ messages.controls.toggleButton.setMixed }}
-                </VfkButton>
-              </div>
+            <div class="demo-control-field">
+              <span class="demo-control-field__label">state</span>
+              <VfkButton appearance="outline" size="small" @click="pressed = 'mixed'">
+                {{ messages.controls.toggleButton.setMixed }}
+              </VfkButton>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">flags</span>
-              <div class="demo-checks">
-                <VfkCheckbox v-model="withIcon" label="start icon" />
-                <VfkCheckbox v-model="disabled" label="disabled" />
-                <VfkCheckbox v-model="disabledFocusable" label="disabledFocusable" />
-              </div>
+            <div class="demo-control-checks">
+              <VfkCheckbox v-model="withIcon" label="#start" />
+              <VfkCheckbox v-model="disabled" label="disabled" />
+              <VfkCheckbox v-model="disabledFocusable" label="disabledFocusable" />
             </div>
           </template>
         </DemoPlayground>

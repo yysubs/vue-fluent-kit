@@ -90,8 +90,10 @@ defineExpose({
 </script>
 
 <template>
+  <!-- 显式置空 initial-display，避免 Chromium @scope 伪元素把 placeholder 叠画在已挂载的 control 按钮上 -->
   <fluent-dropdown
     ref="el"
+    initial-display=""
     :type.attr="'dropdown'"
     :appearance="nativeAppearance"
     :size="size"

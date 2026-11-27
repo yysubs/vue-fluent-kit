@@ -212,53 +212,30 @@ const optionRows = computed<ApiRow[]>(() => [
           </template>
 
           <template #controls>
-            <div class="demo-control">
-              <span class="demo-control__label">appearance</span>
-              <div class="demo-pills">
-                <button
-                  v-for="item in appearances"
-                  :key="item"
-                  type="button"
-                  class="demo-pill"
-                  :class="{ 'demo-pill--active': appearance === item }"
-                  @click="appearance = item"
-                >
-                  {{ item }}
-                </button>
-              </div>
+            <div class="demo-control-field">
+              <label class="demo-control-field__label" for="sel-appearance">appearance</label>
+              <select id="sel-appearance" v-model="appearance" class="demo-native-select">
+                <option v-for="item in appearances" :key="item" :value="item">{{ item }}</option>
+              </select>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">size</span>
-              <div class="demo-pills">
-                <button
-                  v-for="item in sizes"
-                  :key="item"
-                  type="button"
-                  class="demo-pill"
-                  :class="{ 'demo-pill--active': size === item }"
-                  @click="size = item"
-                >
-                  {{ item }}
-                </button>
-              </div>
+            <div class="demo-control-field">
+              <label class="demo-control-field__label" for="sel-size">size</label>
+              <select id="sel-size" v-model="size" class="demo-native-select">
+                <option v-for="item in sizes" :key="item" :value="item">{{ item }}</option>
+              </select>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">value</span>
-              <div class="demo-row">
-                <VfkButton appearance="outline" size="small" @click="selected = ''">
-                  {{ messages.controls.select.clearSelection }}
-                </VfkButton>
-              </div>
+            <div class="demo-control-field">
+              <span class="demo-control-field__label">value</span>
+              <VfkButton appearance="outline" size="small" @click="selected = ''">
+                {{ messages.controls.select.clearSelection }}
+              </VfkButton>
             </div>
 
-            <div class="demo-control">
-              <span class="demo-control__label">flags</span>
-              <div class="demo-checks">
-                <VfkCheckbox v-model="disabled" label="disabled" />
-                <VfkCheckbox v-model="required" label="required" />
-              </div>
+            <div class="demo-control-checks">
+              <VfkCheckbox v-model="disabled" label="disabled" />
+              <VfkCheckbox v-model="required" label="required" />
             </div>
           </template>
         </DemoPlayground>
