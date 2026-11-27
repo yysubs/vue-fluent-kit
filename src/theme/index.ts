@@ -4,7 +4,7 @@ import {
   type BrandVariants,
   type Theme,
 } from '@fluentui/tokens'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, shallowRef, watchEffect } from 'vue'
 
 export type { BrandVariants } from '@fluentui/tokens'
 
@@ -27,7 +27,7 @@ function readSystemDark(): boolean {
 
 const mode = ref<ThemeMode>('system')
 const systemDark = ref<boolean>(readSystemDark())
-const activeBrand = ref<BrandVariants | null>(null)
+const activeBrand = shallowRef<BrandVariants | null>(null)
 
 let mediaQueryBound = false
 let effectInitialized = false

@@ -40,8 +40,12 @@ const emit = defineEmits<{
 const { resolvedTheme, activeBrand, applyBrandTokens, resetBrandTokens } = useTheme()
 const { messages } = useDemoI18n()
 const activePresetId = computed<BrandPreset['id']>(() => {
-  if (!activeBrand.value) return 'default'
-  return demoBrandPresets.find((preset) => preset.brand === activeBrand.value)?.id ?? 'default'
+  const current = activeBrand.value
+  if (!current) return 'default'
+  return (
+    demoBrandPresets.find((preset) => preset.brand && preset.brand[80] === current[80])?.id ??
+    'default'
+  )
 })
 
 const miniToggle = ref(true)
