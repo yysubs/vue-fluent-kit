@@ -50,7 +50,7 @@ token 分四类：
 
 运行时主题与品牌色控制由 `src/theme/` 提供（支持根入口或子路径 `@yysubs/vue-fluent-kit/theme` 导入）：
 
-- `useTheme()`：全局响应式主题控制器，支持 `'light' | 'dark' | 'system'` 三种模式，自动监听系统配色变化并同步到 `document.documentElement`。
+- `useTheme()`：全局响应式主题控制器，默认模式为 `'system'`（跟随系统配色），支持 `'light' | 'dark' | 'system'` 切换并自动同步到 `document.documentElement`。
 - `setVfkTheme(mode, target?)`：设置全局或指定 DOM 节点的 `data-vfk-theme`。
 - `VfkThemeProvider`：局部主题与品牌色容器组件，支持 `theme`（`'light' | 'dark'`）、`brand`（`BrandVariants`）与 `as`（默认 `'div'`）；未传 `brand` 时自动沿用全局 `activeBrand` 并按局部明暗应用对应色阶。
 - `applyBrandTokens(brand, resolved?, target?)` / `resetBrandTokens(target?)`：调用 `@fluentui/tokens` 的 `createLightTheme(brand)` / `createDarkTheme(brand)` 生成整套品牌色变量（名称含 `Brand` 的 token）并写入节点行内样式，清除时恢复默认主题色。

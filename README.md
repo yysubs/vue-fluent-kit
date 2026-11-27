@@ -126,7 +126,7 @@ pnpm test       # 单元测试
 
 ## 主题与样式覆盖规范
 
-- 默认浅色，支持在根节点或 `<VfkThemeProvider>` 上通过 `data-vfk-theme="light" | "dark"` 切换主题，也支持 `system` 跟随系统。
+- `useTheme()` 默认跟随系统（`system`），纯样式引入时 `:root` 为浅色；支持在根节点或 `<VfkThemeProvider>` 上通过 `data-vfk-theme="light" | "dark"` 切换主题。
 - Shadow DOM 样式覆盖优先使用官方 Design Tokens（CSS 变量），其次使用官方公开的 `::part()`，避免强行穿透内部私有结构。
 
 ## 预览与部署

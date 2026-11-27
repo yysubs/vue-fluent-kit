@@ -31,12 +31,15 @@ const sampleBrand: BrandVariants = {
 
 afterEach(() => {
   resetBrandTokens()
-  setVfkTheme('light')
+  setVfkTheme('system')
 })
 
 describe('theme utilities', () => {
-  it('通过 useTheme 切换全局浅色与深色模式', async () => {
+  it('默认跟随系统主题，并支持通过 useTheme 手动切换浅色与深色模式', async () => {
     const { mode, resolvedTheme, setTheme, toggleTheme } = useTheme()
+
+    expect(mode.value).toBe('system')
+    expect(resolvedTheme.value).toBe('light')
 
     setTheme('dark')
     await nextTick()
