@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDemoI18n } from '../i18n'
 import DemoIcons from './DemoIcons.vue'
 
 const props = withDefaults(
@@ -14,6 +15,7 @@ const props = withDefaults(
   },
 )
 
+const { messages } = useDemoI18n()
 const copied = ref(false)
 let resetTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -44,7 +46,7 @@ async function copyCode() {
       <span>{{ label }}</span>
       <button type="button" class="demo-code__copy" @click="copyCode">
         <DemoIcons :name="copied ? 'check' : 'copy'" :size="13" />
-        <span>{{ copied ? '已复制' : '复制' }}</span>
+        <span>{{ copied ? messages.common.copied : messages.common.copy }}</span>
       </button>
     </div>
     <pre class="demo-code__pre"><code>{{ code }}</code></pre>

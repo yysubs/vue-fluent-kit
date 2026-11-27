@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useDemoI18n } from '../i18n'
 
 export interface TocItem {
   /** 目标锚点元素 id */
@@ -13,6 +14,7 @@ const props = defineProps<{
   items: TocItem[]
 }>()
 
+const { messages } = useDemoI18n()
 const activeId = ref(props.items[0]?.id ?? '')
 let observer: IntersectionObserver | null = null
 
@@ -62,8 +64,8 @@ onUnmounted(() => observer?.disconnect())
 </script>
 
 <template>
-  <aside v-if="items.length" class="demo-toc" aria-label="本页目录">
-    <div class="demo-toc__heading">On this page</div>
+  <aside v-if="items.length" class="demo-toc" :aria-label="messages.common.onThisPage">
+    <div class="demo-toc__heading">{{ messages.common.onThisPage }}</div>
     <ol class="demo-toc__list">
       <li
         v-for="item in items"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDemoI18n } from '../i18n'
 import DemoCode from './DemoCode.vue'
 
 withDefaults(
@@ -21,6 +22,7 @@ withDefaults(
   },
 )
 
+const { messages } = useDemoI18n()
 const showCode = ref(false)
 </script>
 
@@ -52,7 +54,7 @@ const showCode = ref(false)
           :aria-expanded="showCode"
           @click="showCode = !showCode"
         >
-          {{ showCode ? 'Hide code' : 'Show code' }}
+          {{ showCode ? messages.common.hideCode : messages.common.showCode }}
         </button>
       </div>
 

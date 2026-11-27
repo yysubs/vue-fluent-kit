@@ -1778,6 +1778,17 @@ body {
   }
 }
 
+@media (max-width: 640px) {
+  .demo-theme-switch__label,
+  .demo-link-btn__label {
+    display: none;
+  }
+
+  .demo-link-btn {
+    padding: 0 var(--spacingHorizontalS);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .demo-sidebar,
   .demo-btn,

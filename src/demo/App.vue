@@ -5,6 +5,7 @@ import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
 import DemoLogo from './components/DemoLogo.vue'
+import { useDemoI18n } from './i18n'
 import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
 import TokensPage from './pages/TokensPage.vue'
 
@@ -12,69 +13,79 @@ interface NavItem {
   id: DemoPageId
   title: string
   sub?: string
-  group: '概览' | '设计系统'
+  groupKey: 'overview' | 'designSystem'
+  groupLabel: string
   icon: DemoIconName
   keywords: string
 }
 
-const navItems: NavItem[] = [
+const { mode, resolvedTheme, setTheme } = useTheme()
+const { locale, messages, localeOptions, setLocale } = useDemoI18n()
+
+const navItems = computed<NavItem[]>(() => [
   {
     id: 'overview',
-    title: 'Introduction',
-    sub: '概览',
-    group: '概览',
+    title: messages.value.shell.navOverviewTitle,
+    sub: messages.value.shell.navOverviewSub,
+    groupKey: 'overview',
+    groupLabel: messages.value.shell.groupOverview,
     icon: 'grid',
-    keywords: 'overview introduction home 概览 首页 架构 主题 品牌 材质 logo',
+    keywords: 'overview introduction home 概览 概覽 首页 首頁 架构 架構 主题 主題 品牌 材质 材質 logo',
   },
   {
     id: 'tokens',
-    title: 'Design Tokens',
-    sub: '变量与材质',
-    group: '设计系统',
+    title: messages.value.shell.navTokensTitle,
+    sub: messages.value.shell.navTokensSub,
+    groupKey: 'designSystem',
+    groupLabel: messages.value.shell.groupDesignSystem,
     icon: 'palette',
-    keywords: 'token color theme typography spacing shadow surface acrylic mica 变量 颜色 字体 阴影 亚克力 云母',
+    keywords:
+      'token color theme typography spacing shadow surface acrylic mica 变量 變數 颜色 色彩 字体 字體 阴影 陰影 亚克力 亞克力 云母 雲母',
   },
-]
+])
 
-const validPageIds = new Set<DemoPageId>(navItems.map((item) => item.id))
+const validPageIds = new Set<DemoPageId>(['overview', 'tokens'])
 
 function parseHashPage(): DemoPageId {
   const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase() as DemoPageId
   return validPageIds.has(raw) ? raw : 'overview'
 }
 
-const { mode, resolvedTheme, setTheme } = useTheme()
 const currentPage = ref<DemoPageId>(parseHashPage())
 const searchQuery = ref('')
 const sidebarOpen = ref(false)
 
-const themeOptions: { value: ThemeMode; label: string; icon: DemoIconName }[] = [
-  { value: 'light', label: 'Web Light', icon: 'sun' },
-  { value: 'dark', label: 'Web Dark', icon: 'moon' },
-  { value: 'system', label: 'System', icon: 'monitor' },
-]
+const themeOptions = computed<{ value: ThemeMode; label: string; icon: DemoIconName }[]>(() => [
+  { value: 'light', label: messages.value.common.themeLight, icon: 'sun' },
+  { value: 'dark', label: messages.value.common.themeDark, icon: 'moon' },
+  { value: 'system', label: messages.value.common.themeSystem, icon: 'monitor' },
+])
 
 const currentNavItem = computed(
-  () => navItems.find((item) => item.id === currentPage.value) ?? navItems[0],
+  () => navItems.value.find((item) => item.id === currentPage.value) ?? navItems.value[0],
 )
 
 const navGroups = computed(() => {
   const q = searchQuery.value.trim().toLowerCase()
   const filtered = q
-    ? navItems.filter(
+    ? navItems.value.filter(
         (item) =>
           item.title.toLowerCase().includes(q) ||
           (item.sub && item.sub.toLowerCase().includes(q)) ||
           item.keywords.toLowerCase().includes(q),
       )
-    : navItems
+    : navItems.value
 
-  const order: NavItem['group'][] = ['概览', '设计系统']
+  const order: NavItem['groupKey'][] = ['overview', 'designSystem']
   return order
-    .map((group) => ({
-      name: group,
-      items: filtered.filter((item) => item.group === group),
-    }))
+    .map((groupKey) => {
+      const items = filtered.filter((item) => item.groupKey === groupKey)
+      return {
+        key: groupKey,
+        name: items[0]?.groupLabel ?? '',
+        items,
+      }
+    })
     .filter((group) => group.items.length > 0)
 })
 
@@ -122,7 +133,7 @@ onUnmounted(() => {
     <aside
       class="demo-sidebar"
       :class="{ 'demo-sidebar--open': sidebarOpen }"
-      aria-label="组件导航"
+      :aria-label="messages.shell.navAriaLabel"
     >
       <div class="demo-sidebar__brand">
         <span class="demo-sidebar__logo">
@@ -143,14 +154,14 @@ onUnmounted(() => {
             v-model="searchQuery"
             type="text"
             class="demo-search-box__input"
-            placeholder="查找组件或变量..."
-            aria-label="查找组件或变量"
+            :placeholder="messages.shell.searchPlaceholder"
+            :aria-label="messages.shell.searchAriaLabel"
           />
           <button
             v-if="searchQuery"
             type="button"
             class="demo-search-box__clear"
-            aria-label="清空查找"
+            :aria-label="messages.shell.clearSearchAriaLabel"
             @click="searchQuery = ''"
           >
             <DemoIcons name="close" :size="12" />
@@ -159,7 +170,7 @@ onUnmounted(() => {
       </div>
 
       <nav class="demo-sidebar__nav">
-        <div v-for="group in navGroups" :key="group.name" class="demo-nav-group">
+        <div v-for="group in navGroups" :key="group.key" class="demo-nav-group">
           <div class="demo-nav-group__label">
             <span>{{ group.name }}</span>
             <span class="demo-nav-group__count">{{ group.items.length }}</span>
@@ -186,15 +197,15 @@ onUnmounted(() => {
         </div>
 
         <p v-if="navGroups.length === 0" class="demo-nav-empty">
-          未找到与「{{ searchQuery }}」匹配的条目
+          {{ messages.shell.emptySearchPrefix }}{{ searchQuery }}{{ messages.shell.emptySearchSuffix }}
         </p>
       </nav>
 
       <div class="demo-sidebar__footer">
         <div class="demo-sidebar__kbd-row">
-          <span>按</span>
+          <span>{{ messages.shell.kbdPrefix }}</span>
           <kbd class="demo-kbd">Tab</kbd>
-          <span>逐项检查键盘焦点环</span>
+          <span>{{ messages.shell.kbdSuffix }}</span>
         </div>
       </div>
     </aside>
@@ -206,23 +217,39 @@ onUnmounted(() => {
           <button
             type="button"
             class="demo-btn demo-btn--subtle demo-btn--icon demo-topbar__menu-btn"
-            aria-label="打开导航菜单"
+            :aria-label="messages.shell.openMenuAriaLabel"
             @click="sidebarOpen = !sidebarOpen"
           >
             <DemoIcons :name="sidebarOpen ? 'close' : 'menu'" :size="18" />
           </button>
 
-          <span class="demo-topbar__tab" aria-hidden="true">Docs</span>
+          <span class="demo-topbar__tab" aria-hidden="true">{{ messages.shell.docsTab }}</span>
 
-          <div class="demo-breadcrumb" aria-label="当前位置">
-            <span>{{ currentNavItem.group }}</span>
+          <div class="demo-breadcrumb" :aria-label="messages.shell.breadcrumbAriaLabel">
+            <span>{{ currentNavItem.groupLabel }}</span>
             <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
             <span class="demo-breadcrumb__current">{{ currentNavItem.title }}</span>
           </div>
         </div>
 
         <div class="demo-topbar__right">
-          <div class="demo-theme-switch" role="group" aria-label="切换主题">
+          <div class="demo-theme-switch" role="group" :aria-label="messages.shell.langSwitchAriaLabel">
+            <button
+              v-for="opt in localeOptions"
+              :key="opt.value"
+              type="button"
+              class="demo-theme-switch__btn"
+              :class="{ 'demo-theme-switch__btn--active': locale === opt.value }"
+              :aria-pressed="locale === opt.value"
+              :aria-label="opt.label"
+              :title="opt.label"
+              @click="setLocale(opt.value)"
+            >
+              <span>{{ opt.shortLabel }}</span>
+            </button>
+          </div>
+
+          <div class="demo-theme-switch" role="group" :aria-label="messages.shell.themeSwitchAriaLabel">
             <button
               v-for="opt in themeOptions"
               :key="opt.value"
@@ -233,7 +260,7 @@ onUnmounted(() => {
               @click="setTheme(opt.value)"
             >
               <DemoIcons :name="opt.icon" :size="13" />
-              <span>{{ opt.label }}</span>
+              <span class="demo-theme-switch__label">{{ opt.label }}</span>
             </button>
           </div>
 
@@ -244,7 +271,7 @@ onUnmounted(() => {
             rel="noopener noreferrer"
           >
             <DemoIcons name="github" :size="14" />
-            <span>GitHub</span>
+            <span class="demo-link-btn__label">GitHub</span>
           </a>
         </div>
       </header>

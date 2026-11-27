@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useDemoI18n } from '../i18n'
+
 export interface ApiRow {
   /** 属性、事件、插槽或方法名称 */
   name: string
@@ -20,10 +22,12 @@ withDefaults(
     showDefault?: boolean
   }>(),
   {
-    kindLabel: '属性',
+    kindLabel: undefined,
     showDefault: true,
   },
 )
+
+const { messages } = useDemoI18n()
 </script>
 
 <template>
@@ -32,10 +36,10 @@ withDefaults(
       <table class="demo-api-table">
         <thead>
           <tr>
-            <th>{{ kindLabel }}</th>
-            <th>类型</th>
-            <th v-if="showDefault">默认值</th>
-            <th>说明</th>
+            <th>{{ kindLabel ?? messages.common.apiKindProp }}</th>
+            <th>{{ messages.common.apiType }}</th>
+            <th v-if="showDefault">{{ messages.common.apiDefault }}</th>
+            <th>{{ messages.common.apiDescription }}</th>
           </tr>
         </thead>
         <tbody>
