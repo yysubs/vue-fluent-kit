@@ -81,7 +81,7 @@ watch(() => props.modelValue, syncPressedState, { flush: 'post' })
 function handleClick(event: MouseEvent) {
   if (props.disabled || props.disabledFocusable) {
     event.preventDefault()
-    event.stopPropagation()
+    event.stopImmediatePropagation()
     scheduleSyncPressedState()
     return
   }

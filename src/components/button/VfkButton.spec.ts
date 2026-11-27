@@ -61,8 +61,14 @@ describe('VfkButton', () => {
       props: { disabled: true },
       slots: { default: '禁用' },
     })
+    expect(disabled.find('fluent-button').attributes('disabled')).toBe('')
     await disabled.find('fluent-button').trigger('click')
     expect(disabled.emitted('click')).toBeUndefined()
+
+    await enabled.setProps({ disabled: true })
+    expect(enabled.find('fluent-button').attributes('disabled')).toBe('')
+    await enabled.find('fluent-button').trigger('click')
+    expect(enabled.emitted('click')).toHaveLength(1)
 
     const focusableDisabled = mount(VfkButton, {
       props: { disabledFocusable: true },
