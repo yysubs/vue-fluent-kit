@@ -1,503 +1,311 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { VButton, VCheckbox, VInput, VSelect, VToggleButton } from '../index'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { VButton, VInput, version } from '../index'
 import '../styles/index.css'
+import './styles.css'
+import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
+import ButtonPage from './pages/ButtonPage.vue'
+import CheckboxPage from './pages/CheckboxPage.vue'
+import InputPage from './pages/InputPage.vue'
+import OverviewPage, { type DemoPageId } from './pages/OverviewPage.vue'
+import SelectPage from './pages/SelectPage.vue'
+import TokensPage from './pages/TokensPage.vue'
 
-const theme = ref<'light' | 'dark'>('light')
-const pressed = ref(false)
-const inputValue = ref('Fluent UI v9')
-const searchValue = ref('vue-fluent-kit')
-const searchInputRef = ref<InstanceType<typeof VInput> | null>(null)
-const selectedRegion = ref('east-asia')
-
-function clearSearch() {
-  searchValue.value = ''
-  searchInputRef.value?.focus()
+interface NavItem {
+  id: DemoPageId
+  title: string
+  sub?: string
+  group: '概览' | '基础控件' | '设计系统'
+  icon: DemoIconName
+  keywords: string
 }
 
-const optionEmail = ref(true)
-const optionPush = ref(false)
-const optionSms = ref(false)
-
-const selectAllState = computed<boolean | 'mixed'>(() => {
-  const values = [optionEmail.value, optionPush.value, optionSms.value]
-  if (values.every(Boolean)) return true
-  if (values.some(Boolean)) return 'mixed'
-  return false
-})
-
-function handleSelectAll(next: boolean) {
-  optionEmail.value = next
-  optionPush.value = next
-  optionSms.value = next
-}
-
-const sizeMedium = ref(true)
-const sizeLarge = ref(true)
-const taskDone = ref(true)
-const taskMixed = ref<boolean | 'mixed'>('mixed')
-const labelAfter = ref(false)
-const labelBefore = ref(true)
-const agreedRequired = ref(false)
-const standaloneChecked = ref(false)
-
-const groups = [
+const navItems: NavItem[] = [
   {
-    name: '背景',
-    tokens: [
-      ['--colorNeutralBackground1', '面板 / 卡片'],
-      ['--colorNeutralBackground2', '次级面板'],
-      ['--colorNeutralBackground3', '填充输入框'],
-      ['--colorNeutralBackground4', '侧栏'],
-    ],
+    id: 'overview',
+    title: '概览',
+    sub: 'Overview',
+    group: '概览',
+    icon: 'grid',
+    keywords: 'overview home 概览 首页 组合 主题',
   },
   {
-    name: '文字',
-    tokens: [
-      ['--colorNeutralForeground1', '正文'],
-      ['--colorNeutralForeground2', '次要文字'],
-      ['--colorNeutralForeground3', '说明文字'],
-    ],
+    id: 'button',
+    title: 'Button',
+    sub: '按钮',
+    group: '基础控件',
+    icon: 'button',
+    keywords: 'button togglebutton 按钮 切换 图标',
   },
   {
-    name: '品牌',
-    tokens: [
-      ['--colorBrandBackground', '品牌底色'],
-      ['--colorBrandBackgroundHover', '品牌悬停'],
-      ['--colorBrandForeground1', '品牌前景'],
-    ],
+    id: 'input',
+    title: 'Input',
+    sub: '文本输入',
+    group: '基础控件',
+    icon: 'input',
+    keywords: 'input text field 输入框 文本 前后缀',
   },
   {
-    name: '状态',
-    tokens: [
-      ['--colorPaletteGreenBackground3', '成功'],
-      ['--colorPaletteDarkOrangeBackground3', '警告'],
-      ['--colorPaletteRedBackground3', '错误'],
-    ],
+    id: 'select',
+    title: 'Select',
+    sub: '原生下拉',
+    group: '基础控件',
+    icon: 'select',
+    keywords: 'select dropdown option 下拉 选择',
+  },
+  {
+    id: 'checkbox',
+    title: 'Checkbox',
+    sub: '勾选框',
+    group: '基础控件',
+    icon: 'checkbox',
+    keywords: 'checkbox mixed indeterminate 勾选 多选 半选',
+  },
+  {
+    id: 'tokens',
+    title: 'Design Tokens',
+    sub: '变量',
+    group: '设计系统',
+    icon: 'palette',
+    keywords: 'token color theme typography spacing shadow 变量 颜色 字体 阴影',
   },
 ]
+
+const validPageIds = new Set<DemoPageId>(navItems.map((item) => item.id))
+
+function parseHashPage(): DemoPageId {
+  const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase() as DemoPageId
+  return validPageIds.has(raw) ? raw : 'overview'
+}
+
+const theme = ref<'light' | 'dark'>('light')
+const currentPage = ref<DemoPageId>(parseHashPage())
+const searchQuery = ref('')
+const sidebarOpen = ref(false)
+
+const currentNavItem = computed(
+  () => navItems.find((item) => item.id === currentPage.value) ?? navItems[0],
+)
+
+const navGroups = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase()
+  const filtered = q
+    ? navItems.filter(
+        (item) =>
+          item.title.toLowerCase().includes(q) ||
+          (item.sub && item.sub.toLowerCase().includes(q)) ||
+          item.keywords.toLowerCase().includes(q),
+      )
+    : navItems
+
+  const order: NavItem['group'][] = ['概览', '基础控件', '设计系统']
+  return order
+    .map((group) => ({
+      name: group,
+      items: filtered.filter((item) => item.group === group),
+    }))
+    .filter((group) => group.items.length > 0)
+})
+
+function navigate(page: DemoPageId) {
+  currentPage.value = page
+  sidebarOpen.value = false
+  if (window.location.hash !== `#${page}`) {
+    window.history.replaceState(null, '', `#${page}`)
+  }
+  window.scrollTo({ top: 0, behavior: 'auto' })
+}
+
+function syncThemeToDocument(next: 'light' | 'dark') {
+  document.documentElement.setAttribute('data-vfk-theme', next)
+}
+
+function handleHashChange() {
+  currentPage.value = parseHashPage()
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape' && sidebarOpen.value) {
+    sidebarOpen.value = false
+  }
+}
+
+watch(theme, syncThemeToDocument, { immediate: true })
+
+onMounted(() => {
+  window.addEventListener('hashchange', handleHashChange)
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', handleHashChange)
+  window.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>
-  <main class="vfk-demo" :data-vfk-theme="theme">
-    <header class="vfk-demo__head">
-      <div>
-        <h1 class="vfk-demo__title">vue-fluent-kit</h1>
-        <p class="vfk-demo__desc">Button、Input、Select、Checkbox 与主题 token 预览。</p>
-      </div>
-      <div class="vfk-demo__head-actions">
-        <VButton
-          appearance="outline"
-          size="small"
-          @click="theme = theme === 'light' ? 'dark' : 'light'"
-        >
-          切换为{{ theme === 'light' ? '深色' : '浅色' }}
-        </VButton>
-      </div>
-    </header>
+  <div class="demo-shell" :data-vfk-theme="theme">
+    <!-- 移动端抽屉遮罩 -->
+    <div
+      v-if="sidebarOpen"
+      class="demo-backdrop"
+      aria-hidden="true"
+      @click="sidebarOpen = false"
+    />
 
-    <section class="vfk-demo__group">
-      <h2 class="vfk-demo__group-title">Button 外观</h2>
-      <div class="vfk-demo__buttons">
-        <VButton appearance="primary">Primary</VButton>
-        <VButton>Secondary</VButton>
-        <VButton appearance="outline">Outline</VButton>
-        <VButton appearance="subtle">Subtle</VButton>
-        <VButton appearance="transparent">Transparent</VButton>
-      </div>
-      <div class="vfk-demo__buttons">
-        <VButton size="small">Small</VButton>
-        <VButton size="medium">Medium</VButton>
-        <VButton size="large">Large</VButton>
-        <VButton shape="circular">Circular</VButton>
-        <VButton shape="square">Square</VButton>
-      </div>
-      <div class="vfk-demo__buttons">
-        <VButton disabled>Disabled</VButton>
-        <VButton disabled-focusable>Focusable disabled</VButton>
-        <VButton icon-only aria-label="Add" appearance="outline">
-          <template #icon><span aria-hidden="true">＋</span></template>
-        </VButton>
-        <VToggleButton v-model="pressed">Toggle: {{ pressed ? 'on' : 'off' }}</VToggleButton>
-      </div>
-    </section>
-
-    <section class="vfk-demo__group">
-      <h2 class="vfk-demo__group-title">Input 文本输入</h2>
-
-      <div class="vfk-demo__surface">
-        <div class="vfk-demo__inputs">
-          <VInput placeholder="Outline（默认）" aria-label="Outline 外观" />
-          <VInput appearance="underline" placeholder="Underline" aria-label="Underline 外观" />
-          <VInput
-            appearance="filled-darker"
-            placeholder="Filled darker"
-            aria-label="Filled darker 外观"
-          />
-          <VInput
-            appearance="filled-lighter"
-            placeholder="Filled lighter"
-            aria-label="Filled lighter 外观"
-          />
+    <!-- 左侧导航栏 -->
+    <aside
+      class="demo-sidebar"
+      :class="{ 'demo-sidebar--open': sidebarOpen }"
+      aria-label="组件导航"
+    >
+      <div class="demo-sidebar__brand">
+        <span class="demo-sidebar__logo" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" />
+            <rect x="8.5" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
+            <rect x="2" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
+            <rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.35" />
+          </svg>
+        </span>
+        <div class="demo-sidebar__brand-text">
+          <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
+          <span class="demo-sidebar__brand-meta">v{{ version }} · Fluent v9</span>
         </div>
       </div>
 
-      <div class="vfk-demo__inputs">
-        <VInput size="small" placeholder="Small (24px)" aria-label="Small 尺寸" />
-        <VInput size="medium" placeholder="Medium (32px)" aria-label="Medium 尺寸" />
-        <VInput size="large" placeholder="Large (40px)" aria-label="Large 尺寸" />
-      </div>
-
-      <div class="vfk-demo__inputs">
+      <div class="demo-sidebar__search">
         <VInput
-          ref="searchInputRef"
-          v-model="searchValue"
-          placeholder="带前置图标与清空按钮"
-          aria-label="搜索关键字"
+          v-model="searchQuery"
+          size="small"
+          appearance="filled-lighter"
+          placeholder="快速查找控件..."
+          aria-label="快速查找控件"
         >
-          <template #contentBefore>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path
-                d="M8.5 3a5.5 5.5 0 0 1 4.23 9.02l4.12 4.13a.5.5 0 0 1-.63.76l-.07-.06-4.13-4.12A5.5 5.5 0 1 1 8.5 3Zm0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"
-              />
-            </svg>
-          </template>
-          <template v-if="searchValue" #contentAfter>
+          <template #contentBefore><DemoIcons name="search" :size="14" /></template>
+          <template v-if="searchQuery" #contentAfter>
             <VButton
               appearance="transparent"
               size="small"
-              aria-label="清空输入"
-              @click="clearSearch"
+              aria-label="清空查找"
+              @click="searchQuery = ''"
             >
-              <template #icon><span aria-hidden="true">✕</span></template>
+              <template #icon><DemoIcons name="close" :size="12" /></template>
             </VButton>
           </template>
         </VInput>
-
-        <VInput type="number" placeholder="0.00" aria-label="金额">
-          <template #contentBefore><span>¥</span></template>
-          <template #contentAfter><span>CNY</span></template>
-        </VInput>
       </div>
 
-      <div class="vfk-demo__inputs">
-        <VInput aria-invalid="true" model-value="invalid-email@" aria-label="校验错误" />
-        <VInput
-          appearance="underline"
-          aria-invalid="true"
-          model-value="underline invalid"
-          aria-label="下划线校验错误"
-        />
-        <VInput readonly model-value="只读文本" aria-label="只读输入" />
-        <VInput disabled model-value="禁用状态" aria-label="禁用输入">
-          <template #contentBefore><span>#</span></template>
-        </VInput>
-      </div>
+      <nav class="demo-sidebar__nav">
+        <div v-for="group in navGroups" :key="group.name" class="demo-nav-group">
+          <div class="demo-nav-group__label">
+            <span>{{ group.name }}</span>
+            <span class="demo-nav-group__count">{{ group.items.length }}</span>
+          </div>
+          <ul class="demo-nav-list">
+            <li v-for="item in group.items" :key="item.id">
+              <button
+                type="button"
+                class="demo-nav-item"
+                :class="{ 'demo-nav-item--active': currentPage === item.id }"
+                :aria-current="currentPage === item.id ? 'page' : undefined"
+                @click="navigate(item.id)"
+              >
+                <span class="demo-nav-item__main">
+                  <span class="demo-nav-item__icon">
+                    <DemoIcons :name="item.icon" :size="16" />
+                  </span>
+                  <span>{{ item.title }}</span>
+                </span>
+                <span v-if="item.sub" class="demo-nav-item__sub">{{ item.sub }}</span>
+              </button>
+            </li>
+          </ul>
+        </div>
 
-      <div class="vfk-demo__binding">
-        <VInput
-          v-model="inputValue"
-          placeholder="输入文字查看实时绑定"
-          aria-label="受控双向绑定输入"
-        />
-        <VButton size="small" appearance="subtle" @click="inputValue = 'Fluent UI v9'">
-          重置
-        </VButton>
-        <span class="vfk-demo__binding-output">
-          当前值：<code class="vfk-demo__token">{{ inputValue || '（空）' }}</code>
-        </span>
-      </div>
-    </section>
+        <p v-if="navGroups.length === 0" class="demo-nav-empty">
+          未找到与「{{ searchQuery }}」匹配的条目
+        </p>
+      </nav>
 
-    <section class="vfk-demo__group">
-      <h2 class="vfk-demo__group-title">Select 原生下拉</h2>
-      <div class="vfk-demo__surface vfk-demo__surface--grid">
-        <div class="vfk-demo__field">
-          <label class="vfk-demo__field-label" for="demo-select-outline">Outline（默认）</label>
-          <VSelect id="demo-select-outline" appearance="outline">
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-          </VSelect>
-        </div>
-        <div class="vfk-demo__field">
-          <label class="vfk-demo__field-label" for="demo-select-underline">Underline</label>
-          <VSelect id="demo-select-underline" appearance="underline">
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-          </VSelect>
-        </div>
-        <div class="vfk-demo__field">
-          <label class="vfk-demo__field-label" for="demo-select-darker">Filled Darker</label>
-          <VSelect id="demo-select-darker" appearance="filled-darker">
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-          </VSelect>
-        </div>
-        <div class="vfk-demo__field">
-          <label class="vfk-demo__field-label" for="demo-select-lighter">Filled Lighter</label>
-          <VSelect id="demo-select-lighter" appearance="filled-lighter">
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-          </VSelect>
+      <div class="demo-sidebar__footer">
+        <div class="demo-sidebar__kbd-row">
+          <span>按</span>
+          <kbd class="demo-kbd">Tab</kbd>
+          <span>可逐项检查键盘焦点环</span>
         </div>
       </div>
+    </aside>
 
-      <div class="vfk-demo__buttons">
-        <VSelect size="small" aria-label="Small select">
-          <option value="small">Small (24px)</option>
-          <option value="compact">Compact</option>
-        </VSelect>
-        <VSelect size="medium" aria-label="Medium select">
-          <option value="medium">Medium (32px)</option>
-          <option value="standard">Standard</option>
-        </VSelect>
-        <VSelect size="large" aria-label="Large select">
-          <option value="large">Large (40px)</option>
-          <option value="spacious">Spacious</option>
-        </VSelect>
-      </div>
+    <!-- 右侧主工作区 -->
+    <div class="demo-main">
+      <header class="demo-topbar">
+        <div class="demo-topbar__left">
+          <VButton
+            class="demo-topbar__menu-btn"
+            appearance="subtle"
+            size="small"
+            aria-label="打开导航菜单"
+            @click="sidebarOpen = !sidebarOpen"
+          >
+            <template #icon>
+              <DemoIcons :name="sidebarOpen ? 'close' : 'menu'" :size="18" />
+            </template>
+          </VButton>
 
-      <div class="vfk-demo__buttons">
-        <VSelect v-model="selectedRegion" aria-label="Select region">
-          <optgroup label="Asia Pacific">
-            <option value="east-asia">East Asia</option>
-            <option value="southeast-asia">Southeast Asia</option>
-          </optgroup>
-          <optgroup label="Europe & Americas">
-            <option value="west-europe">West Europe</option>
-            <option value="north-america">North America</option>
-          </optgroup>
-        </VSelect>
-        <VSelect aria-invalid="true" aria-label="Invalid select">
-          <option value="invalid">校验错误（outline）</option>
-          <option value="retry">重试</option>
-        </VSelect>
-        <VSelect appearance="underline" aria-invalid="true" aria-label="Invalid underline select">
-          <option value="invalid-underline">校验错误（underline）</option>
-          <option value="retry">重试</option>
-        </VSelect>
-        <VSelect disabled aria-label="Disabled select">
-          <option value="disabled">已禁用</option>
-        </VSelect>
-        <VSelect aria-label="Custom icon select">
-          <option value="custom">自定义图标</option>
-          <option value="fluent">默认列表</option>
-          <template #icon><span aria-hidden="true">▾</span></template>
-        </VSelect>
-      </div>
-      <p class="vfk-demo__hint">
-        当前受控选中值：<code class="vfk-demo__token">{{ selectedRegion }}</code>
-      </p>
-    </section>
-
-    <section class="vfk-demo__group">
-      <h2 class="vfk-demo__group-title">Checkbox 勾选框</h2>
-      <div class="vfk-demo__checkbox-tree">
-        <VCheckbox
-          :model-value="selectAllState"
-          label="全选通知渠道"
-          @update:model-value="handleSelectAll"
-        />
-        <div class="vfk-demo__checkbox-children">
-          <VCheckbox v-model="optionEmail" label="邮件通知" />
-          <VCheckbox v-model="optionPush" label="站内消息" />
-          <VCheckbox v-model="optionSms" label="短信提醒" />
+          <div class="demo-breadcrumb" aria-label="当前位置">
+            <span>{{
+              currentNavItem.group === currentNavItem.title ? 'vue-fluent-kit' : currentNavItem.group
+            }}</span>
+            <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="demo-breadcrumb__current">{{ currentNavItem.title }}</span>
+          </div>
         </div>
-      </div>
-      <div class="vfk-demo__buttons">
-        <VCheckbox v-model="sizeMedium" size="medium" label="Medium (16px)" />
-        <VCheckbox v-model="sizeLarge" size="large" label="Large (20px)" />
-        <VCheckbox v-model="taskDone" shape="circular" label="圆形已选" />
-        <VCheckbox v-model="taskMixed" shape="circular" label="圆形半选" />
-      </div>
-      <div class="vfk-demo__buttons">
-        <VCheckbox v-model="labelAfter" label="标签在右" label-position="after" />
-        <VCheckbox v-model="labelBefore" label="标签在左" label-position="before" />
-        <VCheckbox v-model="agreedRequired" label="同意服务协议" required />
-        <VCheckbox v-model="standaloneChecked" aria-label="仅勾选框示例" />
-      </div>
-      <div class="vfk-demo__buttons">
-        <VCheckbox disabled label="禁用未选" />
-        <VCheckbox :model-value="true" disabled label="禁用已选" />
-        <VCheckbox model-value="mixed" disabled label="禁用半选" />
-      </div>
-    </section>
-    <section v-for="group in groups" :key="group.name" class="vfk-demo__group">
-      <h2 class="vfk-demo__group-title">{{ group.name }}</h2>
-      <ul class="vfk-demo__list">
-        <li v-for="[token, label] in group.tokens" :key="token" class="vfk-demo__item">
-          <span class="vfk-demo__swatch" :style="{ background: `var(${token})` }" />
-          <span class="vfk-demo__label">{{ label }}</span>
-          <code class="vfk-demo__token">{{ token }}</code>
-        </li>
-      </ul>
-    </section>
-  </main>
+
+        <div class="demo-topbar__right">
+          <div class="demo-theme-switch" role="group" aria-label="切换主题">
+            <button
+              type="button"
+              class="demo-theme-switch__btn"
+              :class="{ 'demo-theme-switch__btn--active': theme === 'light' }"
+              :aria-pressed="theme === 'light'"
+              @click="theme = 'light'"
+            >
+              <DemoIcons name="sun" :size="14" />
+              <span>浅色</span>
+            </button>
+            <button
+              type="button"
+              class="demo-theme-switch__btn"
+              :class="{ 'demo-theme-switch__btn--active': theme === 'dark' }"
+              :aria-pressed="theme === 'dark'"
+              @click="theme = 'dark'"
+            >
+              <DemoIcons name="moon" :size="14" />
+              <span>深色</span>
+            </button>
+          </div>
+
+          <a
+            class="demo-link-btn"
+            href="https://github.com/yysubs/vue-fluent-kit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <DemoIcons name="github" :size="15" />
+            <span>GitHub</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="demo-content">
+        <OverviewPage v-if="currentPage === 'overview'" @navigate="navigate" />
+        <ButtonPage v-else-if="currentPage === 'button'" />
+        <InputPage v-else-if="currentPage === 'input'" />
+        <SelectPage v-else-if="currentPage === 'select'" />
+        <CheckboxPage v-else-if="currentPage === 'checkbox'" />
+        <TokensPage v-else-if="currentPage === 'tokens'" />
+      </main>
+    </div>
+  </div>
 </template>
-
-<style>
-.vfk-demo {
-  box-sizing: border-box;
-  max-width: 720px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 40px 20px;
-  color: var(--colorNeutralForeground1);
-  background: var(--colorNeutralBackground1);
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  line-height: var(--lineHeightBase300);
-}
-
-.vfk-demo__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--spacingHorizontalM);
-  margin-bottom: var(--spacingVerticalXXXL);
-}
-
-.vfk-demo__head-actions,
-.vfk-demo__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-}
-
-.vfk-demo__buttons + .vfk-demo__buttons,
-.vfk-demo__checkbox-tree + .vfk-demo__buttons,
-.vfk-demo__surface + .vfk-demo__buttons {
-  margin-top: var(--spacingVerticalM);
-}
-
-.vfk-demo__checkbox-tree {
-  display: flex;
-  flex-direction: column;
-}
-
-.vfk-demo__checkbox-children {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-  padding-left: var(--spacingHorizontalXXL);
-}
-
-.vfk-demo__surface {
-  padding: var(--spacingVerticalM);
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
-  border-radius: var(--borderRadiusMedium);
-  background: var(--colorNeutralBackground2);
-}
-
-.vfk-demo__surface--grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacingVerticalM) var(--spacingHorizontalM);
-}
-
-.vfk-demo__field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacingVerticalXS);
-}
-
-.vfk-demo__field-label {
-  font-size: var(--fontSizeBase200);
-  line-height: var(--lineHeightBase200);
-  color: var(--colorNeutralForeground2);
-}
-
-.vfk-demo__hint {
-  margin: var(--spacingVerticalS) 0 0;
-  color: var(--colorNeutralForeground3);
-}
-
-.vfk-demo__inputs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  align-items: center;
-  gap: var(--spacingVerticalS) var(--spacingHorizontalM);
-}
-
-.vfk-demo__surface + .vfk-demo__inputs,
-.vfk-demo__inputs + .vfk-demo__inputs,
-.vfk-demo__inputs + .vfk-demo__binding {
-  margin-top: var(--spacingVerticalM);
-}
-
-.vfk-demo__binding {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-}
-
-.vfk-demo__binding-output {
-  color: var(--colorNeutralForeground2);
-}
-.vfk-demo__title {
-  margin: 0 0 var(--spacingVerticalS);
-  font-size: var(--fontSizeBase500);
-  font-weight: var(--fontWeightSemibold);
-  line-height: var(--lineHeightBase500);
-  color: var(--colorNeutralForeground1);
-}
-
-.vfk-demo__desc {
-  margin: 0;
-  color: var(--colorNeutralForeground3);
-}
-
-.vfk-demo__group {
-  margin-bottom: var(--spacingVerticalXXL);
-}
-
-.vfk-demo__group-title {
-  margin: 0 0 var(--spacingVerticalS);
-  font-size: var(--fontSizeBase400);
-  font-weight: var(--fontWeightSemibold);
-  line-height: var(--lineHeightBase400);
-  color: var(--colorNeutralForeground1);
-}
-
-.vfk-demo__list {
-  display: grid;
-  gap: var(--spacingVerticalS);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.vfk-demo__item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-  padding: var(--spacingVerticalS) var(--spacingHorizontalS);
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
-  border-radius: var(--borderRadiusMedium);
-  background: var(--colorNeutralBackground2);
-}
-
-.vfk-demo__swatch {
-  width: 20px;
-  height: 20px;
-  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
-  border-radius: var(--borderRadiusSmall);
-}
-
-.vfk-demo__label {
-  flex: 1;
-}
-
-.vfk-demo__token {
-  font-family: var(--fontFamilyMonospace);
-  font-size: var(--fontSizeBase200);
-  color: var(--colorNeutralForeground3);
-}
-</style>
