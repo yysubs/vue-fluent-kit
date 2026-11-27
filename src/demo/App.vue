@@ -4,6 +4,7 @@ import { VButton, VInput, version } from '../index'
 import '../styles/index.css'
 import './styles.css'
 import DemoIcons, { type DemoIconName } from './components/DemoIcons.vue'
+import DemoLogo from './components/DemoLogo.vue'
 import ButtonPage from './pages/ButtonPage.vue'
 import CheckboxPage from './pages/CheckboxPage.vue'
 import InputPage from './pages/InputPage.vue'
@@ -15,7 +16,7 @@ interface NavItem {
   id: DemoPageId
   title: string
   sub?: string
-  group: '概览' | '基础控件' | '设计系统'
+  group: 'Concepts' | 'Components' | 'Theme'
   icon: DemoIconName
   keywords: string
 }
@@ -23,17 +24,17 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     id: 'overview',
-    title: '概览',
-    sub: 'Overview',
-    group: '概览',
+    title: 'Introduction',
+    sub: '概览',
+    group: 'Concepts',
     icon: 'grid',
-    keywords: 'overview home 概览 首页 组合 主题',
+    keywords: 'overview introduction home 概览 首页 组合 主题',
   },
   {
     id: 'button',
     title: 'Button',
     sub: '按钮',
-    group: '基础控件',
+    group: 'Components',
     icon: 'button',
     keywords: 'button togglebutton 按钮 切换 图标',
   },
@@ -41,7 +42,7 @@ const navItems: NavItem[] = [
     id: 'input',
     title: 'Input',
     sub: '文本输入',
-    group: '基础控件',
+    group: 'Components',
     icon: 'input',
     keywords: 'input text field 输入框 文本 前后缀',
   },
@@ -49,7 +50,7 @@ const navItems: NavItem[] = [
     id: 'select',
     title: 'Select',
     sub: '原生下拉',
-    group: '基础控件',
+    group: 'Components',
     icon: 'select',
     keywords: 'select dropdown option 下拉 选择',
   },
@@ -57,7 +58,7 @@ const navItems: NavItem[] = [
     id: 'checkbox',
     title: 'Checkbox',
     sub: '勾选框',
-    group: '基础控件',
+    group: 'Components',
     icon: 'checkbox',
     keywords: 'checkbox mixed indeterminate 勾选 多选 半选',
   },
@@ -65,7 +66,7 @@ const navItems: NavItem[] = [
     id: 'tokens',
     title: 'Design Tokens',
     sub: '变量',
-    group: '设计系统',
+    group: 'Theme',
     icon: 'palette',
     keywords: 'token color theme typography spacing shadow 变量 颜色 字体 阴影',
   },
@@ -98,7 +99,7 @@ const navGroups = computed(() => {
       )
     : navItems
 
-  const order: NavItem['group'][] = ['概览', '基础控件', '设计系统']
+  const order: NavItem['group'][] = ['Concepts', 'Components', 'Theme']
   return order
     .map((group) => ({
       name: group,
@@ -153,20 +154,15 @@ onUnmounted(() => {
       @click="sidebarOpen = false"
     />
 
-    <!-- 左侧导航栏 -->
+    <!-- 左侧 Storybook 风格导航栏 -->
     <aside
       class="demo-sidebar"
       :class="{ 'demo-sidebar--open': sidebarOpen }"
       aria-label="组件导航"
     >
       <div class="demo-sidebar__brand">
-        <span class="demo-sidebar__logo" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="2" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" />
-            <rect x="8.5" y="2" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
-            <rect x="2" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.65" />
-            <rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.2" fill="currentColor" opacity="0.35" />
-          </svg>
+        <span class="demo-sidebar__logo">
+          <DemoLogo :size="28" />
         </span>
         <div class="demo-sidebar__brand-text">
           <span class="demo-sidebar__brand-name">vue-fluent-kit</span>
@@ -178,9 +174,9 @@ onUnmounted(() => {
         <VInput
           v-model="searchQuery"
           size="small"
-          appearance="filled-lighter"
-          placeholder="快速查找控件..."
-          aria-label="快速查找控件"
+          appearance="filled-darker"
+          placeholder="查找组件或变量..."
+          aria-label="查找组件或变量"
         >
           <template #contentBefore><DemoIcons name="search" :size="14" /></template>
           <template v-if="searchQuery" #contentAfter>
@@ -213,7 +209,7 @@ onUnmounted(() => {
               >
                 <span class="demo-nav-item__main">
                   <span class="demo-nav-item__icon">
-                    <DemoIcons :name="item.icon" :size="16" />
+                    <DemoIcons :name="item.icon" :size="15" />
                   </span>
                   <span>{{ item.title }}</span>
                 </span>
@@ -232,7 +228,7 @@ onUnmounted(() => {
         <div class="demo-sidebar__kbd-row">
           <span>按</span>
           <kbd class="demo-kbd">Tab</kbd>
-          <span>可逐项检查键盘焦点环</span>
+          <span>逐项检查键盘焦点环</span>
         </div>
       </div>
     </aside>
@@ -253,10 +249,10 @@ onUnmounted(() => {
             </template>
           </VButton>
 
+          <span class="demo-topbar__tab" aria-hidden="true">Docs</span>
+
           <div class="demo-breadcrumb" aria-label="当前位置">
-            <span>{{
-              currentNavItem.group === currentNavItem.title ? 'vue-fluent-kit' : currentNavItem.group
-            }}</span>
+            <span>{{ currentNavItem.group }}</span>
             <span class="demo-breadcrumb__sep" aria-hidden="true">/</span>
             <span class="demo-breadcrumb__current">{{ currentNavItem.title }}</span>
           </div>
@@ -271,8 +267,8 @@ onUnmounted(() => {
               :aria-pressed="theme === 'light'"
               @click="theme = 'light'"
             >
-              <DemoIcons name="sun" :size="14" />
-              <span>浅色</span>
+              <DemoIcons name="sun" :size="13" />
+              <span>Web Light</span>
             </button>
             <button
               type="button"
@@ -281,8 +277,8 @@ onUnmounted(() => {
               :aria-pressed="theme === 'dark'"
               @click="theme = 'dark'"
             >
-              <DemoIcons name="moon" :size="14" />
-              <span>深色</span>
+              <DemoIcons name="moon" :size="13" />
+              <span>Web Dark</span>
             </button>
           </div>
 
@@ -292,7 +288,7 @@ onUnmounted(() => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <DemoIcons name="github" :size="15" />
+            <DemoIcons name="github" :size="14" />
             <span>GitHub</span>
           </a>
         </div>

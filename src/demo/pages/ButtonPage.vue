@@ -5,6 +5,13 @@ import DemoApiTable, { type ApiRow } from '../components/DemoApiTable.vue'
 import DemoCard from '../components/DemoCard.vue'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoPlayground from '../components/DemoPlayground.vue'
+import DemoToc, { type TocItem } from '../components/DemoToc.vue'
+
+const tocItems: TocItem[] = [
+  { id: 'btn-playground', label: '交互调试台' },
+  { id: 'btn-examples', label: '全部状态示例' },
+  { id: 'btn-api', label: 'Props / API' },
+]
 
 type ButtonAppearance = 'secondary' | 'primary' | 'outline' | 'subtle' | 'transparent'
 type ButtonSize = 'small' | 'medium' | 'large'
@@ -135,9 +142,10 @@ const buttonPropsRows: ApiRow[] = [
 </script>
 
 <template>
-  <div>
+  <div class="demo-docs-layout">
+    <div class="demo-docs-body">
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">基础控件</p>
+      <p class="demo-page-header__eyebrow">Components</p>
       <div class="demo-page-header__title-row">
         <h1 class="demo-page-header__title">Button &amp; ToggleButton</h1>
         <div class="demo-page-header__tags">
@@ -152,7 +160,7 @@ const buttonPropsRows: ApiRow[] = [
     </header>
 
     <!-- 交互调试台 -->
-    <section class="demo-section">
+    <section id="btn-playground" class="demo-section demo-section--first">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">交互调试台</h2>
@@ -260,7 +268,7 @@ const buttonPropsRows: ApiRow[] = [
     </section>
 
     <!-- 分类用例 -->
-    <section class="demo-section">
+    <section id="btn-examples" class="demo-section">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">全部状态示例</h2>
@@ -366,14 +374,17 @@ const buttonPropsRows: ApiRow[] = [
     </section>
 
     <!-- API 参考 -->
-    <section class="demo-section">
+    <section id="btn-api" class="demo-section">
       <div class="demo-section__head">
         <div>
-          <h2 class="demo-section__title">API 说明</h2>
+          <h2 class="demo-section__title">Props / API</h2>
           <p class="demo-section__sub">默认插槽用于按钮正文，#icon 插槽用于前置图标；点击触发 click 事件。</p>
         </div>
       </div>
       <DemoApiTable :rows="buttonPropsRows" />
     </section>
+    </div>
+
+    <DemoToc :items="tocItems" />
   </div>
 </template>

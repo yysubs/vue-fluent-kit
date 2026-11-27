@@ -4,6 +4,13 @@ import { VButton, VCheckbox, VSelect } from '../../index'
 import DemoApiTable, { type ApiRow } from '../components/DemoApiTable.vue'
 import DemoCard from '../components/DemoCard.vue'
 import DemoPlayground from '../components/DemoPlayground.vue'
+import DemoToc, { type TocItem } from '../components/DemoToc.vue'
+
+const tocItems: TocItem[] = [
+  { id: 'sel-playground', label: '交互调试台' },
+  { id: 'sel-examples', label: '全部状态示例' },
+  { id: 'sel-api', label: 'Props / API' },
+]
 
 type SelectAppearance = 'outline' | 'underline' | 'filled-darker' | 'filled-lighter'
 type SelectSize = 'small' | 'medium' | 'large'
@@ -118,9 +125,10 @@ const selectPropsRows: ApiRow[] = [
 </script>
 
 <template>
-  <div>
+  <div class="demo-docs-layout">
+    <div class="demo-docs-body">
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">基础控件</p>
+      <p class="demo-page-header__eyebrow">Components</p>
       <div class="demo-page-header__title-row">
         <h1 class="demo-page-header__title">Select</h1>
         <div class="demo-page-header__tags">
@@ -134,7 +142,7 @@ const selectPropsRows: ApiRow[] = [
     </header>
 
     <!-- 交互调试台 -->
-    <section class="demo-section">
+    <section id="sel-playground" class="demo-section demo-section--first">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">交互调试台</h2>
@@ -201,7 +209,7 @@ const selectPropsRows: ApiRow[] = [
     </section>
 
     <!-- 分类用例 -->
-    <section class="demo-section">
+    <section id="sel-examples" class="demo-section">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">全部状态示例</h2>
@@ -347,14 +355,17 @@ const selectPropsRows: ApiRow[] = [
     </section>
 
     <!-- API 参考 -->
-    <section class="demo-section">
+    <section id="sel-api" class="demo-section">
       <div class="demo-section__head">
         <div>
-          <h2 class="demo-section__title">API 说明</h2>
+          <h2 class="demo-section__title">Props / API</h2>
           <p class="demo-section__sub">原生属性（name、id、required、aria-* 等）自动透传给内部 &lt;select&gt;。</p>
         </div>
       </div>
       <DemoApiTable :rows="selectPropsRows" />
     </section>
+    </div>
+
+    <DemoToc :items="tocItems" />
   </div>
 </template>

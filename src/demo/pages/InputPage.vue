@@ -5,6 +5,13 @@ import DemoApiTable, { type ApiRow } from '../components/DemoApiTable.vue'
 import DemoCard from '../components/DemoCard.vue'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoPlayground from '../components/DemoPlayground.vue'
+import DemoToc, { type TocItem } from '../components/DemoToc.vue'
+
+const tocItems: TocItem[] = [
+  { id: 'inp-playground', label: '交互调试台' },
+  { id: 'inp-examples', label: '全部状态示例' },
+  { id: 'inp-api', label: 'Props / API' },
+]
 
 type InputAppearance = 'outline' | 'underline' | 'filled-darker' | 'filled-lighter'
 type InputSize = 'small' | 'medium' | 'large'
@@ -130,9 +137,10 @@ const inputPropsRows: ApiRow[] = [
 </script>
 
 <template>
-  <div>
+  <div class="demo-docs-layout">
+    <div class="demo-docs-body">
     <header class="demo-page-header">
-      <p class="demo-page-header__eyebrow">基础控件</p>
+      <p class="demo-page-header__eyebrow">Components</p>
       <div class="demo-page-header__title-row">
         <h1 class="demo-page-header__title">Input</h1>
         <div class="demo-page-header__tags">
@@ -146,7 +154,7 @@ const inputPropsRows: ApiRow[] = [
     </header>
 
     <!-- 交互调试台 -->
-    <section class="demo-section">
+    <section id="inp-playground" class="demo-section demo-section--first">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">交互调试台</h2>
@@ -235,7 +243,7 @@ const inputPropsRows: ApiRow[] = [
     </section>
 
     <!-- 分类用例 -->
-    <section class="demo-section">
+    <section id="inp-examples" class="demo-section">
       <div class="demo-section__head">
         <div>
           <h2 class="demo-section__title">全部状态示例</h2>
@@ -405,10 +413,10 @@ const inputPropsRows: ApiRow[] = [
     </section>
 
     <!-- API 参考 -->
-    <section class="demo-section">
+    <section id="inp-api" class="demo-section">
       <div class="demo-section__head">
         <div>
-          <h2 class="demo-section__title">API 说明</h2>
+          <h2 class="demo-section__title">Props / API</h2>
           <p class="demo-section__sub">
             原生属性（placeholder、readonly、required、aria-* 等）会自动透传至内部 &lt;input&gt;；class 与 style 挂载在外层容器。
           </p>
@@ -416,5 +424,8 @@ const inputPropsRows: ApiRow[] = [
       </div>
       <DemoApiTable :rows="inputPropsRows" />
     </section>
+    </div>
+
+    <DemoToc :items="tocItems" />
   </div>
 </template>
