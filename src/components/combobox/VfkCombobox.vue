@@ -171,9 +171,11 @@ defineExpose({
 </script>
 
 <template>
+  <!-- 显式置空 initial-display，避免 Chromium @scope 伪元素把 placeholder 叠画在已挂载的 control 输入框上 -->
   <fluent-dropdown
     ref="el"
     class="vfk-combobox"
+    initial-display=""
     :type.attr="'combobox'"
     :appearance="nativeAppearance"
     :size="size"

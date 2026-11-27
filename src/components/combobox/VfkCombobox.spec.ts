@@ -29,6 +29,7 @@ describe('VfkCombobox', () => {
 
     const dropdown = wrapper.find('fluent-dropdown')
     expect(dropdown.classes()).toContain('vfk-combobox')
+    expect(dropdown.attributes('initial-display')).toBe('')
     expect(dropdown.attributes('type')).toBe('combobox')
     expect(dropdown.attributes('appearance')).toBe('filled-lighter')
     expect(dropdown.attributes('size')).toBe('small')
