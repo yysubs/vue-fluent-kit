@@ -23,12 +23,27 @@ export {
 } from './components/button'
 
 export {
+  VfkToggleButton,
+  type ToggleButtonValue,
+  type VfkToggleButtonProps,
+} from './components/toggle-button'
+
+export {
   VfkInput,
   type InputAppearance,
   type InputSize,
   type InputType,
   type VfkInputProps,
 } from './components/input'
+
+export {
+  VfkOption,
+  VfkSelect,
+  type SelectAppearance,
+  type SelectSize,
+  type VfkOptionProps,
+  type VfkSelectProps,
+} from './components/select'
 
 export {
   VfkCheckbox,
