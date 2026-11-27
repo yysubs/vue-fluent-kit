@@ -4,5 +4,6 @@
   "assets": {
     "directory": "./dist-demo",
     "not_found_handling": "single-page-application"
-  }
+  },
+  "previews": {}
 }
