@@ -52,7 +52,7 @@ token 分四类：
 
 - `useTheme()`：全局响应式主题控制器，支持 `'light' | 'dark' | 'system'` 三种模式，自动监听系统配色变化并同步到 `document.documentElement`。
 - `setVfkTheme(mode, target?)`：设置全局或指定 DOM 节点的 `data-vfk-theme`。
-- `VfkThemeProvider`：局部主题与品牌色容器组件，支持 `theme`（`'light' | 'dark'`）、`brand`（`BrandVariants`）与 `as`（默认 `'div'`）。
+- `VfkThemeProvider`：局部主题与品牌色容器组件，支持 `theme`（`'light' | 'dark'`）、`brand`（`BrandVariants`）与 `as`（默认 `'div'`）；未传 `brand` 时自动沿用全局 `activeBrand` 并按局部明暗应用对应色阶。
 - `applyBrandTokens(brand, resolved?, target?)` / `resetBrandTokens(target?)`：调用 `@fluentui/tokens` 的 `createLightTheme(brand)` / `createDarkTheme(brand)` 生成整套品牌色变量（名称含 `Brand` 的 token）并写入节点行内样式，清除时恢复默认主题色。
 
 覆盖方式：

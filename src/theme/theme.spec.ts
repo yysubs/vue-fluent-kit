@@ -82,4 +82,22 @@ describe('theme utilities', () => {
     await nextTick()
     expect(el.style.getPropertyValue('--colorBrandBackground')).toBe('')
   })
+
+  it('VfkThemeProvider 未传 brand 时沿用全局品牌色并按局部明暗计算色阶', async () => {
+    const lightWrapper = mount(VfkThemeProvider, { props: { theme: 'light' } })
+    const darkWrapper = mount(VfkThemeProvider, { props: { theme: 'dark' } })
+
+    applyBrandTokens(sampleBrand)
+    await nextTick()
+
+    const lightEl = lightWrapper.element as HTMLElement
+    const darkEl = darkWrapper.element as HTMLElement
+    expect(lightEl.style.getPropertyValue('--colorBrandBackground')).toBe(sampleBrand[80])
+    expect(darkEl.style.getPropertyValue('--colorBrandBackground')).toBe(sampleBrand[70])
+
+    resetBrandTokens()
+    await nextTick()
+    expect(lightEl.style.getPropertyValue('--colorBrandBackground')).toBe('')
+    expect(darkEl.style.getPropertyValue('--colorBrandBackground')).toBe('')
+  })
 })
