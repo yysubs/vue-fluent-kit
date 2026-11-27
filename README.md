@@ -15,7 +15,7 @@ pnpm test       # 单元测试
 ## 目录结构
 
 - `src/components/`：按需薄封装的 Fluent 2 Vue 组件（每组件独立目录，支持子路径导出）
-- `src/theme/`：全局明暗主题切换（`useTheme` / `setVfkTheme`）、动态品牌色覆写（`applyBrandTokens` / `resetBrandTokens`）与局部主题容器（`VThemeProvider`）
+- `src/theme/`：全局明暗主题切换（`useTheme` / `setVfkTheme`）、动态品牌色覆写（`applyBrandTokens` / `resetBrandTokens`）与局部主题容器（`VfkThemeProvider`）
 - `src/styles/`：独立 Design Tokens 样式层
   - `tokens.css`：由 `@fluentui/tokens` 生成的 Fluent 2 浅色/深色语义变量
   - `brand.css`：品牌色、圆角与字体覆写入口
@@ -25,7 +25,7 @@ pnpm test       # 单元测试
 
 ## 主题与样式覆盖规范
 
-- 默认浅色，支持在根节点或 `<VThemeProvider>` 上通过 `data-vfk-theme="light" | "dark"` 切换主题，也支持 `system` 跟随系统。
+- 默认浅色，支持在根节点或 `<VfkThemeProvider>` 上通过 `data-vfk-theme="light" | "dark"` 切换主题，也支持 `system` 跟随系统。
 - Shadow DOM 样式覆盖优先使用官方 Design Tokens（CSS 变量），其次使用官方公开的 `::part()`，避免强行穿透内部私有结构。
 
 ## 预览与部署

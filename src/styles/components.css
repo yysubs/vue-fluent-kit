@@ -1,0 +1,46 @@
+/* 薄封装组件的外层轻量布局样式（仅作用于宿主与 Light DOM，不穿透 Shadow DOM） */
+
+.vfk-slot-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vfk-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacingHorizontalS);
+  vertical-align: middle;
+  color: var(--colorNeutralForeground1);
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--lineHeightBase300);
+}
+
+.vfk-checkbox--label-before {
+  flex-direction: row-reverse;
+}
+
+.vfk-checkbox--disabled {
+  color: var(--colorNeutralForegroundDisabled);
+  cursor: not-allowed;
+}
+
+.vfk-checkbox__label {
+  cursor: pointer;
+  user-select: none;
+}
+
+.vfk-checkbox--disabled .vfk-checkbox__label {
+  cursor: not-allowed;
+}
+
+.vfk-checkbox__required {
+  margin-inline-start: var(--spacingHorizontalXS);
+  color: var(--colorPaletteRedForeground3);
+}
+
+.vfk-checkbox--disabled .vfk-checkbox__required {
+  color: var(--colorNeutralForegroundDisabled);
+}

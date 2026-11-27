@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VThemeProvider, useTheme, version } from '../../index'
+import { VfkButton, VfkCheckbox, VfkInput, VfkThemeProvider, useTheme, version } from '../../index'
 import { demoBrandPresets, type BrandPreset } from '../brand-presets'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoLogo from '../components/DemoLogo.vue'
 import DemoToc, { type TocItem } from '../components/DemoToc.vue'
 import { useDemoI18n } from '../i18n'
 
-export type DemoPageId = 'overview' | 'tokens'
+export type DemoPageId = 'overview' | 'button' | 'input' | 'checkbox' | 'tokens'
 
 const emit = defineEmits<{
   navigate: [page: DemoPageId]
@@ -17,8 +17,16 @@ const { resolvedTheme, applyBrandTokens, resetBrandTokens } = useTheme()
 const { messages } = useDemoI18n()
 const activePresetId = ref<BrandPreset['id']>('default')
 
+const miniInput = ref('')
+const miniChecked = ref(true)
+const scopedLightInput = ref('Fluent 2 Light')
+const scopedDarkInput = ref('Fluent 2 Dark')
+const scopedLightCheck = ref(true)
+const scopedDarkCheck = ref(true)
+
 const tocItems = computed<TocItem[]>(() => [
   { id: 'intro-highlights', label: messages.value.overview.tocHighlights },
+  { id: 'intro-catalog', label: messages.value.controls.implementedTitle },
   { id: 'intro-theming', label: messages.value.overview.tocTheming },
   { id: 'intro-shadow-rules', label: messages.value.overview.tocShadowRules },
   { id: 'intro-roadmap', label: messages.value.overview.tocRoadmap },
@@ -61,21 +69,12 @@ function selectBrand(preset: BrandPreset) {
           </div>
         </div>
         <div class="demo-row">
-          <button
-            type="button"
-            class="demo-btn demo-btn--primary"
-            @click="emit('navigate', 'tokens')"
-          >
+          <VfkButton appearance="primary" @click="emit('navigate', 'button')">
+            {{ messages.controls.implementedTitle }}
+          </VfkButton>
+          <VfkButton appearance="outline" @click="emit('navigate', 'tokens')">
             {{ messages.overview.ctaTokens }}
-          </button>
-          <a
-            class="demo-btn demo-btn--outline"
-            href="https://github.com/yysubs/vue-fluent-kit"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ messages.overview.ctaGithub }}
-          </a>
+          </VfkButton>
         </div>
       </div>
 
@@ -124,6 +123,79 @@ function selectBrand(preset: BrandPreset) {
         </div>
       </section>
 
+      <!-- 已封装控件目录 -->
+      <section id="intro-catalog" class="demo-section">
+        <div class="demo-section__head">
+          <div>
+            <h2 class="demo-section__title">{{ messages.controls.implementedTitle }}</h2>
+            <p class="demo-section__sub">{{ messages.controls.implementedSub }}</p>
+          </div>
+        </div>
+
+        <div class="demo-catalog-grid">
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkButton appearance="primary" size="medium">Primary</VfkButton>
+                <VfkButton appearance="outline" size="medium">Outline</VfkButton>
+                <VfkButton appearance="subtle" size="medium">Subtle</VfkButton>
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkButton</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.button.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'button')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <VfkInput
+                v-model="miniInput"
+                :placeholder="messages.controls.input.searchPlaceholder"
+                style="width: 100%; max-width: 260px"
+              >
+                <template #start><DemoIcons name="search" :size="15" /></template>
+              </VfkInput>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkInput</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.input.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+
+          <article class="demo-catalog-card">
+            <div class="demo-catalog-card__preview">
+              <div class="demo-row">
+                <VfkCheckbox v-model="miniChecked" :label="messages.controls.checkbox.optA" />
+                <VfkCheckbox model-value="mixed" :label="messages.controls.checkbox.optB" />
+              </div>
+            </div>
+            <div class="demo-catalog-card__body">
+              <div>
+                <h3 class="demo-catalog-card__title">VfkCheckbox</h3>
+                <p class="demo-catalog-card__desc">{{ messages.controls.checkbox.catalogDesc }}</p>
+              </div>
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
+                {{ messages.controls.viewDocs }}
+                <template #end><DemoIcons name="arrow-right" :size="14" /></template>
+              </VfkButton>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <!-- 主题、品牌色与材质实时预览 -->
       <section id="intro-theming" class="demo-section">
         <div class="demo-section__head">
@@ -133,7 +205,7 @@ function selectBrand(preset: BrandPreset) {
               {{ messages.overview.themingSubPrefix }}
               <code class="demo-inline-code">{{ resolvedTheme }}</code>
               {{ messages.overview.themingSubMid }}
-              <code class="demo-inline-code">VThemeProvider</code>
+              <code class="demo-inline-code">VfkThemeProvider</code>
               {{ messages.overview.themingSubSuffix }}
             </p>
           </div>
@@ -161,33 +233,33 @@ function selectBrand(preset: BrandPreset) {
             </div>
 
             <div class="demo-theme-split">
-              <VThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
+              <VfkThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VThemeProvider · Light</span>
+                  <span class="demo-theme-pane__title">VfkThemeProvider · Light</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedLightTag }}</span>
                 </div>
-                <div class="demo-surface-mini vfk-surface-acrylic">
-                  <DemoLogo :size="26" />
-                  <div>
-                    <div class="demo-surface-mini__title">{{ messages.overview.scopedAcrylicTitle }}</div>
-                    <div class="demo-surface-mini__sub">{{ messages.overview.scopedLightSub }}</div>
+                <div class="demo-stack">
+                  <VfkInput v-model="scopedLightInput" size="small" />
+                  <div class="demo-row" style="justify-content: space-between; align-items: center">
+                    <VfkCheckbox v-model="scopedLightCheck" :label="messages.controls.checkbox.optA" />
+                    <VfkButton appearance="primary" size="small">Primary</VfkButton>
                   </div>
                 </div>
-              </VThemeProvider>
+              </VfkThemeProvider>
 
-              <VThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
+              <VfkThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VThemeProvider · Dark</span>
+                  <span class="demo-theme-pane__title">VfkThemeProvider · Dark</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedDarkTag }}</span>
                 </div>
-                <div class="demo-surface-mini vfk-surface-acrylic">
-                  <DemoLogo :size="26" />
-                  <div>
-                    <div class="demo-surface-mini__title">{{ messages.overview.scopedAcrylicTitle }}</div>
-                    <div class="demo-surface-mini__sub">{{ messages.overview.scopedDarkSub }}</div>
+                <div class="demo-stack">
+                  <VfkInput v-model="scopedDarkInput" size="small" />
+                  <div class="demo-row" style="justify-content: space-between; align-items: center">
+                    <VfkCheckbox v-model="scopedDarkCheck" :label="messages.controls.checkbox.optA" />
+                    <VfkButton appearance="primary" size="small">Primary</VfkButton>
                   </div>
                 </div>
-              </VThemeProvider>
+              </VfkThemeProvider>
             </div>
           </div>
         </div>

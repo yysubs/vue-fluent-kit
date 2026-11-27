@@ -11,7 +11,7 @@ describe('isFluentCustomElement', () => {
   it('不误判普通 HTML 与 Vue 组件标签', () => {
     expect(isFluentCustomElement('button')).toBe(false)
     expect(isFluentCustomElement('div')).toBe(false)
-    expect(isFluentCustomElement('v-button')).toBe(false)
-    expect(isFluentCustomElement('VButton')).toBe(false)
+    expect(isFluentCustomElement('vfk-button')).toBe(false)
+    expect(isFluentCustomElement('VfkButton')).toBe(false)
   })
 })

@@ -8,7 +8,7 @@ import {
   type ResolvedTheme,
 } from './index'
 
-export interface VThemeProviderProps {
+export interface VfkThemeProviderProps {
   /** 局部作用域主题，不传时跟随全局解析后的明暗主题 */
   theme?: ResolvedTheme
   /** 仅作用于当前容器的自定义品牌色阶 */
@@ -17,7 +17,7 @@ export interface VThemeProviderProps {
   as?: string
 }
 
-const props = withDefaults(defineProps<VThemeProviderProps>(), {
+const props = withDefaults(defineProps<VfkThemeProviderProps>(), {
   theme: undefined,
   brand: undefined,
   as: 'div',

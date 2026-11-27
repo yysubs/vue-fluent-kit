@@ -1,3 +1,10 @@
+import {
+  controlsEnUS,
+  controlsZhCN,
+  controlsZhTW,
+  type DemoControlsMessages,
+} from './controls-messages'
+
 export type DemoLocale = 'zh-CN' | 'zh-TW' | 'en-US'
 
 export interface DemoLocaleOption {
@@ -51,12 +58,17 @@ export interface DemoMessages {
     themeSwitchAriaLabel: string
     langSwitchAriaLabel: string
     groupOverview: string
+    groupComponents: string
     groupDesignSystem: string
     navOverviewTitle: string
     navOverviewSub: string
+    navButtonSub: string
+    navInputSub: string
+    navCheckboxSub: string
     navTokensTitle: string
     navTokensSub: string
   }
+  controls: DemoControlsMessages
   brands: {
     default: string
     teal: string
@@ -187,12 +199,17 @@ const zhCN: DemoMessages = {
     themeSwitchAriaLabel: '切换主题',
     langSwitchAriaLabel: '切换语言',
     groupOverview: '概览',
+    groupComponents: '基础控件',
     groupDesignSystem: '设计系统',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概览',
+    navButtonSub: '按钮',
+    navInputSub: '输入框',
+    navCheckboxSub: '复选框',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '变量与材质',
   },
+  controls: controlsZhCN,
   brands: {
     default: 'Fluent 蓝',
     teal: '青碧 Teal',
@@ -264,11 +281,11 @@ const zhCN: DemoMessages = {
     roadmapTitle: '按需封装路线',
     roadmapSub: 'Demo 骨架、Logo、主题/材质层与 Vite 自定义元素编译规则已就绪，后续按需逐个薄封装接入。',
     roadmapItems: [
-      { name: 'VButton', tag: '<fluent-button>', desc: '基础操作按钮、外观/形状/尺寸、图标插槽与 disabledFocusable' },
-      { name: 'VToggleButton', tag: '<fluent-toggle-button>', desc: '支持 v-model 的按压切换按钮，保留官方 ARIA 状态' },
-      { name: 'VInput', tag: '<fluent-text-input>', desc: '受控文本输入、v-model 双向绑定、前后缀插槽与尺寸映射' },
-      { name: 'VCheckbox', tag: '<fluent-checkbox>', desc: '支持 boolean / mixed 三态的复选框与标签组合' },
-      { name: 'VSelect / VOption', tag: '<fluent-dropdown>', desc: '基于官方下拉选择组件薄封装的受控选择器' },
+      { name: 'VfkButton', tag: '<fluent-button>', desc: '基础操作按钮、外观/形状/尺寸、图标插槽与 disabledFocusable' },
+      { name: 'VfkToggleButton', tag: '<fluent-toggle-button>', desc: '支持 v-model 的按压切换按钮，保留官方 ARIA 状态' },
+      { name: 'VfkInput', tag: '<fluent-text-input>', desc: '受控文本输入、v-model 双向绑定、前后缀插槽与尺寸映射' },
+      { name: 'VfkCheckbox', tag: '<fluent-checkbox>', desc: '支持 boolean / mixed 三态的复选框与标签组合' },
+      { name: 'VfkSelect / VfkOption', tag: '<fluent-dropdown>', desc: '基于官方下拉选择组件薄封装的受控选择器' },
       { name: '更多 Fluent 2 控件', tag: '<fluent-*>', desc: 'Switch、Dialog、Drawer、Tabs、Menu、Tooltip 按需逐步扩充' },
     ],
   },
@@ -394,12 +411,17 @@ const zhTW: DemoMessages = {
     themeSwitchAriaLabel: '切換主題',
     langSwitchAriaLabel: '切換語言',
     groupOverview: '概覽',
+    groupComponents: '基礎元件',
     groupDesignSystem: '設計系統',
     navOverviewTitle: 'Introduction',
     navOverviewSub: '概覽',
+    navButtonSub: '按鈕',
+    navInputSub: '輸入框',
+    navCheckboxSub: '核取方塊',
     navTokensTitle: 'Design Tokens',
     navTokensSub: '變數與材質',
   },
+  controls: controlsZhTW,
   brands: {
     default: 'Fluent 藍',
     teal: '青碧 Teal',
@@ -471,11 +493,11 @@ const zhTW: DemoMessages = {
     roadmapTitle: '按需封裝路線',
     roadmapSub: 'Demo 骨架、Logo、主題/材質層與 Vite 自訂元素編譯規則已就緒，後續按需逐一薄封裝接入。',
     roadmapItems: [
-      { name: 'VButton', tag: '<fluent-button>', desc: '基礎操作按鈕、外觀/形狀/尺寸、圖示插槽與 disabledFocusable' },
-      { name: 'VToggleButton', tag: '<fluent-toggle-button>', desc: '支援 v-model 的按壓切換按鈕，保留官方 ARIA 狀態' },
-      { name: 'VInput', tag: '<fluent-text-input>', desc: '受控文字輸入、v-model 雙向繫結、前後綴插槽與尺寸對應' },
-      { name: 'VCheckbox', tag: '<fluent-checkbox>', desc: '支援 boolean / mixed 三態的核取方塊與標籤組合' },
-      { name: 'VSelect / VOption', tag: '<fluent-dropdown>', desc: '基於官方下拉選單元件薄封裝的受控選擇器' },
+      { name: 'VfkButton', tag: '<fluent-button>', desc: '基礎操作按鈕、外觀/形狀/尺寸、圖示插槽與 disabledFocusable' },
+      { name: 'VfkToggleButton', tag: '<fluent-toggle-button>', desc: '支援 v-model 的按壓切換按鈕，保留官方 ARIA 狀態' },
+      { name: 'VfkInput', tag: '<fluent-text-input>', desc: '受控文字輸入、v-model 雙向繫結、前後綴插槽與尺寸對應' },
+      { name: 'VfkCheckbox', tag: '<fluent-checkbox>', desc: '支援 boolean / mixed 三態的核取方塊與標籤組合' },
+      { name: 'VfkSelect / VfkOption', tag: '<fluent-dropdown>', desc: '基於官方下拉選單元件薄封裝的受控選擇器' },
       { name: '更多 Fluent 2 元件', tag: '<fluent-*>', desc: 'Switch、Dialog、Drawer、Tabs、Menu、Tooltip 按需逐步擴充' },
     ],
   },
@@ -601,12 +623,17 @@ const enUS: DemoMessages = {
     themeSwitchAriaLabel: 'Switch theme',
     langSwitchAriaLabel: 'Switch language',
     groupOverview: 'Overview',
+    groupComponents: 'Components',
     groupDesignSystem: 'Design System',
     navOverviewTitle: 'Introduction',
     navOverviewSub: 'Start',
+    navButtonSub: 'Action',
+    navInputSub: 'Text Field',
+    navCheckboxSub: 'Tri-state',
     navTokensTitle: 'Design Tokens',
     navTokensSub: 'Tokens & Surfaces',
   },
+  controls: controlsEnUS,
   brands: {
     default: 'Fluent Blue',
     teal: 'Teal',
@@ -678,11 +705,11 @@ const enUS: DemoMessages = {
     roadmapTitle: 'Incremental Wrapper Roadmap',
     roadmapSub: 'The Demo skeleton, Logo, theme/surface layer, and Vite custom-element rules are ready for on-demand component wrappers.',
     roadmapItems: [
-      { name: 'VButton', tag: '<fluent-button>', desc: 'Appearances, shapes, sizes, start/end icon slots, and disabledFocusable' },
-      { name: 'VToggleButton', tag: '<fluent-toggle-button>', desc: 'Toggle button with v-model binding and native ARIA pressed state' },
-      { name: 'VInput', tag: '<fluent-text-input>', desc: 'Controlled text input with v-model, slots, and unified size mapping' },
-      { name: 'VCheckbox', tag: '<fluent-checkbox>', desc: 'Tri-state boolean / mixed checkbox paired with accessible label' },
-      { name: 'VSelect / VOption', tag: '<fluent-dropdown>', desc: 'Controlled select wrapper powered by official Fluent dropdown' },
+      { name: 'VfkButton', tag: '<fluent-button>', desc: 'Appearances, shapes, sizes, start/end icon slots, and disabledFocusable' },
+      { name: 'VfkToggleButton', tag: '<fluent-toggle-button>', desc: 'Toggle button with v-model binding and native ARIA pressed state' },
+      { name: 'VfkInput', tag: '<fluent-text-input>', desc: 'Controlled text input with v-model, slots, and unified size mapping' },
+      { name: 'VfkCheckbox', tag: '<fluent-checkbox>', desc: 'Tri-state boolean / mixed checkbox paired with accessible label' },
+      { name: 'VfkSelect / VfkOption', tag: '<fluent-dropdown>', desc: 'Controlled select wrapper powered by official Fluent dropdown' },
       { name: 'More Fluent 2 Controls', tag: '<fluent-*>', desc: 'Switch, Dialog, Drawer, Tabs, Menu, Tooltip added incrementally' },
     ],
   },
