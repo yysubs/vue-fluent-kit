@@ -61,6 +61,10 @@ function selectBrand(preset: BrandPreset) {
     resetBrandTokens()
   }
 }
+
+function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 </script>
 
 <template>
@@ -90,7 +94,7 @@ function selectBrand(preset: BrandPreset) {
           </div>
         </div>
         <div class="demo-row">
-          <VfkButton appearance="primary" @click="emit('navigate', 'button')">
+          <VfkButton appearance="primary" @click="scrollToSection('intro-catalog')">
             {{ messages.controls.implementedTitle }}
           </VfkButton>
           <VfkButton appearance="outline" @click="emit('navigate', 'tokens')">
