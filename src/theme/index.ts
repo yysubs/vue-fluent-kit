@@ -142,5 +142,5 @@ export function useTheme() {
   }
 }
 
-export { default as VfThemeProvider } from './VfThemeProvider.vue'
-export type { VfThemeProviderProps } from './VfThemeProvider.vue'
+export { default as VfkThemeProvider } from './VfkThemeProvider.vue'
+export type { VfkThemeProviderProps } from './VfkThemeProvider.vue'

@@ -7,7 +7,7 @@ export type InputSize = 'small' | 'medium' | 'large'
 /** 支持的输入类型 */
 export type InputType = 'text' | 'email' | 'password' | 'tel' | 'url'
 
-export interface VfInputProps {
+export interface VfkInputProps {
   /** 输入值，用于 v-model 双向绑定 */
   modelValue?: string
   /** 视觉外观 */

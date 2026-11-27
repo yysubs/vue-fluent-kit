@@ -42,7 +42,7 @@ const navItems = computed<NavItem[]>(() => [
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
     icon: 'button',
-    keywords: 'button vfbutton fluent-button 按钮 按鈕 图标 圖示 action',
+    keywords: 'button vfkbutton fluent-button 按钮 按鈕 图标 圖示 action',
   },
   {
     id: 'input',
@@ -51,7 +51,7 @@ const navItems = computed<NavItem[]>(() => [
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
     icon: 'input',
-    keywords: 'input vfinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
+    keywords: 'input vfkinput fluent-text-input text field 输入框 輸入框 文本 文字 v-model',
   },
   {
     id: 'checkbox',
@@ -60,7 +60,7 @@ const navItems = computed<NavItem[]>(() => [
     groupKey: 'components',
     groupLabel: messages.value.shell.groupComponents,
     icon: 'checkbox',
-    keywords: 'checkbox vfcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
+    keywords: 'checkbox vfkcheckbox fluent-checkbox mixed indeterminate 复选框 核取方塊 勾选 勾選 半选 半選',
   },
   {
     id: 'tokens',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {
-  VfCheckbox,
+  VfkCheckbox,
   type CheckboxLabelPosition,
   type CheckboxShape,
   type CheckboxSize,
@@ -50,18 +50,18 @@ const playgroundCode = computed(() => {
   if (disabled.value) attrs.push('disabled')
   if (required.value) attrs.push('required')
   attrs.push(`label="${messages.value.controls.checkbox.sampleLabel}"`)
-  return `<VfCheckbox ${attrs.join(' ')} />`
+  return `<VfkCheckbox ${attrs.join(' ')} />`
 })
 
-const tristateCode = `<VfCheckbox :model-value="allState" label="Select all" @update:model-value="handleSelectAll" />
-<VfCheckbox v-model="options[0]" label="Option A" />
-<VfCheckbox v-model="options[1]" label="Option B" />
-<VfCheckbox v-model="options[2]" label="Option C" />`
+const tristateCode = `<VfkCheckbox :model-value="allState" label="Select all" @update:model-value="handleSelectAll" />
+<VfkCheckbox v-model="options[0]" label="Option A" />
+<VfkCheckbox v-model="options[1]" label="Option B" />
+<VfkCheckbox v-model="options[2]" label="Option C" />`
 
-const variantCode = `<VfCheckbox :model-value="true" size="medium" label="Medium" />
-<VfCheckbox :model-value="true" size="large" label="Large" />
-<VfCheckbox :model-value="true" shape="circular" label="Circular" />
-<VfCheckbox :model-value="true" label-position="before" label="Label Before" />`
+const variantCode = `<VfkCheckbox :model-value="true" size="medium" label="Medium" />
+<VfkCheckbox :model-value="true" size="large" label="Large" />
+<VfkCheckbox :model-value="true" shape="circular" label="Circular" />
+<VfkCheckbox :model-value="true" label-position="before" label="Label Before" />`
 
 const propRows = computed<ApiRow[]>(() => [
   {
@@ -118,7 +118,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-page-header__title-row">
           <h1 class="demo-page-header__title">Checkbox</h1>
           <div class="demo-page-header__tags">
-            <span class="demo-tag demo-tag--brand">VfCheckbox</span>
+            <span class="demo-tag demo-tag--brand">VfkCheckbox</span>
             <span class="demo-tag">&lt;fluent-checkbox&gt;</span>
           </div>
         </div>
@@ -132,7 +132,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
 
         <DemoPlayground :code="playgroundCode">
           <template #stage>
-            <VfCheckbox
+            <VfkCheckbox
               v-model="checked"
               :shape="shape"
               :size="size"
@@ -173,8 +173,8 @@ const eventSlotRows = computed<ApiRow[]>(() => [
             </div>
 
             <div class="demo-control-checks">
-              <VfCheckbox v-model="disabled" label="disabled" />
-              <VfCheckbox v-model="required" label="required" />
+              <VfkCheckbox v-model="disabled" label="disabled" />
+              <VfkCheckbox v-model="required" label="required" />
               <button
                 type="button"
                 class="demo-btn demo-btn--subtle demo-btn--small"
@@ -199,15 +199,15 @@ const eventSlotRows = computed<ApiRow[]>(() => [
           full
         >
           <div class="demo-stack">
-            <VfCheckbox
+            <VfkCheckbox
               :model-value="allState"
               :label="messages.controls.checkbox.selectAll"
               @update:model-value="handleSelectAll"
             />
             <div class="demo-row" style="padding-inline-start: 24px">
-              <VfCheckbox v-model="childOptions[0]" :label="messages.controls.checkbox.optA" />
-              <VfCheckbox v-model="childOptions[1]" :label="messages.controls.checkbox.optB" />
-              <VfCheckbox v-model="childOptions[2]" :label="messages.controls.checkbox.optC" />
+              <VfkCheckbox v-model="childOptions[0]" :label="messages.controls.checkbox.optA" />
+              <VfkCheckbox v-model="childOptions[1]" :label="messages.controls.checkbox.optB" />
+              <VfkCheckbox v-model="childOptions[2]" :label="messages.controls.checkbox.optC" />
             </div>
           </div>
         </DemoCard>
@@ -221,10 +221,10 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-cards-grid">
           <DemoCard :title="messages.controls.checkbox.cardSizesShapesTitle" :code="variantCode">
             <div class="demo-stack">
-              <VfCheckbox :model-value="true" size="medium" label="Medium (16px)" />
-              <VfCheckbox :model-value="true" size="large" label="Large (20px)" />
-              <VfCheckbox :model-value="true" shape="circular" label="Circular" />
-              <VfCheckbox
+              <VfkCheckbox :model-value="true" size="medium" label="Medium (16px)" />
+              <VfkCheckbox :model-value="true" size="large" label="Large (20px)" />
+              <VfkCheckbox :model-value="true" shape="circular" label="Circular" />
+              <VfkCheckbox
                 :model-value="true"
                 label-position="before"
                 :label="messages.controls.checkbox.labelBefore"
@@ -234,10 +234,10 @@ const eventSlotRows = computed<ApiRow[]>(() => [
 
           <DemoCard :title="messages.controls.checkbox.cardDisabledTitle">
             <div class="demo-stack">
-              <VfCheckbox :model-value="false" disabled label="Disabled Unchecked" />
-              <VfCheckbox :model-value="true" disabled label="Disabled Checked" />
-              <VfCheckbox model-value="mixed" disabled label="Disabled Mixed" />
-              <VfCheckbox :model-value="false" required :label="messages.controls.checkbox.requiredLabel" />
+              <VfkCheckbox :model-value="false" disabled label="Disabled Unchecked" />
+              <VfkCheckbox :model-value="true" disabled label="Disabled Checked" />
+              <VfkCheckbox model-value="mixed" disabled label="Disabled Mixed" />
+              <VfkCheckbox :model-value="false" required :label="messages.controls.checkbox.requiredLabel" />
             </div>
           </DemoCard>
         </div>

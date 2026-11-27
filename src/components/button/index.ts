@@ -1,8 +1,8 @@
-export { default as VfButton } from './VfButton.vue'
+export { default as VfkButton } from './VfkButton.vue'
 export type {
   ButtonAppearance,
   ButtonShape,
   ButtonSize,
   ButtonType,
-  VfButtonProps,
+  VfkButtonProps,
 } from './types'

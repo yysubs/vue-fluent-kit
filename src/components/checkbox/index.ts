@@ -1,8 +1,8 @@
-export { default as VfCheckbox } from './VfCheckbox.vue'
+export { default as VfkCheckbox } from './VfkCheckbox.vue'
 export type {
   CheckboxLabelPosition,
   CheckboxShape,
   CheckboxSize,
   CheckboxValue,
-  VfCheckboxProps,
+  VfkCheckboxProps,
 } from './types'

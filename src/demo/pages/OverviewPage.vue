@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { VfButton, VfCheckbox, VfInput, VfThemeProvider, useTheme, version } from '../../index'
+import { VfkButton, VfkCheckbox, VfkInput, VfkThemeProvider, useTheme, version } from '../../index'
 import { demoBrandPresets, type BrandPreset } from '../brand-presets'
 import DemoIcons from '../components/DemoIcons.vue'
 import DemoLogo from '../components/DemoLogo.vue'
@@ -69,12 +69,12 @@ function selectBrand(preset: BrandPreset) {
           </div>
         </div>
         <div class="demo-row">
-          <VfButton appearance="primary" @click="emit('navigate', 'button')">
+          <VfkButton appearance="primary" @click="emit('navigate', 'button')">
             {{ messages.controls.implementedTitle }}
-          </VfButton>
-          <VfButton appearance="outline" @click="emit('navigate', 'tokens')">
+          </VfkButton>
+          <VfkButton appearance="outline" @click="emit('navigate', 'tokens')">
             {{ messages.overview.ctaTokens }}
-          </VfButton>
+          </VfkButton>
         </div>
       </div>
 
@@ -136,61 +136,61 @@ function selectBrand(preset: BrandPreset) {
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
               <div class="demo-row">
-                <VfButton appearance="primary" size="medium">Primary</VfButton>
-                <VfButton appearance="outline" size="medium">Outline</VfButton>
-                <VfButton appearance="subtle" size="medium">Subtle</VfButton>
+                <VfkButton appearance="primary" size="medium">Primary</VfkButton>
+                <VfkButton appearance="outline" size="medium">Outline</VfkButton>
+                <VfkButton appearance="subtle" size="medium">Subtle</VfkButton>
               </div>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VfButton</h3>
+                <h3 class="demo-catalog-card__title">VfkButton</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.button.catalogDesc }}</p>
               </div>
-              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'button')">
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'button')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VfButton>
+              </VfkButton>
             </div>
           </article>
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
-              <VfInput
+              <VfkInput
                 v-model="miniInput"
                 :placeholder="messages.controls.input.searchPlaceholder"
                 style="width: 100%; max-width: 260px"
               >
                 <template #start><DemoIcons name="search" :size="15" /></template>
-              </VfInput>
+              </VfkInput>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VfInput</h3>
+                <h3 class="demo-catalog-card__title">VfkInput</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.input.catalogDesc }}</p>
               </div>
-              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'input')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VfButton>
+              </VfkButton>
             </div>
           </article>
 
           <article class="demo-catalog-card">
             <div class="demo-catalog-card__preview">
               <div class="demo-row">
-                <VfCheckbox v-model="miniChecked" :label="messages.controls.checkbox.optA" />
-                <VfCheckbox model-value="mixed" :label="messages.controls.checkbox.optB" />
+                <VfkCheckbox v-model="miniChecked" :label="messages.controls.checkbox.optA" />
+                <VfkCheckbox model-value="mixed" :label="messages.controls.checkbox.optB" />
               </div>
             </div>
             <div class="demo-catalog-card__body">
               <div>
-                <h3 class="demo-catalog-card__title">VfCheckbox</h3>
+                <h3 class="demo-catalog-card__title">VfkCheckbox</h3>
                 <p class="demo-catalog-card__desc">{{ messages.controls.checkbox.catalogDesc }}</p>
               </div>
-              <VfButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
+              <VfkButton appearance="subtle" size="small" @click="emit('navigate', 'checkbox')">
                 {{ messages.controls.viewDocs }}
                 <template #end><DemoIcons name="arrow-right" :size="14" /></template>
-              </VfButton>
+              </VfkButton>
             </div>
           </article>
         </div>
@@ -205,7 +205,7 @@ function selectBrand(preset: BrandPreset) {
               {{ messages.overview.themingSubPrefix }}
               <code class="demo-inline-code">{{ resolvedTheme }}</code>
               {{ messages.overview.themingSubMid }}
-              <code class="demo-inline-code">VfThemeProvider</code>
+              <code class="demo-inline-code">VfkThemeProvider</code>
               {{ messages.overview.themingSubSuffix }}
             </p>
           </div>
@@ -233,33 +233,33 @@ function selectBrand(preset: BrandPreset) {
             </div>
 
             <div class="demo-theme-split">
-              <VfThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
+              <VfkThemeProvider theme="light" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VfThemeProvider · Light</span>
+                  <span class="demo-theme-pane__title">VfkThemeProvider · Light</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedLightTag }}</span>
                 </div>
                 <div class="demo-stack">
-                  <VfInput v-model="scopedLightInput" size="small" />
+                  <VfkInput v-model="scopedLightInput" size="small" />
                   <div class="demo-row" style="justify-content: space-between; align-items: center">
-                    <VfCheckbox v-model="scopedLightCheck" :label="messages.controls.checkbox.optA" />
-                    <VfButton appearance="primary" size="small">Primary</VfButton>
+                    <VfkCheckbox v-model="scopedLightCheck" :label="messages.controls.checkbox.optA" />
+                    <VfkButton appearance="primary" size="small">Primary</VfkButton>
                   </div>
                 </div>
-              </VfThemeProvider>
+              </VfkThemeProvider>
 
-              <VfThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
+              <VfkThemeProvider theme="dark" class="demo-theme-pane vfk-surface-mica">
                 <div class="demo-theme-pane__head">
-                  <span class="demo-theme-pane__title">VfThemeProvider · Dark</span>
+                  <span class="demo-theme-pane__title">VfkThemeProvider · Dark</span>
                   <span class="demo-tag demo-tag--brand">{{ messages.overview.scopedDarkTag }}</span>
                 </div>
                 <div class="demo-stack">
-                  <VfInput v-model="scopedDarkInput" size="small" />
+                  <VfkInput v-model="scopedDarkInput" size="small" />
                   <div class="demo-row" style="justify-content: space-between; align-items: center">
-                    <VfCheckbox v-model="scopedDarkCheck" :label="messages.controls.checkbox.optA" />
-                    <VfButton appearance="primary" size="small">Primary</VfButton>
+                    <VfkCheckbox v-model="scopedDarkCheck" :label="messages.controls.checkbox.optA" />
+                    <VfkButton appearance="primary" size="small">Primary</VfkButton>
                   </div>
                 </div>
-              </VfThemeProvider>
+              </VfkThemeProvider>
             </div>
           </div>
         </div>

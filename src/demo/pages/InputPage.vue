@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {
-  VfButton,
-  VfCheckbox,
-  VfInput,
+  VfkButton,
+  VfkCheckbox,
+  VfkInput,
   type InputAppearance,
   type InputSize,
   type InputType,
@@ -50,31 +50,31 @@ const playgroundCode = computed(() => {
   if (disabled.value) attrs.push('disabled')
   if (readonly.value) attrs.push('readonly')
   attrs.push(`placeholder="${messages.value.controls.input.placeholder}"`)
-  const openTag = `<VfInput ${attrs.join(' ')}>`
+  const openTag = `<VfkInput ${attrs.join(' ')}>`
   if (!withLabel.value && !withStart.value) {
-    return `<VfInput ${attrs.join(' ')} />`
+    return `<VfkInput ${attrs.join(' ')} />`
   }
   const lines = [openTag]
   if (withLabel.value) lines.push(`  ${messages.value.controls.input.fieldLabel}`)
   if (withStart.value) lines.push('  <template #start><SearchIcon /></template>')
-  lines.push('</VfInput>')
+  lines.push('</VfkInput>')
   return lines.join('\n')
 })
 
-const appearanceCode = `<VfInput appearance="outline" placeholder="Outline" />
-<VfInput appearance="underline" placeholder="Underline" />
-<VfInput appearance="filled-darker" placeholder="Filled Darker" />
-<VfInput appearance="filled-lighter" placeholder="Filled Lighter" />`
+const appearanceCode = `<VfkInput appearance="outline" placeholder="Outline" />
+<VfkInput appearance="underline" placeholder="Underline" />
+<VfkInput appearance="filled-darker" placeholder="Filled Darker" />
+<VfkInput appearance="filled-lighter" placeholder="Filled Lighter" />`
 
-const slotsCode = `<VfInput v-model="search" placeholder="Search...">
+const slotsCode = `<VfkInput v-model="search" placeholder="Search...">
   <template #start><SearchIcon /></template>
   <template #end>
-    <VfButton appearance="transparent" size="small" @click="search = ''">Clear</VfButton>
+    <VfkButton appearance="transparent" size="small" @click="search = ''">Clear</VfkButton>
   </template>
-</VfInput>`
+</VfkInput>`
 
-const stateCode = `<VfInput model-value="Read-only value" readonly />
-<VfInput model-value="Disabled value" disabled />`
+const stateCode = `<VfkInput model-value="Read-only value" readonly />
+<VfkInput model-value="Disabled value" disabled />`
 
 const propRows = computed<ApiRow[]>(() => [
   {
@@ -131,7 +131,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-page-header__title-row">
           <h1 class="demo-page-header__title">Input</h1>
           <div class="demo-page-header__tags">
-            <span class="demo-tag demo-tag--brand">VfInput</span>
+            <span class="demo-tag demo-tag--brand">VfkInput</span>
             <span class="demo-tag">&lt;fluent-text-input&gt;</span>
           </div>
         </div>
@@ -145,7 +145,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
 
         <DemoPlayground :code="playgroundCode">
           <template #stage>
-            <VfInput
+            <VfkInput
               v-model="modelValue"
               :appearance="appearance"
               :size="size"
@@ -159,7 +159,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
               <template v-if="withStart" #start>
                 <DemoIcons name="sparkle" :size="15" />
               </template>
-            </VfInput>
+            </VfkInput>
           </template>
 
           <template #readout>
@@ -189,10 +189,10 @@ const eventSlotRows = computed<ApiRow[]>(() => [
             </div>
 
             <div class="demo-control-checks">
-              <VfCheckbox v-model="withLabel" label="#default (label)" />
-              <VfCheckbox v-model="withStart" label="#start" />
-              <VfCheckbox v-model="disabled" label="disabled" />
-              <VfCheckbox v-model="readonly" label="readonly" />
+              <VfkCheckbox v-model="withLabel" label="#default (label)" />
+              <VfkCheckbox v-model="withStart" label="#start" />
+              <VfkCheckbox v-model="disabled" label="disabled" />
+              <VfkCheckbox v-model="readonly" label="readonly" />
             </div>
           </template>
         </DemoPlayground>
@@ -211,10 +211,10 @@ const eventSlotRows = computed<ApiRow[]>(() => [
           full
         >
           <div class="demo-field-grid">
-            <VfInput appearance="outline" placeholder="Outline">Outline</VfInput>
-            <VfInput appearance="underline" placeholder="Underline">Underline</VfInput>
-            <VfInput appearance="filled-darker" placeholder="Filled Darker">Filled Darker</VfInput>
-            <VfInput appearance="filled-lighter" placeholder="Filled Lighter">Filled Lighter</VfInput>
+            <VfkInput appearance="outline" placeholder="Outline">Outline</VfkInput>
+            <VfkInput appearance="underline" placeholder="Underline">Underline</VfkInput>
+            <VfkInput appearance="filled-darker" placeholder="Filled Darker">Filled Darker</VfkInput>
+            <VfkInput appearance="filled-lighter" placeholder="Filled Lighter">Filled Lighter</VfkInput>
           </div>
         </DemoCard>
       </section>
@@ -227,35 +227,35 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-cards-grid">
           <DemoCard :title="messages.controls.input.cardSizesTitle">
             <div class="demo-stack">
-              <VfInput size="small" placeholder="Small (24px)" />
-              <VfInput size="medium" placeholder="Medium (32px)" />
-              <VfInput size="large" placeholder="Large (40px)" />
+              <VfkInput size="small" placeholder="Small (24px)" />
+              <VfkInput size="medium" placeholder="Medium (32px)" />
+              <VfkInput size="large" placeholder="Large (40px)" />
             </div>
           </DemoCard>
 
           <DemoCard :title="messages.controls.input.cardSlotsTitle" :code="slotsCode">
             <div class="demo-stack">
-              <VfInput v-model="searchText" :placeholder="messages.controls.input.searchPlaceholder">
+              <VfkInput v-model="searchText" :placeholder="messages.controls.input.searchPlaceholder">
                 <template #start><DemoIcons name="search" :size="15" /></template>
                 <template v-if="searchText" #end>
-                  <VfButton
+                  <VfkButton
                     appearance="transparent"
                     size="small"
                     :aria-label="messages.shell.clearSearchAriaLabel"
                     @click="searchText = ''"
                   >
                     <template #start><DemoIcons name="close" :size="12" /></template>
-                  </VfButton>
+                  </VfkButton>
                 </template>
-              </VfInput>
+              </VfkInput>
 
-              <VfInput
+              <VfkInput
                 v-model="passwordValue"
                 :type="showPassword ? 'text' : 'password'"
                 :placeholder="messages.controls.input.passwordPlaceholder"
               >
                 <template #end>
-                  <VfButton
+                  <VfkButton
                     appearance="transparent"
                     size="small"
                     :aria-label="messages.controls.input.togglePasswordAria"
@@ -264,9 +264,9 @@ const eventSlotRows = computed<ApiRow[]>(() => [
                     <template #start>
                       <DemoIcons :name="showPassword ? 'eye-off' : 'eye'" :size="15" />
                     </template>
-                  </VfButton>
+                  </VfkButton>
                 </template>
-              </VfInput>
+              </VfkInput>
             </div>
           </DemoCard>
         </div>
@@ -279,8 +279,8 @@ const eventSlotRows = computed<ApiRow[]>(() => [
 
         <DemoCard :title="messages.controls.input.cardStatesTitle" :code="stateCode" full>
           <div class="demo-field-grid">
-            <VfInput :model-value="messages.controls.input.readonlySample" readonly>Readonly</VfInput>
-            <VfInput :model-value="messages.controls.input.disabledSample" disabled>Disabled</VfInput>
+            <VfkInput :model-value="messages.controls.input.readonlySample" readonly>Readonly</VfkInput>
+            <VfkInput :model-value="messages.controls.input.disabledSample" disabled>Disabled</VfkInput>
           </div>
         </DemoCard>
       </section>

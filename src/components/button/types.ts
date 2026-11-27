@@ -10,7 +10,7 @@ export type ButtonSize = 'small' | 'medium' | 'large'
 /** 原生按钮类型 */
 export type ButtonType = 'button' | 'submit' | 'reset'
 
-export interface VfButtonProps {
+export interface VfkButtonProps {
   /** 按钮外观 */
   appearance?: ButtonAppearance
   /** 按钮形状 */

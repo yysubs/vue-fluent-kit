@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { VfInput } from './index'
+import { VfkInput } from './index'
 
-describe('VfInput', () => {
+describe('VfkInput', () => {
   it('注册 fluent-text-input 并映射 appearance 与 control-size', () => {
     expect(customElements.get('fluent-text-input')).toBeDefined()
 
-    const wrapper = mount(VfInput, {
+    const wrapper = mount(VfkInput, {
       props: {
         appearance: 'filled-darker',
         size: 'large',
@@ -23,7 +23,7 @@ describe('VfInput', () => {
   })
 
   it('支持 v-model 双向绑定与 change 事件', async () => {
-    const wrapper = mount(VfInput, {
+    const wrapper = mount(VfkInput, {
       props: {
         modelValue: '初始值',
         'onUpdate:modelValue': (val: string) => wrapper.setProps({ modelValue: val }),
@@ -47,7 +47,7 @@ describe('VfInput', () => {
   })
 
   it('受控模式下父级未更新 modelValue 时还原底层值', async () => {
-    const wrapper = mount(VfInput, {
+    const wrapper = mount(VfkInput, {
       props: {
         modelValue: '固定值',
       },
@@ -62,7 +62,7 @@ describe('VfInput', () => {
   })
 
   it('渲染 start、end 与默认 label 插槽', () => {
-    const wrapper = mount(VfInput, {
+    const wrapper = mount(VfkInput, {
       slots: {
         default: '用户名',
         start: '<span class="prefix">@</span>',

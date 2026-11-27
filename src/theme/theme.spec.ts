@@ -6,7 +6,7 @@ import {
   resetBrandTokens,
   setVfkTheme,
   useTheme,
-  VfThemeProvider,
+  VfkThemeProvider,
   type BrandVariants,
 } from './index'
 
@@ -62,8 +62,8 @@ describe('theme utilities', () => {
     expect(host.style.getPropertyValue('--colorBrandBackground')).toBe('')
   })
 
-  it('VfThemeProvider 支持局部主题与局部品牌色隔离', async () => {
-    const wrapper = mount(VfThemeProvider, {
+  it('VfkThemeProvider 支持局部主题与局部品牌色隔离', async () => {
+    const wrapper = mount(VfkThemeProvider, {
       props: {
         theme: 'dark',
         brand: sampleBrand,

@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
-import { VfCheckbox } from './index'
+import { VfkCheckbox } from './index'
 
-describe('VfCheckbox', () => {
+describe('VfkCheckbox', () => {
   it('注册 fluent-checkbox 并关联 label 与自动 id', () => {
     expect(customElements.get('fluent-checkbox')).toBeDefined()
 
-    const wrapper = mount(VfCheckbox, {
+    const wrapper = mount(VfkCheckbox, {
       props: {
         label: '同意服务条款',
         required: true,
@@ -28,7 +28,7 @@ describe('VfCheckbox', () => {
   })
 
   it('支持 boolean 与 mixed 三态同步及 v-model 切换', async () => {
-    const wrapper = mount(VfCheckbox, {
+    const wrapper = mount(VfkCheckbox, {
       props: {
         modelValue: 'mixed' as const,
         label: '全选',
@@ -56,7 +56,7 @@ describe('VfCheckbox', () => {
   })
 
   it('disabled 时不派发 update:modelValue 并保持状态不变', async () => {
-    const wrapper = mount(VfCheckbox, {
+    const wrapper = mount(VfkCheckbox, {
       props: {
         modelValue: false,
         disabled: true,
@@ -75,7 +75,7 @@ describe('VfCheckbox', () => {
   })
 
   it('支持 labelPosition="before"', () => {
-    const wrapper = mount(VfCheckbox, {
+    const wrapper = mount(VfkCheckbox, {
       props: {
         label: '左侧标签',
         labelPosition: 'before',

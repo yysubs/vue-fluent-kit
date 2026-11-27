@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {
-  VfButton,
-  VfCheckbox,
+  VfkButton,
+  VfkCheckbox,
   type ButtonAppearance,
   type ButtonShape,
   type ButtonSize,
@@ -44,42 +44,42 @@ const playgroundCode = computed(() => {
   if (shape.value !== 'rounded') attrs.push(`shape="${shape.value}"`)
   if (disabled.value) attrs.push('disabled')
   if (disabledFocusable.value) attrs.push('disabled-focusable')
-  const openTag = attrs.length ? `<VfButton ${attrs.join(' ')}>` : '<VfButton>'
+  const openTag = attrs.length ? `<VfkButton ${attrs.join(' ')}>` : '<VfkButton>'
   const lines = [openTag]
   if (withStartIcon.value) lines.push('  <template #start><PlusIcon /></template>')
   lines.push(`  ${messages.value.controls.button.actionLabel}`)
   if (withEndIcon.value) lines.push('  <template #end><ArrowRightIcon /></template>')
-  lines.push('</VfButton>')
+  lines.push('</VfkButton>')
   return lines.join('\n')
 })
 
-const appearanceCode = `<VfButton appearance="secondary">Secondary</VfButton>
-<VfButton appearance="primary">Primary</VfButton>
-<VfButton appearance="outline">Outline</VfButton>
-<VfButton appearance="subtle">Subtle</VfButton>
-<VfButton appearance="transparent">Transparent</VfButton>`
+const appearanceCode = `<VfkButton appearance="secondary">Secondary</VfkButton>
+<VfkButton appearance="primary">Primary</VfkButton>
+<VfkButton appearance="outline">Outline</VfkButton>
+<VfkButton appearance="subtle">Subtle</VfkButton>
+<VfkButton appearance="transparent">Transparent</VfkButton>`
 
-const sizeShapeCode = `<VfButton size="small">Small</VfButton>
-<VfButton size="medium">Medium</VfButton>
-<VfButton size="large">Large</VfButton>
-<VfButton shape="rounded">Rounded</VfButton>
-<VfButton shape="circular">Circular</VfButton>
-<VfButton shape="square">Square</VfButton>`
+const sizeShapeCode = `<VfkButton size="small">Small</VfkButton>
+<VfkButton size="medium">Medium</VfkButton>
+<VfkButton size="large">Large</VfkButton>
+<VfkButton shape="rounded">Rounded</VfkButton>
+<VfkButton shape="circular">Circular</VfkButton>
+<VfkButton shape="square">Square</VfkButton>`
 
-const iconCode = `<VfButton appearance="primary">
+const iconCode = `<VfkButton appearance="primary">
   <template #start><PlusIcon /></template>
   New Item
-</VfButton>
-<VfButton appearance="outline">
+</VfkButton>
+<VfkButton appearance="outline">
   Next
   <template #end><ArrowRightIcon /></template>
-</VfButton>
-<VfButton appearance="subtle" aria-label="Add">
+</VfkButton>
+<VfkButton appearance="subtle" aria-label="Add">
   <template #start><PlusIcon /></template>
-</VfButton>`
+</VfkButton>`
 
-const disabledCode = `<VfButton appearance="primary" disabled>Disabled</VfButton>
-<VfButton appearance="secondary" disabled-focusable>Disabled Focusable</VfButton>`
+const disabledCode = `<VfkButton appearance="primary" disabled>Disabled</VfkButton>
+<VfkButton appearance="secondary" disabled-focusable>Disabled Focusable</VfkButton>`
 
 const propRows = computed<ApiRow[]>(() => [
   {
@@ -142,7 +142,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-page-header__title-row">
           <h1 class="demo-page-header__title">Button</h1>
           <div class="demo-page-header__tags">
-            <span class="demo-tag demo-tag--brand">VfButton</span>
+            <span class="demo-tag demo-tag--brand">VfkButton</span>
             <span class="demo-tag">&lt;fluent-button&gt;</span>
           </div>
         </div>
@@ -156,7 +156,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
 
         <DemoPlayground :code="playgroundCode">
           <template #stage>
-            <VfButton
+            <VfkButton
               :appearance="appearance"
               :size="size"
               :shape="shape"
@@ -171,7 +171,7 @@ const eventSlotRows = computed<ApiRow[]>(() => [
               <template v-if="withEndIcon" #end>
                 <DemoIcons name="arrow-right" :size="15" />
               </template>
-            </VfButton>
+            </VfkButton>
           </template>
 
           <template #readout>
@@ -201,10 +201,10 @@ const eventSlotRows = computed<ApiRow[]>(() => [
             </div>
 
             <div class="demo-control-checks">
-              <VfCheckbox v-model="withStartIcon" label="#start" />
-              <VfCheckbox v-model="withEndIcon" label="#end" />
-              <VfCheckbox v-model="disabled" label="disabled" />
-              <VfCheckbox v-model="disabledFocusable" label="disabledFocusable" />
+              <VfkCheckbox v-model="withStartIcon" label="#start" />
+              <VfkCheckbox v-model="withEndIcon" label="#end" />
+              <VfkCheckbox v-model="disabled" label="disabled" />
+              <VfkCheckbox v-model="disabledFocusable" label="disabledFocusable" />
             </div>
           </template>
         </DemoPlayground>
@@ -222,11 +222,11 @@ const eventSlotRows = computed<ApiRow[]>(() => [
           full
         >
           <div class="demo-row">
-            <VfButton appearance="secondary">Secondary</VfButton>
-            <VfButton appearance="primary">Primary</VfButton>
-            <VfButton appearance="outline">Outline</VfButton>
-            <VfButton appearance="subtle">Subtle</VfButton>
-            <VfButton appearance="transparent">Transparent</VfButton>
+            <VfkButton appearance="secondary">Secondary</VfkButton>
+            <VfkButton appearance="primary">Primary</VfkButton>
+            <VfkButton appearance="outline">Outline</VfkButton>
+            <VfkButton appearance="subtle">Subtle</VfkButton>
+            <VfkButton appearance="transparent">Transparent</VfkButton>
           </div>
         </DemoCard>
       </section>
@@ -239,17 +239,17 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-cards-grid">
           <DemoCard :title="messages.controls.button.cardSizesTitle" :code="sizeShapeCode">
             <div class="demo-row" style="align-items: center">
-              <VfButton size="small" appearance="primary">Small</VfButton>
-              <VfButton size="medium" appearance="primary">Medium</VfButton>
-              <VfButton size="large" appearance="primary">Large</VfButton>
+              <VfkButton size="small" appearance="primary">Small</VfkButton>
+              <VfkButton size="medium" appearance="primary">Medium</VfkButton>
+              <VfkButton size="large" appearance="primary">Large</VfkButton>
             </div>
           </DemoCard>
 
           <DemoCard :title="messages.controls.button.cardShapesTitle" :code="sizeShapeCode">
             <div class="demo-row">
-              <VfButton shape="rounded">Rounded</VfButton>
-              <VfButton shape="circular">Circular</VfButton>
-              <VfButton shape="square">Square</VfButton>
+              <VfkButton shape="rounded">Rounded</VfkButton>
+              <VfkButton shape="circular">Circular</VfkButton>
+              <VfkButton shape="square">Square</VfkButton>
             </div>
           </DemoCard>
         </div>
@@ -263,24 +263,24 @@ const eventSlotRows = computed<ApiRow[]>(() => [
         <div class="demo-cards-grid">
           <DemoCard :title="messages.controls.button.cardIconsTitle" :code="iconCode">
             <div class="demo-row">
-              <VfButton appearance="primary">
+              <VfkButton appearance="primary">
                 <template #start><DemoIcons name="plus" :size="15" /></template>
                 {{ messages.controls.button.actionLabel }}
-              </VfButton>
-              <VfButton appearance="outline">
+              </VfkButton>
+              <VfkButton appearance="outline">
                 {{ messages.controls.button.nextLabel }}
                 <template #end><DemoIcons name="arrow-right" :size="15" /></template>
-              </VfButton>
-              <VfButton appearance="subtle" :aria-label="messages.controls.button.actionLabel">
+              </VfkButton>
+              <VfkButton appearance="subtle" :aria-label="messages.controls.button.actionLabel">
                 <template #start><DemoIcons name="plus" :size="15" /></template>
-              </VfButton>
+              </VfkButton>
             </div>
           </DemoCard>
 
           <DemoCard :title="messages.controls.button.cardDisabledTitle" :code="disabledCode">
             <div class="demo-row">
-              <VfButton appearance="primary" disabled>Disabled</VfButton>
-              <VfButton appearance="secondary" disabled-focusable>Disabled Focusable</VfButton>
+              <VfkButton appearance="primary" disabled>Disabled</VfkButton>
+              <VfkButton appearance="secondary" disabled-focusable>Disabled Focusable</VfkButton>
             </div>
           </DemoCard>
         </div>

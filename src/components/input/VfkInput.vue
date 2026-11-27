@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@fluentui/web-components/text-input.js'
 import { nextTick, onMounted, ref, watch } from 'vue'
-import type { VfInputProps } from './types'
+import type { VfkInputProps } from './types'
 
 interface FluentTextInputElement extends HTMLElement {
   value: string
@@ -10,7 +10,7 @@ interface FluentTextInputElement extends HTMLElement {
   select?: () => void
 }
 
-const props = withDefaults(defineProps<VfInputProps>(), {
+const props = withDefaults(defineProps<VfkInputProps>(), {
   modelValue: undefined,
   appearance: 'outline',
   size: 'medium',
