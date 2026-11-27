@@ -46,33 +46,37 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/button.js"
     },
-    "./toggle-button": {
-      "types": "./dist/components/toggle-button/index.d.ts",
-      "import": "./dist/toggle-button.js"
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/checkbox.js"
+    },
+    "./field": {
+      "types": "./dist/components/field/index.d.ts",
+      "import": "./dist/field.js"
     },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/input.js"
     },
+    "./radio": {
+      "types": "./dist/components/radio/index.d.ts",
+      "import": "./dist/radio.js"
+    },
     "./select": {
       "types": "./dist/components/select/index.d.ts",
       "import": "./dist/select.js"
-    },
-    "./checkbox": {
-      "types": "./dist/components/checkbox/index.d.ts",
-      "import": "./dist/checkbox.js"
     },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",
       "import": "./dist/switch.js"
     },
-    "./radio": {
-      "types": "./dist/components/radio/index.d.ts",
-      "import": "./dist/radio.js"
+    "./toggle-button": {
+      "types": "./dist/components/toggle-button/index.d.ts",
+      "import": "./dist/toggle-button.js"
     },
-    "./field": {
-      "types": "./dist/components/field/index.d.ts",
-      "import": "./dist/field.js"
+    "./tree": {
+      "types": "./dist/components/tree/index.d.ts",
+      "import": "./dist/tree.js"
     },
     "./style.css": "./dist/style.css",
     "./package.json": "./package.json"
@@ -81,13 +85,14 @@
     "**/*.css",
     "./dist/index.js",
     "./dist/button*.js",
-    "./dist/toggle-button*.js",
-    "./dist/input*.js",
-    "./dist/select*.js",
     "./dist/checkbox*.js",
-    "./dist/switch*.js",
+    "./dist/field*.js",
+    "./dist/input*.js",
     "./dist/radio*.js",
-    "./dist/field*.js"
+    "./dist/select*.js",
+    "./dist/switch*.js",
+    "./dist/toggle-button*.js",
+    "./dist/tree*.js"
   ],
   "scripts": {
     "dev": "vite",

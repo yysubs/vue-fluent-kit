@@ -23,10 +23,21 @@ export {
 } from './components/button'
 
 export {
-  VfkToggleButton,
-  type ToggleButtonValue,
-  type VfkToggleButtonProps,
-} from './components/toggle-button'
+  VfkCheckbox,
+  type CheckboxLabelPosition,
+  type CheckboxShape,
+  type CheckboxSize,
+  type CheckboxValue,
+  type VfkCheckboxProps,
+} from './components/checkbox'
+
+export {
+  VfkField,
+  type FieldOrientation,
+  type FieldSize,
+  type FieldValidationState,
+  type VfkFieldProps,
+} from './components/field'
 
 export {
   VfkInput,
@@ -35,6 +46,14 @@ export {
   type InputType,
   type VfkInputProps,
 } from './components/input'
+
+export {
+  VfkRadio,
+  VfkRadioGroup,
+  type RadioGroupOrientation,
+  type VfkRadioGroupProps,
+  type VfkRadioProps,
+} from './components/radio'
 
 export {
   VfkOption,
@@ -46,32 +65,23 @@ export {
 } from './components/select'
 
 export {
-  VfkCheckbox,
-  type CheckboxLabelPosition,
-  type CheckboxShape,
-  type CheckboxSize,
-  type CheckboxValue,
-  type VfkCheckboxProps,
-} from './components/checkbox'
-
-export {
   VfkSwitch,
   type SwitchLabelPosition,
   type VfkSwitchProps,
 } from './components/switch'
 
 export {
-  VfkRadio,
-  VfkRadioGroup,
-  type RadioGroupOrientation,
-  type VfkRadioGroupProps,
-  type VfkRadioProps,
-} from './components/radio'
+  VfkToggleButton,
+  type ToggleButtonValue,
+  type VfkToggleButtonProps,
+} from './components/toggle-button'
 
 export {
-  VfkField,
-  type FieldOrientation,
-  type FieldSize,
-  type FieldValidationState,
-  type VfkFieldProps,
-} from './components/field'
+  VfkTree,
+  VfkTreeItem,
+  type TreeAppearance,
+  type TreeSize,
+  type TreeToggleDetail,
+  type VfkTreeItemProps,
+  type VfkTreeProps,
+} from './components/tree'
