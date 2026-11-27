@@ -1,4 +1,6 @@
-export const version = '0.0.0'
+declare const __VFK_VERSION__: string
+
+export const version: string = __VFK_VERSION__
 
 export { isFluentCustomElement } from './custom-elements'
 export {
